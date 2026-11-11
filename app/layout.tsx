@@ -1,30 +1,21 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { AppShell } from "./components/AppShell";
 
 export const metadata: Metadata = {
-  title: "Zhiyan 知研台",
-  description: "Research execution on Zhihu. A brief becomes a design, then a sample, then a checked report.",
+  title: "知研台 Zhiyan · 知乎研究执行平台",
+  description:
+    "把一句业务问题编译成可核对的知乎研究设计，确认后检索、编码、质检，交付一份标明边界的团队研究简报。",
+  icons: {
+    icon: "/brand/kanshan-face.png",
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="zh-CN">
       <body>
-        <div className="shell">
-          <header className="top">
-            <a className="brand" href="/">
-              <b>知研台 Zhiyan</b>
-              <span>Research execution</span>
-            </a>
-            <nav className="nav">
-              <a href="/">Brief</a>
-              <a href="/design">Design</a>
-              <a href="/workbench">Workbench</a>
-              <a href="/plan">计划书</a>
-            </nav>
-          </header>
-          {children}
-        </div>
+        <AppShell>{children}</AppShell>
       </body>
     </html>
   );

@@ -128,7 +128,7 @@ export interface ThemeRow {
   definition: string;
   count: number;
   itemIds: string[];
-  basis: "in this sample only";
+  basis: string;
 }
 
 export interface QualityFlag {
@@ -185,29 +185,27 @@ export interface Finding {
 }
 
 export const STAGE_LABEL: Record<Stage, string> = {
-  needs_exploration: "Needs exploration",
-  competitive_analysis: "Competitive analysis",
-  purchase_friction: "Purchase friction",
-  concept_test: "Concept test",
+  needs_exploration: "需求探索",
+  competitive_analysis: "竞品分析",
+  purchase_friction: "购买摩擦",
+  concept_test: "概念测试",
 };
 
 export const ROLE_LABEL: Record<Role, string> = {
-  user: "User",
-  buyer: "Buyer",
-  practitioner: "Practitioner",
-  unclear: "Unclear",
+  user: "使用者",
+  buyer: "购买者",
+  practitioner: "从业者",
+  unclear: "未判断",
 };
 
 export const LOCKED_LIMITS = [
-  "Existing Zhihu discussion cannot prove purchase intent.",
-  "Existing Zhihu discussion cannot validate a claim as sufficient for purchase.",
+  "现有知乎讨论不能证明购买意愿。",
+  "现有知乎讨论不能把一条宣称验证成足以支撑购买。",
 ] as const;
 
-export const HONEST_CAN =
-  "Existing Zhihu material can support needs exploration.";
+export const HONEST_CAN = "现有知乎材料可以支持需求探索。";
 
-export const HONEST_CANNOT =
-  "It is not sufficient for purchase intent or claim validation.";
+export const HONEST_CANNOT = "它不足以证明购买意愿，也不足以验证宣称。";
 
 export const FINDING_PROCESS =
-  "A finding exists only when two or more included items carry the same codebook code. The code is a visible keyword rule. Counts use included items in this sample only. One post is never a finding.";
+  "只有当两条及以上纳入条目带有同一个编码时，才形成一条发现。编码是可见的关键词规则。计数只统计本样本中的纳入条目。单条帖子永远不构成发现。";

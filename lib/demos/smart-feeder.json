@@ -1,0 +1,1033 @@
+{
+  "study": {
+    "id": "demo_smart-feeder",
+    "design": {
+      "brief": "我们准备做一款面向多猫家庭的智能喂食器，想知道应该定义哪些核心功能，以及哪些宣称不足以支撑购买。",
+      "decision": "面向多猫家庭的智能喂食器，应该优先定义哪些核心功能；哪些宣传点不足以成为购买理由。",
+      "subjects": [
+        "users",
+        "buyers"
+      ],
+      "stage": "needs_exploration",
+      "zhihuCanAnswer": [
+        "多猫家庭的照料者在自己的话里描述了哪些失败和临时办法。",
+        "哪些功能与具体场景绑定，例如抢食、离家、卡粮、断电或清洁。",
+        "检索到的讨论里，哪些宣称频繁出现怀疑性措辞。"
+      ],
+      "scenes": [
+        {
+          "id": "multi_cat",
+          "label": "多猫争食与分量",
+          "keywords": [
+            "多猫",
+            "抢食",
+            "分食",
+            "两只",
+            "三只",
+            "只数",
+            "好几只"
+          ]
+        },
+        {
+          "id": "schedule",
+          "label": "定时与离家",
+          "keywords": [
+            "定时",
+            "出差",
+            "出门",
+            "加班",
+            "不在家",
+            "旅行",
+            "自动出粮"
+          ]
+        },
+        {
+          "id": "jam",
+          "label": "卡粮与出粮错误",
+          "keywords": [
+            "卡粮",
+            "不出粮",
+            "堵住",
+            "定量",
+            "份量",
+            "一次出"
+          ]
+        },
+        {
+          "id": "power",
+          "label": "断电与离线使用",
+          "keywords": [
+            "断电",
+            "断网",
+            "离线",
+            "停电",
+            "电池",
+            "没电"
+          ]
+        },
+        {
+          "id": "hygiene",
+          "label": "清洁、受潮与发霉",
+          "keywords": [
+            "清洁",
+            "发霉",
+            "受潮",
+            "清洗",
+            "残留",
+            "霉"
+          ]
+        },
+        {
+          "id": "refusal",
+          "label": "拒食与适口性",
+          "keywords": [
+            "不吃",
+            "拒食",
+            "挑食",
+            "不靠近",
+            "适口"
+          ]
+        },
+        {
+          "id": "claims",
+          "label": "摄像头、App 与识猫",
+          "keywords": [
+            "摄像头",
+            "识猫",
+            "APP",
+            "App",
+            "远程",
+            "语音",
+            "监控"
+          ]
+        }
+      ],
+      "populations": [
+        "多猫家庭的日常照料者",
+        "买单的人（当帖子把照料者和付费者分开时）",
+        "测评与品牌账号（只保留并标记为营销）"
+      ],
+      "inclusion": [
+        "帖子描述了真实上手、故障，或对猫喂食器的具体宣称。",
+        "帖子命中计划中的场景或产品词，并且由计划查询或热榜检索到。"
+      ],
+      "exclusion": [
+        "与猫喂食无关的热榜条目。",
+        "同一链接的重复出现。",
+        "没有具体使用、故障或宣称的帖子。"
+      ],
+      "stoppingRule": "跑完计划内的全部查询就停。某个场景的纳入条目少于两条，就保持未覆盖。不追加查询来制造一致性。",
+      "queries": [
+        "多猫 智能喂食器",
+        "多猫 自动喂食器 抢食",
+        "智能喂食器 卡粮 断电",
+        "智能喂食器 摄像头 鸡肋"
+      ],
+      "productTerms": [
+        "喂食",
+        "喂食器",
+        "猫粮",
+        "自动喂",
+        "粮桶",
+        "feeder"
+      ],
+      "codebook": [
+        {
+          "id": "multi_cat",
+          "label": "多猫争食",
+          "definition": "帖子描述了不止一只猫、抢食或分食。",
+          "keywords": [
+            "多猫",
+            "两只",
+            "三只",
+            "抢食",
+            "分食",
+            "只数",
+            "好几只",
+            "multi-cat",
+            "several cats"
+          ]
+        },
+        {
+          "id": "schedule",
+          "label": "定时与离家",
+          "definition": "帖子描述了定时、出差，或照料者不在家。",
+          "keywords": [
+            "定时",
+            "出差",
+            "出门",
+            "加班",
+            "不在家",
+            "旅行",
+            "自动出粮",
+            "timer"
+          ]
+        },
+        {
+          "id": "jam",
+          "label": "卡粮与出粮错误",
+          "definition": "帖子描述了卡粮、漏喂，或出粮分量不对。",
+          "keywords": [
+            "卡粮",
+            "不出粮",
+            "卡食",
+            "堵住",
+            "定量",
+            "份量",
+            "吃太多",
+            "一次出"
+          ]
+        },
+        {
+          "id": "power",
+          "label": "断电与离线",
+          "definition": "帖子描述了断电、断网，或电池问题。",
+          "keywords": [
+            "断电",
+            "断网",
+            "离线",
+            "停电",
+            "电池",
+            "没电"
+          ]
+        },
+        {
+          "id": "hygiene",
+          "label": "清洁与受潮",
+          "definition": "帖子描述了清洗、发霉、受潮，或粮仓残留。",
+          "keywords": [
+            "清洁",
+            "发霉",
+            "受潮",
+            "清洗",
+            "残留",
+            "霉"
+          ]
+        },
+        {
+          "id": "refusal",
+          "label": "拒食",
+          "definition": "帖子描述了猫不愿意从喂食器进食。",
+          "keywords": [
+            "不吃",
+            "拒食",
+            "挑食",
+            "不靠近",
+            "适口"
+          ]
+        },
+        {
+          "id": "claim_weak",
+          "label": "怀疑性宣称",
+          "definition": "发帖人把某个功能或口号看成用不上、噱头或没必要。",
+          "keywords": [
+            "鸡肋",
+            "智商税",
+            "没用",
+            "没必要",
+            "噱头",
+            "闲置",
+            "宣传"
+          ]
+        },
+        {
+          "id": "claim_strong",
+          "label": "强需求宣称",
+          "definition": "发帖人把某个功能说成自己离不开。这不等于购买证明。",
+          "keywords": [
+            "离不开",
+            "必须有",
+            "最有用",
+            "真的需要",
+            "省心"
+          ]
+        }
+      ],
+      "briefLanguage": "zh",
+      "zhihuCannotAnswer": [
+        "现有知乎讨论不能证明购买意愿。",
+        "现有知乎讨论不能把一条宣称验证成足以支撑购买。",
+        "一个人最终会不会付费、换机或推荐。",
+        "多猫喂食器的市场规模有多大。"
+      ],
+      "timeWindow": {
+        "start": "2024-11-11",
+        "end": "2026-11-11",
+        "rationale": "确认时点往前 24 个月。更早的帖子仍可留在样本里，但质量视图会把它们标成过时。"
+      }
+    },
+    "confirmedAt": "2026-11-11T14:04:56.938Z",
+    "retrieval": [
+      {
+        "kind": "zhihu_search",
+        "query": "多猫 智能喂食器",
+        "resultCount": 5
+      },
+      {
+        "kind": "zhihu_search",
+        "query": "多猫 自动喂食器 抢食",
+        "resultCount": 5
+      },
+      {
+        "kind": "zhihu_search",
+        "query": "智能喂食器 卡粮 断电",
+        "resultCount": 5
+      },
+      {
+        "kind": "zhihu_search",
+        "query": "智能喂食器 摄像头 鸡肋",
+        "resultCount": 5
+      },
+      {
+        "kind": "hot_list",
+        "query": "热榜",
+        "resultCount": 30
+      },
+      {
+        "kind": "zhida",
+        "query": "gap hint",
+        "resultCount": 1
+      }
+    ],
+    "hotScan": {
+      "scanned": 30,
+      "included": 0,
+      "droppedTitles": [
+        "如何看待房主因不满 35 万元拆迁赔偿直播施压，四川自永高速建设施工队直接改方案抬高跨过？",
+        "如果在床边放一碗血，晚上蚊子还会来咬我吗？",
+        "小学男孩「嘉豪」总被嘲笑希望改名，名字是网络流行梗对孩子来说有多困扰？家长该怎么做？",
+        "余承东正式官宣华为子品牌「星芒」（OSTA），可能面向哪些用户？它会如何与华为现有产品线区分？",
+        "「减肥神药」或致永久性失明，美药管局发布警告，司美格鲁肽这类药物真的可能造成永久性失明吗？风险有多高？",
+        "玛莎拉蒂将与尊界合作，将通过江淮进行制造，此次合作能给三方带来什么？同一款车两套身份，谁在薅谁羊毛？",
+        "为什么绿皮火车又火了？",
+        "RTX50系列显卡价格出现回落，RTX5080售价已跌4000 元，有哪些原因？现在适合入手吗？",
+        "林生斌名下关联13家公司，网传其定居悉尼富人区，儿女入读当地私校，是真的吗？为什么许多网友会感到割裂？",
+        "沙僧在《西游记》中，除了挑担子外，出场的时候很少，为什么吴承恩在写《西游记》时不把他删掉？",
+        "比亚迪就大唐轮辋装配问题致歉，系供应商编码录入失误造成错装，不影响操控，具体什么情况？实际影响多大？",
+        "周瑜为什么那么年轻就早死了，有没有可能是孙权害了他?",
+        "中国叫停软银收购瑞士 ABB 机器人业务，将对全球工业数据流转规则产生哪些影响？",
+        "王传君称演《爱情公寓》时「没有听到表演的召唤」，觉得这就是一份让自己走红的工作，怎么评价这个说法？",
+        "离岸信托个税申报累计超1600亿元，10月入库超1200亿，带动当月全国个税收入增长90%，怎样解读？",
+        "张雪宣布，冠军车拍卖款不再捐给韩红基金会，你怎么看？",
+        "如何看待外媒曝比亚迪荷兰办公室遭突击搜查，相关电子记录被封存，捷豹路虎指控方程豹钛7逆向工程抄袭卫士？",
+        "王健林 14 年后再任万达商管董事长，怎样解读这一调整？",
+        "如何看待第39届金鸡奖《密档》郑大圣打败《南京照相馆》申奥、《给阿嬷的情书》蓝鸿春，爆冷获最佳导演？",
+        "大师兄Doublelift发问「如果BLG夺冠，这会是史上最具含金量的冠军吗」，你觉得是吗？",
+        "如何看待网友晒「上海和平饭店6人餐花费51万元的天价小票」，饭店辟谣称小票系伪造，警方目前已介入 ？",
+        "男子与第三者在客栈发生关系后猝死，妻子向第三者和客栈索赔超百万元，一审被驳回，法律上如何分析？",
+        "张卫健和周星驰的差距在哪儿？",
+        "如何看待上海卫健委回应校招会上医生月薪最高2499元，称信息不完整、已更新？实际薪资水平一般是怎样的？",
+        "高叶凭《南京照相馆》林毓秀一角拿下金鸡影后，首提即中，她在片中的表现如何？",
+        "是不是体型越小的动物越不可能摔死？",
+        "为什么欧美人不像中国人那样重视饮食？",
+        "中国足球联赛颁奖，张玉宁获本土金球，大连李国旭获金帅，成都蓉城山东泰山获公平竞赛奖，对此你怎么看？",
+        "三体到底从哪一部开始看啊？我从第一部开始看开头给我看蒙了？",
+        "青春期孩子常说「别管我」，父母该尊重边界还是主动追问？"
+      ]
+    },
+    "sample": [
+      {
+        "id": "src_d1290ecb",
+        "source": "zhihu_search",
+        "title": "自动喂食器有必要买吗,小佩喂食器按猫的只数分 - 知乎",
+        "url": "https://zhuanlan.zhihu.com/p/2101073633007486220?utm_medium=openapi_platform&utm_source=b38f6831b176",
+        "author": "一定要上岸的小玉",
+        "contentType": "Article",
+        "excerptZh": "去年冬天第一次要连着出门四天，我才把柜子里那台自动喂食器翻出来。买回来半年，一直当摆设，因为它出粮的声音像小马达，猫听见就跑。 第一个晚上我就知道这事没那么简单。设的是凌晨一点一顿、早上七点一顿，结果凌晨那顿没出粮，第二天早上碗是空的，猫蹲在旁边冲我叫，叫声跟平时要罐头完全不一样。 拆开看，出粮口卡了两粒粮。粮是我随手混了冻干块的，块比出粮口大，第一顿就把口堵住了。 后来这半年，我把它当半个试验品用：单猫的时候用单仓，家里多了第二只之后换了双仓。哪些是真需要，哪些是我自己想多了，现在能分清楚了。 先说一句最不讨喜的：自动喂食器解决的是「按时」，不解决「限量」。猫不会因为你分了四顿就少吃，它照样一顿把碗里的吃完，然后等下一顿。指望它减肥的，基本会失望。 倒是另外几件事，用久了才发现比「定时」更值钱：出粮口有没有真的掉粮、桶里的粮有没有返潮、你出门的时候能不能看一眼碗。 小佩SOLO可视版喂食器 ・容量：3L 单仓，桶身正面标 3L ・碗：陶瓷碗，可整只取下清洗 ・镜头：140° 广角夜视，暗光下也能看 ・功能：碗内余量监测、视频追踪喂饭 ・结...",
+        "excerptEn": "The automatic feeder—initially a shelf ornament because its grinding noise sent the cat running—failed on the very first night when two pieces of kibble, including oversized freeze-dried chunks I'd mixed in, clogged the dispensing opening and left the bowl empty by morning. After half a year of using it as a semi-test subject across single- and dual-cat setups, the least welcome conclusion is that an automatic feeder solves \"on time\" but not \"portion control\"—cats won't eat less just because you've split their food into four meals.",
+        "publishDate": "2026-11-05",
+        "sceneId": "multi_cat",
+        "sceneIds": [
+          "multi_cat",
+          "schedule",
+          "jam",
+          "power",
+          "hygiene",
+          "refusal"
+        ],
+        "sceneLabel": "多猫争食与分量",
+        "query": "多猫 智能喂食器",
+        "whyIncluded": "通过 两只、只数 命中场景「多猫争食与分量」。来自查询：多猫 智能喂食器。",
+        "flags": {
+          "marketing": false,
+          "duplicate": false,
+          "secondhand": false
+        },
+        "role": "user",
+        "included": true,
+        "codeIds": [
+          "multi_cat",
+          "schedule",
+          "jam",
+          "power",
+          "hygiene",
+          "refusal"
+        ],
+        "votes": 0,
+        "comments": 0
+      },
+      {
+        "id": "src_607a5459",
+        "source": "zhihu_search",
+        "title": "多猫家庭总是抢饭吃,一只过胖一只偏瘦,怎么科学分配猫粮?WSAVA 喂养方法有哪些? - 知乎",
+        "url": "https://zhuanlan.zhihu.com/p/2088230833333211988?utm_medium=openapi_platform&utm_source=b38f6831b176",
+        "author": "默克兽医营养",
+        "contentType": "Article",
+        "excerptZh": "最后，饮水源与食物源的分离同样重要。研究表明，将水碗放置在远离食盆的地方，可以显著增加猫的每日饮水量。一项证据显示，两者之间保持至少3米的距离，可以使饮水量增加30%至50%。增加水分摄入对于预防下泌尿道疾病（FLUTD）至关重要，这是猫科动物中非常常见且痛苦的健康问题。因此，在规划喂食区时，应确保每个进食点附近都有一个单独的水源，或者在家中设置多个饮水点，鼓励猫随时补充水分。通过综合运用分离、分隔、适宜高度和水食分离这四大原则，我们可以将原本充满硝烟味的餐桌，改造成为一个让每只猫都能安心、舒适进餐的“和平食堂”。 妙招锦囊：应对抢食与挑食的实用策略 仅仅依靠物理隔离和精准计算，有时仍不足以完全杜绝多猫家庭中的喂食问题，特别是当某些猫咪形成了固定的抢食习惯，或猫群内部存在明显地位差异时。此时，引入一些巧妙的行为干预工具和策略，便能起到事半功倍的效果。这些妙招旨在从机制上保证每只猫只能享用其专属的食物，从而彻底根除因食物竞争引发的压力和冲突。 最高效且自动化程度最高的解决方案无疑是微芯片智能喂食器。这种设备内置了一个读取微芯片的装置，只有当识...",
+        "excerptEn": "The excerpt argues that separating water from food matters, citing evidence that bowls at least 3 meters apart may raise cats’ daily water intake by 30–50%, which it links to preventing FLUTD. It recommends a separate water source near each feeding point or multiple water points at home and combining separation, spacing, height, and water–food separation, while acknowledging that physical isolation and precise calculation alone may not resolve food-guarding or picky eating.",
+        "publishDate": "2026-09-29",
+        "sceneId": "multi_cat",
+        "sceneIds": [
+          "multi_cat",
+          "schedule",
+          "jam",
+          "refusal",
+          "claims"
+        ],
+        "sceneLabel": "多猫争食与分量",
+        "query": "多猫 智能喂食器",
+        "whyIncluded": "通过 多猫、抢食 命中场景「多猫争食与分量」。来自查询：多猫 智能喂食器。",
+        "flags": {
+          "marketing": false,
+          "duplicate": false,
+          "secondhand": false
+        },
+        "role": "unclear",
+        "included": true,
+        "codeIds": [
+          "multi_cat",
+          "schedule",
+          "jam",
+          "refusal"
+        ],
+        "votes": 0,
+        "comments": 0
+      },
+      {
+        "id": "src_e51a2f85",
+        "source": "zhihu_search",
+        "title": "宠物用品与智能设备2026上半年新品分析,猫砂、智能喂食器、烘干/理毛设备、智能饮水机、空气净化器、推车/服饰、消毒等代表品牌深度分析 - 知乎",
+        "url": "https://zhuanlan.zhihu.com/p/2046581554047194211?utm_medium=openapi_platform&utm_source=b38f6831b176",
+        "author": "南方策宠业AI营销",
+        "contentType": "Article",
+        "excerptZh": "5.1 品类结构分析 2026年1—5月，宠物用品赛道共上市新品25款，占184款总新品的13.6%。经南方策宠业营销研究院系统梳理，这25款产品可细分为八大子品类，其中猫砂以8款位居首位，智能猫砂盆4款，智能喂食器3款，烘干/理毛设备3款，智能饮水机2款，空气净化器2款，推车/服饰2款，消毒及其他1款。智能用品与传统用品几乎各占半壁江山（智能13款 vs 传统12款），反映出宠物用品行业正经历从\"功能满足\"向\"智能交互\"的深刻转型。 猫砂以8款新品稳居用品赛道第一大品类，这一看似传统的领域实则暗流涌动。2026年上市的猫砂新品呈现出三大升级方向：一是除臭技术的革新——Honey Care吸水释香魔法猫砂采用特殊颗粒遇水释香技术，从内部分解异味；凡赛特天然酵素除臭玉米砂运用独家专利技术将氨气分解为水和无机物；二是益生菌赋能——汪喵星球益生菌米粒型豆腐砂添加环境益生菌与活性炭双效除臭，喵氏除臭低尘混合豆腐砂采用小苏打+酵素双核心除臭；三是材料创新——屋哩双生稻豆腐砂以稻壳+豆腐砂3:1黄金比例实现3秒成团，臭味滚1.5mm极细抗臭豆腐砂以超细...",
+        "excerptEn": "From January to May 2026, 25 new pet-supply launches accounted for 13.6% of 184 total new products, with cat litter leading at 8 (followed by 4 smart litter boxes, 3 smart feeders, 3 drying/grooming devices, 2 smart fountains, 2 air purifiers, 2 strollers/apparel, and 1 disinfection/other), and smart versus traditional items nearly split at 13 to 12. The excerpt’s claim that this reflects a shift from “functional satisfaction” to “intelligent interaction”—and its opening on Honey Care’s absorbent cat-litter technology—is an interpretive framing rather than evidence that by itself supports a bu",
+        "publishDate": "2026-06-06",
+        "sceneId": "multi_cat",
+        "sceneIds": [
+          "multi_cat",
+          "claims"
+        ],
+        "sceneLabel": "多猫争食与分量",
+        "query": "多猫 智能喂食器",
+        "whyIncluded": "通过 多猫 命中场景「多猫争食与分量」。来自查询：多猫 智能喂食器。",
+        "flags": {
+          "marketing": false,
+          "duplicate": false,
+          "secondhand": false
+        },
+        "role": "unclear",
+        "included": true,
+        "codeIds": [
+          "multi_cat"
+        ],
+        "votes": 1,
+        "comments": 0
+      },
+      {
+        "id": "src_73c1a95b",
+        "source": "zhihu_search",
+        "title": "雀巢普瑞纳推出宠物智能喂食器,图啥? - 知乎",
+        "url": "https://zhuanlan.zhihu.com/p/2088346033940068326?utm_medium=openapi_platform&utm_source=b38f6831b176",
+        "author": "宠业家",
+        "contentType": "Article",
+        "excerptZh": "作者： 差矣@宠业家| 排版： 草莓@宠业家 值班编辑： 子超@宠业家| 审核： 四郎@宠业家 近日，全球领先的宠物食品巨头——雀巢普瑞纳旗下的数字宠物健康品牌Petivity，正式发布了一款AI猫用智能喂食器（Smart Feeder for Cats）。 很多人对于Petivity比较陌生，可能会认为这是一个新品牌。但其实，早在2022年9月，雀巢普瑞纳就推出了Petivity旗下首款产品——智能猫砂盆监测器。该产品通过放置在养宠家庭现有的传统猫砂盆下面，利用AI技术，在每次猫咪使用猫砂盆时追踪记录其体重、排尿次数、排便次数、如厕时长等，随后在APP里生成月度健康报告，帮助宠物主人发现尿路感染、糖尿病、肾脏疾病、甲状腺功能亢进以及肥胖等早期健康问题的信号。这款产品还拿了2025年Kantar全球4万消费者评选的\"猫咪护理类别年度产品奖\"。 而在此之后，Petivity还发布了宠物智能GPS追踪器，以及口腔健康检测试纸、微生物检测试纸、肾脏健康检测试纸等一系列居家健康检测产品。此次推出的AI猫用智能喂食器，则是Petivity在宠物智能硬...",
+        "excerptEn": "Nestlé Purina’s Petivity has released an AI smart feeder for cats; though Petivity may seem like a new brand, it launched a litter-box monitor in September 2022 that uses AI to track weight, urination, defecation, and time spent in the box and to generate monthly health reports in an app. Whether such AI-generated reports meaningfully improve pet health outcomes remains unclear.",
+        "publishDate": "2026-09-29",
+        "sceneId": "claims",
+        "sceneIds": [
+          "multi_cat",
+          "claims"
+        ],
+        "sceneLabel": "摄像头、App 与识猫",
+        "query": "多猫 智能喂食器",
+        "whyIncluded": "通过 摄像头、APP、App 命中场景「摄像头、App 与识猫」。来自查询：多猫 智能喂食器。",
+        "flags": {
+          "marketing": false,
+          "duplicate": false,
+          "secondhand": false
+        },
+        "role": "unclear",
+        "included": true,
+        "codeIds": [
+          "multi_cat"
+        ],
+        "votes": 0,
+        "comments": 0
+      },
+      {
+        "id": "src_e03d8003",
+        "source": "zhihu_search",
+        "title": "自动喂食器怎么选?2026 年养猫家庭避坑指南 - 知乎",
+        "url": "https://zhuanlan.zhihu.com/p/2102531449631019044?utm_medium=openapi_platform&utm_source=b38f6831b176",
+        "author": "清水菠萝",
+        "contentType": "Article",
+        "excerptZh": "选购建议：以纯干粮为主，选转盘或螺旋都行；买之前翻差评，搜“卡粮”两个字，出现频率高的直接排除。 2. 密封性：决定猫粮会不会受潮 看三点：粮仓有没有硅胶密封圈、有没有干燥剂仓、出粮口是否闭合。南方梅雨季，密封差的机器两周就能让猫粮发软发霉，猫吃了容易软便。 3. 断电续航：决定你出差时会不会断粮 不是“有电池仓”就叫双电源，要确认插电断开时能自动切换电池。参考：4 节 AA 电池续航 1–3 天，够应对临时停电，不够应对长期断电。 4. 可拆洗程度：决定你会不会用下去 粮仓、出粮口、接粮盘最好都能拆下来水洗；底座带电路的部分不能进水，要用湿布擦。不能拆洗的机器，三个月后内部就是一层油垢。 5. 出粮精度与记录 “1 份 ≈ 10g”是行业惯例，但不同品牌差异很大。选能按克设置或至少能校准的；APP 要能看出粮记录和余粮提醒，否则你永远不知道猫到底吃没吃。 三、这些功能是溢价税 1.语音互动——猫听不懂，你听着开心，邻居听着尴尬。 2.1080P 以上摄像头——喂食器上的摄像头角度固定，看猫吃饭够用，看全屋不如独立摄像头。 3.“APP 社...",
+        "excerptEn": "For dry-food-only use, either turntable or auger designs are workable, but before buying, read negative reviews, search for “jam,” and rule out models where that complaint is frequent; check sealing via a silicone ring in the hopper, a desiccant compartment, and an outlet that closes, since in the southern humid season a poor seal can make kibble soft or moldy within two weeks and cause loose stools. “Dual power” should mean automatic switching to batteries when unplugged—4 AA batteries may last only 1–3 days, enough for a temporary outage but not a long one—and removable, washable hopper/outl",
+        "publishDate": "2026-11-07",
+        "sceneId": "hygiene",
+        "sceneIds": [
+          "multi_cat",
+          "schedule",
+          "jam",
+          "power",
+          "hygiene",
+          "claims"
+        ],
+        "sceneLabel": "清洁、受潮与发霉",
+        "query": "多猫 智能喂食器",
+        "whyIncluded": "通过 发霉、受潮、清洗、霉 命中场景「清洁、受潮与发霉」。来自查询：多猫 智能喂食器。",
+        "flags": {
+          "marketing": false,
+          "duplicate": false,
+          "secondhand": false
+        },
+        "role": "buyer",
+        "included": true,
+        "codeIds": [
+          "multi_cat",
+          "schedule",
+          "jam",
+          "power",
+          "hygiene"
+        ],
+        "votes": 0,
+        "comments": 0
+      },
+      {
+        "id": "src_129a8f02",
+        "source": "zhihu_search",
+        "title": "猫咪定时喂养还是自由采食好呀???? - 知乎",
+        "url": "https://www.zhihu.com/question/2020572854891071098/answer/2047741554626926312?utm_medium=openapi_platform&utm_source=b38f6831b176",
+        "author": "猫猫城",
+        "contentType": "Answer",
+        "excerptZh": "吃完后还需要警戒、巡视领地、继续狩猎，一天会反复多次，不会长时间蹲在一处进食，这种少量多餐的进食方式就遗传下来。 猫咪胃容量远小于同等身材的其它杂食动物，生理上就不支持 “暴饮暴食”。猫的胃酸浓度高（空腹时胃酸 pH ≈ 1.0–2.5，是强酸性），适合持续少量消化肉类，空腹过久反而容易刺激肠胃，所以需要时不时地吃点东西。 理想状态，碗里应该一直有猫粮，猫想吃了随时就去吃一口，也就是自由采食。 但养宠生活并不都是理想，自由采食的缺点主要是长胖。 室内猫绝育后没有了繁殖冲动，又被关在室内，空间有限，活动量减少，生活中的乐趣可能就剩下吃吃吃，放任猫自由采食很容易长胖。 定时喂养能避免这个问题，虽然有些许违背猫咪的天性，但能很好控制猫的摄入量，尤其是用自动喂食器，主人很省事。 只是定时喂养的猫看起来都挺馋，喂食器放粮的声音一响，就飞扑过去，对食物的热情很高。 用自动喂食器定时喂养也有弊端，尤其是多猫家庭，会造成抢食，胆大、体型大的猫会霸占喂食器，弱势猫吃不到，长期这样会营养不良、应激。",
+        "excerptEn": "The excerpt notes that cats are physiologically suited to small, frequent meals—their stomach capacity is small and their gastric acid is highly acidic—so free feeding can seem ideal, but in real pet homes its main drawback is weight gain, especially for neutered indoor cats with limited activity. Scheduled feeding is presented as a way to avoid this problem, though the excerpt cuts off before completing that caveat.",
+        "publishDate": "2026-06-09",
+        "sceneId": "multi_cat",
+        "sceneIds": [
+          "multi_cat",
+          "schedule"
+        ],
+        "sceneLabel": "多猫争食与分量",
+        "query": "多猫 自动喂食器 抢食",
+        "whyIncluded": "通过 多猫、抢食 命中场景「多猫争食与分量」。来自查询：多猫 自动喂食器 抢食。",
+        "flags": {
+          "marketing": false,
+          "duplicate": false,
+          "secondhand": false
+        },
+        "role": "unclear",
+        "included": true,
+        "codeIds": [
+          "multi_cat",
+          "schedule"
+        ],
+        "votes": 29,
+        "comments": 9
+      },
+      {
+        "id": "src_607a5459_6",
+        "source": "zhihu_search",
+        "title": "多猫家庭总是抢饭吃,一只过胖一只偏瘦,怎么科学分配猫粮?WSAVA 喂养方法有哪些? - 知乎",
+        "url": "https://zhuanlan.zhihu.com/p/2088230833333211988?utm_medium=openapi_platform&utm_source=b38f6831b176",
+        "author": "默克兽医营养",
+        "contentType": "Article",
+        "excerptZh": "最后，饮水源与食物源的分离同样重要。研究表明，将水碗放置在远离食盆的地方，可以显著增加猫的每日饮水量。一项证据显示，两者之间保持至少3米的距离，可以使饮水量增加30%至50%。增加水分摄入对于预防下泌尿道疾病（FLUTD）至关重要，这是猫科动物中非常常见且痛苦的健康问题。因此，在规划喂食区时，应确保每个进食点附近都有一个单独的水源，或者在家中设置多个饮水点，鼓励猫随时补充水分。通过综合运用分离、分隔、适宜高度和水食分离这四大原则，我们可以将原本充满硝烟味的餐桌，改造成为一个让每只猫都能安心、舒适进餐的“和平食堂”。 妙招锦囊：应对抢食与挑食的实用策略 仅仅依靠物理隔离和精准计算，有时仍不足以完全杜绝多猫家庭中的喂食问题，特别是当某些猫咪形成了固定的抢食习惯，或猫群内部存在明显地位差异时。此时，引入一些巧妙的行为干预工具和策略，便能起到事半功倍的效果。这些妙招旨在从机制上保证每只猫只能享用其专属的食物，从而彻底根除因食物竞争引发的压力和冲突。 最高效且自动化程度最高的解决方案无疑是微芯片智能喂食器。这种设备内置了一个读取微芯片的装置，只有当识...",
+        "excerptEn": "The excerpt asserts that separating water from food—reportedly by at least 3 meters—may raise cats’ daily water intake by 30–50%, which it links to FLUTD prevention, though the evidence is summarized only briefly. It also recommends separate or multiple water stations and frames separation, spacing, height, and water-food separation as ways to create calmer feeding areas, while noting that physical isolation and precise calculation may not fully solve food guarding or pickiness.",
+        "publishDate": "2026-09-29",
+        "sceneId": "multi_cat",
+        "sceneIds": [
+          "multi_cat",
+          "schedule",
+          "jam",
+          "refusal",
+          "claims"
+        ],
+        "sceneLabel": "多猫争食与分量",
+        "query": "多猫 自动喂食器 抢食",
+        "whyIncluded": "与前面的条目是同一链接，先搁置，避免样本重复计数。恢复后会重新计入。来自查询：多猫 自动喂食器 抢食。",
+        "flags": {
+          "marketing": false,
+          "duplicate": true,
+          "secondhand": false
+        },
+        "role": "unclear",
+        "included": false,
+        "codeIds": [
+          "multi_cat",
+          "schedule",
+          "jam",
+          "refusal"
+        ],
+        "votes": 0,
+        "comments": 0
+      },
+      {
+        "id": "src_fbf016b5",
+        "source": "zhihu_search",
+        "title": "家里多只宠物,互相抢粮大家怎么解决的? - 知乎",
+        "url": "https://www.zhihu.com/question/658206955/answer/3526634220?utm_medium=openapi_platform&utm_source=b38f6831b176",
+        "author": "家有小猫叫米糕",
+        "contentType": "Answer",
+        "excerptZh": "她家的五只猫分了两个帮派。第一帮派的两只战斗力强，会抢第二帮派那两只的粮。剩下的那只是中立派，两头草，两边不讨好，属于最弱的。 吃饭的时候，五只猫是有各自的碗的，但并不妨碍强的去抢弱的粮。 博主一开始也是想了很多办法的，但能管一天也没办法管一辈子。 好在这五只猫胃口是正常的，并不会因为能抢到粮就吃很多，所以最后的结果是： 虽然有抢粮的情况以及吃饭有先后，这五只猫身体都健康，也没有吃肥饿瘦。 如果题主家的多宠物也是跟博主一样，那也可以试试不去理会，随时观察宠物的身体健康，有无霸凌情况即可。 对宠物来说，确定彼此的家庭地位，也是宠物之间社交的极为重要的一环。 另一种情况是 宠物之间并没有和平相处，需要干预： 比如有的家庭是猫狗双全的。相对来说，大部分的狗对猫都是容忍态度，像哥哥对妹妹一样，但部分狗就比较【心机】，在主人面前【怕猫】，在主人背后【打猫】，如果是这种情况，那除了需要监控取证，铲屎的也需要干涉一下 了。 我自己没有狗，但也在小破站刷到过不少视频的，其中一条我觉得挺好，分享给你： 如果家里的狗欺负猫，可以把猫的饭碗放到高处，比如猫爬架上...",
+        "excerptEn": "The blogger describes five cats split into two factions, with the stronger pair stealing from the weaker pair, a neutral fifth cat faring worst, and separate bowls not preventing theft; she says her interventions only worked briefly, yet reports that all five stayed healthy and neither overfed nor underfed. Her suggestion to otherwise ignore such dynamics while monitoring health and bullying—based on the claim that pets need to settle status—may apply to similar households, but the excerpt does not show it generalizes to pets that are not peacefully coexisting.",
+        "publishDate": "2024-06-11",
+        "sceneId": "multi_cat",
+        "sceneIds": [
+          "multi_cat",
+          "claims"
+        ],
+        "sceneLabel": "多猫争食与分量",
+        "query": "多猫 自动喂食器 抢食",
+        "whyIncluded": "通过 两只 命中场景「多猫争食与分量」。来自查询：多猫 自动喂食器 抢食。",
+        "flags": {
+          "marketing": false,
+          "duplicate": false,
+          "secondhand": false
+        },
+        "role": "user",
+        "included": true,
+        "codeIds": [
+          "multi_cat"
+        ],
+        "votes": 6,
+        "comments": 4
+      },
+      {
+        "id": "src_60a952fa",
+        "source": "zhihu_search",
+        "title": "宠物RFID模块:多宠家庭的“智能管家”,从抢食难题到精准喂养的解决方案 - 知乎",
+        "url": "https://zhuanlan.zhihu.com/p/1969710120054260195?utm_medium=openapi_platform&utm_source=b38f6831b176",
+        "author": "健永科技RFID",
+        "contentType": "Article",
+        "excerptZh": "随着宠物市场的快速增长，传统的宠物设备也随着发生了演进，变得更加智能，具有自动识别、智能感知、远程控制等功能，这些宠物设备不再是一个冷冰冰设备，而是变成了一个“实时响应的宠物管家”。 安装了宠物RFID模块的宠物智能设备，犹如为这些宠物智能设备安装了一双“火眼金睛”，能够准确地识别每一只宠物的身份信息。比如在宠物的喂食上，可以让喂食器清楚地知道是“哪一只宠物”、“什么时候来了”、“什么时候吃完走了”。通过这种精准地身份识别，能够实现宠物的精细化饲喂，有效避免宠物之间出现抢食行为而导致的某一只宠物无法进食。 那么，宠物RFID模块是什么？为何能起到如此重要的作用呢？ 宠物RFID模块是一款专为宠物智能设备研发生产的RFID无线射频识别模块，支持134.2kHz、125kHz工作频率，具有良好的穿透性，能透过塑料、纸张、动物毛发等材质，无需直接接触即可识别RFID宠物芯片的唯一ID码。如JY-L601A宠物RFID模块，符合ISO 11784/85国际动物识别标准，兼容FDX-B、EMID格式标签（适配主流宠物项圈芯片及植入式玻璃管芯片），具备...",
+        "excerptEn": "As the pet market grows, pet devices have evolved to include features like automatic identification and remote control—with RFID modules supposedly giving devices the ability to identify individual pets for precise feeding. But what these RFID modules actually are, and whether they can truly play such an important role, remains to be explained.",
+        "publishDate": "2025-11-06",
+        "sceneId": "claims",
+        "sceneIds": [
+          "multi_cat",
+          "claims"
+        ],
+        "sceneLabel": "摄像头、App 与识猫",
+        "query": "多猫 自动喂食器 抢食",
+        "whyIncluded": "通过 APP、App、远程 命中场景「摄像头、App 与识猫」。来自查询：多猫 自动喂食器 抢食。",
+        "flags": {
+          "marketing": false,
+          "duplicate": false,
+          "secondhand": false
+        },
+        "role": "unclear",
+        "included": true,
+        "codeIds": [
+          "multi_cat"
+        ],
+        "votes": 0,
+        "comments": 0
+      },
+      {
+        "id": "src_841fdb8d",
+        "source": "zhihu_search",
+        "title": "宠物喂食器 | 自动宠物喂食器 | 智能宠物喂食器 (202509) - 知乎",
+        "url": "https://zhuanlan.zhihu.com/p/692269595?utm_medium=openapi_platform&utm_source=b38f6831b176",
+        "author": "ZORO",
+        "contentType": "Article",
+        "excerptZh": "维度 猫 狗 饮食属性 绝对肉食性 偏肉杂食性 必须营养 牛磺酸、花生四烯酸、维A 可部分从植物获取营养 进食频率 多次少量（10-20次/天） 少次大量（1-2次/天） 饮水习惯 不主动喝水，依赖湿粮 主动饮水，依赖水具 口味偏好 挑食，偏爱肉香温热 不挑食，食欲强 常见问题 尿结石、肾病 肥胖、胃胀气 2. 单宠家庭 vs 多宠家庭 区别？ 单宠家庭（One-pet household） 特点 ・食物只需针对 一个宠物的营养与习惯 来配置。 ・喂食器只要满足 定时定量 和 缺粮提醒 就够用。 常见困扰 1.主人作息不稳定- 早起/加班/出差，担心宠物吃不到饭。- 解决方式：自动喂食器的定时投喂功能。 2.饮食结构单一- 只吃干粮，容易缺水；湿粮/冻干难保存。- 解决方式：湿粮锁鲜喂食器、饮水机搭配。 3.肥胖/挑食问题- 猫：挑食、不爱喝水- 狗：容易过量进食、长胖- 解决方式：精准定量、带秤的喂食器 多宠家庭（Multi-pet household） 特点 ・存在“宠物间的饮食差异”：- 不同品种/年龄/体型，营养需求差别大。- 一只...",
+        "excerptEn": "The excerpt claims cats are obligate carnivores needing taurine, arachidonic acid, and vitamin A, eating many small meals and often not drinking actively, while dogs are more omnivorous, can obtain some nutrients from plants, eat fewer larger meals, drink actively, and face different common issues such as obesity and gas; it also contrasts picky, warmth- and meat-preferring cats with less picky dogs, though these are broad generalizations. For single-pet households, it says food need only suit one animal and a feeder with scheduled portions and low-food alerts may suffice, with irregular owner",
+        "publishDate": "2024-04-14",
+        "sceneId": "schedule",
+        "sceneIds": [
+          "multi_cat",
+          "schedule",
+          "jam",
+          "refusal",
+          "claims"
+        ],
+        "sceneLabel": "定时与离家",
+        "query": "多猫 自动喂食器 抢食",
+        "whyIncluded": "通过 定时、出差、加班、不在家 命中场景「定时与离家」。来自查询：多猫 自动喂食器 抢食。",
+        "flags": {
+          "marketing": false,
+          "duplicate": false,
+          "secondhand": false
+        },
+        "role": "unclear",
+        "included": true,
+        "codeIds": [
+          "multi_cat",
+          "schedule",
+          "jam",
+          "refusal"
+        ],
+        "votes": 2,
+        "comments": 0
+      },
+      {
+        "id": "src_d3fbda00",
+        "source": "zhihu_search",
+        "title": "宠物喂养指南——解放铲屎官双手的宠物神器 - 知乎",
+        "url": "https://zhuanlan.zhihu.com/p/1998801309768361333?utm_medium=openapi_platform&utm_source=b38f6831b176",
+        "author": "宸爸的人生便利店",
+        "contentType": "Article",
+        "excerptZh": "除猫过敏原去除率达到98%，除尘螨过敏原去除率达到98%，可以说过敏体质也能有养猫养狗的底气了。 安全：大格栅设计，不堵塞不卡毛，侧面出风防猫尿设计，同时防止喵主子触碰内部滤芯毛发，长格栏设计也能够让爱宠长毛更好的吸附进去。 便捷：区别于传统净化器单面进风，这款采用环绕式进风设计，结合涡轮增压技术，更大的风力，快速捕集空气中的浮毛。 加厚毛发吸附棉，粘附浮毛不脱落，牢牢捕获浮毛，一撕一贴，轻松更换，猫毛、绒毛、头发、大颗粒物。 1.3 追觅猫毛空气净化器AP10 除菌除臭： ・初效过滤棉：强力吸附浮毛、皮屑、灰尘等大颗粒污染物 ・高效复合滤网：高效过滤PM2.5等细颗粒物 ・双层活性炭滤网：快速分解宠物，排泄物产生的异味，高强度UVC破坏微生物机体细胞中的DNA或RNA的分子结构，无化学残留，适合儿童、宠物家庭使用。 ・释放高浓度负离子，主动捕捉PM2.5、花粉等微颗粒，保持空气清新自然。 总之，五重复合净化技术形成立体防护网，通过层层过滤与主动净化。高效吸附毛发、分解异味、去除细菌病毒，一站式解决宠物家庭空气净化需求。 安全 ・没有不爱咬...",
+        "excerptEn": "The excerpt claims 98% removal of cat allergens and 98% removal of dust-mite allergens—enough, it suggests, for allergic people to feel justified keeping cats or dogs—and describes the AP10’s large grille, side outlet, wrap-around intake, turbo airflow, and replaceable hair-adhesive cotton as safety and convenience features. It also lists a pre-filter, composite filter, and dual activated-carbon layer for sterilization, odor, and particle removal, though these remain manufacturer claims rather than independently verified results.",
+        "publishDate": "2026-03-04",
+        "sceneId": "claims",
+        "sceneIds": [
+          "schedule",
+          "jam",
+          "power",
+          "hygiene",
+          "claims"
+        ],
+        "sceneLabel": "摄像头、App 与识猫",
+        "query": "智能喂食器 卡粮 断电",
+        "whyIncluded": "通过 摄像头、APP、App、远程、语音、监控 命中场景「摄像头、App 与识猫」。来自查询：智能喂食器 卡粮 断电。",
+        "flags": {
+          "marketing": true,
+          "duplicate": false,
+          "secondhand": false
+        },
+        "role": "practitioner",
+        "included": true,
+        "codeIds": [
+          "schedule",
+          "jam",
+          "power",
+          "hygiene"
+        ],
+        "votes": 1,
+        "comments": 2
+      },
+      {
+        "id": "src_b4624a4e",
+        "source": "zhihu_search",
+        "title": "2026年最新TOP宠物猫狗自动喂食器推荐:自动喂食器有用吗? - 知乎",
+        "url": "https://zhuanlan.zhihu.com/p/479994332?utm_medium=openapi_platform&utm_source=b38f6831b176",
+        "author": "宠儿宠儿飞",
+        "contentType": "Article",
+        "excerptZh": "家里有猫，周末想睡懒觉就难了。到点它就蹲卧室门口抓门，动静挺大。我闭眼装睡，它直接一巴掌呼上来，意思很好懂：该上饭了。后来买了台自动喂食器。总算清静了。周末一觉到中午，它吃它的，我睡我的。这猫不太黏人，吃饱扭头就走，多看一眼都不给，等于白养。不过出门心里踏实多了，去朋友家住两天也不惦记。机器到点自己出粮，量提前设好，它吃饭比上班打卡还准时。猫偏胖的话，能改成一天好几顿，每顿少放点。我家这台，用着确实好使。 多尼斯（DOGNESS）宠物自动喂食器 品牌：多尼斯，宠物智能科技品牌，2003年创立，开始时主要以宠物牵引产品，后来公司不断发展产品涵盖种类更多更全，宠物界智能科技老品牌了。 智能喂食器，6L大容量（约3kg），远程app智能喂养，制定科学喂养计划，专利防卡粮设计，360度无阻塞旋转，软胶搅粮片可避免粮积压，软胶挡板，灵活调节干粮大小的口径，防止卡塞，ABS叶轮，控制出粮分量，配套两种规格转盘，适合爱宠不同时期的饮食需求，可根据食量进行调节大小。双电源供应，断电自动启动电池供电，插头设计为弯头，更加牢固，不怕毛孩子玩耍时碰撞容易断线。内...",
+        "excerptEn": "The excerpt describes an owner whose cat’s early-morning door-scratching and face-slapping eased after installing an automatic feeder, which is claimed to dispense preset portions on schedule and allow multiple small meals for overweight cats. It also presents DOGNESS as a pet-tech brand founded in 2003 and originally focused on leashes, but these remain product and brand claims rather than independently verified evidence.",
+        "publishDate": "2022-03-12",
+        "sceneId": "claims",
+        "sceneIds": [
+          "schedule",
+          "jam",
+          "power",
+          "hygiene",
+          "claims"
+        ],
+        "sceneLabel": "摄像头、App 与识猫",
+        "query": "智能喂食器 卡粮 断电",
+        "whyIncluded": "通过 摄像头、APP、App、远程 命中场景「摄像头、App 与识猫」。来自查询：智能喂食器 卡粮 断电。",
+        "flags": {
+          "marketing": false,
+          "duplicate": false,
+          "secondhand": false
+        },
+        "role": "buyer",
+        "included": true,
+        "codeIds": [
+          "schedule",
+          "jam",
+          "power",
+          "hygiene"
+        ],
+        "votes": 0,
+        "comments": 0
+      },
+      {
+        "id": "src_279c883f",
+        "source": "zhihu_search",
+        "title": "爱它,就给它精准的营养:用科技陪伴“毛孩子”的健康蜕变之旅 - 知乎",
+        "url": "https://zhuanlan.zhihu.com/p/2057394800949728624?utm_medium=openapi_platform&utm_source=b38f6831b176",
+        "author": "人间有味",
+        "contentType": "Article",
+        "excerptZh": "在当下步履不停的都市节奏里，“毛孩子”日渐圆润的身型，早已不再是幸福的唯一注脚，反而悄然演变成一场潜伏的健康危机。对无数养宠家庭而言，看着宠物憨态可掬的模样固然心头一暖，但随之而来的糖尿病、关节炎乃至心脏病风险，却如影随形，成为悬在心头的一块巨石。许多主人出于疼爱，习惯将食盆填得满满当当，误以为丰盛的食物便是爱的全部表达，殊不知这种“自由采食”模式往往是导致宠物肥胖的元凶。传统的喂食器往往只是简单的“储粮桶”，无法解决定量不准、余粮堆积、食物受潮变质等核心痛点。 随着物联网与AI技术的深度介入，以宠咕咕petgugu为代表的智能健康管理喂食器，正通过精准投喂算法、全景保鲜系统、高清视觉交互三大核心能力，将宠物饮食从“吃饱”带入“吃好”的新纪元。它不再是一个冷冰冰的机器，而是成为了一位能够辅助肥胖猫咪和狗狗进行科学减重的“数字营养师”。 一、 破局传统： 从“经验主义”到“数据驱动”的精准跨越 传统的减重方案往往依赖主人的肉眼估算和主观记忆，不仅难以坚持，且缺乏科学依据。宠咕咕petgugu健康管理喂食器的核心价值在于，它将喂食器从一个被动的...",
+        "excerptEn": "Amid the relentless pace of urban life, increasingly plump pets are no longer simply a sign of happiness but a latent health risk, with overfeeding and free-feeding often linked to obesity and related diseases. Traditional feeders remain little more than grain bins, while IoT/AI-enabled “smart health” feeders such as petgugu are marketed as addressing precise portioning, food preservation, and visual interaction—claims that still warrant scrutiny.",
+        "publishDate": "2026-07-06",
+        "sceneId": "claims",
+        "sceneIds": [
+          "jam",
+          "hygiene",
+          "claims"
+        ],
+        "sceneLabel": "摄像头、App 与识猫",
+        "query": "智能喂食器 卡粮 断电",
+        "whyIncluded": "通过 APP、App 命中场景「摄像头、App 与识猫」。来自查询：智能喂食器 卡粮 断电。",
+        "flags": {
+          "marketing": false,
+          "duplicate": false,
+          "secondhand": false
+        },
+        "role": "practitioner",
+        "included": true,
+        "codeIds": [
+          "jam",
+          "hygiene"
+        ],
+        "votes": 1,
+        "comments": 0
+      },
+      {
+        "id": "src_8fbd2a34",
+        "source": "zhihu_search",
+        "title": "2025年宠物自动喂食器推荐!自动喂食器好用吗?好用的高性价比猫/狗喂食器选购指南 - 知乎",
+        "url": "https://zhuanlan.zhihu.com/p/348956058?utm_medium=openapi_platform&utm_source=b38f6831b176",
+        "author": "橘子酱",
+        "contentType": "Article",
+        "excerptZh": "现在很多人喜欢养宠物，但是铲屎官不在家的时候，把宠物留在家里，喂食成了一大难题。随着科技的进步，市面上出现了自动喂食器，可以储存一些粮食在喂食器里面，定时定量的喂食，非常的方便，但是很多人不知道该怎么挑选自动喂食器，下面跟着我的选购指南买！ 一、自动喂食器怎么选？ 1、料仓容量选择 容量仓的容量是很重要的选购要点，如果料仓容量过小，那就失去了远程喂食的意义，如果宠物饭量大，自己出门时间久，那猫咪只能饿肚子了。容量仓过大也不好，会造成粮食浪费，同事增加清洗难度。具体容量还是得根据自家主子的饭量，经常外出的天数来决定。 一般3L容量的料仓，可以存放2.5斤左右的猫粮，假如一只成猫每天的进食量75-100g，那3L的料仓可以够一只猫吃12天左右。如果家里有多猫，还有小狗的话，那容量建议选大一点。 2、外观材质 市面上的喂食器外观有方形和圆柱形两种，没有好坏之分，具体还得根据自家主子喜欢什么类型的玩具，存放地方的空间来决定。喂食器不要选高度过高的，尽量选择重心比较低的，防止宠物推倒机器。 由于宠物喜欢啃咬机器，材质的话，建议选择FDA食用级ABS塑...",
+        "excerptEn": "Automatic feeders are described as a convenient way to store food and dispense timed, measured portions when owners are away, but the excerpt’s implication that following a buying guide will settle selection should be treated skeptically. Its capacity advice notes that too small a hopper undermines remote feeding while too large a one can waste food and complicate cleaning, with the right size said to depend on the pet’s appetite and the owner’s time away.",
+        "publishDate": "2021-02-03",
+        "sceneId": "schedule",
+        "sceneIds": [
+          "multi_cat",
+          "schedule",
+          "jam",
+          "power",
+          "hygiene",
+          "claims"
+        ],
+        "sceneLabel": "定时与离家",
+        "query": "智能喂食器 卡粮 断电",
+        "whyIncluded": "通过 定时、出门、不在家 命中场景「定时与离家」。来自查询：智能喂食器 卡粮 断电。",
+        "flags": {
+          "marketing": true,
+          "duplicate": false,
+          "secondhand": false
+        },
+        "role": "unclear",
+        "included": true,
+        "codeIds": [
+          "multi_cat",
+          "schedule",
+          "jam",
+          "power",
+          "hygiene"
+        ],
+        "votes": 16,
+        "comments": 3
+      },
+      {
+        "id": "src_c3b690af",
+        "source": "zhihu_search",
+        "title": "智能宠物喂食器软硬件方案定制,打造科学自动喂养硬件 - 知乎",
+        "url": "https://zhuanlan.zhihu.com/p/2101004720697504870?utm_medium=openapi_platform&utm_source=b38f6831b176",
+        "author": "西城微科方案开发",
+        "contentType": "Article",
+        "excerptZh": "本款宠物喂食器方案是在传统机械式喂食结构基础上升级而来，依托电子控制系统对出粮出口做电控管理。整套系统以高性能单片机作为主控核心，配合电机驱动模块、粮位检测模块、倾倒检测模块、按键与指示灯模块协同工作。主控按照预设时间逻辑输出信号，驱动执行机构定时开启、关闭粮食出口，将定量猫粮或狗粮推送至下方食盒。依靠精准的计时逻辑与出粮控制，实现自动投喂，为宠物匹配合适的喂食时段与投喂分量，规避人工喂养中喂食不规律、忽多忽少的问题，助力宠物维持稳定的进食节奏，保障健康成长发育。 二、宠物喂食器方案开发功能介绍 喂食器方案采用高性能单片机为主控，由工程师完成电路原理图设计、PCB布局、固件程序编写烧录、功能模块联调、可靠性测试等一系列开发工作，落地后可稳定实现以下核心功能： 1.低食量提醒：方案搭载粮位检测单元，储粮桶内粮食余量偏低时，主板驱动红灯持续闪烁，直观提醒主人及时添加粮食，避免断粮。 2.定时投喂功能：支持自定义投喂间隔，可设置4小时、6小时、8小时自动投喂，设备独立计时运行，无需联网，断电重新上电后计时参数可稳定保存，适配居家、短途外出场景。 ...",
+        "excerptEn": "The excerpt describes a pet-feeder design that upgrades a traditional mechanical feeding mechanism with electronic control of the food outlet, using a high-performance microcontroller plus motor-drive, food-level, tilt, button, and indicator modules to open and close the outlet on preset timing logic and dispense measured food into the bowl below; it also notes that engineers handle schematic design, PCB layout, and firmware programming/burning. It asserts—without independent verification—that precise timing and dispensing control enable automatic feeding, match suitable feeding times and port",
+        "publishDate": "2026-11-03",
+        "sceneId": "schedule",
+        "sceneIds": [
+          "schedule",
+          "jam",
+          "power"
+        ],
+        "sceneLabel": "定时与离家",
+        "query": "智能喂食器 卡粮 断电",
+        "whyIncluded": "通过 定时 命中场景「定时与离家」。来自查询：智能喂食器 卡粮 断电。",
+        "flags": {
+          "marketing": false,
+          "duplicate": false,
+          "secondhand": false
+        },
+        "role": "unclear",
+        "included": true,
+        "codeIds": [
+          "schedule",
+          "jam",
+          "power"
+        ],
+        "votes": 0,
+        "comments": 0
+      },
+      {
+        "id": "src_1c07cbb3",
+        "source": "zhihu_search",
+        "title": "猫咪需要买自动喂食器和自动饮水机吗?自动喂食器哪个好? - 知乎",
+        "url": "https://www.zhihu.com/question/504755180/answer/1935448066795734122?utm_medium=openapi_platform&utm_source=b38f6831b176",
+        "author": "缘溪溪很行",
+        "contentType": "Answer",
+        "excerptZh": "▲性能特点3：升级后的防卡粮设计不仅让普通猫粮出粮更顺畅，而且也能适配冻干。而且宽角斜口的出粮口设计也不容易堵塞，完全不用担心人走了，粮卡了，猫饿着了。 ▲性能特点4：app上可以设置餐次、餐量，精准喂养，毕竟小猫咪最适合少食多餐，一天多喂几次，每次量可以少一点。 ▲性能特点5：这款机器是电源、电线双供电，在电源停电后可切换为电池供电，支持一周没问题，所以就算出差旅行，家里也不会断粮。 ▲性能特点6：这款机器的食盆、储粮桶、搅拌刀等部件都能拆卸清洗，确保了小猫咪的饮食安全。而且食盆采用的是食品级不锈钢，既容易清洗，又不容易积聚油脂而让小猫咪黑下巴。 2、SMARTTAIL自动喂食器 推荐指数：★★★ ▲性能特点1：这款喂食器容量有3L和3.5L可选，容量更大一些，差不多可以连续使用半个月之久，基本能满足大多数人的出行需求了。而且app中也可以设置出粮量和次数，更符合小猫咪的生长发育需求。 ▲性能特点2：食盆、搅拌刀、储粮桶等部件也都可拆卸清洗，食品级不锈钢的饭碗用起来更安全，当然也能防止小猫黑下巴。 ▲性能特点3：虽然这款也是电池、电源双线...",
+        "excerptEn": "The upgraded anti-jam design is claimed to handle both regular kibble and freeze-dried food, with a wide-angle slanted outlet that supposedly won't clog—so you needn't worry about food getting stuck while you're away. App-controlled meal scheduling and portion sizes, dual power supply with battery backup lasting up to a week, and detachable, washable parts including a food-grade stainless steel bowl round out the feature list; the excerpt then moves on to the SMARTTAIL automatic feeder.",
+        "publishDate": "2025-08-03",
+        "sceneId": "power",
+        "sceneIds": [
+          "schedule",
+          "jam",
+          "power",
+          "hygiene",
+          "claims"
+        ],
+        "sceneLabel": "断电与离线使用",
+        "query": "智能喂食器 摄像头 鸡肋",
+        "whyIncluded": "通过 断电、停电、电池 命中场景「断电与离线使用」。来自查询：智能喂食器 摄像头 鸡肋。",
+        "flags": {
+          "marketing": false,
+          "duplicate": false,
+          "secondhand": false
+        },
+        "role": "unclear",
+        "included": true,
+        "codeIds": [
+          "schedule",
+          "jam",
+          "power",
+          "hygiene"
+        ],
+        "votes": 5,
+        "comments": 0
+      },
+      {
+        "id": "src_41aeede2",
+        "source": "zhihu_search",
+        "title": "新手养猫必备清单_大连宠物店帮你避开智商税 - 知乎",
+        "url": "https://zhuanlan.zhihu.com/p/2103071746303734537?utm_medium=openapi_platform&utm_source=b38f6831b176",
+        "author": "贰号宠物用品仓储店",
+        "contentType": "Article",
+        "excerptZh": "一、猫粮：配料表比价格更重要 猫粮是最大的一笔持续投入，选错不仅花钱还影响猫咪健康。判断猫粮好坏的核心指标就两个：蛋白质含量和配料透明度。优质猫粮粗蛋白应该在35%以上，配料表前五位必须是明确肉类，而不是\"肉粉\"\"动物副产品\"这类模糊词汇。 我在大连一家仓储宠物店了解到，目前国产粮进步很大，疯狂小狗和鲜朗这两个品牌在原料透明度和品控方面做得比较扎实，价格也比进口粮亲民不少。如果预算充裕，倍内菲和弗列加特的高端线也值得考虑。 二、猫砂盆：尺寸决定使用率 很多新手图便宜买小号猫砂盆，结果猫咪长大之后拒绝使用。正确做法是直接买长边45cm以上的开放式猫砂盆，一只猫用一个就够了。猫砂推荐豆腐砂或膨润土砂，两者可以交替使用。 三、饮水机：流动水激发喝水欲望 猫咪的祖先来自沙漠地区，天生对静止水不敏感。 一款基础款宠物饮水机能有效提高猫咪饮水量，降低泌尿系统疾病风险。",
+        "excerptEn": "The excerpt argues that cat food should be judged by protein content (over 35%) and transparent ingredient lists (named meats in the first five) rather than price, while noting that a Dalian pet store claims domestic brands like Crazy Dog and Xianlang are solid on sourcing and quality control and that high-end lines such as Beineifei and Frelegat may be worth considering if budget allows. It also advises buying an open litter box with a long side over 45 cm and using tofu or bentonite litter.",
+        "publishDate": "2026-11-09",
+        "sceneId": "unassigned",
+        "sceneIds": [],
+        "sceneLabel": "Unassigned",
+        "query": "智能喂食器 摄像头 鸡肋",
+        "whyIncluded": "命中产品词 猫粮，但没有命中场景词。来自查询：智能喂食器 摄像头 鸡肋。",
+        "flags": {
+          "marketing": true,
+          "duplicate": false,
+          "secondhand": false
+        },
+        "role": "buyer",
+        "included": true,
+        "codeIds": [
+          "claim_weak"
+        ],
+        "votes": 0,
+        "comments": 0
+      },
+      {
+        "id": "src_e03d8003_17",
+        "source": "zhihu_search",
+        "title": "自动喂食器怎么选?2026 年养猫家庭避坑指南 - 知乎",
+        "url": "https://zhuanlan.zhihu.com/p/2102531449631019044?utm_medium=openapi_platform&utm_source=b38f6831b176",
+        "author": "清水菠萝",
+        "contentType": "Article",
+        "excerptZh": "二、五个核心参数，按重要性排 1. 出粮结构：决定会不会卡粮 这是自动喂食器最大的退货原因。常见三种： ・转盘分格：出粮准、结构简单，但对冻干和大颗粒粮不友好； ・螺旋杆：对混合粮友好，但长期用可能磨损、卡大块冻干； ・翻板/重力式：最便宜，出粮量不准，不建议。 选购建议：以纯干粮为主，选转盘或螺旋都行；买之前翻差评，搜“卡粮”两个字，出现频率高的直接排除。 2. 密封性：决定猫粮会不会受潮 看三点：粮仓有没有硅胶密封圈、有没有干燥剂仓、出粮口是否闭合。南方梅雨季，密封差的机器两周就能让猫粮发软发霉，猫吃了容易软便。 3. 断电续航：决定你出差时会不会断粮 不是“有电池仓”就叫双电源，要确认插电断开时能自动切换电池。参考：4 节 AA 电池续航 1–3 天，够应对临时停电，不够应对长期断电。 4. 可拆洗程度：决定你会不会用下去 粮仓、出粮口、接粮盘最好都能拆下来水洗；底座带电路的部分不能进水，要用湿布擦。不能拆洗的机器，三个月后内部就是一层油垢。 5. 出粮精度与记录 “1 份 ≈ 10g”是行业惯例，但不同品牌差异很大。选能按克设置或至...",
+        "excerptEn": "The excerpt ranks five core parameters by importance—starting with the dispensing mechanism (jam risk), sealing (moisture protection), and battery backup during outages—and notes that dispensing design is a major return reason and poor sealing can soften or mold kibble within weeks in humid conditions. It also cautions that a battery compartment alone does not prove true dual-power operation and that frequent “jam” complaints in negative reviews warrant skepticism.",
+        "publishDate": "2026-11-07",
+        "sceneId": "hygiene",
+        "sceneIds": [
+          "multi_cat",
+          "schedule",
+          "jam",
+          "power",
+          "hygiene",
+          "claims"
+        ],
+        "sceneLabel": "清洁、受潮与发霉",
+        "query": "智能喂食器 摄像头 鸡肋",
+        "whyIncluded": "与前面的条目是同一链接，先搁置，避免样本重复计数。恢复后会重新计入。来自查询：智能喂食器 摄像头 鸡肋。",
+        "flags": {
+          "marketing": false,
+          "duplicate": true,
+          "secondhand": false
+        },
+        "role": "buyer",
+        "included": false,
+        "codeIds": [
+          "multi_cat",
+          "schedule",
+          "jam",
+          "power",
+          "hygiene"
+        ],
+        "votes": 0,
+        "comments": 0
+      },
+      {
+        "id": "src_9df1f0ae",
+        "source": "zhihu_search",
+        "title": "现代猫狗宠物自动喂食器不科学的地方? - 知乎",
+        "url": "https://www.zhihu.com/question/27197120/answer/2309008018?utm_medium=openapi_platform&utm_source=b38f6831b176",
+        "author": "方崔永杰",
+        "contentType": "Answer",
+        "excerptZh": "1.卡粮：自动喂食器最多的两个抱怨一是app连接问题，第二就是卡粮，那为什么会卡粮呢？ 拆开机器，可以看到机器底部有一个像扇片一样的东西，我自己称之为分食扇，因为粮食长时间放在一个容器里，容易下不来，这时就需要分食扇把粮桶内的宠粮搅动一下，让粮食迅速滑到下方落食槽内。以往这个扇片用的是ABS之类的食用级塑胶材质，后来发现，随着粮食的形状开始增多，大小不一的粮食越来越多了，这就导致有些粮放到某些品牌的喂食器里经常会发生卡粮的现象。毕竟这是喂食器，不是搅拌机嘛，电机功率没那么大，扇片也没那么锋利。 现在专业的宠物品牌已经陆续开始使用软质的材料，就避免了上述问题，再加上内部结构的优化，卡粮基本只会发生在一些不知名的品牌产品上。 2.产品的交互上还是有很大的进度空间，产品本身实体按钮经常有误触，或者撞上上个世纪就开始用的数码屏，或者为了所谓互联网化，将交互界面强行移除，不下载app根本用不了。 我觉得最根本的原因还是因为大多数的行业内的产品经理和产品开发都过于局限在成本控制里，先定好了售价，再反推成本，这么做确实是个正常控本的逻辑，但从产品本上上来...",
+        "excerptEn": "The two most common complaints about automatic feeders are app connectivity and food jamming; jamming arises because kibble sitting in the hopper needs a fan-like divider to stir it into the chute, and older ABS-style plastic parts can jam as kibble shapes and sizes diversify—feeders are not blenders, so motor power and blade sharpness are limited. Some pet brands now use softer materials and optimized internal structures, claiming jamming is largely avoided, though the excerpt stops short of substantiating that claim.",
+        "publishDate": "2022-01-13",
+        "sceneId": "hygiene",
+        "sceneIds": [
+          "multi_cat",
+          "jam",
+          "hygiene",
+          "claims"
+        ],
+        "sceneLabel": "清洁、受潮与发霉",
+        "query": "智能喂食器 摄像头 鸡肋",
+        "whyIncluded": "通过 发霉、霉 命中场景「清洁、受潮与发霉」。来自查询：智能喂食器 摄像头 鸡肋。",
+        "flags": {
+          "marketing": false,
+          "duplicate": false,
+          "secondhand": false
+        },
+        "role": "user",
+        "included": true,
+        "codeIds": [
+          "multi_cat",
+          "jam",
+          "hygiene"
+        ],
+        "votes": 9,
+        "comments": 1
+      },
+      {
+        "id": "src_e4fd2953",
+        "source": "zhihu_search",
+        "title": "小米宠物自动喂食机个人测评 - 知乎",
+        "url": "https://zhuanlan.zhihu.com/p/75732438?utm_medium=openapi_platform&utm_source=b38f6831b176",
+        "author": "蜗牛小姐",
+        "contentType": "Article",
+        "excerptZh": "反正就是不能用了呗！那咋办？于是，一个纯纯的文科生开始做起了实验，我手动出粮了50次，记录了每次出粮克数，然后取平均数，得到4.22g（我用的发育宝成猫猫粮，猫粮大小相似的可以参考）。然后我就通过我的实验结果设置了新的喂食计划 本来，一切到这里就可以结束了，但是，我突然就来了兴致，既然都做实验了，何不把其他方面也测评一下呢？ 于是我又测（jia）评（xi）了以下方面： 1.卡粮问题 我连续手动，自动加粮了100次，出现了11次卡粮，大都是连续几次不出粮，然后多按几下在听见咔咔咔的声音以后，又再次出现猫粮，肉眼可见被切碎的猫粮。表示有些许的担忧，以后机器老化以后，是不是卡粮就无法再恢复正常呢？而且这样，也无法精准控制喂食量啊。由此可见，这个机器应该更适合颗粒小的猫粮。 2.出粮问题 我用app自动出粮1-10份（最高加粮10份），测试大量出粮，是否会堵塞出粮口。在碗里是空的时候，10份猫粮出粮都没什么问题，很顺畅，称重也和预估相差无几。 但是，考虑到有可能在出粮时，碗里还有余粮的情况，我留了一半猫粮（大慨15g）在碗里，再次出粮10份，于是出...",
+        "excerptEn": "After manually dispensing food 50 times and averaging 4.22 g per dispense with similar-sized adult cat kibble, the author used that result to set a new feeding plan. In 100 manual and automatic feeding trials, 11 jams occurred—mostly several consecutive failures followed by chopped kibble reappearing after repeated presses—raising concern that such jams may not recover as the machine ages.",
+        "publishDate": "2019-07-29",
+        "sceneId": "jam",
+        "sceneIds": [
+          "schedule",
+          "jam",
+          "claims"
+        ],
+        "sceneLabel": "卡粮与出粮错误",
+        "query": "智能喂食器 摄像头 鸡肋",
+        "whyIncluded": "通过 卡粮、不出粮、堵住 命中场景「卡粮与出粮错误」。来自查询：智能喂食器 摄像头 鸡肋。",
+        "flags": {
+          "marketing": false,
+          "duplicate": false,
+          "secondhand": false
+        },
+        "role": "user",
+        "included": true,
+        "codeIds": [
+          "schedule",
+          "jam"
+        ],
+        "votes": 92,
+        "comments": 20
+      }
+    ],
+    "auxiliary": {
+      "text": "搜索词可能漏掉的使用场景：\n\n- 出差、加班、夜班等长时间不在家时按时投喂\n- 节假日或临时外出，托付他人不便时应急使用\n- 处方粮、减肥粮等需要精确克数控制的定量喂养\n- 老年猫、幼猫或少食多餐猫咪的分餐安排\n- 多宠家庭配合 RFID 或分仓实现按只投放、防抢食\n- 术后或患病期需隔离进食、单独计量的场景\n- 监控宠物进食量、发现食欲异常的健康观察\n- 双职工家庭早晚时间紧张时的固定作息管理\n- 宠物寄养、上门喂养服务中的定时投喂配合\n- 与智能饮水机、摄像头联动的远程看护场景",
+      "usedAsFinding": false
+    }
+  }
+}

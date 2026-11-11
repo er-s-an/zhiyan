@@ -1,0 +1,1016 @@
+{
+  "study": {
+    "id": "demo_ai-knowledge-base",
+    "design": {
+      "brief": "我们计划在 50 人产研团队里落地一套 AI 知识库，想知道大家在知识检索和沉淀上的真实痛点，以及哪些 RAG 能力被高估。",
+      "decision": "在 50 人规模的产研团队里落地 AI 知识库，应该优先解决哪些知识检索与沉淀问题；哪些 RAG 能力被高估。",
+      "subjects": [
+        "users",
+        "buyers",
+        "practitioners"
+      ],
+      "stage": "needs_exploration",
+      "zhihuCanAnswer": [
+        "团队在找文档、找历史决策时具体卡在哪一步。",
+        "文档过期、权限和没人维护这些问题如何出现。",
+        "哪些 AI 知识库能力被实际使用者认为不可信或用不上。"
+      ],
+      "scenes": [
+        {
+          "id": "search",
+          "label": "找不到文档",
+          "keywords": [
+            "找不到",
+            "搜不到",
+            "检索",
+            "搜索",
+            "翻半天",
+            "定位"
+          ]
+        },
+        {
+          "id": "stale",
+          "label": "文档过期",
+          "keywords": [
+            "过期",
+            "旧版",
+            "没更新",
+            "维护",
+            "废弃",
+            "版本"
+          ]
+        },
+        {
+          "id": "permission",
+          "label": "权限与安全",
+          "keywords": [
+            "权限",
+            "保密",
+            "安全",
+            "泄露",
+            "隔离",
+            "访问"
+          ]
+        },
+        {
+          "id": "trust",
+          "label": "回答不可信",
+          "keywords": [
+            "幻觉",
+            "瞎编",
+            "不准",
+            "错误",
+            "引用",
+            "来源"
+          ]
+        },
+        {
+          "id": "capture",
+          "label": "知识沉淀成本",
+          "keywords": [
+            "沉淀",
+            "整理",
+            "录入",
+            "没人写",
+            "维护成本",
+            "模板"
+          ]
+        },
+        {
+          "id": "adoption",
+          "label": "推广与使用习惯",
+          "keywords": [
+            "推广",
+            "没人用",
+            "习惯",
+            "培训",
+            "上手",
+            "活跃"
+          ]
+        },
+        {
+          "id": "integration",
+          "label": "工具与集成",
+          "keywords": [
+            "飞书",
+            "钉钉",
+            "企微",
+            "Notion",
+            "Confluence",
+            "集成"
+          ]
+        },
+        {
+          "id": "evaluation",
+          "label": "效果评估",
+          "keywords": [
+            "效果",
+            "ROI",
+            "指标",
+            "评估",
+            "测试",
+            "验收"
+          ]
+        }
+      ],
+      "populations": [
+        "50 人规模产研团队的技术负责人",
+        "一线工程师、产品经理与设计师",
+        "负责知识库落地的平台/效能团队",
+        "IT 与信息安全"
+      ],
+      "inclusion": [
+        "帖子描述了真实搭建、使用或评估知识库的经历与失败。",
+        "帖子命中计划场景或产品词，并且由计划查询或热榜检索到。"
+      ],
+      "exclusion": [
+        "与知识库、RAG 无关的热榜条目。",
+        "同一链接的重复出现。",
+        "纯厂商软文，且没有实际使用细节的帖子。"
+      ],
+      "stoppingRule": "跑完计划内的全部查询就停。某个场景的纳入条目少于两条，就保持未覆盖。不追加查询来制造一致性。",
+      "queries": [
+        "企业知识库 落地 踩坑",
+        "RAG 知识库 效果 差",
+        "内部文档 搜索 找不到",
+        "AI 知识库 员工 不用"
+      ],
+      "productTerms": [
+        "知识库",
+        "RAG",
+        "检索",
+        "文档",
+        "知识管理",
+        "wiki",
+        "语料",
+        "大模型"
+      ],
+      "codebook": [
+        {
+          "id": "search",
+          "label": "检索失败",
+          "definition": "帖子描述找不到、搜不到或定位不到文档。",
+          "keywords": [
+            "找不到",
+            "搜不到",
+            "检索",
+            "搜索",
+            "翻半天"
+          ]
+        },
+        {
+          "id": "stale",
+          "label": "文档过期",
+          "definition": "帖子描述文档过期、版本混乱或无人维护。",
+          "keywords": [
+            "过期",
+            "旧版",
+            "没更新",
+            "维护",
+            "版本"
+          ]
+        },
+        {
+          "id": "permission",
+          "label": "权限与安全",
+          "definition": "帖子提到权限、保密、隔离或数据泄露顾虑。",
+          "keywords": [
+            "权限",
+            "保密",
+            "安全",
+            "泄露",
+            "隔离"
+          ]
+        },
+        {
+          "id": "hallucination",
+          "label": "幻觉与不可信",
+          "definition": "帖子描述 AI 回答不准、瞎编或缺少来源。",
+          "keywords": [
+            "幻觉",
+            "瞎编",
+            "不准",
+            "错误",
+            "引用",
+            "来源"
+          ]
+        },
+        {
+          "id": "maintenance",
+          "label": "沉淀成本",
+          "definition": "帖子描述整理、录入和维护知识的人工成本。",
+          "keywords": [
+            "沉淀",
+            "整理",
+            "录入",
+            "没人写",
+            "维护成本"
+          ]
+        },
+        {
+          "id": "adoption",
+          "label": "推广阻力",
+          "definition": "帖子描述没人用、习惯难改或培训成本。",
+          "keywords": [
+            "推广",
+            "没人用",
+            "习惯",
+            "培训",
+            "活跃"
+          ]
+        },
+        {
+          "id": "integration",
+          "label": "集成摩擦",
+          "definition": "帖子描述与飞书、钉钉、Confluence 等工具的集成问题。",
+          "keywords": [
+            "飞书",
+            "钉钉",
+            "企微",
+            "Notion",
+            "Confluence",
+            "集成"
+          ]
+        },
+        {
+          "id": "gimmick",
+          "label": "被高估的能力",
+          "definition": "发帖人把某些 AI 知识库能力看成噱头或演示效果。",
+          "keywords": [
+            "噱头",
+            "鸡肋",
+            "用不上",
+            "智商税",
+            "演示"
+          ]
+        }
+      ],
+      "briefLanguage": "zh",
+      "zhihuCannotAnswer": [
+        "现有知乎讨论不能证明购买意愿。",
+        "现有知乎讨论不能把一条宣称验证成足以支撑购买。",
+        "具体供应商的采购决策。",
+        "知识库项目的投资回报率与人力节省测算。"
+      ],
+      "timeWindow": {
+        "start": "2024-11-11",
+        "end": "2026-11-11",
+        "rationale": "确认时点往前 24 个月。更早的帖子仍可留在样本里，但质量视图会把它们标成过时。"
+      }
+    },
+    "confirmedAt": "2026-11-11T14:04:56.938Z",
+    "retrieval": [
+      {
+        "kind": "zhihu_search",
+        "query": "企业知识库 落地 踩坑",
+        "resultCount": 5
+      },
+      {
+        "kind": "zhihu_search",
+        "query": "RAG 知识库 效果 差",
+        "resultCount": 5
+      },
+      {
+        "kind": "zhihu_search",
+        "query": "内部文档 搜索 找不到",
+        "resultCount": 5
+      },
+      {
+        "kind": "zhihu_search",
+        "query": "AI 知识库 员工 不用",
+        "resultCount": 5
+      },
+      {
+        "kind": "hot_list",
+        "query": "热榜",
+        "resultCount": 30
+      },
+      {
+        "kind": "zhida",
+        "query": "gap hint",
+        "resultCount": 1
+      }
+    ],
+    "hotScan": {
+      "scanned": 30,
+      "included": 0,
+      "droppedTitles": [
+        "如何看待房主因不满 35 万元拆迁赔偿直播施压，四川自永高速建设施工队直接改方案抬高跨过？",
+        "如果在床边放一碗血，晚上蚊子还会来咬我吗？",
+        "小学男孩「嘉豪」总被嘲笑希望改名，名字是网络流行梗对孩子来说有多困扰？家长该怎么做？",
+        "余承东正式官宣华为子品牌「星芒」（OSTA），可能面向哪些用户？它会如何与华为现有产品线区分？",
+        "「减肥神药」或致永久性失明，美药管局发布警告，司美格鲁肽这类药物真的可能造成永久性失明吗？风险有多高？",
+        "玛莎拉蒂将与尊界合作，将通过江淮进行制造，此次合作能给三方带来什么？同一款车两套身份，谁在薅谁羊毛？",
+        "为什么绿皮火车又火了？",
+        "RTX50系列显卡价格出现回落，RTX5080售价已跌4000 元，有哪些原因？现在适合入手吗？",
+        "林生斌名下关联13家公司，网传其定居悉尼富人区，儿女入读当地私校，是真的吗？为什么许多网友会感到割裂？",
+        "沙僧在《西游记》中，除了挑担子外，出场的时候很少，为什么吴承恩在写《西游记》时不把他删掉？",
+        "比亚迪就大唐轮辋装配问题致歉，系供应商编码录入失误造成错装，不影响操控，具体什么情况？实际影响多大？",
+        "周瑜为什么那么年轻就早死了，有没有可能是孙权害了他?",
+        "中国叫停软银收购瑞士 ABB 机器人业务，将对全球工业数据流转规则产生哪些影响？",
+        "王传君称演《爱情公寓》时「没有听到表演的召唤」，觉得这就是一份让自己走红的工作，怎么评价这个说法？",
+        "离岸信托个税申报累计超1600亿元，10月入库超1200亿，带动当月全国个税收入增长90%，怎样解读？",
+        "张雪宣布，冠军车拍卖款不再捐给韩红基金会，你怎么看？",
+        "如何看待外媒曝比亚迪荷兰办公室遭突击搜查，相关电子记录被封存，捷豹路虎指控方程豹钛7逆向工程抄袭卫士？",
+        "王健林 14 年后再任万达商管董事长，怎样解读这一调整？",
+        "如何看待第39届金鸡奖《密档》郑大圣打败《南京照相馆》申奥、《给阿嬷的情书》蓝鸿春，爆冷获最佳导演？",
+        "大师兄Doublelift发问「如果BLG夺冠，这会是史上最具含金量的冠军吗」，你觉得是吗？",
+        "如何看待网友晒「上海和平饭店6人餐花费51万元的天价小票」，饭店辟谣称小票系伪造，警方目前已介入 ？",
+        "男子与第三者在客栈发生关系后猝死，妻子向第三者和客栈索赔超百万元，一审被驳回，法律上如何分析？",
+        "张卫健和周星驰的差距在哪儿？",
+        "如何看待上海卫健委回应校招会上医生月薪最高2499元，称信息不完整、已更新？实际薪资水平一般是怎样的？",
+        "高叶凭《南京照相馆》林毓秀一角拿下金鸡影后，首提即中，她在片中的表现如何？",
+        "为什么欧美人不像中国人那样重视饮食？",
+        "是不是体型越小的动物越不可能摔死？",
+        "如何评价 MiniMax 开源的 H3-Image 生图模型，能够在 10 秒内生成一张高分辨率图像？",
+        "中国足球联赛颁奖，张玉宁获本土金球，大连李国旭获金帅，成都蓉城山东泰山获公平竞赛奖，对此你怎么看？",
+        "青春期孩子常说「别管我」，父母该尊重边界还是主动追问？"
+      ]
+    },
+    "sample": [
+      {
+        "id": "src_b95d7216",
+        "source": "zhihu_search",
+        "title": "企业AI落地,为什么先死在企业AI知识库上?4种典型死法复盘 - 知乎",
+        "url": "https://zhuanlan.zhihu.com/p/2103199712992048685?utm_medium=openapi_platform&utm_source=b38f6831b176",
+        "author": "AI大前哨",
+        "contentType": "Article",
+        "excerptZh": "你喂进去一团乱麻，出来的就是一团带着AI光环的乱麻。 那，该怎么办？ 先别急着“选哪个模型”，先定下“答什么、拿什么答、答到什么标准”。 搭建企业知识库前，先让业务负责人和一线员工，配合技术服务方一起，将“员工高频查什么”、“AI客服高频答什么”、“哪些私有知识散在Excel、邮件、聊天记录和老师傅脑子里”……将要解决的问题整理成一个清单。 再拿整理后的知识小范围试跑，用这张真实清单验收，而不是用准备好的Demo问题。 死法三：不再更新 很多企业把知识库当成一个项目，企业AI知识库搭建好了之后，跟技术服务方合作结束，项目组解散，从此没人管这件事。 然后，半年后有人发现，知识库里的产品手册，还停在以前的版本……而这半年产品手册都不知道改了多少遍了。 商丘新闻网做过一个报道：一家汽车零部件集团，给8000名员工全面部署了AI办公套件。PPT从2小时缩到40分钟，报表从半天缩到1小时，个体的提效数字非常亮眼。但审批节点还是7个，一个没少；待审积压增加了50%以上；产品交付周期照样维持在12周，没有任何实质缩短。 企业AI落地后，员工效率提高了，但...",
+        "excerptEn": "Feed a tangled mess in, and you get a tangled mess with an AI halo on top. Before building an enterprise knowledge base, define what questions it must answer and test it against a real checklist—not prepared demo questions—because a common failure is treating it as a one-off project that nobody updates after the team disbands.",
+        "publishDate": "2026-11-09",
+        "sceneId": "stale",
+        "sceneIds": [
+          "stale",
+          "trust",
+          "capture",
+          "evaluation"
+        ],
+        "sceneLabel": "文档过期",
+        "query": "企业知识库 落地 踩坑",
+        "whyIncluded": "通过 维护、版本 命中场景「文档过期」。来自查询：企业知识库 落地 踩坑。",
+        "flags": {
+          "marketing": false,
+          "duplicate": false,
+          "secondhand": false
+        },
+        "role": "unclear",
+        "included": true,
+        "codeIds": [
+          "stale",
+          "hallucination",
+          "maintenance"
+        ],
+        "votes": 0,
+        "comments": 0
+      },
+      {
+        "id": "src_576b2051",
+        "source": "zhihu_search",
+        "title": "没人签字的知识,AI 答得越准越危险 - 知乎",
+        "url": "https://zhuanlan.zhihu.com/p/2096202437505897659?utm_medium=openapi_platform&utm_source=b38f6831b176",
+        "author": "DataHunter",
+        "contentType": "Article",
+        "excerptZh": "过去两年，企业做知识库的热情，比做任何一件事都高。 买模型、接接口、把文档往里一传，一个“企业大脑”就算上线了。所有人都默认，这一轮拼的是谁的模型更强、谁的检索更准。 结果呢？ 问公司制度，它引用的是三年前废止的版本。问设备参数，它张口就来一个查无此处的数字。问一句稍复杂的业务规则，它答得头头是道，翻遍原文找不到一句支撑。 出了问题，所有人的归因高度一致。模型不够强，那就换更大的。检索不准，那就换向量库。切片不行，那就重做一遍。还不行，那就上知识图谱。 但我们在 DataHunter 见过上百家企业的知识库从立项走到荒废，想说句真话。 90% 的企业知识库，不是死在模型上，也不是死在检索上，是死在从头到尾没有一个真正管它的人。 这句话还不够狠。再往下问一层，为什么没人管？ 因为传统知识管理太重了。企业做一轮完整的知识梳理，要 5 位专家凑 3 个月，凑出 15 个人月，产出一套库加几本文档模板。半年之后系统还在，已经没人维护。 这不是认知问题，是成本结构问题。 大模型把整理的成本压掉了九成九。读 1000 份报告，专家要 3 个月，它要 3...",
+        "excerptEn": "Over the past two years, companies have pursued enterprise knowledge bases with more enthusiasm than almost anything else, assuming the race is about stronger models and more accurate retrieval; yet these systems cite repealed policies, invent device parameters, and confidently answer complex business-rule questions with no support in the source text, while failures are routinely blamed on the model, retrieval, chunking, or the absence of a knowledge graph. Having seen hundreds of enterprise knowledge bases go from approval to abandonment at DataHunter, our skeptical view is that 90% do not fa",
+        "publishDate": "2026-10-21",
+        "sceneId": "search",
+        "sceneIds": [
+          "search",
+          "stale",
+          "trust",
+          "capture",
+          "evaluation"
+        ],
+        "sceneLabel": "找不到文档",
+        "query": "企业知识库 落地 踩坑",
+        "whyIncluded": "通过 找不到、检索 命中场景「找不到文档」。来自查询：企业知识库 落地 踩坑。",
+        "flags": {
+          "marketing": true,
+          "duplicate": false,
+          "secondhand": false
+        },
+        "role": "unclear",
+        "included": true,
+        "codeIds": [
+          "search",
+          "stale",
+          "hallucination",
+          "maintenance"
+        ],
+        "votes": 0,
+        "comments": 0
+      },
+      {
+        "id": "src_254d1c35",
+        "source": "zhihu_search",
+        "title": "企业如何自建知识库? - 知乎",
+        "url": "https://www.zhihu.com/question/1930684360371200484/answer/2094088892278486618?utm_medium=openapi_platform&utm_source=b38f6831b176",
+        "author": "徐小夕",
+        "contentType": "Answer",
+        "excerptZh": "不要凭感觉判断好不好用，需要建立测试集： 整理一批真实业务问题，测试：召回准确率、答案是否带来源引用、是否出现幻觉、能不能区分新旧版本文档。 持续 bad case 迭代：AI 回答错误时，定位是文档脏数据，还是检索策略问题，持续优化知识库。 Step5：长期运营闭环（知识库不是一次性项目） 知识库最大误区：一次性导入文档就结束。知识会过期，制度会更新。 需要建立知识维护机制：文档负责人定期更新、下线过期资料；收集员工提问反馈，补充 FAQ；定期巡检知识库回答质量。 好的知识库是活的资产，不是静态文件仓库。 四、自建知识库最容易踩的 5 个大坑，我也总结复盘一下 这里强烈建议需要的同学收藏一下， 我们亲自踩过的坑： 1.重模型，轻数据治理：花高价买大模型，文档杂乱重复、新旧共存，再好的模型也答不对。知识库的核心是知识质量，不是大模型。 2.纯向量检索，放弃关键词检索：专业术语、编号、工号、合同编号这类精准查询，纯向量召回很容易跑偏，混合检索是企业场景标配。 3.忽略复杂文档解析：大量企业资料是扫描件、跨页表格。很多开源 / 轻量工具解析表格...",
+        "excerptEn": "Whether a knowledge base is usable should not be judged by feel; it requires a test set of real business questions covering recall accuracy, source citations, hallucinations, and ability to distinguish old versus new document versions, with bad-case iteration to diagnose dirty documents versus retrieval-strategy issues. It also needs long-term maintenance—owners updating and retiring documents, collecting employee feedback and FAQs, and auditing answer quality—because knowledge expires and a knowledge base is a living asset, not a one-off static file repository.",
+        "publishDate": "2026-10-15",
+        "sceneId": "stale",
+        "sceneIds": [
+          "search",
+          "stale",
+          "permission",
+          "trust",
+          "capture",
+          "evaluation"
+        ],
+        "sceneLabel": "文档过期",
+        "query": "企业知识库 落地 踩坑",
+        "whyIncluded": "通过 过期、旧版、维护、版本 命中场景「文档过期」。来自查询：企业知识库 落地 踩坑。",
+        "flags": {
+          "marketing": false,
+          "duplicate": false,
+          "secondhand": false
+        },
+        "role": "unclear",
+        "included": true,
+        "codeIds": [
+          "search",
+          "stale",
+          "permission",
+          "hallucination",
+          "maintenance"
+        ],
+        "votes": 5,
+        "comments": 0
+      },
+      {
+        "id": "src_3d15a295",
+        "source": "zhihu_search",
+        "title": "如何搭建公司知识库? - 知乎",
+        "url": "https://www.zhihu.com/question/650032981/answer/2063931215443387219?utm_medium=openapi_platform&utm_source=b38f6831b176",
+        "author": "北京数据智能科技有限公司",
+        "contentType": "Answer",
+        "excerptZh": "去年到现在，我接触了一些正在落地 AI 的企业。一个让我意外又不意外的发现是： 几乎所有人的第一站，都是知识库。也几乎所有人，在第一站就踩了坑。 有的企业花了三个月搭好知识库，AI 回答准确率不到 60%，老板说\"这玩意儿不行\"，项目直接叫停。有的企业知识库搭得不错，但只接了一个部门的数据，其他部门用不了，变成了又一个信息孤岛。 说到底，知识库搭建这件事，门槛极低——随便一个工程师花一个下午就能跑起来。但真正搭一个好用的、能支撑业务的知识库，坑比想象中多得多。 这篇文章，我把自己见过的、踩过的坑，整理成一套完整的搭建框架。不涉及具体产品，只讲方法论。不管你是刚开始规划，还是已经搭了但觉得不对，都能对着查一查。 一、先搞清楚一个问题：你要的到底是什么？ 很多企业上来就说\"我们要搭一个知识库\"，但没想清楚一件事—— 知识库的目标，不是\"把文档存进去\"，而是\"让对的人在对的时间拿到对的信息\"。 在做任何技术选型之前，先回答三个问题： 问题1：谁来用？ 用户类型 典型需求 知识库形态 一线员工 查制度、查流程、查操作规范 内部知识库，强结构化 中层...",
+        "excerptEn": "Since last year I have encountered some enterprises putting AI into practice, and the finding—unsurprising yet still surprising—is that almost all of them start with a knowledge base, and almost all of them stumble there. Some spend three months and still get under 60% answer accuracy, prompting the boss to call it useless and halt the project, while others build a decent base but connect only one department’s data, leaving other departments unable to use it and creating yet another silo—because while getting a knowledge base running is trivial, making one genuinely usable and business-support",
+        "publishDate": "2026-07-24",
+        "sceneId": "capture",
+        "sceneIds": [
+          "capture",
+          "adoption",
+          "evaluation"
+        ],
+        "sceneLabel": "知识沉淀成本",
+        "query": "企业知识库 落地 踩坑",
+        "whyIncluded": "通过 沉淀、整理 命中场景「知识沉淀成本」。来自查询：企业知识库 落地 踩坑。",
+        "flags": {
+          "marketing": false,
+          "duplicate": false,
+          "secondhand": true
+        },
+        "role": "user",
+        "included": true,
+        "codeIds": [
+          "maintenance",
+          "adoption"
+        ],
+        "votes": 24,
+        "comments": 2
+      },
+      {
+        "id": "src_24d1dbd7",
+        "source": "zhihu_search",
+        "title": "中小企业要不要做AI客服、知识库问答?企业AI助手落地前,先想清楚这几件事|企业AI助手落地复盘(一) - 知乎",
+        "url": "https://zhuanlan.zhihu.com/p/2094160560690553561?utm_medium=openapi_platform&utm_source=b38f6831b176",
+        "author": "马兵",
+        "contentType": "Article",
+        "excerptZh": "先说结论：中小企业可以做 AI 助手，但我不建议一上来就做「对外、什么都能答」的 AI 客服。比较稳的顺序是先做对内的知识库问答，让员工先用起来，跑顺了再考虑对外。值得做的场景，一般同时满足三条：问题重复度高，有现成能用的资料，答错了有人兜底。每天咨询就几十条、资料全在老板脑子里、答错一句就可能赔钱的，我会劝你先别做。钱和精力的大头在整理资料、对接系统和后期维护，模型调用费反倒是小头。 这两年来问企业 AI 助手的人明显多了，我们团队也一直在做这块。聊得多了发现，很多需求在开工前就能判断出做不做得成。所以这个系列第一篇先不讲技术，只聊怎么判断该不该做。 先看问题有多「重复」 AI 助手最擅长的，是把同一类问题回答一千遍。问题越集中，效果越好。 我一般会请对方先导出最近一两个月的客服聊天记录，或者内部群里的提问，粗略分个类。常见的情况是，排在前二三十类的问题能占到一大半，这种就适合做。要是翻下来每个问题都不太一样，大多得结合具体订单、具体客户才能回答，AI 能帮的就有限，硬做出来也是答非所问。 还有个很现实的门槛：量。一个客服每天回几十条消息...",
+        "excerptEn": "The conclusion is that SMEs can build AI assistants, but I would not recommend starting with an outward-facing, answer-anything customer-service bot: it is safer to begin with an internal knowledge-base Q&A system for employees and only consider external use once it runs smoothly. A use case is generally worth pursuing only if questions repeat heavily, usable materials already exist, and someone can catch wrong answers; if there are only dozens of inquiries a day, the materials live in the boss’s head, or a single wrong answer could cost money, I’d advise holding off—especially since most of t",
+        "publishDate": "2026-10-15",
+        "sceneId": "stale",
+        "sceneIds": [
+          "stale",
+          "capture",
+          "adoption",
+          "evaluation"
+        ],
+        "sceneLabel": "文档过期",
+        "query": "企业知识库 落地 踩坑",
+        "whyIncluded": "通过 维护 命中场景「文档过期」。来自查询：企业知识库 落地 踩坑。",
+        "flags": {
+          "marketing": false,
+          "duplicate": false,
+          "secondhand": false
+        },
+        "role": "buyer",
+        "included": true,
+        "codeIds": [
+          "stale",
+          "maintenance",
+          "adoption"
+        ],
+        "votes": 2,
+        "comments": 5
+      },
+      {
+        "id": "src_36844c1e",
+        "source": "zhihu_search",
+        "title": "RAG :就像碎纸机,把文件打碎,然后用大模型二次拼接加工,对个人知识库,还不如用 grep - 知乎",
+        "url": "https://zhuanlan.zhihu.com/p/2102733650395674111?utm_medium=openapi_platform&utm_source=b38f6831b176",
+        "author": "xnliu",
+        "contentType": "Article",
+        "excerptZh": "观点： RAG 就像是用碎纸机把文件打碎，然后再用大模型重新拼接，做二次加工。对个人知识库而言，基本上没什么用，还不如直接 grep。 结论： \"RAG = 碎纸机 + 二次拼接\"这一隐喻，准确刻画了 RAG 的分块有损、向量化不可逆、生成改写三大弱点。 在个人知识库这一以\"小规模、精确召回、可验证性、零成本\"为特征的具体场景下， RAG 相对 grep 确实没有优势——grep 在确定性、透明度与可追溯性上是结构性的赢家，而 RAG 的核心价值（模糊语义、跨语言、跨文档综合） 在这些场景中需求度低、成本高。 建议：grep有盲区，取RAG之长，补grep之短 ・改述（paraphrase）盲区：用户记不清原话，只记得大意（\"我写过怎么排查端口占用\"），而原文写的是 netstat -ano。字面不匹配，grep 无法命中，而语义检索可以。 ・同义词 / 术语漂移：笔记里写\"上线\"，用户查\"部署\"或\"release\"；个人术语体系不稳定时，关键词检索漏召回严重。 ・跨语言：中文笔记 + 英文查询，或反之。 ・零散事实聚合：一个问题的相关信息...",
+        "excerptEn": "The argument likens RAG to shredding documents and having an LLM reassemble them, saying this captures its lossy chunking, irreversible vectorization, and generative rewriting, and that for personal knowledge bases it is basically useless and no better than grep. It concedes grep has blind spots and suggests borrowing RAG’s strengths to cover them—such as paraphrase—while insisting that for small-scale, precise, verifiable, zero-cost personal knowledge bases, grep remains structurally superior in determinism, transparency, and traceability, whereas RAG’s fuzzy-semantic, cross-language, cross-d",
+        "publishDate": "2026-11-08",
+        "sceneId": "trust",
+        "sceneIds": [
+          "search",
+          "trust"
+        ],
+        "sceneLabel": "回答不可信",
+        "query": "RAG 知识库 效果 差",
+        "whyIncluded": "通过 幻觉、错误、引用 命中场景「回答不可信」。来自查询：RAG 知识库 效果 差。",
+        "flags": {
+          "marketing": false,
+          "duplicate": false,
+          "secondhand": false
+        },
+        "role": "unclear",
+        "included": true,
+        "codeIds": [
+          "search",
+          "hallucination"
+        ],
+        "votes": 1,
+        "comments": 0
+      },
+      {
+        "id": "src_2d18c8db",
+        "source": "zhihu_search",
+        "title": "大模型检索增强生成(RAG)有哪些好用的技巧? - 知乎",
+        "url": "https://www.zhihu.com/question/625481187/answer/2102025417028908668?utm_medium=openapi_platform&utm_source=b38f6831b176",
+        "author": "Jacky Yang",
+        "contentType": "Answer",
+        "excerptZh": "结论先说：RAG 做不好，十次有九次不是模型的问题，是检索和上下文的问题。我最近搭本地知识库时最大的教训就是：别先升级模型，先把检索这层修好，效果来得更快，也便宜得多。 先说背景。我搭的这个库是给一个资料散落在各处的小团队用的，需求就两句：随时能管资料，随时能用自然语言问出来。回答模型用的是本地跑的一个 30B 量级模型，不算大。刚开始问起来显得很“蠢”，我一开始也怀疑是模型不够大，后来逐条归因才发现，几乎全是检索层和上下文层的问题，跟模型大小没关系。这个判断后来成了我调 RAG 的总纲：先分层归因，再决定动哪一层。 技巧一，分块按语义边界切，别按固定字数硬切。一份文档里，一段讲背景、一段讲结论，硬切很可能把一句话从中间劈开，检索回来的是半句话，模型当然答不好。我的做法是按段落、按小节切，宁可块与块之间有点重叠，也别切断语义。块太小会丢上下文，块太大又会把无关内容塞进提示词，一般按自然段落切、每块保留完整意思，是最稳的起点。 技巧二，摄入的时候多算一步，别只存原文。入库时就给每块内容预计算一个简短摘要和几个关键词，检索时同时匹配原文和摘要。...",
+        "excerptEn": "The conclusion first: nine times out of ten, when RAG underperforms, it is not the model but retrieval and context that are at fault. The biggest lesson from my recent local knowledge base build was that fixing the retrieval layer before upgrading the model delivers results faster and far more cheaply.",
+        "publishDate": "2026-11-06",
+        "sceneId": "search",
+        "sceneIds": [
+          "search",
+          "evaluation"
+        ],
+        "sceneLabel": "找不到文档",
+        "query": "RAG 知识库 效果 差",
+        "whyIncluded": "通过 检索 命中场景「找不到文档」。来自查询：RAG 知识库 效果 差。",
+        "flags": {
+          "marketing": false,
+          "duplicate": false,
+          "secondhand": false
+        },
+        "role": "unclear",
+        "included": true,
+        "codeIds": [
+          "search"
+        ],
+        "votes": 1,
+        "comments": 0
+      },
+      {
+        "id": "src_31496886",
+        "source": "zhihu_search",
+        "title": "09-RAG换个问法,召回率就掉 30 个点:RAG 不是「向量数据库 + 大模型」 - 知乎",
+        "url": "https://zhuanlan.zhihu.com/p/2099096597753761814?utm_medium=openapi_platform&utm_source=b38f6831b176",
+        "author": "周林",
+        "contentType": "Article",
+        "excerptZh": "再往上就开始亏了。5 到 10，token 翻倍，换 7.7 个点；10 到 20 又是 7.7 个点，token 再翻倍。而多出来的第 6 到第 20 块，大概率落在上下文中段，模型的注意力最弱——你花了钱，买的是噪声。 真实业务里我基本没见过超过 5 的必要。要 20 块才凑齐，说明切分或者重排有问题，那就去修那两处，别拿 k 硬顶。 那干脆全塞进去呢 既然 top-5 只有 84.6%，为什么不把 40 块全塞进去？毕竟 40 块才 3595 个 token，装得下。 这个想法在这套语料上是对的。下面这张表算的就是它什么时候开始不对： 语料块数 全塞 token 装得下吗 全塞月成本 检索月成本 40 3,595 装得下 1,438 元 324 元 200 16,375 装得下 6,550 元 324 元 1,000 80,275 装得下 32,110 元 324 元 20,000 1,597,900 装不下 — 324 元 （按输入 2 元/百万 token、20 万次/月算，单价换成你自己的那个数，倍数不变。检索那条线是平的：81...",
+        "excerptEn": "Beyond that point returns turn negative: going from 5 to 10 chunks doubles tokens for 7.7 points, and 10 to 20 adds another 7.7 while doubling tokens again, with chunks 6–20 likely landing in the middle of the context where attention is weakest—so you pay for noise; in real business I’ve rarely seen a need for more than 5, and needing 20 suggests chunking or reranking is broken and should be fixed rather than papered over with a larger k. Stuffing all 40 chunks in (only 3,595 tokens) may be valid for this corpus, but the table below calculates when that stops being true.",
+        "publishDate": "2026-10-29",
+        "sceneId": "search",
+        "sceneIds": [
+          "search",
+          "permission",
+          "trust"
+        ],
+        "sceneLabel": "找不到文档",
+        "query": "RAG 知识库 效果 差",
+        "whyIncluded": "通过 检索 命中场景「找不到文档」。来自查询：RAG 知识库 效果 差。",
+        "flags": {
+          "marketing": false,
+          "duplicate": false,
+          "secondhand": false
+        },
+        "role": "unclear",
+        "included": true,
+        "codeIds": [
+          "search",
+          "permission",
+          "hallucination"
+        ],
+        "votes": 0,
+        "comments": 0
+      },
+      {
+        "id": "src_952fd5d3",
+        "source": "zhihu_search",
+        "title": "99组里90组输给朴素RAG:给agent做记忆系统先算记忆税 - 知乎",
+        "url": "https://zhuanlan.zhihu.com/p/2099131695052212040?utm_medium=openapi_platform&utm_source=b38f6831b176",
+        "author": "洪某越级单刷",
+        "contentType": "Article",
+        "excerptZh": "但 HABIT-Bench 的测试结果更耐人寻味：测了 8 种记忆系统，成绩最好的 A-MEM 准确率只有 33.61%（四选一单选题，随机蒙也是 25%）。而最原始的 BM25 RAG 有 32.50%，稠密向量 RAG 有 33.21%，记忆系统和纯检索几乎打成平手。甚至把人工标注好的完美证据直接喂给模型，准确率也就在 39.26% 到 58.25% 之间徘徊。 也就是说，在 RAG 确实疲软的长程弱推断地带，现有的记忆系统同样没有表现出真正的胜算。难点在模型的推断和泛化本身，光把信息存下来、抽出来，远远不够。 拿这把尺子量我们自己 看到这里，我必须把这把尺子拿来量一量我们自己的工作。 今年 7 月，我们给自己维护的一个领域知识库做过一次严格的预注册对照实验。当时的核心问题是：这个预先编译好、写满领域经验的 wiki 知识库，到底是一个“真能让 agent 造出更好系统的资产”，还是一本“维护成本虚高的贵字典”？ 为了防止自己事后挑口径，我们在运行前把判分和判决规则全写死进了 git。2 个配方、2 个分支、3 次独立重复，一共 12 ...",
+        "excerptEn": "HABIT-Bench is more telling: across eight memory systems, the best (A-MEM) reached only 33.61% accuracy on four-choice questions—chance is 25%—while original BM25 RAG scored 32.50% and dense-vector RAG 33.21%, so memory systems were essentially tied with plain retrieval; even with human-annotated perfect evidence, accuracy ranged only from 39.26% to 58.25%. Seeing this, I have to apply the same yardstick to our own work: in the long-range weak-inference setting where RAG is indeed weak, current memory systems show no real advantage, and the difficulty lies in the model’s inference and generali",
+        "publishDate": "2026-10-30",
+        "sceneId": "search",
+        "sceneIds": [
+          "search",
+          "stale",
+          "permission",
+          "capture",
+          "evaluation"
+        ],
+        "sceneLabel": "找不到文档",
+        "query": "RAG 知识库 效果 差",
+        "whyIncluded": "通过 检索 命中场景「找不到文档」。来自查询：RAG 知识库 效果 差。",
+        "flags": {
+          "marketing": false,
+          "duplicate": false,
+          "secondhand": false
+        },
+        "role": "unclear",
+        "included": true,
+        "codeIds": [
+          "search",
+          "stale",
+          "permission",
+          "maintenance"
+        ],
+        "votes": 2,
+        "comments": 0
+      },
+      {
+        "id": "src_2e24b70c",
+        "source": "zhihu_search",
+        "title": "RAG(检索增强生成)会不会消亡呢? - 知乎",
+        "url": "https://www.zhihu.com/question/637421964/answer/2099095294537359919?utm_medium=openapi_platform&utm_source=b38f6831b176",
+        "author": "一脑袋浆糊",
+        "contentType": "Answer",
+        "excerptZh": "这里有个问题，这么演化的种群会不会特别庞大？——从增和删两步都做的角度看，这个种群如果变得比较大，可能是面对了比较复杂的场景。但在这种情况下，作者倒是没有提剪枝的事情。 4. 路由如何训练 随着skill种群的演化，一个必然的问题就是——用谁？ 开头已经提到，作者用一个冻结的Encoder+MLP 作为打分器，把【任务prompt】+【Skill文本】拼成输入，算分。这个东西是用一道题上，所有skill的得分的Softmax（⚠️注意：这就意味着每次Softmax函数覆盖的skill数是不同的）作为label ， 每轮skill演化，路由器跟着训一轮。 效果 从我们读者的主观视角看，我们有两层预期 第一、自适应系统、或者特化的系统设计面对静态系统设计总是有【本地优势】，所以我们可以预期这个方法效果不会差； 第二、体现自适应系统优越性的最好方案，是比对应场景下针对性设计好的特化的系统的效果打平（甚至超越）。 但是，作者的主实验是体现自适应系统面对静态系统有优势（即便GEPA也在演化，但演化的不是检索工具），也就是下表（下页😓） 上表展示了作...",
+        "excerptEn": "It remains questionable whether a population evolved this way would become especially large: while doing both addition and deletion could imply that a larger population faces more complex scenarios, the author does not discuss pruning in that case. Routing—who gets used as the skill population evolves—is trained with a frozen Encoder+MLP scorer that concatenates the task prompt and skill text to compute scores, using as labels the softmax over all skill scores on a task (notably, the number of skills covered by each softmax varies), with the router trained for one round per skill-evolution rou",
+        "publishDate": "2026-10-29",
+        "sceneId": "search",
+        "sceneIds": [
+          "search",
+          "stale",
+          "evaluation"
+        ],
+        "sceneLabel": "找不到文档",
+        "query": "RAG 知识库 效果 差",
+        "whyIncluded": "通过 检索 命中场景「找不到文档」。来自查询：RAG 知识库 效果 差。",
+        "flags": {
+          "marketing": false,
+          "duplicate": false,
+          "secondhand": false
+        },
+        "role": "unclear",
+        "included": true,
+        "codeIds": [
+          "search",
+          "stale"
+        ],
+        "votes": 1,
+        "comments": 0
+      },
+      {
+        "id": "src_8630e1bc",
+        "source": "zhihu_search",
+        "title": "Kensaku:支持文件名、全文、语义搜索的开源本地搜索神器,Everything + OCR + 语义理解 - 知乎",
+        "url": "https://zhuanlan.zhihu.com/p/2099403620814950666?utm_medium=openapi_platform&utm_source=b38f6831b176",
+        "author": "梁川",
+        "contentType": "Article",
+        "excerptZh": "面对这种“记得内容，却忘了文件名”的情况，Everything、Listary、Cardinal、FSearch 这类以文件名检索见长的工具很难发挥作用；macOS Spotlight、Windows Search、Recoll、AnyTXT、DocFetcher 等全文搜索工具虽然可以进一步检索文档内容，但通常需要预先解析文件并建立全文索引，而要搜索图片和截图中的文字，还需要额外的 OCR 能力。 AI 时代兴起的 RAG 和语义搜索进一步解决了“连原文关键词都记不清，只记得大概意思”的问题，但代价往往是引入另一套复杂的技术栈：文档切片、Embedding 模型、向量数据库，部分方案还需要较高的 CPU、内存甚至 GPU 资源。对于只是想在自己的电脑里快速找回一份文件的普通用户来说，未免有些重了。 Kensaku（日语「検索」，意为“搜索”）正是针对这个场景而生的开源项目。 Kensaku： https://http://github.com/yjid/kensakuhttps://http://github.com/yjid/kensa...",
+        "excerptEn": "When you remember the content but forget the filename, filename-focused tools like Everything and Listary struggle to help, while full-text search tools such as Spotlight, Recoll, and AnyTXT require pre-parsing and indexing—and OCR for text in images. RAG and semantic search address the vaguer problem of recalling only the gist, but often at the cost of introducing a complex stack of chunking, embedding models, and vector databases.",
+        "publishDate": "2026-10-30",
+        "sceneId": "search",
+        "sceneIds": [
+          "search"
+        ],
+        "sceneLabel": "找不到文档",
+        "query": "内部文档 搜索 找不到",
+        "whyIncluded": "通过 检索、搜索 命中场景「找不到文档」。来自查询：内部文档 搜索 找不到。",
+        "flags": {
+          "marketing": false,
+          "duplicate": false,
+          "secondhand": false
+        },
+        "role": "unclear",
+        "included": true,
+        "codeIds": [
+          "search"
+        ],
+        "votes": 9,
+        "comments": 0
+      },
+      {
+        "id": "src_8ab9f1ac",
+        "source": "zhihu_search",
+        "title": "同事拿着一份PDF问我:「文件明明在里面,它为什么说找不到?」 - 知乎",
+        "url": "https://zhuanlan.zhihu.com/p/2094514254061757765?utm_medium=openapi_platform&utm_source=b38f6831b176",
+        "author": "方寸落地",
+        "contentType": "Article",
+        "excerptZh": "一、先看它到底“读到”了什么 以前我排查问题，习惯先怀疑模型笨、或者问法不对。这次我换了个顺序：先不提问，直接去看这份文件被切成了什么样子。 我用的工具可以查看每个文件拆出来的文本片段。点开一看我自己都笑了——十几页的制度，只拆出三段，每段都是页眉那行“内部文件 请勿外传”，正文一个字都没有。 原因很简单：那是扫描件，每一页本质上是一张图片。工具把文件“收进来”了，但没做文字识别，在它眼里这份文件几乎是空的。它说找不到，是诚实的。 我跟小周解释的时候，她问了个特别好的问题：“那你怎么知道还有哪些文件也这样？总不能一份份点开看吧。” 二、一个笨办法：按字数排序 我没想到什么聪明办法，就把库里所有文件按“拆出来的文字量”排了个序。正常的文字版制度一页能拆出几百上千字；扫描件往往只有几十个字，甚至是零。 一排序，问题文件全浮上来了。四十多份资料里有七份几乎是空的，基本是纸质扫描的老制度，还有两份是截图拼成的PDF。 处理分两种：能找到原始Word版的，直接找行政要原文件替换，问了一圈找回四份；实在只有扫描件的，先做文字识别，再人工对一遍关键数字。...",
+        "excerptEn": "Instead of first suspecting the model was dumb or the question poorly phrased, I checked how the file had been chunked and found that a scanned, image-only policy document had been split into three segments consisting solely of the header “Internal document—do not distribute,” with no body text, so its claim that it couldn’t find anything was honest. When Xiaozhou asked how I’d know which other files were like that without opening them one by one, I had no clever method and simply sorted the library by character count.",
+        "publishDate": "2026-10-16",
+        "sceneId": "search",
+        "sceneIds": [
+          "search",
+          "adoption"
+        ],
+        "sceneLabel": "找不到文档",
+        "query": "内部文档 搜索 找不到",
+        "whyIncluded": "通过 找不到 命中场景「找不到文档」。来自查询：内部文档 搜索 找不到。",
+        "flags": {
+          "marketing": false,
+          "duplicate": false,
+          "secondhand": false
+        },
+        "role": "user",
+        "included": true,
+        "codeIds": [
+          "search",
+          "adoption"
+        ],
+        "votes": 1,
+        "comments": 0
+      },
+      {
+        "id": "src_7772aa0d",
+        "source": "zhihu_search",
+        "title": "几千份内部文档杂乱难查?一套 AI 知识库解决所有问题 - 知乎",
+        "url": "https://zhuanlan.zhihu.com/p/2099556051330791017?utm_medium=openapi_platform&utm_source=b38f6831b176",
+        "author": "文献净含量",
+        "contentType": "Article",
+        "excerptZh": "・只能匹配文字关键词，无法理解问题背后的业务意图； ・一次返回一堆相关文档，需要人工逐份翻阅、自行提炼信息； ・文件版本混乱，新旧内容混杂，很容易引用失效条款； ・没有溯源链路，拿到信息之后，很难快速定位原始依据。 文件躺在硬盘里，本质上还是“沉睡资料”，员工找资料耗费的时间，是很多团队看不见的隐性成本。 二、AI知识库真正的核心能力：自然语言问答+ 原文溯源 适合企业内部场景的AI 知识库，核心不是简单上传文件，而是让模型读懂整套内部文档，支持用自然语言提问。 不用记住文件名、存放路径、条款编号，直接按工作场景提问： “这个项目的供应商准入要求是什么？” “现行制度里出差报销上限有没有调整？” “客户投诉的标准处理流程分哪几步？” AI基于入库文档整合信息，输出清晰结论，并且附带原文出处，标注答案来自哪一份文档、对应段落位置，支持直接跳转核对原文。 溯源能力，正是企业落地内部AI 最关键的底线价值： ・规避 AI幻觉：所有回答严格依托已上传文档，不会凭空编造制度、数据和流程； ・支持复核校验：法务、合规、财务等严谨岗位，可以快速溯源原文，...",
+        "excerptEn": "- It can only match literal keywords and cannot grasp the business intent behind a question; it returns a pile of related documents at once, forcing people to sift through them manually and extract information on their own; file versions are chaotic, with old and new content mixed together, making it easy to cite clauses that are no longer valid; and there is no traceability chain, so after obtaining information it is hard to quickly locate the original basis. Files sit on hard drives and remain essentially \"dormant material,\" and the time employees spend hunting for information is a hidden co",
+        "publishDate": "2026-10-30",
+        "sceneId": "permission",
+        "sceneIds": [
+          "search",
+          "stale",
+          "permission",
+          "trust",
+          "capture"
+        ],
+        "sceneLabel": "权限与安全",
+        "query": "内部文档 搜索 找不到",
+        "whyIncluded": "通过 权限、安全、泄露 命中场景「权限与安全」。来自查询：内部文档 搜索 找不到。",
+        "flags": {
+          "marketing": false,
+          "duplicate": false,
+          "secondhand": false
+        },
+        "role": "unclear",
+        "included": true,
+        "codeIds": [
+          "stale",
+          "permission",
+          "hallucination",
+          "maintenance"
+        ],
+        "votes": 0,
+        "comments": 0
+      },
+      {
+        "id": "src_2a3a55c9",
+        "source": "zhihu_search",
+        "title": "有没有好的关于本地文件内容的检索工具? - 知乎",
+        "url": "https://www.zhihu.com/question/19760898/answer/2096933421046154644?utm_medium=openapi_platform&utm_source=b38f6831b176",
+        "author": "易能搜",
+        "contentType": "Answer",
+        "excerptZh": "先交底：这东西是我们公司做的，叫易能搜。你们可以先看看，觉得有可以再搜。 为什么自己做一个？因为我们先被坑过。客户让“把电脑里的文件过一遍”，我们装了 Anytxt，兴冲冲拿测试目录一跑，.dps 的文件它当空气——就是 WPS 演示那个格式，国内单位里一抓一大把。一个做文件处理的团队，被自己电脑里的文件难住了，挺尴尬。 坑其实就这几个： ・压缩包里还套着压缩包，不解到第三层你不知道里面有什么； ・邮件文件 .msg / .eml，正文和附件都封在里面，按文件名搜不到； ・截图、扫描件，字在图上，关键词根本对不上； ・改过名的，“最终版2”一改，你之前设的规则全废。 所以公司一拍案直接开发了个易能搜 干的就是填这几个坑：这些格式都在扫描范围里，压缩包能穿透进去查，图片上的字走本地 OCR，扫完导出一份 Word 报告，一页纸交上去就完事。",
+        "excerptEn": "Disclosure: this is our company’s product, Yinengsou; you can take a look first and search further if you think it’s useful, and we made it after being burned ourselves—when a client asked us to go through the files on a computer, we installed Anytxt and found it treated .dps files (the WPS Presentation format common in Chinese organizations) as if they were not there, which was embarrassing for a file-processing team stuck on files in its own computers. The pitfalls were basically nested archives that you can’t understand without unpacking to the third layer, .msg/.eml email files whose bodie",
+        "publishDate": "2026-10-23",
+        "sceneId": "search",
+        "sceneIds": [
+          "search",
+          "evaluation"
+        ],
+        "sceneLabel": "找不到文档",
+        "query": "内部文档 搜索 找不到",
+        "whyIncluded": "通过 搜不到、检索 命中场景「找不到文档」。来自查询：内部文档 搜索 找不到。",
+        "flags": {
+          "marketing": false,
+          "duplicate": false,
+          "secondhand": false
+        },
+        "role": "unclear",
+        "included": true,
+        "codeIds": [
+          "search",
+          "gimmick"
+        ],
+        "votes": 0,
+        "comments": 0
+      },
+      {
+        "id": "src_d6d107e6",
+        "source": "zhihu_search",
+        "title": "win7系统,搜索功能搜索不到存在的文件内容,怎么办? - 知乎",
+        "url": "https://www.zhihu.com/question/658639165/answer/2045211306601469719?utm_medium=openapi_platform&utm_source=b38f6831b176",
+        "author": "wujiuqier",
+        "contentType": "Answer",
+        "excerptZh": "介绍一个第三方的搜索工具：Everything。这个工具通过事先将磁盘上的所有 NTFS 分区的所有文件信息索引到本地，然后即可快速搜索文件，在简单按文件名搜索的情况下基本上是秒出结果，且无需确认搜索，在搜索框中输入内容的同时，结果将自动随着搜索框输入内容的变化而变化。并且在保持工具在后台运行的情况下，可实时更新磁盘上的所有文件的变化。该工具打开搜索窗口的伊始将默认显示磁盘上的所有文件，故该工具得名“Everything”。系统自带的文件搜索功能并不是很好使，不仅速度偏慢，而且经常索引不到需要的文件内容，因此建议使用第三方工具来搜索。 打开 Everything 的搜索窗口后，首先在输入框输入反斜杠加文件夹名称，筛选到仅在以此名称开头为名的文件夹里面的文件。",
+        "excerptEn": "The excerpt describes Everything as a third-party tool that pre-indexes file metadata on NTFS partitions to enable near-instant filename searches, with results updating as you type and while it runs in the background. It also claims the built-in search is slow and often fails to index needed files, and on that basis suggests a third-party tool—claims presented without independent verification.",
+        "publishDate": "2026-06-02",
+        "sceneId": "search",
+        "sceneIds": [
+          "search"
+        ],
+        "sceneLabel": "找不到文档",
+        "query": "内部文档 搜索 找不到",
+        "whyIncluded": "通过 搜索 命中场景「找不到文档」。来自查询：内部文档 搜索 找不到。",
+        "flags": {
+          "marketing": false,
+          "duplicate": false,
+          "secondhand": false
+        },
+        "role": "unclear",
+        "included": true,
+        "codeIds": [
+          "search"
+        ],
+        "votes": 3,
+        "comments": 0
+      },
+      {
+        "id": "src_e49fa031",
+        "source": "zhihu_search",
+        "title": "企业知识库搭建:员工不用懂AI和提示词 - 知乎",
+        "url": "https://zhuanlan.zhihu.com/p/2099818848656671966?utm_medium=openapi_platform&utm_source=b38f6831b176",
+        "author": "企业AI落地朱军武",
+        "contentType": "Article",
+        "excerptZh": "题里说的企业知识库搭建，是把散在制度文档、合同单据和老员工脑子里的东西归到一处，让 AI 能按企业的说法取用、作答。问「员工要不要懂 AI 和提示词」，我的判断是：不用，员工要懂的是「这答案对不对」，把合格线守住就够了。 答题的是我，我在嘉兴衍序科技有限公司写稿，这家公司做的产品品牌是衍智序引，所以我说的每句话都带立场：我认为提示词这个门槛，是被卖课的人抬高的，不是知识库这件事本身的要求。 想象一下这个画面：周一早上，一名刚上岗的行政被同事问住了一笔采购报销走哪道审批。她翻了三份旧制度，发现有一份去年改过、有一份没人记得作废，在群里问了一遍，等到的都是「以前都这么走」。两个小时过去，答案还是没个准。这不是她不努力，是这家企业从来没有一个地方，能让人一问就问到对的那条。 真正该被问的问题是：答案从哪来，谁对它负责。知识库如果只做「检索」，它就是个更聪明的搜索框，错的和对的摆在一起，员工还是得自己判断。要让一个不懂 AI 的员工敢用，得先有三件事：答案附出处，能翻到原来那句话；写不进去的段落被标出来，等企业自己补。这三件事和提示词一点关系都没有...",
+        "excerptEn": "Building an enterprise knowledge base means gathering scattered policy documents, contracts, and institutional memory so AI can retrieve and answer according to the company's own language; on whether employees need to understand AI and prompts, my view is they don't—what they need to judge is whether the answer is correct, and holding that quality line is enough. I write for Jiaxing Yanxu Technology, whose product brand is Yanzhi Xuyin, so everything I say carries a stance: the prompt barrier has been inflated by course sellers, not by the knowledge base itself.",
+        "publishDate": "2026-10-31",
+        "sceneId": "search",
+        "sceneIds": [
+          "search",
+          "capture"
+        ],
+        "sceneLabel": "找不到文档",
+        "query": "AI 知识库 员工 不用",
+        "whyIncluded": "通过 检索、搜索 命中场景「找不到文档」。来自查询：AI 知识库 员工 不用。",
+        "flags": {
+          "marketing": false,
+          "duplicate": false,
+          "secondhand": false
+        },
+        "role": "unclear",
+        "included": true,
+        "codeIds": [
+          "search",
+          "maintenance"
+        ],
+        "votes": 1,
+        "comments": 0
+      },
+      {
+        "id": "src_e038d13f",
+        "source": "zhihu_search",
+        "title": "现在Ai工具这么多,适合企业使用的AI知识库有哪些值得推荐的? - 知乎",
+        "url": "https://www.zhihu.com/question/2002424496213214486/answer/2093681089462145683?utm_medium=openapi_platform&utm_source=b38f6831b176",
+        "author": "徐小夕",
+        "contentType": "Answer",
+        "excerptZh": "老知识库（语雀 / Confluence）文档沉淀够用，但 AI 能力薄弱，只能关键词搜索，不能自动总结长文档、不能基于内部资料问答； 看好腾讯乐享，企微打通、智能体开箱即用，功能很强，但按人头订阅，人数多之后成本上涨很快，中小企业觉得溢价偏高。 下面我把市面上主流商业 AI 知识库详细待大家分析一下，最后重点聊聊 JitKnow AI知识库适合什么样的团队。 一、先聊聊你正在看的两款产品 1. 语雀 优点：文档协作体验成熟，目录、Wiki、权限、版本管理都很稳，国内团队上手门槛低，日常写手册、沉淀制度很合适。 短板（个人观点，仅供参考）：原生 AI 知识总结、私有知识库问答能力偏弱。它更多是文档存储协作平台，不是 RAG 知识库。只能做简单文档 AI 阅读，没办法把几十份跨文档资料合并检索、回答业务问题，很难做成企业内部 AI 助手。 比较适合的场景有：以文档写作为主，AI 问答不是核心诉求的团队；想保留现有语雀存量文档，单独外挂 AI 知识库是常见方案。 2. 腾讯乐享 优点：腾讯生态深度绑定，原生企微智能体是最大亮点。直接在企微对话里...",
+        "excerptEn": "The excerpt claims that legacy knowledge bases such as Yuque and Confluence are adequate for document accumulation but weak on AI, offering mainly keyword search rather than automatic long-document summarization or Q&A over internal materials; it also sees Tencent Lexiang as promising for WeCom integration and out-of-the-box agents, while noting that per-seat pricing can rise quickly and feel expensive for SMEs. It then proposes comparing mainstream commercial AI knowledge bases and discussing which teams JitKnow AI knowledge base might suit, without establishing that any option is clearly pre",
+        "publishDate": "2026-10-14",
+        "sceneId": "search",
+        "sceneIds": [
+          "search",
+          "stale",
+          "permission",
+          "capture",
+          "adoption",
+          "integration"
+        ],
+        "sceneLabel": "找不到文档",
+        "query": "AI 知识库 员工 不用",
+        "whyIncluded": "通过 检索、搜索、定位 命中场景「找不到文档」。来自查询：AI 知识库 员工 不用。",
+        "flags": {
+          "marketing": false,
+          "duplicate": false,
+          "secondhand": false
+        },
+        "role": "buyer",
+        "included": true,
+        "codeIds": [
+          "search",
+          "stale",
+          "permission",
+          "maintenance",
+          "integration",
+          "gimmick"
+        ],
+        "votes": 0,
+        "comments": 0
+      },
+      {
+        "id": "src_24d1dbd7_17",
+        "source": "zhihu_search",
+        "title": "中小企业要不要做AI客服、知识库问答?企业AI助手落地前,先想清楚这几件事|企业AI助手落地复盘(一) - 知乎",
+        "url": "https://zhuanlan.zhihu.com/p/2094160560690553561?utm_medium=openapi_platform&utm_source=b38f6831b176",
+        "author": "马兵",
+        "contentType": "Article",
+        "excerptZh": "先说结论：中小企业可以做 AI 助手，但我不建议一上来就做「对外、什么都能答」的 AI 客服。比较稳的顺序是先做对内的知识库问答，让员工先用起来，跑顺了再考虑对外。值得做的场景，一般同时满足三条：问题重复度高，有现成能用的资料，答错了有人兜底。每天咨询就几十条、资料全在老板脑子里、答错一句就可能赔钱的，我会劝你先别做。钱和精力的大头在整理资料、对接系统和后期维护，模型调用费反倒是小头。 这两年来问企业 AI 助手的人明显多了，我们团队也一直在做这块。聊得多了发现，很多需求在开工前就能判断出做不做得成。所以这个系列第一篇先不讲技术，只聊怎么判断该不该做。 先看问题有多「重复」 AI 助手最擅长的，是把同一类问题回答一千遍。问题越集中，效果越好。 我一般会请对方先导出最近一两个月的客服聊天记录，或者内部群里的提问，粗略分个类。常见的情况是，排在前二三十类的问题能占到一大半，这种就适合做。要是翻下来每个问题都不太一样，大多得结合具体订单、具体客户才能回答，AI 能帮的就有限，硬做出来也是答非所问。 还有个很现实的门槛：量。一个客服每天回几十条消息...",
+        "excerptEn": "SMEs can build AI assistants, but I wouldn’t start with an external, answer-anything customer-service bot; a safer sequence is internal knowledge-base Q&A for employees first, then external use once it runs smoothly. A use case is worth considering only if questions are highly repetitive, usable materials already exist, and someone can catch wrong answers—if daily inquiries are only in the dozens, the knowledge lives mainly in the boss’s head, or one wrong answer could cost money, I’d advise waiting, especially since the bulk of the cost is organizing materials, system integration, and mainten",
+        "publishDate": "2026-10-15",
+        "sceneId": "stale",
+        "sceneIds": [
+          "stale",
+          "capture",
+          "adoption",
+          "evaluation"
+        ],
+        "sceneLabel": "文档过期",
+        "query": "AI 知识库 员工 不用",
+        "whyIncluded": "与前面的条目是同一链接，先搁置，避免样本重复计数。恢复后会重新计入。来自查询：AI 知识库 员工 不用。",
+        "flags": {
+          "marketing": false,
+          "duplicate": true,
+          "secondhand": false
+        },
+        "role": "buyer",
+        "included": false,
+        "codeIds": [
+          "stale",
+          "maintenance",
+          "adoption"
+        ],
+        "votes": 2,
+        "comments": 5
+      },
+      {
+        "id": "src_f7d850c2",
+        "source": "zhihu_search",
+        "title": "企业搭了AI知识库之后,发现员工根本不用。你觉得根因是什么? - 知乎",
+        "url": "https://www.zhihu.com/question/2059288153018591058/answer/2092180081317889694?utm_medium=openapi_platform&utm_source=b38f6831b176",
+        "author": "方寸落地",
+        "contentType": "Answer",
+        "excerptZh": "最开始我的判断很简单：没人用，说明答得不够好，那就换个更强的模型、把提示词再磨一磨。 后来我把群里那些问题一条条翻出来，拿去问帮手。多数它其实答得出来。问题不在答不答得出，在于大家根本没想起先问它，或者问了也不敢直接用。 这算是我自己的一次认知纠正：没人用，不一定是「笨」，更常见的是「不顺手」和「不放心」。 二、大家宁可问人的几个原因 我把能想到的原因列成一张清单，自己对照着查： ・入口太远：平时干活开的是表格、共享盘和聊天群，帮手却在一个要专门打开的页面里。多走一步，人就会回到老路。 ・答完还得再核一遍：只给一句结论，不说出自哪份文件、是不是现在还在用的那一版。问的人心里没底，转头又去问熟手。问熟手一次就够，问帮手却要两次，自然没人愿意。 ・被编过一次：有一回它把库里没有的日期顺口补上了，被人发现。信任掉下去，很难再捡起来。 ・问人有温度：熟手会顺带提醒一句「这个客户要注意什么」。帮手如果只会干巴巴地答，大家会觉得不如问人。 ・没人告诉大家什么该问它：只说「有问题就问它」，等于什么都没说。 三、我现在会先改的几处 入口挪到平时天天开的地方...",
+        "excerptEn": "My initial assumption was simple: if nobody uses it, the answers aren't good enough—so I'd switch to a stronger model and refine the prompts. But when I went through the group's questions one by one and asked the assistant, it could actually answer most of them; the problem wasn't capability but that people never thought to ask it first, or didn't dare use the answers directly—so non-use may reflect inconvenience and distrust rather than stupidity. The reasons people would rather ask a human include the entry point being too far away (they work in spreadsheets, shared drives, and chat groups, ",
+        "publishDate": "2026-10-10",
+        "sceneId": "search",
+        "sceneIds": [
+          "search",
+          "adoption"
+        ],
+        "sceneLabel": "找不到文档",
+        "query": "AI 知识库 员工 不用",
+        "whyIncluded": "通过 找不到 命中场景「找不到文档」。来自查询：AI 知识库 员工 不用。",
+        "flags": {
+          "marketing": false,
+          "duplicate": false,
+          "secondhand": false
+        },
+        "role": "user",
+        "included": true,
+        "codeIds": [
+          "search",
+          "adoption"
+        ],
+        "votes": 1,
+        "comments": 0
+      },
+      {
+        "id": "src_c05a75c5",
+        "source": "zhihu_search",
+        "title": "如何使用 Agent(智能体)系列(3)——知识库:把散落一地的资料,变成 AI 真能查的 - 知乎",
+        "url": "https://zhuanlan.zhihu.com/p/2088215224507750142?utm_medium=openapi_platform&utm_source=b38f6831b176",
+        "author": "实用的AI",
+        "contentType": "Article",
+        "excerptZh": "打个比方：模型像个读遍公开资料的聪明人，但从没实际做过你的工作。你问它“我们这儿的差旅标准是多少”，它不会说“不知道”，它会按一般情况猜一个，还猜得像模像样。知识库就是为这件事存在的。你想让它真的知道你的工作，你就需要把你资料喂给它。 同时这里还有个反直觉的点：不是资料喂得越多越好。 2024 年有篇论文做过实验：把答案藏在一叠资料里。放开头或结尾，模型基本能找到；放中间，准确率掉 20 多个百分点。而且就算把上下文窗口换得再大，也修不好这个问题。 所以“喂得多”并不等于“找得到”。你堆进去一百份文件，它可能恰恰漏掉最要紧的那一份，而且它不会告诉你漏了。 正确做法是资料按主题分成几个小库、给文件起个一眼能看懂的名字，都可以帮它更快找准。 二、建库的手段，其实就三档 档 做法 谁在管切分和检索 上手难度 一 用平台自带的知识库，把文件传进去 厂商 最简单 二 用一个本地文件夹装资料 你告诉模型位置 简单 三 自建检索链路（切块、建索引、按需取） 全在你手里 要写代码 第一档的例子到处都是：腾讯文档、飞书、语雀，几乎每个办公平台都带一个。文件传...",
+        "excerptEn": "A model is like a well-read person who has never actually done your job: ask it “what is our travel standard?” and it won’t say “I don’t know” but will offer a plausible guess, which is why a knowledge base would need your own materials fed into it—though more material is not necessarily better. A 2024 paper found that answers placed in the middle of a stack of documents were over 20 percentage points less likely to be found than at the beginning or end, and larger context windows didn’t fix this, so piling in a hundred files can still miss the most important one without telling you; the propo",
+        "publishDate": "2026-09-29",
+        "sceneId": "search",
+        "sceneIds": [
+          "search",
+          "adoption",
+          "integration"
+        ],
+        "sceneLabel": "找不到文档",
+        "query": "AI 知识库 员工 不用",
+        "whyIncluded": "通过 检索 命中场景「找不到文档」。来自查询：AI 知识库 员工 不用。",
+        "flags": {
+          "marketing": false,
+          "duplicate": false,
+          "secondhand": false
+        },
+        "role": "unclear",
+        "included": true,
+        "codeIds": [
+          "search",
+          "integration"
+        ],
+        "votes": 0,
+        "comments": 0
+      }
+    ],
+    "auxiliary": {
+      "text": "现有标题主要集中在企业知识库搭建、RAG 检索、AI 客服、员工使用意愿和本地文件搜索。搜索词可能漏掉的使用场景包括：\n\n- 售后与工单处理：从历史工单、维修记录中检索解决方案。\n- 合同与法务审阅：条款检索、风险点比对、合规问答。\n- 财务与报销：制度查询、发票/凭证内容检索、预算口径核对。\n- 人力与入职：员工手册问答、培训资料检索、政策口径查询。\n- 生产与运维：设备手册、故障库、SOP 的现场检索与排障。\n- 研发与代码资产：内部文档、接口说明、历史设计决策的检索。\n- 销售支持：标书素材、案例库、报价与产品参数快速查找。\n- 客服质检与培训：对话记录检索、话术比对、案例复盘。\n- 多语言资料：跨语言文档检索与问答。\n- 会议与项目资料：纪要、附件、历史决议的查找与追溯。\n- 档案与凭证管理：扫描件 OCR 后的全文检索与归档查找。\n- 个人或小团队资料管理：笔记、下载文件、本地文档的语义检索。\n- 合规审计：留痕、权限、访问记录与知识版本追溯。\n- 外部情报与舆情：公开资料、行业报告的收集与检索。",
+      "usedAsFinding": false
+    }
+  }
+}

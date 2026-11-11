@@ -1,0 +1,1115 @@
+{
+  "study": {
+    "id": "demo_outdoor-power",
+    "design": {
+      "brief": "我们准备做一个面向北美市场的户外储能独立站，想知道首批选品应该看哪些真实使用场景，以及哪些卖点只是参数堆砌。",
+      "decision": "面向北美市场的户外储能独立站，首批选品应该围绕哪些真实使用场景；哪些参数卖点不足以支撑溢价与购买。",
+      "subjects": [
+        "users",
+        "buyers",
+        "practitioners"
+      ],
+      "stage": "needs_exploration",
+      "zhihuCanAnswer": [
+        "露营、房车和备灾用户在实际使用中遇到了哪些电力问题。",
+        "哪些参数（容量、功率、噪音、重量）被用户反复拿来比较。",
+        "哪些卖点被用户当成虚标、冗余或只在参数表里好看。"
+      ],
+      "scenes": [
+        {
+          "id": "outage",
+          "label": "停电与家庭应急",
+          "keywords": [
+            "停电",
+            "断电",
+            "应急",
+            "备灾",
+            "台风",
+            "地震",
+            "抢修"
+          ]
+        },
+        {
+          "id": "camping",
+          "label": "露营与户外",
+          "keywords": [
+            "露营",
+            "野餐",
+            "自驾",
+            "户外",
+            "营地",
+            "徒步"
+          ]
+        },
+        {
+          "id": "rv",
+          "label": "房车与长途",
+          "keywords": [
+            "房车",
+            "床车",
+            "自驾游",
+            "长途",
+            "驻车"
+          ]
+        },
+        {
+          "id": "solar",
+          "label": "太阳能补电",
+          "keywords": [
+            "太阳能",
+            "光伏",
+            "充电",
+            "补电",
+            "晒",
+            "板"
+          ]
+        },
+        {
+          "id": "capacity",
+          "label": "容量与功率",
+          "keywords": [
+            "容量",
+            "功率",
+            "瓦",
+            "度电",
+            "带不动",
+            "虚标",
+            "输出"
+          ]
+        },
+        {
+          "id": "noise_weight",
+          "label": "噪音与重量",
+          "keywords": [
+            "噪音",
+            "声音",
+            "太重",
+            "搬",
+            "便携",
+            "体积"
+          ]
+        },
+        {
+          "id": "safety",
+          "label": "安全与认证",
+          "keywords": [
+            "安全",
+            "认证",
+            "起火",
+            "爆炸",
+            "UL",
+            "保险",
+            "温控"
+          ]
+        },
+        {
+          "id": "aftersale",
+          "label": "售后与退换",
+          "keywords": [
+            "售后",
+            "退货",
+            "保修",
+            "客服",
+            "维修",
+            "换新"
+          ]
+        }
+      ],
+      "populations": [
+        "北美露营与房车用户",
+        "家庭应急备灾用户",
+        "户外内容创作者与测评者",
+        "渠道、售后与跨境卖家"
+      ],
+      "inclusion": [
+        "帖子描述了真实使用、故障，或对户外电源的具体比较与抱怨。",
+        "帖子命中计划场景或产品词，并且由计划查询或热榜检索到。"
+      ],
+      "exclusion": [
+        "与户外用电无关的热榜条目。",
+        "同一链接的重复出现。",
+        "纯开箱晒单，且没有使用细节的帖子。"
+      ],
+      "stoppingRule": "跑完计划内的全部查询就停。某个场景的纳入条目少于两条，就保持未覆盖。不追加查询来制造一致性。",
+      "queries": [
+        "户外电源 露营 真实体验",
+        "户外电源 停电 应急 备灾",
+        "户外电源 虚标 容量",
+        "户外电源 选购 避坑 售后"
+      ],
+      "productTerms": [
+        "户外电源",
+        "储能电源",
+        "便携电源",
+        "户外储能",
+        "移动电源",
+        "电源"
+      ],
+      "codebook": [
+        {
+          "id": "outage",
+          "label": "停电应急",
+          "definition": "帖子把电源和停电、灾害或家庭备灾场景绑定。",
+          "keywords": [
+            "停电",
+            "断电",
+            "应急",
+            "备灾",
+            "台风",
+            "地震"
+          ]
+        },
+        {
+          "id": "camping",
+          "label": "露营场景",
+          "definition": "帖子描述露营、自驾或户外活动中的用电需求。",
+          "keywords": [
+            "露营",
+            "野餐",
+            "自驾",
+            "户外",
+            "营地"
+          ]
+        },
+        {
+          "id": "capacity",
+          "label": "容量功率焦虑",
+          "definition": "帖子讨论容量、功率、带不动或参数虚标。",
+          "keywords": [
+            "容量",
+            "功率",
+            "瓦",
+            "度电",
+            "带不动",
+            "虚标"
+          ]
+        },
+        {
+          "id": "solar",
+          "label": "补电方式",
+          "definition": "帖子讨论太阳能、车充或补电效率。",
+          "keywords": [
+            "太阳能",
+            "光伏",
+            "充电",
+            "补电",
+            "晒"
+          ]
+        },
+        {
+          "id": "noise_weight",
+          "label": "噪音与重量",
+          "definition": "帖子抱怨噪音、重量或搬运不便。",
+          "keywords": [
+            "噪音",
+            "声音",
+            "太重",
+            "搬",
+            "便携",
+            "体积"
+          ]
+        },
+        {
+          "id": "safety",
+          "label": "安全与认证",
+          "definition": "帖子提到安全、认证、温控或事故风险。",
+          "keywords": [
+            "安全",
+            "认证",
+            "起火",
+            "爆炸",
+            "UL",
+            "保险",
+            "温控"
+          ]
+        },
+        {
+          "id": "gimmick",
+          "label": "参数堆砌与噱头",
+          "definition": "发帖人认为某些卖点只是参数好看或用不上。",
+          "keywords": [
+            "噱头",
+            "鸡肋",
+            "用不上",
+            "智商税",
+            "堆参数",
+            "多余"
+          ]
+        },
+        {
+          "id": "aftersale",
+          "label": "售后与退换",
+          "definition": "帖子描述了售后、保修、退货或维修体验。",
+          "keywords": [
+            "售后",
+            "退货",
+            "保修",
+            "客服",
+            "维修",
+            "换新"
+          ]
+        }
+      ],
+      "briefLanguage": "zh",
+      "zhihuCannotAnswer": [
+        "现有知乎讨论不能证明购买意愿。",
+        "现有知乎讨论不能把一条宣称验证成足以支撑购买。",
+        "北美各价格带的实际销量与市场份额。",
+        "独立站最终的转化率和投放回收周期。"
+      ],
+      "timeWindow": {
+        "start": "2024-11-11",
+        "end": "2026-11-11",
+        "rationale": "确认时点往前 24 个月。更早的帖子仍可留在样本里，但质量视图会把它们标成过时。"
+      }
+    },
+    "confirmedAt": "2026-11-11T14:04:56.938Z",
+    "retrieval": [
+      {
+        "kind": "zhihu_search",
+        "query": "户外电源 露营 真实体验",
+        "resultCount": 5
+      },
+      {
+        "kind": "zhihu_search",
+        "query": "户外电源 停电 应急 备灾",
+        "resultCount": 5
+      },
+      {
+        "kind": "zhihu_search",
+        "query": "户外电源 虚标 容量",
+        "resultCount": 5
+      },
+      {
+        "kind": "zhihu_search",
+        "query": "户外电源 选购 避坑 售后",
+        "resultCount": 5
+      },
+      {
+        "kind": "hot_list",
+        "query": "热榜",
+        "resultCount": 30
+      },
+      {
+        "kind": "zhida",
+        "query": "gap hint",
+        "resultCount": 1
+      }
+    ],
+    "hotScan": {
+      "scanned": 30,
+      "included": 0,
+      "droppedTitles": [
+        "如何看待房主因不满 35 万元拆迁赔偿直播施压，四川自永高速建设施工队直接改方案抬高跨过？",
+        "如果在床边放一碗血，晚上蚊子还会来咬我吗？",
+        "小学男孩「嘉豪」总被嘲笑希望改名，名字是网络流行梗对孩子来说有多困扰？家长该怎么做？",
+        "余承东正式官宣华为子品牌「星芒」（OSTA），可能面向哪些用户？它会如何与华为现有产品线区分？",
+        "「减肥神药」或致永久性失明，美药管局发布警告，司美格鲁肽这类药物真的可能造成永久性失明吗？风险有多高？",
+        "玛莎拉蒂将与尊界合作，将通过江淮进行制造，此次合作能给三方带来什么？同一款车两套身份，谁在薅谁羊毛？",
+        "为什么绿皮火车又火了？",
+        "RTX50系列显卡价格出现回落，RTX5080售价已跌4000 元，有哪些原因？现在适合入手吗？",
+        "林生斌名下关联13家公司，网传其定居悉尼富人区，儿女入读当地私校，是真的吗？为什么许多网友会感到割裂？",
+        "沙僧在《西游记》中，除了挑担子外，出场的时候很少，为什么吴承恩在写《西游记》时不把他删掉？",
+        "比亚迪就大唐轮辋装配问题致歉，系供应商编码录入失误造成错装，不影响操控，具体什么情况？实际影响多大？",
+        "周瑜为什么那么年轻就早死了，有没有可能是孙权害了他?",
+        "中国叫停软银收购瑞士 ABB 机器人业务，将对全球工业数据流转规则产生哪些影响？",
+        "王传君称演《爱情公寓》时「没有听到表演的召唤」，觉得这就是一份让自己走红的工作，怎么评价这个说法？",
+        "离岸信托个税申报累计超1600亿元，10月入库超1200亿，带动当月全国个税收入增长90%，怎样解读？",
+        "张雪宣布，冠军车拍卖款不再捐给韩红基金会，你怎么看？",
+        "如何看待外媒曝比亚迪荷兰办公室遭突击搜查，相关电子记录被封存，捷豹路虎指控方程豹钛7逆向工程抄袭卫士？",
+        "王健林 14 年后再任万达商管董事长，怎样解读这一调整？",
+        "如何看待第39届金鸡奖《密档》郑大圣打败《南京照相馆》申奥、《给阿嬷的情书》蓝鸿春，爆冷获最佳导演？",
+        "大师兄Doublelift发问「如果BLG夺冠，这会是史上最具含金量的冠军吗」，你觉得是吗？",
+        "如何看待网友晒「上海和平饭店6人餐花费51万元的天价小票」，饭店辟谣称小票系伪造，警方目前已介入 ？",
+        "男子与第三者在客栈发生关系后猝死，妻子向第三者和客栈索赔超百万元，一审被驳回，法律上如何分析？",
+        "张卫健和周星驰的差距在哪儿？",
+        "如何看待上海卫健委回应校招会上医生月薪最高2499元，称信息不完整、已更新？实际薪资水平一般是怎样的？",
+        "高叶凭《南京照相馆》林毓秀一角拿下金鸡影后，首提即中，她在片中的表现如何？",
+        "为什么欧美人不像中国人那样重视饮食？",
+        "是不是体型越小的动物越不可能摔死？",
+        "如何评价 MiniMax 开源的 H3-Image 生图模型，能够在 10 秒内生成一张高分辨率图像？",
+        "中国足球联赛颁奖，张玉宁获本土金球，大连李国旭获金帅，成都蓉城山东泰山获公平竞赛奖，对此你怎么看？",
+        "青春期孩子常说「别管我」，父母该尊重边界还是主动追问？"
+      ]
+    },
+    "sample": [
+      {
+        "id": "src_b96088a4",
+        "source": "zhihu_search",
+        "title": "【国庆小长假旅行必看】户外露营/自驾游用电问题怎么解决?一度电竟然能用一天?铂陆帝新品户外电源值得买吗? - 知乎",
+        "url": "https://zhuanlan.zhihu.com/p/1949503954393240905?utm_medium=openapi_platform&utm_source=b38f6831b176",
+        "author": "住乌托邦的猪",
+        "contentType": "Article",
+        "excerptZh": "户外人真的离不开续命的户外电源！！ 作为户外探险的狂热爱好者，这8年来我追逐过川西高原的日照金山，也沉醉于呼伦贝尔草原的银河之下。 沉迷于睡醒的清晨在帐篷里煮咖啡，随性于凌晨和伙伴在篝火旁弹唱到天明。 每一次出发让我对自由多一次探索，而可靠的户外电源是让我自由更完整的可靠伙伴，尤其是对开油车的我来说，无论是为无人机、相机续航捕捉辽阔原野，还是深夜默默无闻地为车载冰箱、电热毯供电，户外电源都彰显着它的重要作用。 市面上五花八门的户外电源，哪一款是真适合户外露营、自驾旅游的，烧坏3台户外电源的我今天就和大家聊聊血泪史。 先将我最近淘到的宝贝给大家看，电子产品买新不买旧，精英100作为BLUETTI 铂陆帝1度电新品，功能升级体积还缩小了，趁着新品发售有最多的羊毛，先把优惠直通车放着，需要的兄弟们自取~ 淘宝优惠链接： 京东优惠链接： ・和老款销冠AC180相比精英100有啥不同？ 德兰海明是福布斯和时代周刊认证的储能企业，虽然国内营销的少，但是铂陆帝品牌的产品质量和安全性没的说，国际知名度还是很高的，这也是之前我买他们家AC180的核心理由。 ...",
+        "excerptEn": "The author claims outdoor enthusiasts can’t do without a “life-sustaining” portable power station, citing eight years of adventures and uses such as charging drones and cameras and powering a car fridge or electric blanket at night, especially with a gasoline car. After burning through three units, they question which of the many market options truly suits camping and road trips while showing off a recent BLUETTI Elite 100 purchase under the “buy new, not old” rationale.",
+        "publishDate": "2025-09-11",
+        "sceneId": "capacity",
+        "sceneIds": [
+          "camping",
+          "rv",
+          "capacity",
+          "noise_weight",
+          "safety"
+        ],
+        "sceneLabel": "容量与功率",
+        "query": "户外电源 露营 真实体验",
+        "whyIncluded": "通过 容量、功率、度电、带不动、输出 命中场景「容量与功率」。来自查询：户外电源 露营 真实体验。",
+        "flags": {
+          "marketing": true,
+          "duplicate": false,
+          "secondhand": false
+        },
+        "role": "buyer",
+        "included": true,
+        "codeIds": [
+          "camping",
+          "capacity",
+          "noise_weight",
+          "safety"
+        ],
+        "votes": 28,
+        "comments": 8
+      },
+      {
+        "id": "src_362cf36e",
+        "source": "zhihu_search",
+        "title": "长途露营储能大功率户外电源一站式整机源头生产厂家 - 知乎",
+        "url": "https://zhuanlan.zhihu.com/p/2053899370022573221?utm_medium=openapi_platform&utm_source=b38f6831b176",
+        "author": "杨玉成",
+        "contentType": "Article",
+        "excerptZh": "这几年跑遍了大大小小的厂子，接触了不少行业玩家，发现一个挺有意思的现象：做方案的和做落地体验的，往往是两拨人。厂商更爱讲“销量破万”“首创技术”，但用户真正纠结的是——买回去到底能不能撑过三天两夜、逆变效率掉了多少、电池会不会鼓包。 大众痛点其实很直接：你要我信一个数字，先让我看到它不虚。 我也是偶然才接触到的博结成科技。当时一个做野外地质勘探的朋友临时需要一台能带起钻机和测绘设备的便携电源，市面上大多数号称“大功率”的产品，要么体积跟个冰箱似的，要么峰值功率坚持不了几十秒就过热保护。我那会儿正好在筛选源头供应商，顺手就联系上了他们。 说实话，第一次看到他们的源头发货模式我是有点懵的：整机、BMS（电池管理系统）、逆变全在一条产线上跑下来，这种“全链路自己控”的方式，之前我只在几家正规军的大厂见过。更关键的是，他们敢给实测数据——模组化设计、独立风道散热、整机老化测试不是走过场，是连续48小时控温检测。 后来我朋友那台机器在野外硬撑了一周多，带载状态稳定，电机启动时电压跌落不到3%，这已经大大超过了市面上同价位应对冲击性负载的水平。 我自己...",
+        "excerptEn": "After years of visiting factories of all sizes, one pattern stands out: the people making the pitch and the people dealing with real-world experience are often two different groups—vendors prefer to tout \"sales exceeding ten thousand units\" and \"industry-first technology,\" while what users actually agonize over is whether the thing will last three days and two nights, how much inverter efficiency drops, and whether the battery will swell. I also came across Bojiecheng Technology only by chance, when a friend doing field geological exploration needed a portable power source capable of running d",
+        "publishDate": "2026-06-26",
+        "sceneId": "camping",
+        "sceneIds": [
+          "camping",
+          "rv",
+          "capacity",
+          "noise_weight"
+        ],
+        "sceneLabel": "露营与户外",
+        "query": "户外电源 露营 真实体验",
+        "whyIncluded": "通过 露营、户外 命中场景「露营与户外」。来自查询：户外电源 露营 真实体验。",
+        "flags": {
+          "marketing": false,
+          "duplicate": false,
+          "secondhand": false
+        },
+        "role": "user",
+        "included": true,
+        "codeIds": [
+          "camping",
+          "capacity",
+          "noise_weight"
+        ],
+        "votes": 1,
+        "comments": 0
+      },
+      {
+        "id": "src_54ac252",
+        "source": "zhihu_search",
+        "title": "电力无忧纵享户外自由,正浩德2户外电源露营体验 - 知乎",
+        "url": "https://zhuanlan.zhihu.com/p/692266410?utm_medium=openapi_platform&utm_source=b38f6831b176",
+        "author": "老房",
+        "contentType": "Article",
+        "excerptZh": "设备整体呈方形设计，采用黑色和灰色配色，简约大气，符合户外产品的风格。机身正面采用磨砂质感处理，手感舒适，且不易沾染指纹。 和竞品相比多出来的长度主要是电源顶部两侧的把手，和常见的单提手相比，双把手设计不仅能够让咱们“提”着走，还能“搬”着走，两只手一起用力，搬运更为轻松。 当然，12 公斤的重量说沉不沉、说轻不轻，女孩子或许会有些吃力，但男生一只手提起来毫无问题。 顶部侧面为大面栅格散热孔，外壳材质为 V-0 级防火阻燃，独立的电池仓配合磷酸铁锂电池不容易发生热失控的特点，安全性更高。 防护方面正浩德 2 户外电源通过了 UN38.3 （航空锂电池运输安全）认证，包括高度模拟、高低温、振动、冲击、碰撞、外短路、过充、强制放电等各种测试，也就是在安全性方面理论上是可以带上飞机的（不过民航目前不允许），咱们随车运输更不怕。 厚度方面大约 21 cm，可以轻松放进后备箱、露营车里，甚至可以塞进汽车后排座位脚下，也不影响前排座椅放倒。 三、接口设置丰富，功能全面 正浩德 2 户外电源的输出接口可谓是目前市面上最多的，一共 13 个输出口，包括 4...",
+        "excerptEn": "The device has a square black-and-gray matte housing, and the extra length versus competitors is attributed mainly to dual top handles that allow it to be carried by one or two hands; at 12 kg, the excerpt says it may be strenuous for some women but asserts that men can lift it one-handed without issue. It also cites large top-side vents, V-0 flame-retardant housing, a separate LFP battery compartment, and UN38.3 certification as safety features, though these remain claims in the excerpt rather than independent verification.",
+        "publishDate": "2024-04-13",
+        "sceneId": "camping",
+        "sceneIds": [
+          "camping",
+          "solar",
+          "capacity",
+          "noise_weight",
+          "safety"
+        ],
+        "sceneLabel": "露营与户外",
+        "query": "户外电源 露营 真实体验",
+        "whyIncluded": "通过 露营、户外 命中场景「露营与户外」。来自查询：户外电源 露营 真实体验。",
+        "flags": {
+          "marketing": false,
+          "duplicate": false,
+          "secondhand": false
+        },
+        "role": "unclear",
+        "included": true,
+        "codeIds": [
+          "camping",
+          "capacity",
+          "solar",
+          "noise_weight",
+          "safety"
+        ],
+        "votes": 4,
+        "comments": 0
+      },
+      {
+        "id": "src_39191ddb",
+        "source": "zhihu_search",
+        "title": "【2025户外电源推荐】有哪些快充方便携带的户外电源推荐?铂陆帝、电小二、正浩的1度电怎么选?露营&摄影党必看 - 知乎",
+        "url": "https://zhuanlan.zhihu.com/p/1949519423972045711?utm_medium=openapi_platform&utm_source=b38f6831b176",
+        "author": "付付得证",
+        "contentType": "Article",
+        "excerptZh": "要说这么多年户外买过最值的设备，必须得是让我用电不愁的户外电源！ 一台就能搞定相机电池、运动相机和无人机等设备的供电；大西北的晚上同时给露营灯、投影仪等续命；荒山野岭里不用明火，也能掏出电磁炉吃一顿大餐……不仅吃喝玩乐无忧，关键时刻还能江湖救急，安全感满满！ 靠谱的户外电源能直接让露营&户外体验飞升，但要是挑错了安全隐患（短路、爆炸）也不少。 下面这几款是我结合自己多年的实测经验，再加上身边营友的真实反馈后筛选出来的，闭眼入不踩雷，希望能帮大家少走弯路！ 一、抄作业专区 自驾露营首选：铂陆帝精英100 首推铂陆帝精英100，性能配置在同等价位内极高，1度电的同时把体积和重量压缩到了极致（11.5kg，比AC180还要轻28％），露营、自驾都极为合适。 √用电更安全：采用目前最安全的磷酸铁锂电池，性能稳定耐高温，循环寿命高达4000+次，用个十几年不成问题；同时内置的BMS保护和AI智能监控系统，有效防止短路、过充过放、过温等。 √大容量&大功率：1024Wh容量、额定1800W纯正弦波输出，加上升维驱动能达到2700W，可带动电磁炉、咖啡机...",
+        "excerptEn": "According to the excerpt, an outdoor power station has been the author’s most worthwhile outdoor purchase, claimed to power cameras, action cameras, drones, camping lights, projectors, and even an induction cooker while offering emergency backup, though they also warn that poorly chosen units can pose short-circuit or explosion risks. The author then offers a shortlist based on personal testing and fellow campers’ feedback—beginning with the BLUETTI Elite 100—asserting it is a reliable pick, but these remain claims rather than independently verified conclusions.",
+        "publishDate": "2025-09-11",
+        "sceneId": "capacity",
+        "sceneIds": [
+          "outage",
+          "camping",
+          "rv",
+          "solar",
+          "capacity",
+          "noise_weight",
+          "safety"
+        ],
+        "sceneLabel": "容量与功率",
+        "query": "户外电源 露营 真实体验",
+        "whyIncluded": "通过 容量、功率、度电、输出 命中场景「容量与功率」。来自查询：户外电源 露营 真实体验。",
+        "flags": {
+          "marketing": true,
+          "duplicate": false,
+          "secondhand": false
+        },
+        "role": "user",
+        "included": true,
+        "codeIds": [
+          "outage",
+          "camping",
+          "capacity",
+          "solar",
+          "noise_weight",
+          "safety"
+        ],
+        "votes": 53,
+        "comments": 2
+      },
+      {
+        "id": "src_8a296d54",
+        "source": "zhihu_search",
+        "title": "周末喜欢露营,买汽油发电机还是户外电源?2023露营干货|3分钟教你选对户外『实用便捷』露营装备! - 知乎",
+        "url": "https://zhuanlan.zhihu.com/p/647602283?utm_medium=openapi_platform&utm_source=b38f6831b176",
+        "author": "一昂羊",
+        "contentType": "Article",
+        "excerptZh": "1000W+716Wh超大功率容量，可以满足10台设备同时充电，而且电池采用安全性最高的磷酸铁锂电池，耐高温、寿命长，目前这配置在国内属于独一档的存在，大品牌售后有保障，需要的可以闭眼入~ ·露营老鸟户外电源选购要点 入坑户外电源8年多，根据我不下十几款选购经验，一款好的户外电源，至少要满足以下3方面： ①安全性 户外电源安全不过关，很容易引起爆炸致伤事件，一些为了追求便宜，自己买电池手动DIY组装户外电源的，这种廉价低质电池放电性能不稳定容易爆炸起火，如果放在车里危险更不敢想象。 安全性好不好主要看电池类型： ·三元锂电芯：着火点200度左右，热稳定低，高温颠簸环境电池易起火而且寿命短，最多循环1500次就不能用了 ·磷酸铁锂电芯：着火点500度左右，热稳定是三元锂电池2倍不止，安全性最高，且可重复充电2000次以上，使用寿命可达7年以上。 ②功率、电池能量 户外电源功率更大，能带动的用电器更多，一天以上露营功率建议1000W，电池能量至少700Wh以上才不影响正常使用。 ③充电端口种类及数量 目前户外电源有AC、USB、Type-c、D...",
+        "excerptEn": "The excerpt claims a 1000W/716Wh unit can charge ten devices at once and uses LFP chemistry for high-temperature tolerance and long life, asserting that this configuration is uniquely positioned in China and that big-brand after-sales support makes it a “no-brainer” purchase. A self-described eight-year camper argues safety is the first selection criterion, warning that cheap DIY packs can be unstable and catch fire—especially in a car—and citing NCM’s roughly 200°C ignition point and low thermal stability as drawbacks.",
+        "publishDate": "2023-08-02",
+        "sceneId": "camping",
+        "sceneIds": [
+          "camping",
+          "rv",
+          "solar",
+          "capacity",
+          "safety",
+          "aftersale"
+        ],
+        "sceneLabel": "露营与户外",
+        "query": "户外电源 露营 真实体验",
+        "whyIncluded": "通过 露营、自驾、户外 命中场景「露营与户外」。来自查询：户外电源 露营 真实体验。",
+        "flags": {
+          "marketing": false,
+          "duplicate": false,
+          "secondhand": false
+        },
+        "role": "user",
+        "included": true,
+        "codeIds": [
+          "camping",
+          "capacity",
+          "solar",
+          "safety",
+          "aftersale"
+        ],
+        "votes": 418,
+        "comments": 80
+      },
+      {
+        "id": "src_f8c033",
+        "source": "zhihu_search",
+        "title": "缔储装备|储能 + 移动电源,一整套可靠的绿电解决方案 - 知乎",
+        "url": "https://zhuanlan.zhihu.com/p/2098402413346558252?utm_medium=openapi_platform&utm_source=b38f6831b176",
+        "author": "缔储",
+        "contentType": "Article",
+        "excerptZh": "有电可以存，有电可以带！潍坊缔储装备，专注储能系统与移动储能电源研发生产，一站式解决固定场所与户外临时用电难题。 当光伏遇见储能，能源不再受限于日照； 当电力可以移动，有电的自由不再被线缆束缚。 缔储装备科技，主营储能系统，大型储能系统，相当于工厂、园区、家庭的 “巨型储电仓”；移动储能电源，就是可灵活搬运的便携式电站，市电、光伏都可以充电，清洁稳定。 01 产品核心好处 ✅ 储能系统 节省电费，低谷电价储电，高峰时段放电，实现峰谷套利，降低企业用电开支；搭配光伏，把白天多余太阳能存起来自用。 1.应急保电，电网停电自动切换，保障重要设备不断电，减少停产损失。 2.绿色环保，提升绿电利用率，助力企业完成低碳目标。 3.稳定电能质量，缓解用电高峰电网压力。 ✅ 移动储能电源 静音零排放，替代传统柴油发电机，没有油烟、噪音污染，室内、景区也能用。 1.即插即用，方便转运，不用布线，拉到现场就能供电。 2.多重安全保护，防过充、过放、过热，使用更安心。 3.充电方式灵活，市电充电、太阳能板补电，无电网区域也能获取电力。",
+        "excerptEn": "Weifang Dichu Equipment presents itself as a one-stop provider of stationary and mobile energy-storage systems, claiming that pairing storage with solar frees energy from sunlight limits and that its large systems and portable power stations can cut costs through peak-valley arbitrage, provide automatic backup during outages, and improve renewable-energy use. These are promotional claims about savings, reliability, and environmental benefits, but the excerpt offers no independent evidence or operating details to substantiate them.",
+        "publishDate": "2026-10-27",
+        "sceneId": "solar",
+        "sceneIds": [
+          "outage",
+          "camping",
+          "solar",
+          "noise_weight",
+          "safety"
+        ],
+        "sceneLabel": "太阳能补电",
+        "query": "户外电源 停电 应急 备灾",
+        "whyIncluded": "通过 太阳能、光伏、充电、补电、板 命中场景「太阳能补电」。来自查询：户外电源 停电 应急 备灾。",
+        "flags": {
+          "marketing": false,
+          "duplicate": false,
+          "secondhand": false
+        },
+        "role": "unclear",
+        "included": true,
+        "codeIds": [
+          "outage",
+          "camping",
+          "solar",
+          "noise_weight",
+          "safety",
+          "gimmick"
+        ],
+        "votes": 1,
+        "comments": 0
+      },
+      {
+        "id": "src_c880bd9e",
+        "source": "zhihu_search",
+        "title": "不止于户外,华宝新能电小二持续深耕应急能源保障 - 知乎",
+        "url": "https://zhuanlan.zhihu.com/p/2101272446603216542?utm_medium=openapi_platform&utm_source=b38f6831b176",
+        "author": "充电头网评测室",
+        "contentType": "Article",
+        "excerptZh": "近年来，无人机、特种机器人等装备逐渐承担火场侦察、废墟探测、物资运输等高风险任务。2025年，我国安全应急装备重点领域产业规模已突破1万亿元，智能救援装备的普及也为专业能源保障带来新的发展空间。 机器人进入危险区域后，除了自身的动力需求，还需要依托通信与数据回传系统接受指令；长时间行动中，轮换补能、卫星通信、中继基站及照明设备均需要电力支撑。 这种需求并非单纯增加电池容量，而是要求能源设备能快速转场、兼容不同负载，并在外部电网不可用时维持一定的供电连续性。现场的移动电源不仅可以承担机器人轮换期的补能任务，还可为临时通信点、指挥站提供备用电力。 传统燃油发电机仍适用于部分长时间、大功率任务，而便携储能配合光伏补能，在机动部署、低噪声和现场临时供电方面提供了另一种选择。 华宝新能董事长孙中伟在赛事启动时曾表示：“没有坚实可靠的离网能源作为支撑，再顶尖的智能也无法转化为实际的救援力量。” 对便携储能企业而言，应急机器人发展带来的不仅是新增用电设备，更是围绕多设备协同供电展开技术创新的机会。 技术积累走向实战，验证应急能源能力 专业救援环境对电源安...",
+        "excerptEn": "As drones and special robots increasingly take on high-risk tasks such as fire reconnaissance and debris detection, the claimed expansion of China's safety and emergency equipment sector beyond 1 trillion yuan in 2025 suggests new demand for intelligent rescue power support—though it remains unclear how much of this reflects real deployment rather than market narrative. The excerpt argues that field power needs go beyond bigger batteries toward rapid redeployment, load compatibility, and continuity when the grid is unavailable, while traditional fuel generators still suit some long-duration, h",
+        "publishDate": "2026-11-04",
+        "sceneId": "capacity",
+        "sceneIds": [
+          "outage",
+          "camping",
+          "solar",
+          "capacity",
+          "noise_weight",
+          "safety"
+        ],
+        "sceneLabel": "容量与功率",
+        "query": "户外电源 停电 应急 备灾",
+        "whyIncluded": "通过 容量、功率、度电、输出 命中场景「容量与功率」。来自查询：户外电源 停电 应急 备灾。",
+        "flags": {
+          "marketing": false,
+          "duplicate": false,
+          "secondhand": false
+        },
+        "role": "unclear",
+        "included": true,
+        "codeIds": [
+          "outage",
+          "camping",
+          "capacity",
+          "solar",
+          "noise_weight",
+          "safety"
+        ],
+        "votes": 1,
+        "comments": 0
+      },
+      {
+        "id": "src_57a0382e",
+        "source": "zhihu_search",
+        "title": "应急救援必备的高安全高性能户外电源,电小二户外电源 2000 Pro2 评测 - 知乎",
+        "url": "https://zhuanlan.zhihu.com/p/1910283458393150857?utm_medium=openapi_platform&utm_source=b38f6831b176",
+        "author": "充电头网评测室",
+        "contentType": "Article",
+        "excerptZh": "使用原装AC电源线连接插座和户外电源的AC输入接口，为户外电源自充电的测试数据，将充电数据绘制成折线图，可以看出使用原装大功率充电线为户外电源充电50%耗时30分钟，充电80%耗时49分钟，完全充满则需要1小时7分钟，符合官方宣称的1.33小时充满的条件。 静音充电模式 将电小二户外电源2000 Pro 2 连接APP后打开“静音充电模式”，对电池提供更佳保护的同时也让充电静音无感。 实测开启“静音充电模式”下，噪音计紧挨着户外电源测得噪音为34.8dB，在距离户外电源1米处，更是能达到27dB的噪音表现，比图书馆的50dB更低，不会打扰到晚上睡眠休息。 行车快充 此外，电小二2000 Pro 2还配备了新上市的黄金车充功率行车快充，在旅途中只要车在行走就能为户外电源进行快充补电，近乎0油耗，让户外电源随时保持高电量，停车后随时有电用，告别续航焦虑。 太阳能光充 电小二秉承绿色能源理念，在技术、性能、做工等方面升级再造，为全球消费者带来最前沿的便携、绿色、可持续的户外用电解决方案。2000Pro 2可搭配太阳能板，单块太阳能板最高可产生20...",
+        "excerptEn": "In the excerpt’s self-charging test using the original AC cord, the power station reached 50% in 30 minutes, 80% in 49 minutes, and full charge in 1 hour 7 minutes—broadly consistent with the official 1.33-hour claim, though only under the reported test conditions. With the app’s silent charging mode enabled, the excerpt reports noise of 34.8 dB next to the unit and 27 dB at 1 meter, below its cited 50 dB library comparison and described as unlikely to disturb sleep.",
+        "publishDate": "2025-05-26",
+        "sceneId": "solar",
+        "sceneIds": [
+          "outage",
+          "camping",
+          "solar",
+          "capacity",
+          "noise_weight",
+          "safety"
+        ],
+        "sceneLabel": "太阳能补电",
+        "query": "户外电源 停电 应急 备灾",
+        "whyIncluded": "通过 太阳能、充电、补电、板 命中场景「太阳能补电」。来自查询：户外电源 停电 应急 备灾。",
+        "flags": {
+          "marketing": false,
+          "duplicate": false,
+          "secondhand": false
+        },
+        "role": "practitioner",
+        "included": true,
+        "codeIds": [
+          "outage",
+          "camping",
+          "capacity",
+          "solar",
+          "noise_weight",
+          "safety"
+        ],
+        "votes": 0,
+        "comments": 0
+      },
+      {
+        "id": "src_1bfa9852",
+        "source": "zhihu_search",
+        "title": "停电8小时,我家靠一台储能电源撑过来了 - 知乎",
+        "url": "https://zhuanlan.zhihu.com/p/2103510651067023587?utm_medium=openapi_platform&utm_source=b38f6831b176",
+        "author": "储能小狐狐",
+        "contentType": "Article",
+        "excerptZh": "2026年上半年，全球锂离子电池储能系统出货量达到 461.3GWh，同比增长71%；其中住宅储能出货量同比增长 128%，是增速最快的细分赛道。 2025年全球住宅储能出货量约 35GWh，同比增长近50%，累计装机规模已突破187GWh。 成本端也在变化：2026年10月后，碳酸锂价格回落至约9万元/吨附近，储能系统整体成本压力明显缓解。 这意味着，家庭储能已经从“小众尝鲜”进入“越来越多家庭认真考虑”的阶段。 家庭储能能解决什么问题？ 应急备电。 台风、暴雨、高温限电时，一套10kWh左右的储能系统，可以支撑冰箱、照明、路由器、手机充电，以及部分小功率医疗设备短时运行。 峰谷套利。 广东部分地区峰谷电价差可达0.7元/度以上，低谷充电、高峰放电，确实能降低家庭用电成本。 提升光伏自用率。 装了光伏但没配储能，白天多余的电往往只能低价上网；配上储能后，可以把白天发的电留到晚上用，减少高价网购电。 安全怎么选？ 储能安全不能只看宣传。优先看三点：是否采用磷酸铁锂电芯、是否具备完善BMS和温控保护、是否有合规认证和正规安装服务。低价拼装、无...",
+        "excerptEn": "Global lithium-ion battery energy storage system shipments reached 461.3 GWh in the first half of 2026, up 71% year-on-year, with residential storage growing 128%—the fastest-growing segment—as falling lithium carbonate prices around 90,000 yuan/ton eased cost pressure. This suggests home storage has moved from niche experimentation to a stage where more households are seriously considering it, though the excerpt stops short of demonstrating that backup power and peak-valley arbitrage actually justify adoption.",
+        "publishDate": "2026-11-10",
+        "sceneId": "outage",
+        "sceneIds": [
+          "outage",
+          "camping",
+          "solar",
+          "capacity",
+          "safety",
+          "aftersale"
+        ],
+        "sceneLabel": "停电与家庭应急",
+        "query": "户外电源 停电 应急 备灾",
+        "whyIncluded": "通过 停电、应急、台风 命中场景「停电与家庭应急」。来自查询：户外电源 停电 应急 备灾。",
+        "flags": {
+          "marketing": false,
+          "duplicate": false,
+          "secondhand": false
+        },
+        "role": "buyer",
+        "included": true,
+        "codeIds": [
+          "outage",
+          "camping",
+          "capacity",
+          "solar",
+          "safety",
+          "gimmick",
+          "aftersale"
+        ],
+        "votes": 0,
+        "comments": 0
+      },
+      {
+        "id": "src_2bff96b3",
+        "source": "zhihu_search",
+        "title": "户外+应急双驱动,移动储能电池迎新一轮增长周期 - 知乎",
+        "url": "https://zhuanlan.zhihu.com/p/2099169699120551302?utm_medium=openapi_platform&utm_source=b38f6831b176",
+        "author": "普华有策",
+        "contentType": "Article",
+        "excerptZh": "资料来源：普华有策 2、移动储能电池行业发展演进历程 中国移动储能电池从萌芽期的铅酸电池为主，到高速发展期技术突破，锂电池成为主流核心技术，未来将向钠离子电池商业化和固态电池应用方向发展，实现更高能量密度、更优成本控制及更广泛应用场景。 中国移动储能电池行业发展历程 资料来源：普华有策 3、移动储能电池行业产业链情况 移动储能电池行业产业链可划分为上、中、下游三个环节。上游为原材料供应，主要包括正极材料、负极材料、电解液、隔膜等关键原材料；中游为电芯制造，通过搅拌、涂布、卷绕、封装等一系列复杂生产工艺，将原材料加工为具备特定性能指标的电池单元；下游为终端应用领域，主要涵盖户外用电、应急备灾等场景。 移动储能电池行业产业链示意图 资料来源：普华有策 4、移动储能电池行业市场规模情况 全球移动储能电池行业规模增长得益于户外经济兴起、能源结构转型和技术进步显著。户外运动和应急需求增加刺激了市场增长。全球露营、自驾游等户外活动热潮带动便携电源需求，而自然灾害频发地区对应急电源的需求也持续上升。2020-2025年，全球市场规模由373亿元增长至10...",
+        "excerptEn": "The excerpt claims that China’s mobile energy storage battery sector moved from lead-acid batteries to lithium-ion as the mainstream core technology, with future development said to point toward sodium-ion commercialization and solid-state battery applications for higher energy density, better cost control, and broader use cases. It also outlines the industry chain—upstream cathode/anode materials, electrolyte, and separators; midstream cell manufacturing via mixing, coating, winding, and packaging; and downstream outdoor power and emergency backup—though these projections and categorizations ",
+        "publishDate": "2026-10-29",
+        "sceneId": "camping",
+        "sceneIds": [
+          "outage",
+          "camping",
+          "rv",
+          "capacity",
+          "noise_weight",
+          "safety"
+        ],
+        "sceneLabel": "露营与户外",
+        "query": "户外电源 停电 应急 备灾",
+        "whyIncluded": "通过 露营、自驾、户外 命中场景「露营与户外」。来自查询：户外电源 停电 应急 备灾。",
+        "flags": {
+          "marketing": true,
+          "duplicate": false,
+          "secondhand": false
+        },
+        "role": "unclear",
+        "included": true,
+        "codeIds": [
+          "outage",
+          "camping",
+          "capacity",
+          "noise_weight",
+          "safety"
+        ],
+        "votes": 0,
+        "comments": 0
+      },
+      {
+        "id": "src_518b628a",
+        "source": "zhihu_search",
+        "title": "户外移动电源别盲目跟风买!看懂这几点,避开虚标大坑 - 知乎",
+        "url": "https://zhuanlan.zhihu.com/p/2075168864120452535?utm_medium=openapi_platform&utm_source=b38f6831b176",
+        "author": "贝迅泽",
+        "contentType": "Article",
+        "excerptZh": "很多人分不清普通充电宝和户外移动电源。普通充电宝大多只有 USB 输出，只能给手机、平板这类小数码充电；而户外移动电源自带 220V 交流插座，相当于一座小型移动电站，既能充手机电脑，也能带动电饭煲、小冰箱、投影仪等家电，自驾露营、摆摊、家中停电备用都能用。但选购门槛高，参数陷阱多，普通消费者很容易踩坑。 首先分清两个最容易混淆的参数：**额定功率和峰值功率**。商家宣传页经常标几千瓦的峰值功率，看着性能强悍，其实峰值只是设备瞬间启动的短时能力，一般只能维持几秒，不能长时间工作。真正决定你能不能带动电磁炉、烧水壶的，是额定功率，也就是电源可以持续稳定输出的功率。买的时候一定要看详情页、机身铭牌有没有标注额定功率，如果只写峰值功率，闭口不提额定功率，基本要多加提防。 容量方面，不要被巨大数字的 mAh 迷惑。很多低价产品只标十几万毫安时，不标注电压，参考意义很小。户外移动电源认准单位**Wh（瓦时）**，1000Wh 就是 1 度电，Wh 才是衡量真实存电量的标准单位。简单给大家做个场景参考：500Wh 适合单日短途出行，手机、风扇、露营灯够...",
+        "excerptEn": "Many people confuse ordinary power banks—typically USB-only for phones and tablets—with outdoor portable power stations, which offer 220V AC outlets and are marketed for camping, roadside selling, or outages, though the high selection threshold and parameter traps make them easy for ordinary consumers to misjudge. In particular, advertised peak power is often only a brief startup capability lasting seconds, while rated power—the sustained output shown on the detail page or nameplate—is what actually determines whether devices like induction cookers or kettles can run.",
+        "publishDate": "2026-08-24",
+        "sceneId": "capacity",
+        "sceneIds": [
+          "outage",
+          "camping",
+          "rv",
+          "solar",
+          "capacity",
+          "noise_weight",
+          "safety"
+        ],
+        "sceneLabel": "容量与功率",
+        "query": "户外电源 虚标 容量",
+        "whyIncluded": "通过 容量、功率、瓦、度电、虚标、输出 命中场景「容量与功率」。来自查询：户外电源 虚标 容量。",
+        "flags": {
+          "marketing": false,
+          "duplicate": false,
+          "secondhand": false
+        },
+        "role": "unclear",
+        "included": true,
+        "codeIds": [
+          "outage",
+          "camping",
+          "capacity",
+          "solar",
+          "noise_weight",
+          "safety"
+        ],
+        "votes": 2,
+        "comments": 0
+      },
+      {
+        "id": "src_611335b7",
+        "source": "zhihu_search",
+        "title": "高密安全电芯长效续航户外电源整机全套自主生产 - 知乎",
+        "url": "https://zhuanlan.zhihu.com/p/2057509659045532376?utm_medium=openapi_platform&utm_source=b38f6831b176",
+        "author": "杨玉成",
+        "contentType": "Article",
+        "excerptZh": "举一个实际案例：2023年10月，某野外地质勘探团队在内蒙古戈壁滩使用博结成2200W型号电源，为无人机、夜视仪、卫星电话连续供电。在-15℃低温环境下，该电源实测续航比同级竞品多出约40分钟（约120分钟总续航）。原因在于博结成BMS能精准调控电芯温差（控制在±2℃以内），避免单节电芯过放导致整 pack 失效。 实操建议：买户外电源时，重点看“循环寿命”指标。博结成官方给出的是>3000次循环（剩余容量≥80%），而行业平均水平是500-800次。日常使用中，建议保持电量在20%-80%区间充放电，每3个月做一次满充放电校准，能进一步延长寿命。 三、整机自主生产：为什么是“品质保险栓”？ 市面上很多户外电源品牌，电芯外采、BMS外包、外壳代工，出了问题容易推诿。博结成科技从电芯分选、BMS设计到整机组装，全部在自建工厂完成（位于东莞，面积超20000㎡）。这一策略的优势在2024年的一次应急事件中体现得淋漓尽致。 2024年1月，南方某山区突发山体滑坡，救援队急需大功率电源为切割机、照明设备供电。博结成接到需求后，从库存中调拨200台S...",
+        "excerptEn": "The excerpt claims that in October 2023 a field geology team in the Inner Mongolia Gobi used a Bojecheng 2200W power station to continuously power drones, night-vision devices, and satellite phones, and that at -15°C it lasted about 40 minutes longer than same-class competitors (about 120 minutes total), which it attributes to a BMS keeping cell temperature differences within ±2°C and preventing a single overdischarged cell from failing the whole pack. It also asserts an official cycle life of >3,000 cycles to ≥80% capacity versus an industry average of 500–800, advises keeping charge between ",
+        "publishDate": "2026-07-06",
+        "sceneId": "capacity",
+        "sceneIds": [
+          "outage",
+          "camping",
+          "capacity",
+          "safety",
+          "aftersale"
+        ],
+        "sceneLabel": "容量与功率",
+        "query": "户外电源 虚标 容量",
+        "whyIncluded": "通过 容量、功率、虚标 命中场景「容量与功率」。来自查询：户外电源 虚标 容量。",
+        "flags": {
+          "marketing": true,
+          "duplicate": false,
+          "secondhand": false
+        },
+        "role": "buyer",
+        "included": true,
+        "codeIds": [
+          "outage",
+          "camping",
+          "capacity",
+          "safety",
+          "aftersale"
+        ],
+        "votes": 0,
+        "comments": 0
+      },
+      {
+        "id": "src_9e205fd0",
+        "source": "zhihu_search",
+        "title": "2026年教你准确辨别户外电源厂家是真工厂还是贸易中间商 - 知乎",
+        "url": "https://zhuanlan.zhihu.com/p/2083589369194140077?utm_medium=openapi_platform&utm_source=b38f6831b176",
+        "author": "储能电源工厂",
+        "contentType": "Article",
+        "excerptZh": "去年下半年，浙江做夜市摆摊的陈先生踩了个大坑：花1200元买了台标称2000W的户外电源，用了不到3个月，冬天零下3度的环境下电量直接掉到标称的28%，带不动炸串机，找商家售后才发现对方是个贸易中间商，上游厂家已经联系不上，最后只能自认倒霉。随着2025年国内便携储能市场规模突破327亿元（数据来源：中国能源研究会），户外电源的需求暴涨，像陈先生这样踩了中间商坑的消费者和采购方不在少数：虚标容量、低温衰减快、售后失联、定制需求无法满足……2026年采购户外电源，只要认准以下3个判断标准，就能精准区分源头工厂和贸易中间商，避坑率99%。 一、看核心资质与生产积淀，有没有自主产能是核心 真工厂的核心特征是有完整的技术积淀和自主生产能力，不是靠倒赚差价存活。 比如广东华盛天诚新能源科技有限公司（简称韩帕），是国内资深的户外便携式储能电源源头生产厂家，其锂电行业经验最早可追溯到2011年，2013年就开始自主研发锂电池结构与核心配件，2018年实现标准化量产，2022年和深耕自动化设备领域的东莞建敏自动化合资落地东莞后，拥有自有标准化生产车间、PA...",
+        "excerptEn": "A Zhejiang night-market vendor reportedly paid ¥1,200 for an outdoor power station rated at 2,000W, saw its capacity fall to 28% of the rating within three months at -3°C, and then found the seller was a trading intermediary whose upstream manufacturer was unreachable. The excerpt frames this anecdote with claims of a ¥32.7 billion 2025 portable-storage market and a “99% pitfall-avoidance” three-criteria method for distinguishing source factories from intermediaries, but those claims and criteria remain unverified here.",
+        "publishDate": "2026-09-16",
+        "sceneId": "capacity",
+        "sceneIds": [
+          "camping",
+          "capacity",
+          "noise_weight",
+          "safety",
+          "aftersale"
+        ],
+        "sceneLabel": "容量与功率",
+        "query": "户外电源 虚标 容量",
+        "whyIncluded": "通过 容量、功率、瓦、带不动、虚标 命中场景「容量与功率」。来自查询：户外电源 虚标 容量。",
+        "flags": {
+          "marketing": false,
+          "duplicate": false,
+          "secondhand": false
+        },
+        "role": "buyer",
+        "included": true,
+        "codeIds": [
+          "camping",
+          "capacity",
+          "noise_weight",
+          "safety",
+          "aftersale"
+        ],
+        "votes": 0,
+        "comments": 0
+      },
+      {
+        "id": "src_73fb4d5f",
+        "source": "zhihu_search",
+        "title": "网传小米SU7充满 73.6 度电池费了 87.86 度电,疑似电池电量反向虚标造假,如何看待此事? - 知乎",
+        "url": "https://www.zhihu.com/question/656798335/answer/3506606740?utm_medium=openapi_platform&utm_source=b38f6831b176",
+        "author": "ssertp",
+        "contentType": "Answer",
+        "excerptZh": "我这么肯定的一个原因是，小米那随便做的户外电源，充电效率都比这个数据好。 户外电源的效率几乎是所有储能设备里面最低的了。 不可能有这么多。 新的锂电池如果是正常情况，实际容量只会比额定多，因此标73.6kWh的新车，实际有75.6kW也是正常。但厂家不是傻子，正常情况下容量比实际多5%以上，那就是一个新型号的电芯。 同时，电从交流到电池，中间要经过ACDC、长度超过8m的线缆以及电池本身，每一环都是损耗过程，咱们就算你4%的损耗不过分吧，那这个0.7%，是怎么来的？ 这波不能说哥们不厚道了，因为这条微博下的第一个震惊应该是： 极氪007或有电池容量虚标 其实米车的磷酸铁锂版本确实有一个特别的地方，额定电压/3.2之后不是6的倍数。",
+        "excerptEn": "One reason for the certainty is that even Xiaomi’s casually made outdoor power station has better charging efficiency than this figure, and outdoor power stations are among the least efficient storage devices, so such a number is implausible; with AC-to-battery losses across ACDC, an over-8 m cable, and the battery itself, even 4% would not be excessive, making the claimed 0.7% hard to explain. The first surprise under that Weibo post should be that the Zeekr 007 may have a falsely rated battery capacity, and claims about the Xiaomi car’s LFP version having a special case warrant the same skep",
+        "publishDate": "2024-05-22",
+        "sceneId": "capacity",
+        "sceneIds": [
+          "camping",
+          "solar",
+          "capacity"
+        ],
+        "sceneLabel": "容量与功率",
+        "query": "户外电源 虚标 容量",
+        "whyIncluded": "通过 容量、度电、虚标 命中场景「容量与功率」。来自查询：户外电源 虚标 容量。",
+        "flags": {
+          "marketing": false,
+          "duplicate": false,
+          "secondhand": true
+        },
+        "role": "unclear",
+        "included": true,
+        "codeIds": [
+          "camping",
+          "capacity",
+          "solar"
+        ],
+        "votes": 718,
+        "comments": 72
+      },
+      {
+        "id": "src_23685ca4",
+        "source": "zhihu_search",
+        "title": "户外电源“爆燃”隐患的背后:行业如何规范? - 知乎",
+        "url": "https://zhuanlan.zhihu.com/p/576799801?utm_medium=openapi_platform&utm_source=b38f6831b176",
+        "author": "懂懂笔记",
+        "contentType": "Article",
+        "excerptZh": "“显然，随着新能源知识的普及，越来越多的消费者都知道磷酸铁锂更安全，一些厂家会心虚，因此生产的三元锂电产品会标注为汽车级电芯，就是忽悠小白用户。”谢海亮强调，除了小作坊的产品，个别知名品牌货也会这么干。 可见，户外电源在电芯的选择上，“标注和说明”就已经有不少猫腻，作为“门外汉”的普通消费者，一不小心便会踩坑。尤其是，户外电源行业的问题还远不止如此。 「02」 实际容量成了“玄学”？ “我用新买的户外电源做饭，电饭锅煮两次就没电了。” 酷爱露营的李先生，最近花了将近2000元买了一台户外电源。然而他在实际使用时发现，商家宣传的“满电情况下可以连续两小时，使用功率300瓦”的电饭锅，实际却连1小时都用不到。 在找商家理论时，对方表示这个两小时只是“理论值”，实际使用时长需根据用户电器实际功率计算。而李先生发现，在产品的宣传页中的确有一则用小字注明的“理论值”计算公式：电池容量 / 用电器功率。 “跟新能源汽车很相似，目前这种户外电源的‘续航时长’，也成了一门玄学。”谢海亮笑道，商家通过所谓“公式”计算出的结果，作为户外电源的实际续航值太不准确...",
+        "excerptEn": "Xie Hailiang argues that as new-energy knowledge spreads, more consumers know lithium iron phosphate is safer, so some manufacturers—not only small workshops but also certain well-known brands—may label ternary lithium products as “automotive-grade cells” to mislead inexperienced buyers. The excerpt adds that cell labeling and descriptions for outdoor power supplies already contain considerable ambiguity, leaving ordinary lay consumers prone to pitfalls, and that actual capacity claims can be dubious—one camper who spent nearly RMB 2,000 reported that an advertised 300W rice cooker supposedly ",
+        "publishDate": "2022-10-24",
+        "sceneId": "capacity",
+        "sceneIds": [
+          "camping",
+          "solar",
+          "capacity",
+          "safety"
+        ],
+        "sceneLabel": "容量与功率",
+        "query": "户外电源 虚标 容量",
+        "whyIncluded": "通过 容量、功率、瓦、度电、虚标 命中场景「容量与功率」。来自查询：户外电源 虚标 容量。",
+        "flags": {
+          "marketing": false,
+          "duplicate": false,
+          "secondhand": false
+        },
+        "role": "buyer",
+        "included": true,
+        "codeIds": [
+          "camping",
+          "capacity",
+          "solar",
+          "safety"
+        ],
+        "votes": 1,
+        "comments": 0
+      },
+      {
+        "id": "src_3577b9e3",
+        "source": "zhihu_search",
+        "title": "2026年户外电源选购推荐|露营自驾游必备!正浩、公牛、京东京造、大疆、电小二怎么选?看完不花冤枉钱! - 知乎",
+        "url": "https://zhuanlan.zhihu.com/p/2031049019800154271?utm_medium=openapi_platform&utm_source=b38f6831b176",
+        "author": "薄荷蓝",
+        "contentType": "Article",
+        "excerptZh": "哈喽大家好，我是 @薄荷蓝 ！ 近几年露营、自驾、房车旅行越来越火，再加上夏季限电、突发停电的情况也时有发生，户外电源已经从 “小众玩具” 变成了家庭刚需 + 户外必备的核心装备。 但说实话，现在市面上的户外电源品牌五花八门，参数看得人眼花缭乱：Wh、W、峰值功率、磷酸铁锂、纯正弦波…… 到底怎么选？不同场景该买多大容量？预算几千块该选哪个品牌？今天这篇我就来给大家说清楚。 一、先搞懂：户外电源到底是什么？有啥用？ 简单说，户外电源 = 大容量储能电池 + 220V 交流电 + 多接口输出 + 便携机身，相当于 “户外大号插排 + 巨型充电宝 + 家庭应急备用电站”，脱离市电也能给各类设备长时间稳定供电。 ✅ 四大核心使用场景 1.户外露营 / 野餐：给手机、投影仪、咖啡机、电煮锅、烧烤炉、车载冰箱、风扇供电，不用干吃冷食、迁就明火，实现用电自由，露营幸福感直接拉满。 2.自驾 / 房车 / 床车：烧水、做饭、驻车空调补电、给车载冰箱持续供电，解决大功率取电难的痛点，长途自驾不再焦虑。 3.家庭应急备用：极端天气、小区跳闸、限电时，给路由器...",
+        "excerptEn": "The excerpt notes that outdoor power stations have become more popular with camping, RV travel, and outages, but it acknowledges that the crowded market and confusing specs make choosing one unclear. It defines them as portable battery/AC/multi-port units—essentially an outdoor power strip, giant power bank, and emergency backup station—without settling which brands or capacities are actually worth buying.",
+        "publishDate": "2026-04-25",
+        "sceneId": "rv",
+        "sceneIds": [
+          "outage",
+          "camping",
+          "rv",
+          "solar",
+          "capacity",
+          "noise_weight",
+          "safety"
+        ],
+        "sceneLabel": "房车与长途",
+        "query": "户外电源 选购 避坑 售后",
+        "whyIncluded": "通过 房车、床车、自驾游、长途、驻车 命中场景「房车与长途」。来自查询：户外电源 选购 避坑 售后。",
+        "flags": {
+          "marketing": true,
+          "duplicate": false,
+          "secondhand": false
+        },
+        "role": "unclear",
+        "included": true,
+        "codeIds": [
+          "outage",
+          "camping",
+          "capacity",
+          "solar",
+          "noise_weight",
+          "safety"
+        ],
+        "votes": 3,
+        "comments": 0
+      },
+      {
+        "id": "src_611335b7_16",
+        "source": "zhihu_search",
+        "title": "高密安全电芯长效续航户外电源整机全套自主生产 - 知乎",
+        "url": "https://zhuanlan.zhihu.com/p/2057509659045532376?utm_medium=openapi_platform&utm_source=b38f6831b176",
+        "author": "杨玉成",
+        "contentType": "Article",
+        "excerptZh": "在户外探险、应急救援、野外施工等场景中，一台可靠的户外电源往往就是最后的“生命线”。但市面上参差不齐的产品，让不少用户在续航、安全、售后上踩过坑。今天，我们用真实数据和案例，聊聊博结成科技如何用“高密安全电芯+长效续航+整机自主生产”这套组合拳，重新定义户外电源标准。 一、高密安全电芯：不是所有“锂电池”都叫“安全” 户外电源的核心是电芯，但很多用户只关心“容量多大”，忽略了电芯本身的安全等级。博结成科技全线产品采用高安全等级磷酸铁锂电芯，相比传统三元锂电芯，热失控温度门槛高出约120℃（磷酸铁锂约270℃起火，三元锂约150℃）。根据中国电子技术标准化研究院2023年发布的《便携式储能电源安全技术白皮书》，磷酸铁锂电芯在过充、针刺、挤压场景下，起火概率比三元锂低87%。 实操建议：选购户外电源时，可以问客服“电芯是磷酸铁锂还是三元锂”，并索要第三方检测报告（如UL 1642、IEC 62133）。博结成科技每批次电芯均通过GB 31241-2014和UN38.3认证，且出厂前会进行5000次循环寿命测试，确保长期使用后容量衰减控制在20%...",
+        "excerptEn": "In outdoor exploration, emergency rescue, and field construction, a reliable portable power station is often framed as a last “lifeline,” but uneven market products have led some users to run into problems with runtime, safety, and after-sales support. The excerpt then presents Bojuecheng Technology’s promotional claims about high-safety LFP cells, long runtime, and in-house manufacturing—including an assertion that LFP cells have a thermal runaway threshold about 120°C higher than ternary lithium cells—though the supporting data are only partially presented.",
+        "publishDate": "2026-07-06",
+        "sceneId": "safety",
+        "sceneIds": [
+          "outage",
+          "camping",
+          "capacity",
+          "noise_weight",
+          "safety",
+          "aftersale"
+        ],
+        "sceneLabel": "安全与认证",
+        "query": "户外电源 选购 避坑 售后",
+        "whyIncluded": "与前面的条目是同一链接，先搁置，避免样本重复计数。恢复后会重新计入。来自查询：户外电源 选购 避坑 售后。",
+        "flags": {
+          "marketing": false,
+          "duplicate": true,
+          "secondhand": false
+        },
+        "role": "practitioner",
+        "included": false,
+        "codeIds": [
+          "outage",
+          "camping",
+          "capacity",
+          "noise_weight",
+          "safety",
+          "aftersale"
+        ],
+        "votes": 0,
+        "comments": 0
+      },
+      {
+        "id": "src_baf6499d",
+        "source": "zhihu_search",
+        "title": "2024年户外电源避坑指南!电小二,京东京造,公牛户外电源品牌怎么选? - 知乎",
+        "url": "https://zhuanlan.zhihu.com/p/575951238?utm_medium=openapi_platform&utm_source=b38f6831b176",
+        "author": "Tina说数码",
+        "contentType": "Article",
+        "excerptZh": "2.1 看品牌 户外电源的品牌有很多，主要是有专业做户外电源的厂商品牌，以及做3C数码的品牌。 专业做户外电源的厂家有：电小二、正浩、斯丹德等。 2.2 看功率，接口，快充等。 ・功率 不同功率使用场景： 户外电源的功率从200W -2000 W 不等，功率越大户外电源的价格也越高，可以带动的设备也会越多。为了避免过剩使用，在选择户外电源时需要明确不同功率的使用场景。 （图片内容来自 @大明明 了解过多款户外电源后的总结，实际使用天数会根据带的设备不一样有变化。） 如果你预算足够，外出场景比较多，喜欢精致露营，自驾出游，建议至少选择1000W 户外电源。1000W的电源是一度电，可以带动小于或者等于1000W 用电设备。 像是想在外煮咖啡，喝热水的电烧水壶功率都是800W的，户外电源功率小了会带不动。 同功率户外电源供电/用电时间参考： （图片内容来自 @大明明 查看不同户外电源功率后对可供电/充电设备的总结，同功率不同电池容量的户外电源供电/充电时间会有偏差。） 接口： 户外电源带有USB-C/A, 以及DC/AC 接口，接口越多，可供充...",
+        "excerptEn": "The excerpt says outdoor power station brands range from specialist manufacturers such as 电小二, 正浩, and 斯丹德 to 3C digital brands, and that buyers should consider power, ports, and fast charging; wattage runs from 200W to 2000W, with higher power costing more and supporting more devices, so use scenarios should be clarified to avoid overkill. It also relays a summary from @大明明—based on experience with multiple units—suggesting at least 1000W for those with sufficient budget and frequent refined-camping or self-driving use, while noting actual usage days vary by devices, though the excerpt cuts o",
+        "publishDate": "2022-10-25",
+        "sceneId": "capacity",
+        "sceneIds": [
+          "camping",
+          "solar",
+          "capacity",
+          "safety",
+          "aftersale"
+        ],
+        "sceneLabel": "容量与功率",
+        "query": "户外电源 选购 避坑 售后",
+        "whyIncluded": "通过 容量、功率、度电、带不动、输出 命中场景「容量与功率」。来自查询：户外电源 选购 避坑 售后。",
+        "flags": {
+          "marketing": true,
+          "duplicate": false,
+          "secondhand": false
+        },
+        "role": "buyer",
+        "included": true,
+        "codeIds": [
+          "camping",
+          "capacity",
+          "solar",
+          "safety",
+          "aftersale"
+        ],
+        "votes": 76,
+        "comments": 9
+      },
+      {
+        "id": "src_591639ef",
+        "source": "zhihu_search",
+        "title": "这些户外电源千万别买!2026推荐5款品牌高性价比户外电源/移动电源 - 知乎",
+        "url": "https://zhuanlan.zhihu.com/p/702090823?utm_medium=openapi_platform&utm_source=b38f6831b176",
+        "author": "小白同学",
+        "contentType": "Article",
+        "excerptZh": "二：户外电源推荐入手型号 绿联户外电源GS1200W 正浩睿3户外电源 电小二户外电源1000Pro2 小能人户外电源A320A/XY03 京东京造户外电源JZ-OPS2400P ①绿联户外电源GS1200W 卡片显示价格虚高，获取最低活动价格↓↓↓ 特点和优点： ・大容量磷酸铁锂电池：电池容量1024Wh（约1度电），采用汽车级磷酸铁锂电芯，循环寿命超3000次，耐用性远超普通锂电池（普通款仅500次），即使每天使用一半电量，也能稳定运行8年以上。耐高温性能优异，零下20℃仍能保持80%放电效率，冬季露营或低温环境使用无忧。 ・高功率输出与超能模式：额定输出功率1200W，支持220V纯正弦波输出，兼容大多数家用电器（如电饭煲、投影仪、车载冰箱等）。U-Turbo超能模式：通过智能逆变技术，瞬间提升功率至2500W，可驱动电磁炉、热水壶等大功率设备，实测支持小型电磁炉持续工作1.5小时。 ・极速快充技术：搭载PowerZip优闪充技术，市电充电仅需1.5小时（同类产品普遍需7小时以上），早晨煮咖啡的时间即可充入50%电量，紧急情况下比燃油...",
+        "excerptEn": "The excerpt lists several outdoor power station models—UGREEN GS1200W, EcoFlow RIVER 3, Jackery 1000 Pro 2, Xiaonengren A320A/XY03, and JD Jingzao JZ-OPS2400P—while noting that the UGREEN card price appears inflated and that a lowest promotional price must be obtained. It describes the UGREEN GS1200W as having a 1024Wh automotive-grade LiFePO4 battery with over 3,000 cycles, 80% discharge efficiency at -20°C, and 1,200W rated output supporting 220V pure sine wave, though these are the excerpt’s claims.",
+        "publishDate": "2024-06-06",
+        "sceneId": "capacity",
+        "sceneIds": [
+          "outage",
+          "camping",
+          "solar",
+          "capacity",
+          "noise_weight",
+          "safety"
+        ],
+        "sceneLabel": "容量与功率",
+        "query": "户外电源 选购 避坑 售后",
+        "whyIncluded": "通过 容量、功率、度电、输出 命中场景「容量与功率」。来自查询：户外电源 选购 避坑 售后。",
+        "flags": {
+          "marketing": true,
+          "duplicate": false,
+          "secondhand": false
+        },
+        "role": "buyer",
+        "included": true,
+        "codeIds": [
+          "outage",
+          "camping",
+          "capacity",
+          "solar",
+          "noise_weight",
+          "safety"
+        ],
+        "votes": 50,
+        "comments": 0
+      },
+      {
+        "id": "src_9e205fd0_19",
+        "source": "zhihu_search",
+        "title": "2026年教你准确辨别户外电源厂家是真工厂还是贸易中间商 - 知乎",
+        "url": "https://zhuanlan.zhihu.com/p/2083589369194140077?utm_medium=openapi_platform&utm_source=b38f6831b176",
+        "author": "储能电源工厂",
+        "contentType": "Article",
+        "excerptZh": "去年下半年，浙江做夜市摆摊的陈先生踩了个大坑：花1200元买了台标称2000W的户外电源，用了不到3个月，冬天零下3度的环境下电量直接掉到标称的28%，带不动炸串机，找商家售后才发现对方是个贸易中间商，上游厂家已经联系不上，最后只能自认倒霉。随着2025年国内便携储能市场规模突破327亿元（数据来源：中国能源研究会），户外电源的需求暴涨，像陈先生这样踩了中间商坑的消费者和采购方不在少数：虚标容量、低温衰减快、售后失联、定制需求无法满足……2026年采购户外电源，只要认准以下3个判断标准，就能精准区分源头工厂和贸易中间商，避坑率99%。 一、看核心资质与生产积淀，有没有自主产能是核心 真工厂的核心特征是有完整的技术积淀和自主生产能力，不是靠倒赚差价存活。 比如广东华盛天诚新能源科技有限公司（简称韩帕），是国内资深的户外便携式储能电源源头生产厂家，其锂电行业经验最早可追溯到2011年，2013年就开始自主研发锂电池结构与核心配件，2018年实现标准化量产，2022年和深耕自动化设备领域的东莞建敏自动化合资落地东莞后，拥有自有标准化生产车间、PA...",
+        "excerptEn": "A Zhihu post recounts a vendor who paid ¥1,200 for a supposedly 2,000W outdoor power station that, after less than three months, dropped to 28% of rated capacity at −3°C and could not run his fryer; the seller turned out to be a trading intermediary, the upstream manufacturer was unreachable, and he was left to absorb the loss. Against a claimed 2025 domestic portable-storage market of over ¥32.7 billion and reports of inflated capacity, rapid low-temperature degradation, vanished after-sales support, and unmet customization, the post offers three criteria for distinguishing source factories f",
+        "publishDate": "2026-09-16",
+        "sceneId": "capacity",
+        "sceneIds": [
+          "camping",
+          "capacity",
+          "noise_weight",
+          "safety",
+          "aftersale"
+        ],
+        "sceneLabel": "容量与功率",
+        "query": "户外电源 选购 避坑 售后",
+        "whyIncluded": "与前面的条目是同一链接，先搁置，避免样本重复计数。恢复后会重新计入。来自查询：户外电源 选购 避坑 售后。",
+        "flags": {
+          "marketing": false,
+          "duplicate": true,
+          "secondhand": false
+        },
+        "role": "buyer",
+        "included": false,
+        "codeIds": [
+          "camping",
+          "capacity",
+          "noise_weight",
+          "safety",
+          "aftersale"
+        ],
+        "votes": 0,
+        "comments": 0
+      }
+    ],
+    "auxiliary": {
+      "text": "搜索词可能漏掉的场景：\n\n- 房车/床车长期驻车供电\n- 户外摆摊、集市、夜市经营用电\n- 直播、短视频外拍补电\n- 无人机、相机电池批量充电\n- 钓鱼、夜钓、船钓照明与设备供电\n- 工地临时用电、装修无电环境\n- 农业作业（灌溉、养殖、田间照明）\n- 救灾、消防、抢修等应急电力保障\n- 医院、诊所、数据中心等断电备用\n- 家庭停电时冰箱、照明、路由器等基础保电\n- 户外婚礼、市集、展会等临时活动供电\n- 教学实验、科研野外作业供电\n- 阳台光伏、家庭储能与移动电源联动\n- 电动工具无电环境作业\n- 车内冰箱、车载电器离车使用\n- 独居老人、病患居家应急备电\n- 宠物户外活动（加热、通风、照明）\n- 户外办公、远程会议供电\n- 灾害多发地区家庭常备电源\n- 租赁、共享电源运营场景",
+      "usedAsFinding": false
+    }
+  }
+}

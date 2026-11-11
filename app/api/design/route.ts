@@ -7,7 +7,7 @@ export async function POST(request: Request): Promise<Response> {
   const body: unknown = await request.json().catch(() => null);
   const brief = body && typeof body === "object" ? (body as { brief?: unknown }).brief : "";
   if (typeof brief !== "string" || !brief.trim()) {
-    return Response.json({ error: "Write a research brief first." }, { status: 400 });
+    return Response.json({ error: "先写一句研究简报。" }, { status: 400 });
   }
   try {
     const design = compileDesign(brief.trim());

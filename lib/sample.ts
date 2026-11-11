@@ -1,7 +1,22 @@
 import type { CodeDef, RawHit, ResearchDesign, Role, SampleItem, SceneDef } from "./types";
 
-const MARKETING = ["广告", "软广", "品牌方", "赞助", "优惠券", "购买链接", "旗舰店", "淘宝", "京东", "种草", "测评合作", "商务合作"];
-const SECONDHAND = ["听说", "朋友说", "网传", "据说", "有人说", "好像是"];
+const MARKETING = [
+  "广告",
+  "软广",
+  "品牌方",
+  "赞助",
+  "优惠券",
+  "购买链接",
+  "旗舰店",
+  "淘宝",
+  "京东",
+  "种草",
+  "测评合作",
+  "商务合作",
+  "sponsored",
+  "affiliate",
+];
+const SECONDHAND = ["听说", "朋友说", "网传", "据说", "有人说", "好像是", "heard", "apparently"];
 const USER_MARKS = ["我家", "我用", "我买", "我们家", "我家猫", "我的猫", "自己用", "我才", "我把", "我自己", "我随手", "我设", "我后来"];
 const BUYER_MARKS = ["入手", "下单", "购买了", "买了", "价格", "多少钱", "值不值"];
 const PRACTITIONER_MARKS = ["兽医", "医生", "营养师", "从业", "品牌方", "官方"];
@@ -112,10 +127,10 @@ export function assembleSample(
     const secondhand = hitsOf(text, SECONDHAND).length > 0;
     const productHits = hitsOf(text, design.productTerms);
     const why = duplicate
-      ? `Same link as an earlier item. Held out so the sample does not count it twice. Restore puts it back into the counts. Query: ${hit.query}.`
+      ? `与前面的条目是同一链接，先搁置，避免样本重复计数。恢复后会重新计入。来自查询：${hit.query}。`
       : scene
-        ? `Matched the scene "${sceneLabel}" through ${matched.join(", ")}. Query: ${hit.query}.`
-        : `Matched product terms ${productHits.join(", ") || "in the query"} and no scene term. Query: ${hit.query}.`;
+        ? `通过 ${matched.join("、")} 命中场景「${sceneLabel}」。来自查询：${hit.query}。`
+        : `命中产品词 ${productHits.join("、") || "（查询本身）"}，但没有命中场景词。来自查询：${hit.query}。`;
     const excerptZh = clip(hit.text || hit.title);
     items.push({
       id: duplicate ? `${id}_${items.length}` : id,

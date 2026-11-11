@@ -1,0 +1,60 @@
+{
+  "demos": [
+    {
+      "id": "smart-feeder",
+      "title": "多猫智能喂食器",
+      "subtitle": "哪些功能是真需求，哪些宣称经不起推敲",
+      "tags": [
+        "消费硬件",
+        "需求探索"
+      ],
+      "audience": "硬件产品团队",
+      "sampleCount": 20,
+      "includedCount": 18,
+      "findingCount": 6,
+      "generatedAt": "2026-11-11T14:04:56.938Z"
+    },
+    {
+      "id": "ai-meeting",
+      "title": "AI 会议纪要",
+      "subtitle": "产研团队真正愿意每天用的能力是什么",
+      "tags": [
+        "B2B SaaS",
+        "产品发现"
+      ],
+      "audience": "效率工具产品经理",
+      "sampleCount": 20,
+      "includedCount": 19,
+      "findingCount": 7,
+      "generatedAt": "2026-11-11T14:04:56.938Z"
+    },
+    {
+      "id": "outdoor-power",
+      "title": "户外储能出海",
+      "subtitle": "北美用户为哪些场景买单，哪些参数只是堆料",
+      "tags": [
+        "跨境出海",
+        "选品研究"
+      ],
+      "audience": "出海品牌与独立站",
+      "sampleCount": 20,
+      "includedCount": 18,
+      "findingCount": 8,
+      "generatedAt": "2026-11-11T14:04:56.938Z"
+    },
+    {
+      "id": "ai-knowledge-base",
+      "title": "AI 知识库落地",
+      "subtitle": "50 人产研团队为什么用不起来",
+      "tags": [
+        "企业 AI",
+        "知识管理"
+      ],
+      "audience": "平台与效能团队",
+      "sampleCount": 20,
+      "includedCount": 19,
+      "findingCount": 8,
+      "generatedAt": "2026-11-11T14:04:56.938Z"
+    }
+  ]
+}

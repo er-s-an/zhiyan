@@ -54,7 +54,7 @@ export async function executeConfirmed(args: {
     let items: ZhihuContent[] | null = null;
     for (let attempt = 0; attempt < 2; attempt += 1) {
       try {
-        items = await args.port.search(query, 4);
+        items = await args.port.search(query, 5);
         break;
       } catch (error) {
         lastError = error instanceof Error ? error.message : "SEARCH_FAILED";

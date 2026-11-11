@@ -1,7 +1,7 @@
 function llmConfig(): { base: string; key: string; model: string } | null {
   const base = process.env.LLM_BASE_URL;
-  const key = process.env.LLM_API_KEY;
-  const model = process.env.LLM_MODEL || "grok-4.5";
+  const key = process.env.LLM_API_KEY || process.env.OPENCODE_GO_API_KEY;
+  const model = process.env.LLM_MODEL || "deepseek-v4.1-flash";
   if (!base || !key) return null;
   return { base: base.replace(/\/$/, ""), key, model };
 }
@@ -20,7 +20,7 @@ function parseMap(raw: string): Record<string, string> {
   return out;
 }
 
-async function complete(prompt: string, timeoutMs: number): Promise<string> {
+async function complete(prompt: string, timeoutMs: number, maxTokens = 8000): Promise<string> {
   const config = llmConfig();
   if (!config) throw new Error("LLM_NOT_CONFIGURED");
   const controller = new AbortController();
@@ -30,10 +30,13 @@ async function complete(prompt: string, timeoutMs: number): Promise<string> {
     headers: {
       Authorization: `Bearer ${config.key}`,
       "Content-Type": "application/json",
+      "x-opencode-session": process.env.LLM_SESSION_ID || `zhiyan-${process.pid}`,
     },
     body: JSON.stringify({
       model: config.model,
       temperature: 0,
+      max_tokens: maxTokens,
+      reasoning_effort: "low",
       messages: [{ role: "user", content: prompt }],
     }),
     signal: controller.signal,
@@ -67,22 +70,22 @@ function plainEnglish(raw: string, id: string): string {
     try {
       const map = parseMap(stripped);
       const value = map[id] || Object.values(map)[0];
-      if (value) return value.replace(/\s+/g, " ").slice(0, 500);
+      if (value) return value.replace(/\s+/g, " ").slice(0, 600);
     } catch {
       // A single excerpt can still be plain prose when the model skips JSON.
     }
   }
-  return stripped.replace(/\s+/g, " ").slice(0, 500);
+  return stripped.replace(/\s+/g, " ").slice(0, 600);
 }
 
 async function translateOne(pair: { id: string; zh: string }, timeoutMs: number): Promise<string> {
   const prompt = [
-    "Translate the excerpt into one or two English sentences.",
-    "Keep skepticism. Do not add a buying conclusion.",
+    "Translate the Zhihu excerpt into one or two restrained English sentences.",
+    "Keep the skepticism. Do not add a buying conclusion or product recommendation.",
     "Return only the English sentences.",
-    pair.zh.slice(0, 280),
+    pair.zh.slice(0, 300),
   ].join("\n");
-  const text = plainEnglish(await complete(prompt, timeoutMs), pair.id);
+  const text = plainEnglish(await complete(prompt, timeoutMs, 5000), pair.id);
   if (text.length < 8) throw new Error("LLM_EMPTY");
   return text;
 }
@@ -91,21 +94,29 @@ export async function translateExcerpts(
   pairs: { id: string; zh: string }[],
   options?: { timeoutMs?: number; retries?: number },
 ): Promise<Record<string, string>> {
-  const timeoutMs = options?.timeoutMs ?? 18000;
-  const retries = options?.retries ?? 0;
+  const timeoutMs = options?.timeoutMs ?? 25000;
+  const retries = options?.retries ?? 1;
   const out: Record<string, string> = {};
-  for (const pair of pairs) {
-    try {
-      out[pair.id] = await translateOne(pair, timeoutMs);
-    } catch {
-      if (retries < 1) continue;
-      try {
-        out[pair.id] = await translateOne(pair, timeoutMs);
-      } catch {
-        // Leave this id for the fallback below.
+  const queue = [...pairs];
+
+  async function worker(): Promise<void> {
+    for (;;) {
+      const pair = queue.shift();
+      if (!pair) return;
+      for (let attempt = 0; attempt <= retries; attempt += 1) {
+        try {
+          out[pair.id] = await translateOne(pair, timeoutMs);
+          break;
+        } catch (error) {
+          if (attempt === retries) {
+            console.warn("translate failed:", pair.id, error instanceof Error ? error.message : error);
+          }
+        }
       }
     }
   }
+
+  await Promise.all(Array.from({ length: Math.min(4, pairs.length) }, () => worker()));
   for (const pair of pairs) {
     if (!out[pair.id]) out[pair.id] = "Translation unavailable. Use the Chinese excerpt as the evidence.";
   }

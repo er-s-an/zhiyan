@@ -1,0 +1,1043 @@
+{
+  "study": {
+    "id": "demo_ai-meeting",
+    "design": {
+      "brief": "我们在做一款面向产研团队的 AI 会议纪要工具，想知道团队真实的使用场景、现有工具的痛点，以及哪些能力只是演示效果。",
+      "decision": "面向产研团队的 AI 会议纪要工具，应该优先定义哪些能力；哪些宣传点不足以成为团队采购与长期使用的理由。",
+      "subjects": [
+        "users",
+        "buyers",
+        "practitioners"
+      ],
+      "stage": "needs_exploration",
+      "zhihuCanAnswer": [
+        "产研团队在哪些会议类型里真正需要纪要，以及现在由谁记录。",
+        "现有工具在转写、行动项和协作上具体卡在哪里。",
+        "哪些能力只在演示里好看，实际开会时会被放弃。"
+      ],
+      "scenes": [
+        {
+          "id": "accuracy",
+          "label": "记录准确与可追溯",
+          "keywords": [
+            "准确",
+            "错字",
+            "漏记",
+            "识别",
+            "口音",
+            "方言",
+            "转录"
+          ]
+        },
+        {
+          "id": "action",
+          "label": "行动项与跟进",
+          "keywords": [
+            "行动项",
+            "待办",
+            "跟进",
+            "负责人",
+            "落地",
+            "todo",
+            "闭环"
+          ]
+        },
+        {
+          "id": "meeting_type",
+          "label": "会议类型适配",
+          "keywords": [
+            "周会",
+            "评审",
+            "复盘",
+            "访谈",
+            "客户会",
+            "站会",
+            "培训"
+          ]
+        },
+        {
+          "id": "collaboration",
+          "label": "协作与共享",
+          "keywords": [
+            "共享",
+            "同步",
+            "协作",
+            "导出",
+            "飞书",
+            "钉钉",
+            "企微",
+            "文档"
+          ]
+        },
+        {
+          "id": "privacy",
+          "label": "录音与数据顾虑",
+          "keywords": [
+            "隐私",
+            "录音",
+            "合规",
+            "权限",
+            "数据安全",
+            "本地部署",
+            "泄露"
+          ]
+        },
+        {
+          "id": "adoption",
+          "label": "使用门槛与习惯",
+          "keywords": [
+            "上手",
+            "学习成本",
+            "习惯",
+            "打断",
+            "没人用",
+            "流程"
+          ]
+        },
+        {
+          "id": "integration",
+          "label": "集成与工作流",
+          "keywords": [
+            "集成",
+            "API",
+            "日历",
+            "插件",
+            "接入",
+            "工作流"
+          ]
+        }
+      ],
+      "populations": [
+        "产研团队负责人与项目经理",
+        "会议记录人（PM、运营、助理）",
+        "一线工程师与设计师",
+        "采购、IT 与信息安全"
+      ],
+      "inclusion": [
+        "帖子描述了真实使用会议纪要工具的经历、失败或具体评价。",
+        "帖子命中计划场景或产品词，并且由计划查询或热榜检索到。"
+      ],
+      "exclusion": [
+        "与会议纪要无关的热榜条目。",
+        "同一链接的重复出现。",
+        "纯产品发布稿，且没有实际使用细节的帖子。"
+      ],
+      "stoppingRule": "跑完计划内的全部查询就停。某个场景的纳入条目少于两条，就保持未覆盖。不追加查询来制造一致性。",
+      "queries": [
+        "AI 会议纪要 好用吗",
+        "会议纪要 自动生成 准确 踩坑",
+        "AI 会议 记录 隐私 录音",
+        "会议纪要 工具 对比 飞书"
+      ],
+      "productTerms": [
+        "会议纪要",
+        "会议记录",
+        "AI会议",
+        "转录",
+        "语音转写",
+        "纪要"
+      ],
+      "codebook": [
+        {
+          "id": "accuracy",
+          "label": "转写准确度",
+          "definition": "帖子描述听错、漏字、方言或专业词识别问题。",
+          "keywords": [
+            "准确",
+            "错字",
+            "漏",
+            "识别",
+            "口音",
+            "方言",
+            "转录"
+          ]
+        },
+        {
+          "id": "action",
+          "label": "行动项遗漏",
+          "definition": "帖子描述待办没有被记下、没有负责人或没有跟进。",
+          "keywords": [
+            "行动项",
+            "待办",
+            "跟进",
+            "负责人",
+            "落地",
+            "忘了"
+          ]
+        },
+        {
+          "id": "meeting_type",
+          "label": "会议场景错配",
+          "definition": "帖子按会议类型评价工具是否适用。",
+          "keywords": [
+            "周会",
+            "评审",
+            "复盘",
+            "访谈",
+            "客户",
+            "站会",
+            "培训"
+          ]
+        },
+        {
+          "id": "collaboration",
+          "label": "协作与共享摩擦",
+          "definition": "帖子描述共享、导出或跨工具同步的摩擦。",
+          "keywords": [
+            "共享",
+            "同步",
+            "协作",
+            "导出",
+            "飞书",
+            "钉钉",
+            "企微"
+          ]
+        },
+        {
+          "id": "privacy",
+          "label": "录音与数据顾虑",
+          "definition": "帖子提到录音、权限、合规或数据安全顾虑。",
+          "keywords": [
+            "隐私",
+            "录音",
+            "合规",
+            "权限",
+            "安全",
+            "泄露"
+          ]
+        },
+        {
+          "id": "adoption",
+          "label": "使用门槛",
+          "definition": "帖子描述上手、习惯或流程上的阻力。",
+          "keywords": [
+            "上手",
+            "学习成本",
+            "习惯",
+            "打断",
+            "没人用",
+            "流程"
+          ]
+        },
+        {
+          "id": "gimmick",
+          "label": "演示型功能",
+          "definition": "发帖人把某个能力看成花哨、演示导向或用不上。",
+          "keywords": [
+            "演示",
+            "噱头",
+            "鸡肋",
+            "用不上",
+            "花哨",
+            "智商税"
+          ]
+        },
+        {
+          "id": "trust",
+          "label": "信任与人工复核",
+          "definition": "帖子描述人工核对、校对或不信任 AI 记录。",
+          "keywords": [
+            "信任",
+            "核对",
+            "人工",
+            "复核",
+            "校对",
+            "不放心"
+          ]
+        }
+      ],
+      "briefLanguage": "zh",
+      "zhihuCannotAnswer": [
+        "现有知乎讨论不能证明购买意愿。",
+        "现有知乎讨论不能把一条宣称验证成足以支撑购买。",
+        "团队最终会不会采购，以及愿意付多少钱。",
+        "会议纪要工具的市场规模与竞争格局。"
+      ],
+      "timeWindow": {
+        "start": "2024-11-11",
+        "end": "2026-11-11",
+        "rationale": "确认时点往前 24 个月。更早的帖子仍可留在样本里，但质量视图会把它们标成过时。"
+      }
+    },
+    "confirmedAt": "2026-11-11T14:04:56.938Z",
+    "retrieval": [
+      {
+        "kind": "zhihu_search",
+        "query": "AI 会议纪要 好用吗",
+        "resultCount": 5
+      },
+      {
+        "kind": "zhihu_search",
+        "query": "会议纪要 自动生成 准确 踩坑",
+        "resultCount": 5
+      },
+      {
+        "kind": "zhihu_search",
+        "query": "AI 会议 记录 隐私 录音",
+        "resultCount": 5
+      },
+      {
+        "kind": "zhihu_search",
+        "query": "会议纪要 工具 对比 飞书",
+        "resultCount": 5
+      },
+      {
+        "kind": "hot_list",
+        "query": "热榜",
+        "resultCount": 30
+      },
+      {
+        "kind": "zhida",
+        "query": "gap hint",
+        "resultCount": 1
+      }
+    ],
+    "hotScan": {
+      "scanned": 30,
+      "included": 0,
+      "droppedTitles": [
+        "如何看待房主因不满 35 万元拆迁赔偿直播施压，四川自永高速建设施工队直接改方案抬高跨过？",
+        "如果在床边放一碗血，晚上蚊子还会来咬我吗？",
+        "小学男孩「嘉豪」总被嘲笑希望改名，名字是网络流行梗对孩子来说有多困扰？家长该怎么做？",
+        "余承东正式官宣华为子品牌「星芒」（OSTA），可能面向哪些用户？它会如何与华为现有产品线区分？",
+        "「减肥神药」或致永久性失明，美药管局发布警告，司美格鲁肽这类药物真的可能造成永久性失明吗？风险有多高？",
+        "玛莎拉蒂将与尊界合作，将通过江淮进行制造，此次合作能给三方带来什么？同一款车两套身份，谁在薅谁羊毛？",
+        "为什么绿皮火车又火了？",
+        "RTX50系列显卡价格出现回落，RTX5080售价已跌4000 元，有哪些原因？现在适合入手吗？",
+        "林生斌名下关联13家公司，网传其定居悉尼富人区，儿女入读当地私校，是真的吗？为什么许多网友会感到割裂？",
+        "沙僧在《西游记》中，除了挑担子外，出场的时候很少，为什么吴承恩在写《西游记》时不把他删掉？",
+        "比亚迪就大唐轮辋装配问题致歉，系供应商编码录入失误造成错装，不影响操控，具体什么情况？实际影响多大？",
+        "周瑜为什么那么年轻就早死了，有没有可能是孙权害了他?",
+        "中国叫停软银收购瑞士 ABB 机器人业务，将对全球工业数据流转规则产生哪些影响？",
+        "王传君称演《爱情公寓》时「没有听到表演的召唤」，觉得这就是一份让自己走红的工作，怎么评价这个说法？",
+        "离岸信托个税申报累计超1600亿元，10月入库超1200亿，带动当月全国个税收入增长90%，怎样解读？",
+        "张雪宣布，冠军车拍卖款不再捐给韩红基金会，你怎么看？",
+        "如何看待外媒曝比亚迪荷兰办公室遭突击搜查，相关电子记录被封存，捷豹路虎指控方程豹钛7逆向工程抄袭卫士？",
+        "王健林 14 年后再任万达商管董事长，怎样解读这一调整？",
+        "如何看待第39届金鸡奖《密档》郑大圣打败《南京照相馆》申奥、《给阿嬷的情书》蓝鸿春，爆冷获最佳导演？",
+        "大师兄Doublelift发问「如果BLG夺冠，这会是史上最具含金量的冠军吗」，你觉得是吗？",
+        "如何看待网友晒「上海和平饭店6人餐花费51万元的天价小票」，饭店辟谣称小票系伪造，警方目前已介入 ？",
+        "男子与第三者在客栈发生关系后猝死，妻子向第三者和客栈索赔超百万元，一审被驳回，法律上如何分析？",
+        "张卫健和周星驰的差距在哪儿？",
+        "如何看待上海卫健委回应校招会上医生月薪最高2499元，称信息不完整、已更新？实际薪资水平一般是怎样的？",
+        "高叶凭《南京照相馆》林毓秀一角拿下金鸡影后，首提即中，她在片中的表现如何？",
+        "是不是体型越小的动物越不可能摔死？",
+        "为什么欧美人不像中国人那样重视饮食？",
+        "中国足球联赛颁奖，张玉宁获本土金球，大连李国旭获金帅，成都蓉城山东泰山获公平竞赛奖，对此你怎么看？",
+        "三体到底从哪一部开始看啊？我从第一部开始看开头给我看蒙了？",
+        "青春期孩子常说「别管我」，父母该尊重边界还是主动追问？"
+      ]
+    },
+    "sample": [
+      {
+        "id": "src_9e1284e1",
+        "source": "zhihu_search",
+        "title": "讯飞办公本X5,实现了AI会议纪要一文不改直接发 - 知乎",
+        "url": "https://zhuanlan.zhihu.com/p/2101384225366729675?utm_medium=openapi_platform&utm_source=b38f6831b176",
+        "author": "闫跃龙",
+        "contentType": "Article",
+        "excerptZh": "新的体验是这样的：一名说话人在会上开口发言，系统就会提取声纹特征、完成后台建档；用户只需在会议记录里点一下说话人标签，把这位说话人的姓名写上去，姓名随即与声纹建立关联；此后在 其他会议中识别到该声纹，系统会自动匹配姓名，无需重复操作。 基于SpakAudio，手写标注说话人姓名，后续发言自动对应 也就是说，注册从“会前必须单独完成的准备动作”，变成了“会议过程中顺带完成的附属动作”。使用者什么都不用额外做，只要在系统认出人之后，把名字改对一次。 这个变化看似不大，但背后有一个很重要的产品逻辑：真正成熟的技术，应该让用户感觉不到技术的存在。就像我们用手机打电话，不需要先学会通信协议。优质的办公工具，不能让用户为了使用功能，额外学习复杂操作。把前置操作后置、把手动操作变成自动触发，让分角色识别随用随生效，正是办公产品走向成熟的核心标志。 当每一段发言都能精准锁定到人，会议记录才具备了溯源价值，第一道关口顺利落地。 第二关：纪要，敢不敢直接发 上一关解决的是话归谁，这一关解决的是，这份记录能不能用。 由于缺少说话人信息的补充：只是以单次会议中的录...",
+        "excerptEn": "The excerpt describes a SpakAudio-based workflow in which a speaker’s voiceprint is extracted and profiled when they speak, then linked to a name after the user corrects a speaker label once, so later meetings can match that name automatically—turning enrollment from a separate pre-meeting task into an incidental in-meeting action. It frames this as evidence that mature technology should be invisible, though the claim that users need do “nothing extra” still depends on the recognition and correction workflow working reliably.",
+        "publishDate": "2026-11-04",
+        "sceneId": "accuracy",
+        "sceneIds": [
+          "accuracy",
+          "action",
+          "privacy",
+          "integration"
+        ],
+        "sceneLabel": "记录准确与可追溯",
+        "query": "AI 会议纪要 好用吗",
+        "whyIncluded": "通过 准确、识别 命中场景「记录准确与可追溯」。来自查询：AI 会议纪要 好用吗。",
+        "flags": {
+          "marketing": false,
+          "duplicate": false,
+          "secondhand": false
+        },
+        "role": "unclear",
+        "included": true,
+        "codeIds": [
+          "accuracy",
+          "action",
+          "privacy",
+          "trust"
+        ],
+        "votes": 1,
+        "comments": 0
+      },
+      {
+        "id": "src_f042a6d3",
+        "source": "zhihu_search",
+        "title": "越重要的会,越需要讯飞办公本 - 知乎",
+        "url": "https://zhuanlan.zhihu.com/p/2101631379729540447?utm_medium=openapi_platform&utm_source=b38f6831b176",
+        "author": "山上",
+        "contentType": "Article",
+        "excerptZh": "正式场合，更可靠。 作者 I 王彬 封面 I 讯飞办公本 现在开一场会，AI 录音设备几乎成了标配。市面上多数会议记录产品都能在几秒内生成一份像模像样的智能会议纪要，但真正需要邮件留痕会议纪要往往不能直接使用，散会后还得重听一遍录音来核对。 原因很简单，通用 AI 生成的纪要，因为没有用户的信息矫正和个性化信息输入，总是有各种各样的瑕疵错误。大模型降低了信息生成的门槛，同时也放大了信息失真的风险。过去语音转写的错误尚容易辨别，现在 AI 则会把语音识别出错的地方润色得通顺自然，几乎难以判断。 当然，这并非在否认 AI 的提效。拥抱 AI 是未来职场的大势所趋，但在把信任全盘交给 AI 之前，我们或许仍然需要思考，如何让一份会议纪要真正变得准确可信。 这也是讯飞办公本在最新一次版本升级中试图解决的问题。当多数办公工具还在比拼生成速度时，讯飞办公本试图从底层出发，重新审视 AI 的价值。它要解决的不仅是如何更快地生成一份会议纪要，更要具备足够的准确与可信。 转写生成只要十秒钟，回听纠错需要一小时 语音转写错误再常见不过了。动辄几个小时的会议录音...",
+        "excerptEn": "For formal occasions, reliability matters more. AI meeting-summary tools may generate polished minutes in seconds, but generic AI lacks user-specific correction and context, so its output often contains flaws—and it can even smooth over speech-recognition errors into natural-sounding text that is hard to detect, amplifying the risk of distortion.",
+        "publishDate": "2026-11-05",
+        "sceneId": "accuracy",
+        "sceneIds": [
+          "accuracy",
+          "privacy",
+          "integration"
+        ],
+        "sceneLabel": "记录准确与可追溯",
+        "query": "AI 会议纪要 好用吗",
+        "whyIncluded": "通过 准确、识别 命中场景「记录准确与可追溯」。来自查询：AI 会议纪要 好用吗。",
+        "flags": {
+          "marketing": false,
+          "duplicate": false,
+          "secondhand": false
+        },
+        "role": "unclear",
+        "included": true,
+        "codeIds": [
+          "accuracy",
+          "privacy",
+          "trust"
+        ],
+        "votes": 0,
+        "comments": 0
+      },
+      {
+        "id": "src_6757761d",
+        "source": "zhihu_search",
+        "title": "AI 帮你写纪要之后,你公司开会变少了吗 - 知乎",
+        "url": "https://zhuanlan.zhihu.com/p/2096246869898818719?utm_medium=openapi_platform&utm_source=b38f6831b176",
+        "author": "一笑",
+        "contentType": "Article",
+        "excerptZh": "AI 帮你写纪要之后，你公司开会变少了吗 去年我们给团队上了 AI 会议纪要。会前自动转写，会中抓要点，散会两分钟一份摘要推到群里。我当时以为，记录这件最磨人的事交给机器，大家总算能把时间省下来干正事。 半年下来，我盯着日历看了很久。会一场没少。 省下的时间去哪了 同一件客户投诉的处理方案，我们前后讨论了三回。年中定下的渠道政策，上个月又从头议了一遍。每个人都很忙，会议一场没减。 这不止是我们一家的问题。九月中旬一场协同办公大会上，有个数字被反复提起。国内 88% 的企业已经在业务里用上 AI，可 AI 对总营收贡献超过一成的，不到 10%。真正称得上 AI 驱动型组织的，只有 2.7%。 同场一位清华经管学院的教授说得更直白。技术能力已经够用了，卡住的地方在组织本身。有企业对外说半年省下几百万个工时，折合一千人的产能，可利润和营收没有同步变化。 这笔账放到三十人的公司身上，更扎心。AI 把写纪要的时间省了，会议一场没少。省下来的时间，很快被新长出来的会填满。 今年一份行业调研里还有个细节。用上 AI 会议记录的人里，84% 说自己会因此改...",
+        "excerptEn": "After we adopted AI meeting minutes, our meetings did not decrease, and the same issues were discussed repeatedly—raising the question of where the saved time went. At a mid-September collaborative-office conference, it was repeatedly noted that 88% of domestic enterprises have adopted AI in their business, yet fewer than 10% see AI contribute more than 10% of total revenue, and only 2.7% qualify as truly AI-driven organizations.",
+        "publishDate": "2026-10-21",
+        "sceneId": "action",
+        "sceneIds": [
+          "action",
+          "collaboration",
+          "adoption",
+          "integration"
+        ],
+        "sceneLabel": "行动项与跟进",
+        "query": "AI 会议纪要 好用吗",
+        "whyIncluded": "通过 跟进 命中场景「行动项与跟进」。来自查询：AI 会议纪要 好用吗。",
+        "flags": {
+          "marketing": false,
+          "duplicate": false,
+          "secondhand": false
+        },
+        "role": "user",
+        "included": true,
+        "codeIds": [
+          "action",
+          "meeting_type",
+          "collaboration",
+          "adoption"
+        ],
+        "votes": 1,
+        "comments": 0
+      },
+      {
+        "id": "src_b0dce3f5",
+        "source": "zhihu_search",
+        "title": "用 AI 写会议纪要反而要花时间核对,它到底适合替我做哪些工作? - 知乎",
+        "url": "https://www.zhihu.com/question/2095114840297755328/answer/2100892194634781770?utm_medium=openapi_platform&utm_source=b38f6831b176",
+        "author": "黑灯",
+        "contentType": "Answer",
+        "excerptZh": "不用逐字记。听到金额就记数字和单位，确定负责人就记姓名，讨论结束时记下到底定了什么。有人改口，保留最后确认的版本和大致时间。背景介绍、反复争论的过程可以先不抄，把注意力留给讨论，只在后面需要查证时回听。 如果由你主持，可以在每个议题结束前复述一次安排，请相关的人当场确认。谁做什么，什么时候交付，有没有前提，没定下来的事也说清。会后才发现一句话有两种理解，再准确的转写也替不了大家作决定。普通参会者不方便打断时，可以把疑点记下来，结束后找对应的人核实。 拿到转写稿以后，先让AI按议题找出相关片段，保留原句和时间位置，暂时不写长摘要。你只核对它找到的内容能否支持那条记录。人名、金额和承诺逐项回看，背景性描述则可以删短。来源位置本身也要检查，不能看到一个时间戳就默认它对应正确。 我查了微软的Teams回顾说明，官方同样提醒，AI生成的内容可能不准确或不完整。 因此工具适合承担多大范围，得看你能多快回到原材料验证。",
+        "excerptEn": "Don’t aim for verbatim notes: capture amounts with units, owners’ names, and what was actually decided; if someone revises a statement, keep the last confirmed version and rough timing, and skip background and repetitive debate for later re-listening if verification is needed. If chairing, restate each item’s arrangement—who does what, when, prerequisites, and what remains unresolved—and have relevant people confirm on the spot, since even an accurate transcript cannot replace collective decisions or settle ambiguous wording; ordinary attendees can note doubts and verify later, and AI should f",
+        "publishDate": "2026-11-03",
+        "sceneId": "accuracy",
+        "sceneIds": [
+          "accuracy",
+          "action",
+          "adoption"
+        ],
+        "sceneLabel": "记录准确与可追溯",
+        "query": "AI 会议纪要 好用吗",
+        "whyIncluded": "通过 准确 命中场景「记录准确与可追溯」。来自查询：AI 会议纪要 好用吗。",
+        "flags": {
+          "marketing": false,
+          "duplicate": false,
+          "secondhand": false
+        },
+        "role": "practitioner",
+        "included": true,
+        "codeIds": [
+          "accuracy",
+          "action",
+          "adoption",
+          "trust"
+        ],
+        "votes": 1,
+        "comments": 0
+      },
+      {
+        "id": "src_b3041efa",
+        "source": "zhihu_search",
+        "title": "钉钉 CEO 称严禁员工写文档、做会议纪要,沟通仅用白板,全靠 AI 自动整理,这种办公理念怎么样? - 知乎",
+        "url": "https://www.zhihu.com/question/2029565174948914400/answer/2029832894005223597?utm_medium=openapi_platform&utm_source=b38f6831b176",
+        "author": "程墨Morgan",
+        "contentType": "Answer",
+        "excerptZh": "这就是互联网软件行业的基操Dogfooding，吃自己的狗粮，自己做的软件自己玩命用，才能持续改进，标准专业操作。 钉钉就是做办公软件的，全员当然要用钉钉，天经地义。 钉钉做了AI自动生成文档、AI自动生成会议纪要，那当然自己要使劲造，用到崩溃了才知道哪里烂，知道怎么改。 如果钉钉做了个功能自己人反而不用，那才是天大的笑话，厨师不知道自己做的菜的咸淡口味，你敢吃他做的菜吗？ 要是你被钉钉这个软件蹂躏过，被钉过，大家都理解，懂的都懂，逼你太狠的其实是你的老板，钉钉就是一个软件而已。 有的人还在质疑AI的办公能力，大哥，2026年了！ AI写网文没有灵魂和情感是真的，AI写Code可能还需要活人review，但是总结工作文档方面，AI很成熟很牛逼了，以为工作文档生成就是不需要情感，要的只是客观和精准，这恰恰是AI最擅长的。 我虽然不用钉钉，但我用微软的Teams，Teams里的会议纪要就贼好，利用Copilot开启自动生成会议纪要，全程所有人bla bla bla说了好多，到结束的时候Copilot就能产生总结，真的就是把重点全记下来了。 你看...",
+        "excerptEn": "The excerpt argues that DingTalk’s internal use of its own AI features is standard dogfooding, not independent proof of quality. Heavy, boss-mandated usage may expose bugs, but it doesn’t settle whether the AI is genuinely capable at office work—skepticism remains warranted.",
+        "publishDate": "2026-04-21",
+        "sceneId": "collaboration",
+        "sceneIds": [
+          "action",
+          "collaboration"
+        ],
+        "sceneLabel": "协作与共享",
+        "query": "AI 会议纪要 好用吗",
+        "whyIncluded": "通过 钉钉、文档 命中场景「协作与共享」。来自查询：AI 会议纪要 好用吗。",
+        "flags": {
+          "marketing": false,
+          "duplicate": false,
+          "secondhand": false
+        },
+        "role": "user",
+        "included": true,
+        "codeIds": [
+          "action",
+          "collaboration"
+        ],
+        "votes": 184,
+        "comments": 28
+      },
+      {
+        "id": "src_f042a6d3_5",
+        "source": "zhihu_search",
+        "title": "越重要的会,越需要讯飞办公本 - 知乎",
+        "url": "https://zhuanlan.zhihu.com/p/2101631379729540447?utm_medium=openapi_platform&utm_source=b38f6831b176",
+        "author": "山上",
+        "contentType": "Article",
+        "excerptZh": "正式场合，更可靠。 作者 I 王彬 封面 I 讯飞办公本 现在开一场会，AI 录音设备几乎成了标配。市面上多数会议记录产品都能在几秒内生成一份像模像样的智能会议纪要，但真正需要邮件留痕会议纪要往往不能直接使用，散会后还得重听一遍录音来核对。 原因很简单，通用 AI 生成的纪要，因为没有用户的信息矫正和个性化信息输入，总是有各种各样的瑕疵错误。大模型降低了信息生成的门槛，同时也放大了信息失真的风险。过去语音转写的错误尚容易辨别，现在 AI 则会把语音识别出错的地方润色得通顺自然，几乎难以判断。 当然，这并非在否认 AI 的提效。拥抱 AI 是未来职场的大势所趋，但在把信任全盘交给 AI 之前，我们或许仍然需要思考，如何让一份会议纪要真正变得准确可信。 这也是讯飞办公本在最新一次版本升级中试图解决的问题。当多数办公工具还在比拼生成速度时，讯飞办公本试图从底层出发，重新审视 AI 的价值。它要解决的不仅是如何更快地生成一份会议纪要，更要具备足够的准确与可信。 转写生成只要十秒钟，回听纠错需要一小时 语音转写错误再常见不过了。动辄几个小时的会议录音...",
+        "excerptEn": "For formal settings, reliability matters more: although most AI meeting tools can generate plausible minutes in seconds, such minutes often cannot be used directly for email records and still require replaying the recording for verification. General AI-generated minutes lack user correction and personalized input, and large models—while lowering the threshold for generating information—also amplify distortion, since AI can polish speech-recognition errors into fluent prose that is almost impossible to judge.",
+        "publishDate": "2026-11-05",
+        "sceneId": "accuracy",
+        "sceneIds": [
+          "accuracy",
+          "privacy",
+          "integration"
+        ],
+        "sceneLabel": "记录准确与可追溯",
+        "query": "会议纪要 自动生成 准确 踩坑",
+        "whyIncluded": "与前面的条目是同一链接，先搁置，避免样本重复计数。恢复后会重新计入。来自查询：会议纪要 自动生成 准确 踩坑。",
+        "flags": {
+          "marketing": false,
+          "duplicate": true,
+          "secondhand": false
+        },
+        "role": "unclear",
+        "included": false,
+        "codeIds": [
+          "accuracy",
+          "privacy",
+          "trust"
+        ],
+        "votes": 0,
+        "comments": 0
+      },
+      {
+        "id": "src_1d3f880f",
+        "source": "zhihu_search",
+        "title": "AI帮倒忙现场:会议纪要把“再想想”写成“立即执行” - 知乎",
+        "url": "https://zhuanlan.zhihu.com/p/2073388838785921038?utm_medium=openapi_platform&utm_source=b38f6831b176",
+        "author": "白空冷",
+        "contentType": "Article",
+        "excerptZh": "更致命的是，纪要末尾还附了行动清单：“@产品组 今日下班前出原型，@运营组 周末准备推广素材”，时间戳精确到分钟，仿佛这场“决策”早已板上钉钉。 第二天周一早会。 产品组长举着手机问我：“老板，原型是按‘立即执行’那版做，还是按会上说的‘再想想’做？” 我张了张嘴，看着群里已经转发的AI纪要，突然意识到自己正站在悬崖边。 还没等我解释，甲方代表发来消息：“刚看到纪要，不是说下周一上线吗？我们这边推广资源都协调好了，怎么还没动静？” 我攥着手机站在会议室角落，听着同事们七嘴八舌讨论“执行细节”，突然想起昨晚AI生成纪要时，进度条跑得飞快，连个“确认”提示都没弹。 原来它不是帮我总结会议，是替我做了决定。 那些我反复斟酌的“再想想”“考虑一下”，在它眼里不过是待处理的文本碎片，被算法粗暴地拼接成“正确”的结论。 后来我花了整整三天补救：挨个找参会人重新确认需求，给甲方打电话道歉解释，把AI生成的纪要从群里撤回时，手指都在抖。 产品组长私下跟我说：“下次开会，你还是自己记吧，AI这玩意儿，记的是字，不是脑子。” 现在我的电脑里还存着那份“灾难纪要...",
+        "excerptEn": "More critically, the meeting minutes ended with an action list—“@Product team: deliver the prototype before end of day; @Operations team: prepare promo materials over the weekend”—with timestamps precise to the minute, as if this “decision” had already been set in stone. The next morning, when the product lead asked whether to build the prototype according to the “execute immediately” version or the “let’s think again” version from the meeting, I realized I was standing on a cliff edge—especially after the client messaged that they had already coordinated promotional resources for a Monday lau",
+        "publishDate": "2026-08-19",
+        "sceneId": "action",
+        "sceneIds": [
+          "action",
+          "collaboration",
+          "privacy"
+        ],
+        "sceneLabel": "行动项与跟进",
+        "query": "会议纪要 自动生成 准确 踩坑",
+        "whyIncluded": "通过 行动项 命中场景「行动项与跟进」。来自查询：会议纪要 自动生成 准确 踩坑。",
+        "flags": {
+          "marketing": false,
+          "duplicate": false,
+          "secondhand": false
+        },
+        "role": "unclear",
+        "included": true,
+        "codeIds": [
+          "action",
+          "collaboration",
+          "privacy",
+          "trust"
+        ],
+        "votes": 0,
+        "comments": 0
+      },
+      {
+        "id": "src_fe8e2e29",
+        "source": "zhihu_search",
+        "title": "开完会 10 分钟,AI 自动把纪要和待办发到群里:0 元搭建「会议纪要机器人」工作流 | AI 自动化实战 - 知乎",
+        "url": "https://zhuanlan.zhihu.com/p/2097599512395174740?utm_medium=openapi_platform&utm_source=b38f6831b176",
+        "author": "被诶诶",
+        "contentType": "Article",
+        "excerptZh": "- 决议 2 条：“登录页改版下周二上线”“埋点口径周一同步” - 待办 5 项，带负责人和时间戳 生成的纪要长这样： > **二、决议事项** > - 登录页改版就这么定了，下周二上线，小李负责跟进测试。（王经理） > > **三、待办清单** > - [ ] 支付页复盘发到群里 —— 负责人：小张 > - [ ] 新手引导埋点口径确认 —— 负责人：王经理，下周一之前 ### 诚实说一句：规则版的局限 这次实测也暴露了规则法的短板：**它“宁滥勿缺”**。同一件事被两个人重复提了一遍，就会被算成两条待办；“好的，我周五之前发出来”这种表态也会被当成待办。6 条发言提取出 5 项待办，里面有 1-2 条是需要人工合并的。 所以正确姿势是：**规则版做“初筛兜底”，大模型做“精加工”**。先用脚本把结构搭出来、保证一条不漏，再让大模型按第二节的提示词做一次去重、合并、润色。两道工序加起来，准确率比单用任何一种都高。 脚本的完整逻辑是：`TIME_RE` 正则解析时间戳 → `TODO_RE` / 决议信号词提取 → 按发言顺序组装 Mark...",
+        "excerptEn": "The excerpt shows a generated summary with two decisions and five action items, each with an owner and timestamp, but the author candidly notes the rule-based approach’s limits: it is over-inclusive, counting duplicate mentions as separate todos and treating statements like “OK, I’ll send it by Friday” as action items. Six remarks produced five todos, which raises doubts about how reliable this extraction is.",
+        "publishDate": "2026-10-25",
+        "sceneId": "action",
+        "sceneIds": [
+          "accuracy",
+          "action",
+          "meeting_type",
+          "collaboration",
+          "privacy",
+          "integration"
+        ],
+        "sceneLabel": "行动项与跟进",
+        "query": "会议纪要 自动生成 准确 踩坑",
+        "whyIncluded": "通过 待办、跟进、负责人、落地、todo 命中场景「行动项与跟进」。来自查询：会议纪要 自动生成 准确 踩坑。",
+        "flags": {
+          "marketing": false,
+          "duplicate": false,
+          "secondhand": false
+        },
+        "role": "unclear",
+        "included": true,
+        "codeIds": [
+          "accuracy",
+          "action",
+          "meeting_type",
+          "collaboration",
+          "privacy",
+          "trust"
+        ],
+        "votes": 0,
+        "comments": 0
+      },
+      {
+        "id": "src_cf5d97bf",
+        "source": "zhihu_search",
+        "title": "我让 AI 帮我做会议纪要,最后发现最重要的不是“记录”,而是“追责” - 知乎",
+        "url": "https://zhuanlan.zhihu.com/p/2098819856531448833?utm_medium=openapi_platform&utm_source=b38f6831b176",
+        "author": "多多ai记",
+        "contentType": "Article",
+        "excerptZh": "AI 需要区分这些不同状态。 可以这样写提示词： 请识别会议中明确分配的任务。只有出现“由某人负责”“某人会完成”“请某人处理”等明确表达时，才将其列为负责人。仅提出建议或参与讨论，不要自动归为负责人。 如果无法确认，就标记为“负责人待确认”。 不要让 AI 为了让表格完整，而擅自补上一个名字。 第三步：所有任务都要有交付物 “跟进一下”“尽快优化”“继续推进”都不算完整任务。 一条可执行的任务，至少应该包含： ・动作； ・对象； ・负责人； ・截止时间； ・交付物。 例如： 产品部：在周三前完成新页面测试，并提交问题清单。 这句话就比“尽快测试页面”清楚得多。 可以让 AI 检查： 请找出所有缺少负责人、时间或交付物的任务，并单独列出。不要自行补充缺失信息。 有时会议纪要里最有价值的内容，不是已经写好的任务，而是那些“看起来像任务、实际上无法执行”的句子。 第四步：把会议纪要改成不同版本 不同的人，需要看到不同的信息。 给项目成员看的版本，应该重点突出： ・我的任务； ・截止时间； ・前置条件； ・交付标准。 给领导看的版本，可以只保留：...",
+        "excerptEn": "The excerpt argues that AI should mark an owner only when explicit assignment language appears, flag unclear cases as “owner TBD,” and never invent a name just to complete a table; it also says executable tasks need an action, object, owner, deadline, and deliverable, since vague phrases like “follow up” or “optimize ASAP” are not enough. Whether such prompting reliably fixes AI’s tendency to overfill tables remains to be seen.",
+        "publishDate": "2026-10-28",
+        "sceneId": "action",
+        "sceneIds": [
+          "accuracy",
+          "action",
+          "collaboration"
+        ],
+        "sceneLabel": "行动项与跟进",
+        "query": "会议纪要 自动生成 准确 踩坑",
+        "whyIncluded": "通过 跟进、负责人 命中场景「行动项与跟进」。来自查询：会议纪要 自动生成 准确 踩坑。",
+        "flags": {
+          "marketing": false,
+          "duplicate": false,
+          "secondhand": false
+        },
+        "role": "unclear",
+        "included": true,
+        "codeIds": [
+          "accuracy",
+          "action",
+          "meeting_type",
+          "collaboration"
+        ],
+        "votes": 1,
+        "comments": 0
+      },
+      {
+        "id": "src_91d6032d",
+        "source": "zhihu_search",
+        "title": "AI 把会上的一句假设写成了\"会议决定\":一个行政经理的 AI 踩坑复盘 - 知乎",
+        "url": "https://zhuanlan.zhihu.com/p/2094372769400100591?utm_medium=openapi_platform&utm_source=b38f6831b176",
+        "author": "云上知深",
+        "contentType": "Article",
+        "excerptZh": "我 87 年的，在一家软件公司做行政经理，第六年了。公司两百人出头，总部在市区，另外有两个研发点、六个驻外办事处。行政部连我一共 4 个人。 我们管什么？同事开玩笑说，除了写代码和签合同，剩下都是行政的：公司周会、跨部门会的会议纪要，固定资产台账，差旅报销的初审，公文和内部制度的下发，证照年检，客户来访接待，还有同事工位坏了、饮水机没水了、办公室里所有的\"那个谁\"。 2025 年公司搬了一次新办公楼，两百多人的工位、设备、家具全部重新登记，同时那年业务扩张，会议量直接翻倍——最忙的一周，我数了一下，跨部门会开了 11 场，还有 3 场要出纪要。 最崩溃的是八月里的一天：上午帮着搬办公家具、清点工位，下午赶两个会的纪要，晚上坐下核 40 多张报销单。那天我发现自己的失误率明显上来了——纪要里把两个项目的名称写串了，一份纪要的参会人漏了两位。第二天总经理在管理群里点名，说\"纪要质量在下降\"。 我不辩解，因为确实在下降。就是在这时候，我把 AI 拉进了行政部的日常。 二、踩坑一：纪要里的一句话，差点变成公司决策 第一个坑，是我这辈子在职场里离\"闯...",
+        "excerptEn": "The account describes a 1987-born administrative manager in her sixth year at a software company of just over 200 people—headquartered downtown with two R&D sites and six field offices—whose four-person department handles everything except coding and contract signing: meeting minutes, fixed-asset ledgers, preliminary travel-expense review, internal documents and policies, license renewals, client visits, and every office repair or “whoever” issue. In 2025, an office move required re-registering workstations, equipment, and furniture for 200-plus staff while business expansion doubled meeting v",
+        "publishDate": "2026-10-16",
+        "sceneId": "meeting_type",
+        "sceneIds": [
+          "accuracy",
+          "action",
+          "meeting_type",
+          "privacy",
+          "adoption"
+        ],
+        "sceneLabel": "会议类型适配",
+        "query": "会议纪要 自动生成 准确 踩坑",
+        "whyIncluded": "通过 周会、复盘 命中场景「会议类型适配」。来自查询：会议纪要 自动生成 准确 踩坑。",
+        "flags": {
+          "marketing": false,
+          "duplicate": false,
+          "secondhand": false
+        },
+        "role": "user",
+        "included": true,
+        "codeIds": [
+          "accuracy",
+          "action",
+          "meeting_type",
+          "privacy",
+          "adoption",
+          "trust"
+        ],
+        "votes": 1,
+        "comments": 0
+      },
+      {
+        "id": "src_5dc048ea",
+        "source": "zhihu_search",
+        "title": "一款开源、隐私优先的会议神器,效率飙升! - 知乎",
+        "url": "https://zhuanlan.zhihu.com/p/1994929718684829228?utm_medium=openapi_platform&utm_source=b38f6831b176",
+        "author": "GitHub Daily",
+        "contentType": "Article",
+        "excerptZh": "说话人分离，自动识别谁在说话 这个功能特别实用。开启说话人分离后，系统会自动检测出不同的声音，给每个人标上标签。 然后我们还可以手动给这些标签改成真实姓名，或者让 AI 根据对话内容自动猜测是谁在说话。 试用下来发现，AI 猜测还挺准的，能从对话中推断出“张总”、“产品经理小李” 这样的身份。 音频上传和转录 如果我们使用手机进行会议录音，事后还可以将音频文件直接拖拽到 Speakr，一键让它帮忙转录。 同时支持 MP3、WAV、M4A 这些常见格式，转录过程可选择本地离线模型，也可以选择用 WhisperX 这类在线服务。 我试了试一个半小时的会议录音，转录出来的效果还挺准确，标点符号也都打对了，我这台 3090 显卡的电脑配置转录速度也相当快。 AI 摘要和对话功能 转录完成后，工具还会自动生成一份简洁的会议摘要以及本次会议的主题。 比如 “某某产品需求评审会”、“Q4 销售策略讨论” 类这样标题，更加方便我们管理。 此外，还提供 AI 聊天界面，我们可以直接问它：“会议的结论是什么？”、“谁提到了预算问题？”，Speakr 就会在所有...",
+        "excerptEn": "Speaker diarization, which automatically identifies who is speaking and labels each voice (with options to rename labels manually or let AI infer identities like “Manager Zhang” or “Product Manager Xiao Li”), proved fairly accurate in testing. Audio upload and transcription also worked well: dragging a 1.5-hour meeting recording into Speakr, whether using a local offline model or an online service like WhisperX, produced fairly accurate transcripts with punctuation.",
+        "publishDate": "2026-01-17",
+        "sceneId": "privacy",
+        "sceneIds": [
+          "accuracy",
+          "meeting_type",
+          "privacy"
+        ],
+        "sceneLabel": "录音与数据顾虑",
+        "query": "AI 会议 记录 隐私 录音",
+        "whyIncluded": "通过 隐私、录音、权限、数据安全 命中场景「录音与数据顾虑」。来自查询：AI 会议 记录 隐私 录音。",
+        "flags": {
+          "marketing": false,
+          "duplicate": false,
+          "secondhand": false
+        },
+        "role": "unclear",
+        "included": true,
+        "codeIds": [
+          "accuracy",
+          "meeting_type",
+          "privacy"
+        ],
+        "votes": 10,
+        "comments": 1
+      },
+      {
+        "id": "src_5760be6e",
+        "source": "zhihu_search",
+        "title": "Meetily:把 AI 会议助手 塞进你的电脑里Rust 构建的隐私优先本地会议转录+AI摘要工具 录音→转写→总结 | SSP Github Daily - 知乎",
+        "url": "https://zhuanlan.zhihu.com/p/2057489211629031857?utm_medium=openapi_platform&utm_source=b38f6831b176",
+        "author": "Tokenke",
+        "contentType": "Article",
+        "excerptZh": "Meetily：把 AI 会议助手 塞进你的电脑里 Rust 构建的隐私优先本地会议转录+AI摘要工具 录音→转写→总结，一条数据都不出本机 📋 项目速览 项目名称：Meetily GitHub：Zackriya-Solutions/meetily 官网：meetily.ai 定位：隐私优先的 AI 会议助手，100% 本地处理 技术栈：Rust + Tauri + Next.js(React) + SQLite 转写引擎：Whisper.cpp / NVIDIA Parakeet ONNX 摘要模型：Ollama / Claude / Groq / OpenRouter / OpenAI / 自定义端点 平台支持：macOS（Apple Silicon + Intel）、Windows、Linux（源码构建） GPU 加速：Metal/CoreML / CUDA / Vulkan 自动检测 最新版本：v0.4.0（MIT 协议） Trending 排名：今日 GitHub Trending #1 💡 它能解决什么问题？ 你有没有经历过...",
+        "excerptEn": "Meetily is presented as a Rust-built, privacy-first AI meeting assistant for local recording-to-transcription-to-summary workflows, with a stack of Rust, Tauri, Next.js/React, and SQLite (GitHub: Zackriya-Solutions/meetily; site: meetily.ai). It lists Whisper.cpp or NVIDIA Parakeet ONNX for transcription and Ollama, Claude, Groq, OpenRouter, or OpenAI for summaries, so the “no data leaves the machine” claim appears to depend on which summary backend is used.",
+        "publishDate": "2026-07-06",
+        "sceneId": "privacy",
+        "sceneIds": [
+          "accuracy",
+          "privacy"
+        ],
+        "sceneLabel": "录音与数据顾虑",
+        "query": "AI 会议 记录 隐私 录音",
+        "whyIncluded": "通过 隐私、录音、合规、泄露 命中场景「录音与数据顾虑」。来自查询：AI 会议 记录 隐私 录音。",
+        "flags": {
+          "marketing": false,
+          "duplicate": false,
+          "secondhand": false
+        },
+        "role": "practitioner",
+        "included": true,
+        "codeIds": [
+          "accuracy",
+          "privacy"
+        ],
+        "votes": 0,
+        "comments": 0
+      },
+      {
+        "id": "src_ba9dcce9",
+        "source": "zhihu_search",
+        "title": "AI录音设备把公司会议上传云端总结,可能带来哪些数据泄露风险? - 知乎",
+        "url": "https://www.zhihu.com/question/2100600488483935433/answer/2103397195298902442?utm_medium=openapi_platform&utm_source=b38f6831b176",
+        "author": "曲思空",
+        "contentType": "Answer",
+        "excerptZh": "比如内容本身包含敏感信息，上传即出域。会议里如果出现客户报价、项目方案、未公开财报、风控数据、人事谈话、人员薪资、客户联系方式、合同条款、涉密业务思路、内部待决策事项。 一旦音频文件传到第三方 AI 服务商服务器，哪怕服务商承诺不用于训练，数据已经脱离企业内网边界。这里重点提示一下：很多个人版 AI、通用云端转写，默认协议会保留会话、音频、转写文本一段时间，用于模型优化、故障排查；只有企业版单独签数据处理协议DPA才会关闭训练采集。个人账号上传公司会议录音，基本是高危行为。 这条上传链路上，会有多节点泄露：录音硬件、本地文件、上传通道、云端存储、AI 中间缓存都会有。录音硬件如果是联网智能录音笔、会议麦，自带自动上传云盘功能，可能自动同步，员工没有感知；部分廉价AI硬件固件有漏洞，收音文件被偷偷回传；本地缓存也是一个问题，电脑、录音设备本地残留音频、转写临时文件，离职、设备外借、维修时外泄；传输环节没有加密上传，Wi‑Fi环境下很容易抓包；云端侧转写缓存、分片、向量库、日志、备份快照这些，都是泄露点。很多 AI 服务哪怕你删除会话，底层备份...",
+        "excerptEn": "If meeting content includes sensitive items—client quotes, project plans, unpublished financial reports, risk-control data, HR discussions, salaries, client contact details, contract terms, confidential business ideas, or internal matters pending decision—uploading the audio to a third-party AI provider’s servers takes it outside the corporate network boundary, even if the provider promises not to use it for training. The excerpt warns that many personal-AI and generic cloud-transcription terms may retain sessions, audio, and transcripts for model optimization and troubleshooting unless an ent",
+        "publishDate": "2026-11-10",
+        "sceneId": "privacy",
+        "sceneIds": [
+          "collaboration",
+          "privacy"
+        ],
+        "sceneLabel": "录音与数据顾虑",
+        "query": "AI 会议 记录 隐私 录音",
+        "whyIncluded": "通过 录音、权限、泄露 命中场景「录音与数据顾虑」。来自查询：AI 会议 记录 隐私 录音。",
+        "flags": {
+          "marketing": false,
+          "duplicate": false,
+          "secondhand": false
+        },
+        "role": "unclear",
+        "included": true,
+        "codeIds": [
+          "accuracy",
+          "meeting_type",
+          "collaboration",
+          "privacy"
+        ],
+        "votes": 2,
+        "comments": 0
+      },
+      {
+        "id": "src_65de99ce",
+        "source": "zhihu_search",
+        "title": "开会时用AI录音卡和直接用手机录音,实际效率能差多少? - 知乎",
+        "url": "https://www.zhihu.com/question/2100359796587246562/answer/2103024054894700516?utm_medium=openapi_platform&utm_source=b38f6831b176",
+        "author": "侃大山",
+        "contentType": "Answer",
+        "excerptZh": "a）teams+Copilot 我们公司用的是teams作为办公软件，线上会议的时候进行录音、录屏，再用微软的Copilot进行会议记录整理。 有一说一，这个是我目前为止，会议纪要整理最好用的，可以说信息准确率90%以上，稍微修改一下就可以直接发布会议纪要。 特别是对于公司内部的会议，因为是和邮件、teams直接链接，所以它可以区分出你部门，你的职称，然后根据会议内容，可以总结出： ・会议讨论的主要话题，以及相关的讨论结果。 ・每个相关的部门、责任人需要采集的工作和任务。 ・未完、待定的话题。 而且因为我们是外企，英文整理也是非常准确的，很多英语相对薄弱，但是需要整理会议记录的职场新人，这个非常友好。 b）其他的AI会议记录 我也有用过手机开会的时候，利用手机自带的录音软件来帮助做会议记录。 比如我的荣耀手机，它每次侦测到我在用手机开会的时候，自带的YOYO就会提出可以帮我记录会议。 试过两次，结果是“一地鸡毛”，后来弃用。 首先，这种第三方的手机软件，不能识别参会的人，它更多的只是一大段的文字录音。 然后，哪怕是让它优化、智能整理会议纪要...",
+        "excerptEn": "The author says their company records audio and screen during Teams meetings and then uses Microsoft Copilot to organize the minutes, claiming over 90% information accuracy and that only minor edits are needed before publishing. They add that for internal meetings it can distinguish department and job title and summarize discussion topics and results, departmental and owner tasks, and unresolved items, with accurate English output for a foreign company—though this is presented as one user’s favorable account rather than independent verification.",
+        "publishDate": "2026-11-08",
+        "sceneId": "accuracy",
+        "sceneIds": [
+          "accuracy",
+          "meeting_type",
+          "privacy"
+        ],
+        "sceneLabel": "记录准确与可追溯",
+        "query": "AI 会议 记录 隐私 录音",
+        "whyIncluded": "通过 准确、识别、口音 命中场景「记录准确与可追溯」。来自查询：AI 会议 记录 隐私 录音。",
+        "flags": {
+          "marketing": false,
+          "duplicate": false,
+          "secondhand": false
+        },
+        "role": "unclear",
+        "included": true,
+        "codeIds": [
+          "accuracy",
+          "meeting_type",
+          "privacy"
+        ],
+        "votes": 46,
+        "comments": 34
+      },
+      {
+        "id": "src_936be6f3",
+        "source": "zhihu_search",
+        "title": "WiseMindAI 更新了,本地实时转录来了!录音不用上传,离线也能用 - 知乎",
+        "url": "https://zhuanlan.zhihu.com/p/2066992019227125721?utm_medium=openapi_platform&utm_source=b38f6831b176",
+        "author": "Chris",
+        "contentType": "Article",
+        "excerptZh": "1.新增本地实时转录，录音不用上传 2.RSS 可以直接创建成知识库 3.笔记新增附件功能 4.删除内容支持立即撤销 5.实时转录从录音到整理更加完整 6.知识库整理和工作位置恢复 7.Obsidian 插件支持实时转录 下面逐个介绍。 一、新增本地实时转录，录音不用上传 v1.3.0 增加实时转录后，不少用户最关心的问题是：会议和访谈录音能不能不上传到云端？没有网络的时候还能不能继续用？长时间录音会不会一直产生转录费用？ v1.3.1 接入了 FunASR 本地转录。模型准备完成后，声音会直接在自己的电脑上识别，不需要把录音上传到第三方平台，也不会产生云端转录费用。 这次提供了三个版本，可以根据内容和电脑配置选择： ・中英轻量版：占用空间和内存更少，适合中文、英文和中英混合内容； ・中英高精度版：适合更看重识别效果、电脑性能也更充足的场景； ・粤语专用版：支持普通话、粤语和英文，粤语场景需要明确选择这个版本。 本地模型不只可以用于实时录音，也能用来识别已经保存好的音频。音频模型和实时转录会共用同一份模型、标点和发言人文件，在其中一个入口安...",
+        "excerptEn": "The excerpt lists seven updates—local real-time transcription without uploading recordings, RSS-to-knowledge-base creation, note attachments, immediate undo for deletions, a more complete recording-to-organization real-time transcription flow, knowledge-base organization/work-position restoration, and Obsidian plugin support for real-time transcription—and claims v1.3.1 adds FunASR local transcription so audio is recognized on the user’s own computer without third-party upload or cloud transcription fees. It also says three versions are offered, but the excerpt does not substantiate the accura",
+        "publishDate": "2026-08-01",
+        "sceneId": "accuracy",
+        "sceneIds": [
+          "accuracy",
+          "meeting_type",
+          "collaboration",
+          "privacy",
+          "integration"
+        ],
+        "sceneLabel": "记录准确与可追溯",
+        "query": "AI 会议 记录 隐私 录音",
+        "whyIncluded": "通过 识别、转录 命中场景「记录准确与可追溯」。来自查询：AI 会议 记录 隐私 录音。",
+        "flags": {
+          "marketing": false,
+          "duplicate": false,
+          "secondhand": false
+        },
+        "role": "unclear",
+        "included": true,
+        "codeIds": [
+          "accuracy",
+          "meeting_type",
+          "privacy"
+        ],
+        "votes": 1,
+        "comments": 0
+      },
+      {
+        "id": "src_535ea2af",
+        "source": "zhihu_search",
+        "title": "飞书、通义、讯飞都标95%准确率,实测口径却对不上 - 知乎",
+        "url": "https://zhuanlan.zhihu.com/p/2100189199060168994?utm_medium=openapi_platform&utm_source=b38f6831b176",
+        "author": "张孝森",
+        "contentType": "Article",
+        "excerptZh": "飞书、通义、讯飞都标95%准确率，实测口径却对不上 三家主流会议纪要工具，飞书妙记、通义听悟、讯飞听见，官网或宣传材料里都出现过“准确率95%以上”这类说法。乍看差不多，细看口径对不上：有的说的是安静环境、标准普通话、单人朗读的转写准确率，有的把“字准”和“意思对”混在一起讲，还有的把摘要可读性也算进“整体准确”。对普通职场用户来说，这个数字很容易被当成选型依据，也容易产生误导。 先看飞书妙记。它公开强调的是转写加结构化摘要，在自家生态里体验顺滑，会议结束几分钟内出稿。根据部分用户反馈，比较集中的问题是多人交叉发言时说话人分离偶尔会串，尤其两个人语速都快、抢话的时候。转写本身在标准普通话下确实稳，但方言口音一进来，比如西南官话或带口音的普通话，错字会增多。它的准确率宣传通常指向“标准场景”，这个前提很少被摆到台面上。 通义听悟的宣传口径更偏“理解”。它把转写、章节速览、问答检索打包在一起，官方文档里对准确率的描述往往和具体测试集绑定，普通用户很难复现。根据公开的评测信息，它在专业术语上的表现取决于领域，通用词没问题，遇到垂直行业缩写或中英混...",
+        "excerptEn": "Feishu Minutes, Tongyi Tingwu, and iFlytek Hearing all tout accuracy of 95% or more, but their stated benchmarks do not align: some refer to transcription of quiet, standard-Mandarin single-speaker reading, some conflate character accuracy with semantic correctness, and some include summary readability in “overall accuracy,” so the figure can easily be taken as a selection basis and mislead ordinary workplace users. User feedback also indicates that Feishu Minutes can occasionally mix up speaker separation when people speak quickly and overlap.",
+        "publishDate": "2026-11-01",
+        "sceneId": "accuracy",
+        "sceneIds": [
+          "accuracy",
+          "collaboration"
+        ],
+        "sceneLabel": "记录准确与可追溯",
+        "query": "会议纪要 工具 对比 飞书",
+        "whyIncluded": "通过 准确、错字、口音、方言 命中场景「记录准确与可追溯」。来自查询：会议纪要 工具 对比 飞书。",
+        "flags": {
+          "marketing": false,
+          "duplicate": false,
+          "secondhand": false
+        },
+        "role": "practitioner",
+        "included": true,
+        "codeIds": [
+          "accuracy",
+          "collaboration"
+        ],
+        "votes": 0,
+        "comments": 0
+      },
+      {
+        "id": "src_c8d0ddca",
+        "source": "zhihu_search",
+        "title": "我开源了一个会议纪要skill平替飞书妙记,立省69元每月 - 知乎",
+        "url": "https://zhuanlan.zhihu.com/p/2054171262495225021?utm_medium=openapi_platform&utm_source=b38f6831b176",
+        "author": "吴言不语零一二三",
+        "contentType": "Article",
+        "excerptZh": "工作中经常开会，我对比过不少会议纪要自动生成的AI工具，发现总结得最好的还是飞书妙记。 飞书妙记得每一个会议纪要总结，开篇都是一张图，说清了会议核心结论、每项分议题的要点，图还可以在飞书画板上二次编辑，另外文字内容的总结也到位，分主题要点、待办清单，一条龙。比如下面这个例子： 对比了阿里听悟、纳米AI、豆包会议纪要之后，用飞书妙记是基本上内容是总结最到位的。 但架不住每个月69元，用着用着就心疼了。其实飞书会员还捆绑了别的AI功能，但我主要就是用妙记，为了它每个月69元。 我充了两个月，到第三个月的时候，我犹豫了。 是续费呢？还是自己做一个？ 我想了想，现在AI挺聪明的，为何不模仿妙记的会议纪要总结内容进行深入分析，然后模仿着也做一个Skill出来进行复用。 想清楚了这点，我就准备尝试自己搞一个，自己动手，才能丰衣足食嘛。 我觉得能做的前提，是因为我左手有WorkBuddy，可以很方便地创建Skill。右手有飞书系列skill，创建飞书文档、生成飞书画板都只要直接调用skill能力就可以搞定。 拆解：飞书妙记到底做了什么 在做一个skill...",
+        "excerptEn": "After comparing several AI meeting-minutes tools at work, the author finds Feishu Miaojì produces the most thorough summaries, but the 69-yuan monthly subscription makes renewal feel reluctantly expensive. By the third month, the hesitation is not whether the tool works but whether to keep paying or try building something similar.",
+        "publishDate": "2026-06-27",
+        "sceneId": "action",
+        "sceneIds": [
+          "accuracy",
+          "action",
+          "collaboration",
+          "adoption"
+        ],
+        "sceneLabel": "行动项与跟进",
+        "query": "会议纪要 工具 对比 飞书",
+        "whyIncluded": "通过 行动项、待办 命中场景「行动项与跟进」。来自查询：会议纪要 工具 对比 飞书。",
+        "flags": {
+          "marketing": false,
+          "duplicate": false,
+          "secondhand": false
+        },
+        "role": "unclear",
+        "included": true,
+        "codeIds": [
+          "accuracy",
+          "action",
+          "collaboration",
+          "adoption"
+        ],
+        "votes": 5,
+        "comments": 2
+      },
+      {
+        "id": "src_f6853836",
+        "source": "zhihu_search",
+        "title": "多维视界VS飞书妙记:AI会议纪要工具全方位对比实测 - 知乎",
+        "url": "https://zhuanlan.zhihu.com/p/2060304243769316202?utm_medium=openapi_platform&utm_source=b38f6831b176",
+        "author": "多维视界",
+        "contentType": "Article",
+        "excerptZh": "多维视界的优势在三个差异化的技术能力上： 1.多模态画面理解 多数会议纪要工具的工作逻辑是“语音转文字→LLM总结”，遇到会议中有PPT、白板、屏幕共享时，只能“听”到语音，看不到画面。多维视界能同时分析语音和画面，会议有PPT展示时能提取PPT中的文字和图表，写白板时能识别板书内容，屏幕共享时能理解共享内容并关联到纪要中。这个能力的价值在于：决策往往不是凭空产生的，而是基于画面中的信息。能捕捉到画面信息，才能还原决策的完整上下文。 1.100+语种方言支持 飞书妙记支持24种语言及10+方言，但在标准普通话之外的场景表现会下降。多维视界的方言覆盖面是同类工具里少有的广度，团队跨地域、会议中有方言口音时，这个差异会直接体现为“能用”和“不能用”的区别。 1.多平台链接解析 + 私有化部署 飞书妙记的生态集成是优势也是限制——离开飞书环境后功能受限。多维视界支持B站、抖音、小红书等多平台链接解析，同时支持金融级加密和私有化部署，不依赖特定办公生态，跨平台使用更灵活。 三、多工具横向参考 除了多维视界和飞书妙记，市面上还有几款值得关注的AI会议...",
+        "excerptEn": "The excerpt claims that Duowei Shijie’s advantages rest on differentiated technical capabilities: multimodal understanding that analyzes both speech and visual content such as PPTs, whiteboards, and screen sharing to recover the context behind decisions, plus support for 100+ languages and dialects that it says is broader than comparable tools outside standard Mandarin. These are asserted capabilities, and the excerpt provides no independent evidence to substantiate them.",
+        "publishDate": "2026-07-14",
+        "sceneId": "accuracy",
+        "sceneIds": [
+          "accuracy",
+          "action",
+          "collaboration",
+          "integration"
+        ],
+        "sceneLabel": "记录准确与可追溯",
+        "query": "会议纪要 工具 对比 飞书",
+        "whyIncluded": "通过 准确、识别、口音、方言、转录 命中场景「记录准确与可追溯」。来自查询：会议纪要 工具 对比 飞书。",
+        "flags": {
+          "marketing": false,
+          "duplicate": false,
+          "secondhand": false
+        },
+        "role": "unclear",
+        "included": true,
+        "codeIds": [
+          "accuracy",
+          "meeting_type",
+          "collaboration"
+        ],
+        "votes": 1,
+        "comments": 0
+      },
+      {
+        "id": "src_c12c3efc",
+        "source": "zhihu_search",
+        "title": "AI会议纪要工具怎么选?多维视界、飞书妙记、通义听悟三款横评 - 知乎",
+        "url": "https://zhuanlan.zhihu.com/p/2061107854921279383?utm_medium=openapi_platform&utm_source=b38f6831b176",
+        "author": "多维视界",
+        "contentType": "Article",
+        "excerptZh": "上午开完会，下午坐在工位上对着录音文件发呆。1小时的会，5个人轮流发言，中间还有几次争论，谁说了什么、最后决定了什么、谁要做什么……录音里全都有，但你就是整理不出来一份像样的纪要。 这是我这半年的常态。 直到我开始用AI会议纪要工具，才从“手动回听3小时”的循环里走出来。实测了三款产品后，我把它们的真实表现整理成了这篇对比，希望对你有帮助。 一、为什么选这三款对比？ 这三款工具代表了三种完全不同的产品逻辑： 飞书妙记是国内生态整合型AI会议工具的代表——深度绑定飞书办公套件，依靠字节跳动的豆包大模型和自研ASR技术，主打“会议纪要与项目管理无缝联动”。据测评数据，飞书妙记在安静环境下的转录准确率达96.8%，智能摘要质量评分在同类产品中领先。 通义听悟是阿里系长视频处理型工具的代表——基于阿里通义千问大模型，主打长视频转写和章节总结，免费额度高，适合个人用户快速上手。 多维视界则是独立型AI音视频分析平台的代表——依托多模态大模型、语音理解与知识图谱技术，面向不依赖特定办公生态、需要多平台音视频处理的用户。它的核心差异在于：不仅能“听”语音...",
+        "excerptEn": "The author describes being stuck manually reviewing one-hour recordings with five speakers and disputes, then says three AI meeting-summary tools finally broke that loop and presents a comparison of their real-world performance. Feishu Minutes is framed as an ecosystem-integrated tool tied to Feishu and ByteDance’s Doubao model and self-developed ASR, with claimed seamless links between meeting notes and project management and cited accuracy data that remains incomplete in the excerpt.",
+        "publishDate": "2026-07-16",
+        "sceneId": "accuracy",
+        "sceneIds": [
+          "accuracy",
+          "action",
+          "collaboration",
+          "privacy",
+          "adoption"
+        ],
+        "sceneLabel": "记录准确与可追溯",
+        "query": "会议纪要 工具 对比 飞书",
+        "whyIncluded": "通过 准确、识别、方言、转录 命中场景「记录准确与可追溯」。来自查询：会议纪要 工具 对比 飞书。",
+        "flags": {
+          "marketing": false,
+          "duplicate": false,
+          "secondhand": false
+        },
+        "role": "user",
+        "included": true,
+        "codeIds": [
+          "accuracy",
+          "action",
+          "collaboration",
+          "privacy",
+          "adoption"
+        ],
+        "votes": 1,
+        "comments": 0
+      },
+      {
+        "id": "src_6a47cbc1",
+        "source": "zhihu_search",
+        "title": "2026年AI会议纪要工具选型指南:飞书、腾讯会议、讯飞听见、通义听悟等方案怎么选? - 知乎",
+        "url": "https://zhuanlan.zhihu.com/p/2101417102968210013?utm_medium=openapi_platform&utm_source=b38f6831b176",
+        "author": "社会新疆拿破仑",
+        "contentType": "Article",
+        "excerptZh": "通义听悟则结合语音识别和大模型能力，提供实时转写、发言总结、章节速览、待办事项提取以及多语言处理等功能。 这类工具与纯粹的会议软件相比，通常更强调音频内容本身的处理能力。 例如，用户可以上传已经录制好的音频，不必要求会议必须在某个指定平台中召开。 对于经常需要整理外部访谈、行业调研、培训录音或历史会议资料的团队，这种独立处理音视频文件的能力比较重要。 4. 企业私有化部署型：重点是内部会议与数据管理 这一类方案主要面向国有企业、政府机关、大型事业单位，以及有内部数据管理要求的企业。 与直接使用公有云服务不同，私有化部署方案可以将语音识别、发言人识别、大模型推理及会议纪要生成部署在企业内部基础设施中。 熙瑾会悟就是这类方案的代表之一，其核心能力包括AI语音转写、声纹识别、智能纪要生成、自定义纪要模板和Word文档导出，并提供私有化及离线部署方案。 这种方案需要一定的软硬件部署和运维成本，但能够让企业更直接地管理会议数据的处理环境。 对于需要统一管理多个会议室、长期运行内部会议系统或者要求会议内容不出内网的单位，部署方式的重要性可能不亚于AI生...",
+        "excerptEn": "The excerpt claims that Tongyi Tingwu combines speech recognition and large-model capabilities for real-time transcription, speaker summaries, chapter overviews, to-do extraction, and multilingual processing, emphasizing audio-content handling that does not require meetings to be held on a specific platform. It also describes private-deployment options for state-owned enterprises, government bodies, large institutions, and data-sensitive firms, claiming that speech recognition, speaker identification, model inference, and minute generation can run on internal infrastructure rather than public ",
+        "publishDate": "2026-11-04",
+        "sceneId": "collaboration",
+        "sceneIds": [
+          "accuracy",
+          "action",
+          "meeting_type",
+          "collaboration",
+          "privacy"
+        ],
+        "sceneLabel": "协作与共享",
+        "query": "会议纪要 工具 对比 飞书",
+        "whyIncluded": "通过 协作、导出、飞书、文档 命中场景「协作与共享」。来自查询：会议纪要 工具 对比 飞书。",
+        "flags": {
+          "marketing": false,
+          "duplicate": false,
+          "secondhand": false
+        },
+        "role": "unclear",
+        "included": true,
+        "codeIds": [
+          "accuracy",
+          "action",
+          "meeting_type",
+          "collaboration",
+          "privacy"
+        ],
+        "votes": 0,
+        "comments": 0
+      }
+    ],
+    "auxiliary": {
+      "text": "搜索词聚焦在“会议纪要生成、工具选型、隐私本地化”，容易漏掉这些使用场景：\n\n- **董事会/合同谈判等强合规场景**：AI 生成稿仅作初稿，需保留人工正式记录与签字流程。\n- **涉密/政企分级会议**：涉密会议原则上不用通用工具，仅限物理隔离环境专用设备；非涉密内网会议需私有化部署并满足分级保护要求。\n- **无真人参会的场景**：AI 托管代参会、缺席时自动记录并定期同步纪要。\n- **硬件离线录音转写**：录音笔/会议硬件先离线录，事后再转写，适合无网络或不便开电脑的场合。\n- **多方言/多语种混杂会议**：需方言切换识别、实时字幕翻译或会后全文翻译。\n- **访谈、取证、媒体录音整理**：记者、律师等把长录音转文稿、做语篇规整（口语转书面语）。\n- **学术研讨与科研记录**：公式、论文排版需求，以及跨校区团队协同沉淀学术知识库。\n- **审批、流程类会议的流程图/思维导图整理**：把讨论节点直接结构化为流程图或导图。\n- **会议后的知识库检索与新人交接**：按关键词回溯历史会议、跳转音频回听、串成项目时间线。\n- **追责与留痕审计**：需要记录谁在何时承诺了什么，用于事后责任追溯。\n- **情绪/语调分析复盘**：用于谈判、客户沟通类会议的语调与情绪复盘。\n- **会议纪要二次加工**：把纪要扩写成周报、项目 PPT 等交付物。\n- **敏感内容自动审查**：撰写阶段识别敏感信息、合规风险与知识产权泄露点。\n- **跨系统联动触发业务动作**：如研发会议决议联动 PLM/BOM 更新、投研纪要接入行情数据。\n- **个人知识管理与习惯学习**：长期使用后按个人偏好主动提醒、归档成个人知识库。",
+      "usedAsFinding": false
+    }
+  }
+}

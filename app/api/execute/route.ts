@@ -17,12 +17,12 @@ export async function POST(request: Request): Promise<Response> {
   const record = body && typeof body === "object" ? (body as { confirmed?: unknown; design?: unknown }) : {};
   if (record.confirmed !== true) {
     return Response.json(
-      { error: "Confirm the design before retrieval.", code: "CONFIRM_REQUIRED" },
+      { error: "请先确认研究设计，再发起检索。", code: "CONFIRM_REQUIRED" },
       { status: 400 },
     );
   }
   if (!isDesign(record.design)) {
-    return Response.json({ error: "The design is incomplete.", code: "DESIGN_INVALID" }, { status: 400 });
+    return Response.json({ error: "研究设计不完整。", code: "DESIGN_INVALID" }, { status: 400 });
   }
   try {
     const study = await executeConfirmed({

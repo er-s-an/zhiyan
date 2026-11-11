@@ -9,7 +9,7 @@ export async function readGate(request: Request): Promise<{ design: ResearchDesi
   const body: unknown = await request.json().catch(() => null);
   const record = body && typeof body === "object" && !Array.isArray(body) ? (body as Record<string, unknown>) : {};
   if (record.confirmed !== true) {
-    return json({ error: "Confirm the design before retrieval.", code: "CONFIRM_REQUIRED" }, 400);
+    return json({ error: "请先确认研究设计，再发起检索。", code: "CONFIRM_REQUIRED" }, 400);
   }
   try {
     const design = normalizeDesign(record.design as ResearchDesign);

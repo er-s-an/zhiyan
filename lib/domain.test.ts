@@ -145,9 +145,9 @@ test("compile the Chinese feeder brief before any retrieval", () => {
   assert.equal(design.timeWindow.end, "2026-11-11");
   assert.ok(design.inclusion.length >= 1);
   assert.ok(design.exclusion.length >= 1);
-  assert.ok(design.stoppingRule.includes("two included"));
+  assert.ok(design.stoppingRule.includes("两条"));
   assert.ok(design.queries.every((query) => /[\u4e00-\u9fff]/.test(query)));
-  assert.ok(design.zhihuCannotAnswer.some((line) => line.includes("cannot prove purchase intent")));
+  assert.ok(design.zhihuCannotAnswer.some((line) => line.includes("不能证明购买意愿")));
   assert.ok(design.zhihuCanAnswer.length >= 1);
 });
 
@@ -209,7 +209,7 @@ test("execution uses search and the hot list, and Zhida is not a finding", async
   assert.equal(study.auxiliary.text, "UNIQUE_ZHIDA_GAP_HINT_9f3");
   const view = project(study);
   assert.ok(!view.report.includes("UNIQUE_ZHIDA_GAP_HINT_9f3"));
-  assert.ok(view.report.includes("Zhida is auxiliary"));
+  assert.ok(view.report.includes("直答只作补漏提示"));
   assert.equal(study.hotScan.scanned, 2);
   assert.equal(study.hotScan.droppedTitles.includes("如何看待拆迁赔偿"), true);
   assert.equal(study.sample.some((item) => item.title === "如何看待拆迁赔偿"), false);
@@ -229,39 +229,39 @@ test("execution uses search and the hot list, and Zhida is not a finding", async
   assert.ok(view.findings.length >= 1);
   for (const finding of view.findings) {
     assert.ok(finding.itemIds.length >= 2);
-    assert.ok(finding.text.includes("In this sample"));
+    assert.ok(finding.text.includes("在本样本中"));
   }
-  assert.ok(view.report.includes("Counts are in this sample only."));
+  assert.ok(view.report.includes("所有计数只属于本样本"));
   assert.ok(view.report.includes(HONEST_CAN));
   assert.ok(view.report.includes(HONEST_CANNOT));
-  assert.ok(view.report.includes("concept test or directed interviews"));
-  assert.ok(!/market share|nationwide/i.test(view.report));
+  assert.ok(view.report.includes("概念测试或定向访谈"));
+  assert.ok(!/市场份额|全国结论/.test(view.report));
   assert.ok(view.quality.some((flag) => flag.kind === "purchase_intent"));
   assert.ok(view.quality.some((flag) => flag.kind === "stale"));
   assert.ok(view.quality.some((flag) => flag.kind === "inference_beyond_evidence"));
-  assert.ok(view.honest.missingRoles.some((role) => role.includes("moment of purchase")));
+  assert.ok(view.honest.missingRoles.some((role) => role.includes("购买发生时的买家")));
 });
 
 test("exclude, restore, and relabel change the analysis and the report", async () => {
   const { study } = await runFixture();
   const before = project(study);
-  const theme = before.themes.find((row) => row.label === "Multi-cat competition");
+  const theme = before.themes.find((row) => row.label === "多猫争食");
   assert.ok(theme);
   assert.ok(theme.count >= 2);
   const target = theme.itemIds[0];
   const excluded = project(setIncluded(study, target, false));
-  const excludedTheme = excluded.themes.find((row) => row.label === "Multi-cat competition");
+  const excludedTheme = excluded.themes.find((row) => row.label === "多猫争食");
   assert.equal(excludedTheme?.count, theme.count - 1);
   assert.notEqual(excluded.report, before.report);
   const restored = project(setIncluded(study, target, true));
-  assert.equal(restored.themes.find((row) => row.label === "Multi-cat competition")?.count, theme.count);
+  assert.equal(restored.themes.find((row) => row.label === "多猫争食")?.count, theme.count);
   const item = study.sample.find((row) => row.id === target);
   assert.ok(item);
   const relabeled = project(
     relabel(study, target, { codeIds: item.codeIds.filter((id) => id !== "multi_cat") }),
   );
   assert.equal(
-    relabeled.themes.find((row) => row.label === "Multi-cat competition")?.count,
+    relabeled.themes.find((row) => row.label === "多猫争食")?.count,
     theme.count - 1,
   );
 });
@@ -275,6 +275,20 @@ test("a weakened design cannot erase the purchase-intent limit from the report",
   assert.ok(view.report.includes(HONEST_CAN));
   assert.ok(view.report.includes(HONEST_CANNOT));
   assert.ok(!view.report.includes("Posts prove demand."));
-  assert.ok(study.design.zhihuCannotAnswer[0].includes("cannot prove purchase intent"));
-  assert.equal(normalizeDesign(design).zhihuCannotAnswer[0].includes("cannot prove purchase intent"), true);
+  assert.ok(study.design.zhihuCannotAnswer[0].includes("不能证明购买意愿"));
+  assert.equal(normalizeDesign(design).zhihuCannotAnswer[0].includes("不能证明购买意愿"), true);
+});
+
+test("a curated scenario compiles the same shape as the feeder case", () => {
+  const design = compileDesign(
+    "我们在做一款面向产研团队的 AI 会议纪要工具，想知道团队真实的使用场景、现有工具的痛点，以及哪些能力只是演示效果。",
+    NOW,
+  );
+  assert.equal(design.briefLanguage, "zh");
+  assert.equal(design.stage, "needs_exploration");
+  assert.ok(design.scenes.length >= 6);
+  assert.ok(design.codebook.length >= 6);
+  assert.ok(design.queries.length >= 4);
+  assert.ok(design.decision.includes("会议纪要"));
+  assert.ok(design.zhihuCannotAnswer[0].includes("不能证明购买意愿"));
 });

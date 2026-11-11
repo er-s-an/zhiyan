@@ -38,12 +38,12 @@ export async function confirmAndRetrieve(
   const finished: string[] = [];
   const mark = (step: string) => onProgress({ step, finished: [...finished] });
 
-  mark("Hot list");
+  mark("获取知乎热榜");
   const hotPromise = post("/api/hot", { confirmed: true, design: next });
 
   const searches: { query: string; items: ZhihuContent[]; error?: string }[] = [];
   for (const query of next.queries) {
-    mark(`Zhihu search: ${query}`);
+    mark(`检索知乎：${query}`);
     let result = await post("/api/search", { confirmed: true, design: next, query });
     if (result.status === 400) {
       throw new Error(result.payload.error || "CONFIRM_REQUIRED");
@@ -65,7 +65,7 @@ export async function confirmAndRetrieve(
     throw new Error("SEARCH_FAILED");
   }
 
-  mark("Reading the hot list");
+  mark("整理热榜");
   const hotResult = await hotPromise;
   if (hotResult.status === 400) {
     throw new Error(hotResult.payload.error || "CONFIRM_REQUIRED");
@@ -76,7 +76,7 @@ export async function confirmAndRetrieve(
   };
 
   const titles = searches.flatMap((result) => result.items.map((item) => item.title)).filter(Boolean).slice(0, 24);
-  mark("Auxiliary gap hint");
+  mark("直答补漏提示");
   let zhida = { text: "", error: titles.length === 0 ? "ZHIDA_SKIPPED" : undefined };
   if (titles.length > 0) {
     const zhidaResult = await post("/api/zhida", { confirmed: true, design: next, titles });
@@ -96,14 +96,21 @@ export async function confirmAndRetrieve(
   });
   const pairs = skeleton.sample.map((item) => ({ id: item.id, zh: item.excerptZh })).filter((pair) => pair.zh);
   const translations: Record<string, string> = {};
-  for (let index = 0; index < pairs.length; index += 1) {
-    const group = pairs.slice(index, index + 1);
-    mark(`Translating excerpt ${index + 1} of ${pairs.length}`);
-    const part = await post("/api/translate", { confirmed: true, design: next, pairs: group });
-    if (part.payload.translations) Object.assign(translations, part.payload.translations);
+  const queue = [...pairs];
+  let translated = 0;
+  async function translateWorker(): Promise<void> {
+    for (;;) {
+      const pair = queue.shift();
+      if (!pair) return;
+      mark(`翻译摘录 ${translated + 1} / ${pairs.length}`);
+      const part = await post("/api/translate", { confirmed: true, design: next, pairs: [pair] });
+      if (part.payload.translations) Object.assign(translations, part.payload.translations);
+      translated += 1;
+    }
   }
+  await Promise.all(Array.from({ length: Math.min(4, pairs.length) }, () => translateWorker()));
 
-  mark("Assembling the sample");
+  mark("组装样本");
   return composeStudy({
     design: next,
     now,
