@@ -1,0 +1,5 @@
+ts	phase	decision	why	evidence	result
+2026-11-11T09:10:24Z	start	opened the zhiyan build	empty repo, contest brief is the spec	decisions.tsv	open
+2026-11-11T09:10:24Z	frame	one study document and a pure projector	phase-named services would repeat the confirm rule and let analysis drift from the sample	decisions.tsv	chosen
+2026-11-11T12:40:00Z	retrieve	confirmed short calls instead of one long execute	a single execute took 126s and would die on a hosted function limit	four searches, hot list, and zhida each returned, then the workbench opened	kept
+2026-11-11T13:00:00Z	public	turn off Vercel SSO and translate one excerpt per call	the alias was behind vercel_authentication, and batches of four long excerpts came back as the English fallback	https://zhiyan-five.vercel.app loads without a login, design returns zhihuCalls 0, unconfirmed search returns CONFIRM_REQUIRED, one production excerpt translated	kept

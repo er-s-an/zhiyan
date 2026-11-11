@@ -1,0 +1,10 @@
+node_modules
+.next
+.env
+.env.local
+*.log
+proof/tmp
+tsconfig.tsbuildinfo
+.vercel
+explainer/node_modules
+explainer/out

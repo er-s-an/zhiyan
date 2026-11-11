@@ -1,0 +1,6 @@
+PASS domain tests
+PASS design compiles with zero Zhihu calls
+PASS search refuses before confirmation
+PASS search refuses a query outside the design
+PASS study projection keeps the honest call
+PASS verify-zhiyan
