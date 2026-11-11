@@ -1,538 +1,336 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import {
-  AlertTriangle,
-  ArrowRight,
-  CalendarDays,
-  CheckCircle2,
-  ChevronRight,
-  ClipboardCheck,
-  FileSearch,
-  Info,
-  Layers,
-  Lock,
-  PencilLine,
-  Plus,
-  Search,
-  Sparkles,
-  Trash2,
-  Users,
-} from "lucide-react";
-import { Kanshan } from "../components/Kanshan";
-import { StepRail } from "../components/StepRail";
-import { confirmAndRetrieve, type RetrieveProgress } from "../../lib/confirmRun";
-import { loadDraft, saveDraft } from "../../lib/storage";
-import { LOCKED_LIMITS, STAGE_LABEL, STAGES, SUBJECTS, type ResearchDesign, type Study } from "../../lib/types";
-
-const SUBJECT_LABEL: Record<string, string> = {
-  users: "使用者",
-  buyers: "购买者",
-  practitioners: "从业者",
-};
+import { AlertTriangle, ArrowRight, CheckCircle2, Lock, Plus, Trash2 } from "lucide-react";
+import { useLang } from "../components/LanguageProvider";
+import type { QueryDimension, QuerySeedV2, ResearchPlanV2, StudyV2 } from "../../lib/v2/types";
 
 function lines(value: string): string[] {
-  return value
-    .split("\n")
-    .map((line) => line.trim())
-    .filter(Boolean);
+  return value.split("\n").map((line) => line.trim()).filter(Boolean);
 }
 
-function terms(value: string): string[] {
-  return value
-    .split(/[,，、]/)
-    .map((term) => term.trim())
-    .filter(Boolean);
-}
-
-function readableError(message: string): string {
-  if (message.includes("ZHIHU_NOT_CONFIGURED")) return "服务端还没有配置知乎 Access Secret，暂时不能检索。";
-  if (message.includes("SEARCH_FAILED")) return "知乎搜索没有返回任何结果，检索已停止，未生成发现。";
-  if (message.includes("HOT_LIST_FAILED")) return "知乎热榜没有返回，检索在保存样本前停止。";
-  if (message.includes("CONFIRM_REQUIRED")) return "检索请求缺少确认，已被服务端拒绝。";
-  if (message.includes("QUERY_NOT_IN_DESIGN")) return "有一条检索词不在已确认的设计里，已被拒绝。";
-  return message || "检索没有完成，请稍后再试。";
+function readPlan(): ResearchPlanV2 | null {
+  if (typeof window === "undefined") return null;
+  try {
+    const raw = window.localStorage.getItem("zhiyan.v2.plan");
+    return raw ? (JSON.parse(raw) as ResearchPlanV2) : null;
+  } catch {
+    return null;
+  }
 }
 
 export default function DesignPage() {
   const router = useRouter();
-  const [design, setDesign] = useState<ResearchDesign | null>(null);
-  const [study, setStudy] = useState<Study | null>(null);
-  const [demoId, setDemoId] = useState<string | null>(null);
+  const { lang, t } = useLang();
+  const [plan, setPlan] = useState<ResearchPlanV2 | null>(null);
   const [ready, setReady] = useState(false);
   const [busy, setBusy] = useState(false);
-  const [progress, setProgress] = useState<RetrieveProgress | null>(null);
   const [error, setError] = useState("");
+  const [mode, setMode] = useState<"lite" | "full">("lite");
 
   useEffect(() => {
-    const draft = loadDraft();
-    if (draft) {
-      setDesign(draft.design);
-      setStudy(draft.study);
-      setDemoId(draft.demoId ?? null);
-    }
+    setPlan(readPlan());
     setReady(true);
   }, []);
 
-  function update(patch: Partial<ResearchDesign>) {
-    setDesign((current) => {
+  const gate = plan?.methodGate;
+  const outputLabel = gate?.allowedOutput === "strong" ? t("design.outputStrong") : gate?.allowedOutput === "directional" ? t("design.outputDirectional") : t("design.outputHypotheses");
+  const fitLabel = gate?.fit === "fit" ? t("design.gateFit") : gate?.fit === "partial" ? t("design.gatePartial") : t("design.gateMismatch");
+
+  const activeDecision = useMemo(() => (plan ? (lang === "zh" ? plan.decisionZh : plan.decisionEn) : ""), [plan, lang]);
+
+  function update(patch: Partial<ResearchPlanV2>) {
+    setPlan((current) => {
       if (!current) return current;
       const next = { ...current, ...patch };
-      saveDraft({ design: next, study: null, demoId: null });
+      window.localStorage.setItem("zhiyan.v2.plan", JSON.stringify(next));
       return next;
     });
-    setStudy(null);
-    setDemoId(null);
+  }
+
+  function updateQuery(id: string, patch: Partial<QuerySeedV2>) {
+    if (!plan) return;
+    update({ queryMatrix: plan.queryMatrix.map((seed) => (seed.id === id ? { ...seed, ...patch } : seed)) });
+  }
+
+  function addQuery() {
+    if (!plan) return;
+    const seed: QuerySeedV2 = {
+      id: `seed_user_${Date.now()}`,
+      query: "",
+      dimension: "task",
+      purposeZh: "用户补充的查询",
+      purposeEn: "User-added query",
+      source: "user",
+      isCounterExample: false,
+    };
+    update({ queryMatrix: [...plan.queryMatrix, seed] });
   }
 
   async function confirm() {
-    if (!design) return;
+    if (!plan) return;
     setBusy(true);
     setError("");
-    setProgress({ step: "准备检索", finished: [] });
     try {
-      const nextStudy = await confirmAndRetrieve(design, setProgress);
-      saveDraft({ design: nextStudy.design, study: nextStudy, demoId: null });
-      router.push("/workbench?view=sample");
+      const response = await fetch("/api/v2/study", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ plan: { ...plan, confirmed: true }, confirmed: true, mode }),
+      });
+      const body = (await response.json()) as { study?: StudyV2; error?: string };
+      if (!response.ok || !body.study) throw new Error(body.error || "STUDY_FAILED");
+      window.localStorage.setItem("zhiyan.v2.study", JSON.stringify(body.study));
+      try {
+        const raw = window.localStorage.getItem("zhiyan.v2.recent");
+        const recent = raw ? (JSON.parse(raw) as unknown[]) : [];
+        window.localStorage.setItem(
+          "zhiyan.v2.recent",
+          JSON.stringify([{ decision: body.study.plan.decisionZh, at: new Date().toISOString(), demo: false }, ...recent].slice(0, 6)),
+        );
+      } catch {
+        // Recent history is optional.
+      }
+      router.push("/workbench?view=explore");
     } catch (caught) {
-      setError(readableError(caught instanceof Error ? caught.message : ""));
+      setError(caught instanceof Error ? caught.message : t("design.errorStudy"));
     } finally {
       setBusy(false);
     }
   }
 
   if (!ready) {
-    return (
-      <div className="loading-screen">
-        <span className="spinner" />
-        正在读取研究设计
-      </div>
-    );
+    return <div className="v2-loading"><span className="v2-spinner" /> {t("common.loading")}</div>;
   }
 
-  if (!design) {
+  if (!plan || !gate) {
     return (
-      <main>
-        <div className="card empty">
-          <Kanshan variant="side" size={170} />
-          <h2>还没有研究简报</h2>
-          <p>先回工作台写一句想弄清楚的业务问题，知研台会把它编译成可以修改的研究设计，再等你确认。</p>
-          <div className="empty-actions">
-            <Link className="btn btn-primary" href="/">
-              去写研究简报 <ArrowRight size={15} />
-            </Link>
-            <Link className="btn" href="/examples">
-              先看一个完整示例
-            </Link>
-          </div>
+      <main className="v2-page">
+        <div className="v2-card v2-empty">
+          <h2>{lang === "zh" ? "还没有研究计划" : "No research plan yet"}</h2>
+          <p>{lang === "zh" ? "先回首页提交一个产品决策，系统会拆出研究计划。" : "Submit a product decision on the home page first."}</p>
+          <Link className="v2-btn v2-btn-primary" href="/">{t("common.back")}</Link>
         </div>
       </main>
     );
   }
 
-  const extraLimits = design.zhihuCannotAnswer.filter(
-    (line) => !LOCKED_LIMITS.includes(line as (typeof LOCKED_LIMITS)[number]),
-  );
-  const currentStep = study ? 2 : 1;
-
   return (
-    <main>
-      <StepRail current={currentStep} />
-
-      <div className="page-head">
-        <span className="eyebrow">
-          <PencilLine size={14} /> 第 2 步 · 先确认方法
-        </span>
-        <h1>研究设计</h1>
-        <p className="lede">
-          这份协议会决定接下来检索什么、怎么取样、什么算发现。确认之前，知乎搜索、热榜和直答都保持空闲。
-        </p>
-        <div className="head-meta">
-          <span className="pill pill-blue">
-            <Layers size={12} /> {STAGE_LABEL[design.stage]}
-          </span>
-          <span className="pill">
-            <FileSearch size={12} /> {design.scenes.length} 个场景
-          </span>
-          <span className="pill">
-            <Search size={12} /> {design.queries.length} 条检索词
-          </span>
-          <span className="pill">
-            <Users size={12} /> {design.subjects.map((subject) => SUBJECT_LABEL[subject] || subject).join(" / ")}
-          </span>
-          <span className="pill pill-green" data-testid="zhihu-calls">
-            知乎调用 {study ? study.retrieval.length : 0} 次
-          </span>
+    <main className="v2-page">
+      <div className="v2-page-head">
+        <p className="v2-kicker">{t("design.eyebrow")}</p>
+        <h1>{t("design.title")}</h1>
+        <p className="v2-lede">{t("design.lede")}</p>
+        <div className="v2-page-meta">
+          <span className={`v2-badge ${gate.fit === "fit" ? "v2-badge-fit" : gate.fit === "partial" ? "v2-badge-partial" : "v2-badge-mismatch"}`}>{fitLabel}</span>
+          <span className="v2-tag v2-tag-blue">{outputLabel}</span>
+          <span className="v2-tag">{t("design.planVersion").replace("{version}", String(plan.version))}</span>
+          <span className="v2-tag">{lang === "zh" ? "知乎调用 0 次" : "Zhihu calls: 0"}</span>
         </div>
       </div>
 
-      {demoId ? (
-        <div className="demo-banner">
-          <span className="tag tag-blue">示例设计</span>
-          <p>你正在查看示例库里的研究设计。直接确认会重新调用知乎；编辑任意字段也会清空示例数据。</p>
-        </div>
-      ) : null}
-
-      {study ? (
-        <div className="notice notice-amber" style={{ marginBottom: 14 }}>
-          <AlertTriangle size={15} />
-          <span>
-            当前已经有一份样本。编辑任何字段都会清空它，再次确认会重新检索。
-            <Link href="/workbench" style={{ marginLeft: 8, fontWeight: 600 }}>
-              打开当前研究 <ChevronRight size={12} />
-            </Link>
-          </span>
-        </div>
-      ) : null}
-
-      <div className="design-layout">
-        <div className="design-form">
-          <section className="card form-card" data-testid="design-panel">
-            <div className="form-card-head">
-              <span className="form-index">01</span>
-              <div>
-                <h2>这次研究要支持什么决策</h2>
-                <p>写成一句可以被反驳的话，而不是一个搜索词。</p>
-              </div>
-            </div>
-            <div className="notice notice-blue" style={{ marginBottom: 12 }}>
-              <Info size={14} />
-              <span>研究简报：{design.brief}</span>
-            </div>
-            <div className="field">
-              <label htmlFor="decision">决策</label>
-              <textarea
-                id="decision"
-                className="textarea"
-                data-testid="decision-input"
-                value={design.decision}
-                onChange={(event) => update({ decision: event.target.value })}
-              />
-            </div>
-          </section>
-
-          <section className="card form-card">
-            <div className="form-card-head">
-              <span className="form-index">02</span>
-              <div>
-                <h2>研究对象与阶段</h2>
-                <p>谁的经验算证据？这次研究处在产品决策的哪一段？</p>
-              </div>
-            </div>
-            <div className="grid-2">
-              <div className="field">
-                <span className="field-label">研究对象</span>
-                <div className="checks">
-                  {SUBJECTS.map((subject) => (
-                    <label key={subject} className={`check${design.subjects.includes(subject) ? " is-on" : ""}`}>
-                      <input
-                        type="checkbox"
-                        checked={design.subjects.includes(subject)}
-                        onChange={(event) => {
-                          const subjects = event.target.checked
-                            ? [...design.subjects, subject]
-                            : design.subjects.filter((item) => item !== subject);
-                          update({ subjects });
-                        }}
-                      />
-                      {SUBJECT_LABEL[subject] || subject}
-                    </label>
-                  ))}
-                </div>
-              </div>
-              <div className="field">
-                <label htmlFor="stage">研究阶段</label>
-                <select id="stage" className="select" value={design.stage} onChange={(event) => update({ stage: event.target.value as ResearchDesign["stage"] })}>
-                  {STAGES.map((stage) => (
-                    <option key={stage} value={stage}>
-                      {STAGE_LABEL[stage]}
-                    </option>
-                  ))}
-                </select>
-              </div>
-            </div>
-          </section>
-
-          <section className="card form-card">
-            <div className="form-card-head">
-              <span className="form-index">03</span>
-              <div>
-                <h2>知乎能回答什么，不能回答什么</h2>
-                <p>两条限度锁在设计里，删不掉。这是这份研究能被信任的原因。</p>
-              </div>
-            </div>
-            <div className="field">
-              <label htmlFor="can-answer">现有知乎讨论可以回答</label>
-              <textarea
-                id="can-answer"
-                className="textarea"
-                value={design.zhihuCanAnswer.join("\n")}
-                onChange={(event) => update({ zhihuCanAnswer: lines(event.target.value) })}
-              />
-            </div>
-            <div className="field">
-              <span className="field-label">不能回答（锁定）</span>
-              <div className="locked-box" data-testid="locked-limits">
-                <div className="locked-head">
-                  <Lock size={13} /> 方法边界
-                </div>
-                <ul>
-                  {LOCKED_LIMITS.map((line) => (
-                    <li key={line}>{line}</li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-            <div className="field">
-              <label htmlFor="extra-limits">还要写进档案的额外限制</label>
-              <textarea
-                id="extra-limits"
-                className="textarea"
-                value={extraLimits.join("\n")}
-                placeholder="每行一条，例如：不会推断最终采购决策。"
-                onChange={(event) => update({ zhihuCannotAnswer: [...LOCKED_LIMITS, ...lines(event.target.value)] })}
-              />
-            </div>
-          </section>
-
-          <section className="card form-card">
-            <div className="form-card-head">
-              <span className="form-index">04</span>
-              <div>
-                <h2>研究场景</h2>
-                <p>场景决定样本怎么被找到，也决定哪些场景会被质检标成「未覆盖」。</p>
-              </div>
-            </div>
-            <div className="scenes">
-              {design.scenes.map((scene) => (
-                <div className="scene-row" key={scene.id}>
-                  <input
-                    className="input"
-                    aria-label={`场景 ${scene.label}`}
-                    value={scene.label}
-                    onChange={(event) =>
-                      update({
-                        scenes: design.scenes.map((item) =>
-                          item.id === scene.id ? { ...item, label: event.target.value } : item,
-                        ),
-                      })
-                    }
-                  />
-                  <div className="scene-terms" aria-hidden="true">
-                    {scene.keywords.slice(0, 4).map((keyword) => (
-                      <span className="tag" key={keyword}>
-                        {keyword}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </section>
-
-          <section className="card form-card">
-            <div className="form-card-head">
-              <span className="form-index">05</span>
-              <div>
-                <h2>样本边界与停止规则</h2>
-                <p>先写清楚什么算样本，再开始检索。停止规则跑完就停，不为了凑观点追加查询。</p>
-              </div>
-            </div>
-            <div className="field">
-              <label htmlFor="populations">人群</label>
-              <textarea
-                id="populations"
-                className="textarea"
-                value={design.populations.join("\n")}
-                onChange={(event) => update({ populations: lines(event.target.value) })}
-              />
-            </div>
-            <div className="grid-2">
-              <div className="field">
-                <label htmlFor="window-start">时间窗开始</label>
-                <input
-                  id="window-start"
-                  className="input"
-                  type="date"
-                  value={design.timeWindow.start}
-                  onChange={(event) => update({ timeWindow: { ...design.timeWindow, start: event.target.value } })}
-                />
-              </div>
-              <div className="field">
-                <label htmlFor="window-end">时间窗结束</label>
-                <input
-                  id="window-end"
-                  className="input"
-                  type="date"
-                  value={design.timeWindow.end}
-                  onChange={(event) => update({ timeWindow: { ...design.timeWindow, end: event.target.value } })}
-                />
-              </div>
-            </div>
-            <p className="field-hint" style={{ marginTop: 8 }}>
-              <CalendarDays size={12} style={{ verticalAlign: "-1px", marginRight: 4 }} />
-              {design.timeWindow.rationale}
+      <div className="v2-plan-layout">
+        <div className="v2-plan-main">
+          <section className="v2-card v2-gate">
+            <h2><CheckCircle2 size={16} /> {t("design.gate")}</h2>
+            <p className="v2-small v2-muted" style={{ marginTop: 4 }}>
+              {lang === "zh" ? "闸门决定报告能说到多强；不是提示后继续输出强结论。" : "The gate decides how strongly the report may speak; it is not a banner before a strong conclusion."}
             </p>
-            <div className="grid-2" style={{ marginTop: 4 }}>
-              <div className="field">
-                <label htmlFor="inclusion">纳入规则</label>
-                <textarea
-                  id="inclusion"
-                  className="textarea"
-                  value={design.inclusion.join("\n")}
-                  onChange={(event) => update({ inclusion: lines(event.target.value) })}
-                />
+            <div className="v2-gate-grid">
+              <div className="v2-gate-col">
+                <h3>{t("design.gateFit")}</h3>
+                <ul>{(lang === "zh" ? gate.canExploreZh : gate.canExploreEn).map((item) => <li key={item}>{item}</li>)}</ul>
               </div>
-              <div className="field">
-                <label htmlFor="exclusion">排除规则</label>
-                <textarea
-                  id="exclusion"
-                  className="textarea"
-                  value={design.exclusion.join("\n")}
-                  onChange={(event) => update({ exclusion: lines(event.target.value) })}
-                />
+              <div className="v2-gate-col">
+                <h3>{t("design.gatePartial")}</h3>
+                <ul>{(lang === "zh" ? gate.needsOtherDataZh : gate.needsOtherDataEn).map((item) => <li key={item}>{item}</li>)}</ul>
               </div>
-            </div>
-            <div className="field">
-              <label htmlFor="stopping">停止规则</label>
-              <textarea
-                id="stopping"
-                className="textarea"
-                value={design.stoppingRule}
-                onChange={(event) => update({ stoppingRule: event.target.value })}
-              />
+              <div className="v2-gate-col">
+                <h3>{t("design.gateMismatch")}</h3>
+                <ul>{(lang === "zh" ? gate.cannotProveZh : gate.cannotProveEn).map((item) => <li key={item}>{item}</li>)}</ul>
+              </div>
             </div>
           </section>
 
-          <section className="card form-card">
-            <div className="form-card-head">
-              <span className="form-index">06</span>
-              <div>
-                <h2>中文检索词</h2>
-                <p>每条检索词会单独调用一次知乎搜索。只跑这里列出的查询。</p>
+          <section className="v2-card v2-form-card">
+            <h2>{t("design.decision")}</h2>
+            <div className="v2-form-body">
+              <div className="v2-field">
+                <label className="v2-label" htmlFor="v2-decision">{lang === "zh" ? "决策问题（中文）" : "Decision (Chinese)"}</label>
+                <textarea id="v2-decision" className="v2-textarea" value={plan.decisionZh} onChange={(event) => update({ decisionZh: event.target.value })} />
+              </div>
+              <div className="v2-field">
+                <label className="v2-label" htmlFor="v2-decision-en">{lang === "zh" ? "决策问题（英文）" : "Decision (English)"}</label>
+                <textarea id="v2-decision-en" className="v2-textarea" value={plan.decisionEn} onChange={(event) => update({ decisionEn: event.target.value })} />
+              </div>
+              <div className="v2-grid-2">
+                <div className="v2-field">
+                  <label className="v2-label" htmlFor="v2-market-zh">{lang === "zh" ? "目标市场（中文）" : "Market (Chinese)"}</label>
+                  <input id="v2-market-zh" className="v2-input" value={plan.targetMarketZh} onChange={(event) => update({ targetMarketZh: event.target.value })} />
+                </div>
+                <div className="v2-field">
+                  <label className="v2-label" htmlFor="v2-market-en">{lang === "zh" ? "目标市场（英文）" : "Market (English)"}</label>
+                  <input id="v2-market-en" className="v2-input" value={plan.targetMarketEn} onChange={(event) => update({ targetMarketEn: event.target.value })} />
+                </div>
+              </div>
+              <div className="v2-field">
+                <label className="v2-label" htmlFor="v2-users">{lang === "zh" ? "目标用户（每行一个）" : "Target users (one per line)"}</label>
+                <textarea id="v2-users" className="v2-textarea" value={(lang === "zh" ? plan.targetUsersZh : plan.targetUsersEn).join("\n")} onChange={(event) => update(lang === "zh" ? { targetUsersZh: lines(event.target.value) } : { targetUsersEn: lines(event.target.value) })} />
               </div>
             </div>
-            <div className="query-list" data-testid="queries">
-              {design.queries.map((query, index) => (
-                <div className="query-row" key={`${index}-${query}`}>
-                  <span className="query-index">{index + 1}</span>
-                  <input
-                    className="input"
-                    aria-label={`检索词 ${index + 1}`}
-                    value={query}
-                    onChange={(event) =>
-                      update({
-                        queries: design.queries.map((item, itemIndex) => (itemIndex === index ? event.target.value : item)),
-                      })
-                    }
-                  />
-                  <button
-                    className="btn btn-icon btn-ghost"
-                    type="button"
-                    aria-label="删除这条检索词"
-                    disabled={design.queries.length <= 1}
-                    onClick={() => update({ queries: design.queries.filter((_, itemIndex) => itemIndex !== index) })}
-                  >
-                    <Trash2 size={14} />
-                  </button>
+          </section>
+
+          <section className="v2-card v2-form-card">
+            <h2>{t("design.hypotheses")}</h2>
+            <div className="v2-form-body">
+              <textarea className="v2-textarea" value={(lang === "zh" ? plan.productHypothesesZh : plan.productHypothesesEn).join("\n")} onChange={(event) => update(lang === "zh" ? { productHypothesesZh: lines(event.target.value) } : { productHypothesesEn: lines(event.target.value) })} />
+            </div>
+          </section>
+
+          <section className="v2-card v2-form-card">
+            <h2>{t("design.questions")}</h2>
+            <div className="v2-form-body">
+              {plan.researchQuestions.map((question) => (
+                <div key={question.id} className="v2-field" style={{ paddingBottom: 10, borderBottom: "1px solid var(--z-line)" }}>
+                  <label className="v2-label">{lang === "zh" ? question.questionZh : question.questionEn}</label>
+                  <p className="v2-small v2-muted">{lang === "zh" ? question.hypothesisZh : question.hypothesisEn}</p>
+                  <p className="v2-mini" style={{ color: "var(--z-amber)" }}>{lang === "zh" ? "证伪信号：" : "Falsification: "}{lang === "zh" ? question.disconfirmingSignalZh : question.disconfirmingSignalEn}</p>
                 </div>
               ))}
             </div>
-            <button
-              className="btn btn-sm"
-              type="button"
-              style={{ marginTop: 10 }}
-              onClick={() => update({ queries: [...design.queries, ""] })}
-            >
-              <Plus size={14} /> 添加检索词
+          </section>
+
+          <section className="v2-card v2-form-card">
+            <div className="v2-between">
+              <h2>{t("design.seedQueries")}</h2>
+              <button className="v2-btn v2-btn-sm" type="button" onClick={addQuery}><Plus size={13} /> {t("design.addQuery")}</button>
+            </div>
+            <p className="v2-hint" style={{ marginTop: 4 }}>{lang === "zh" ? "扩展查询必须在执行后写入计划新版本，不接受设计外直接注入。" : "Expansions must enter a new plan version after execution; out-of-plan injection is rejected."}</p>
+            <div style={{ overflowX: "auto", marginTop: 8 }}>
+              <table className="v2-query-table">
+                <thead>
+                  <tr>
+                    <th style={{ width: "38%" }}>{lang === "zh" ? "查询" : "Query"}</th>
+                    <th style={{ width: "12%" }}>{t("design.queryDimension")}</th>
+                    <th>{t("design.queryPurpose")}</th>
+                    <th style={{ width: 34 }} />
+                  </tr>
+                </thead>
+                <tbody>
+                  {plan.queryMatrix.map((seed) => (
+                    <tr key={seed.id}>
+                      <td>
+                        <input className="v2-input v2-query-input" value={seed.query} disabled={seed.source !== "user" && seed.source !== "model_prior"} onChange={(event) => updateQuery(seed.id, { query: event.target.value })} />
+                      </td>
+                      <td><span className="v2-tag">{seed.dimension}</span>{seed.isCounterExample ? <span className="v2-tag v2-tag-amber" style={{ marginLeft: 4 }}>counter</span> : null}</td>
+                      <td className="v2-muted">{lang === "zh" ? seed.purposeZh : seed.purposeEn}</td>
+                      <td>
+                        {seed.source === "user" ? (
+                          <button className="v2-btn v2-btn-ghost v2-btn-sm" type="button" aria-label="remove" onClick={() => update({ queryMatrix: plan.queryMatrix.filter((item) => item.id !== seed.id) })}>
+                            <Trash2 size={13} />
+                          </button>
+                        ) : null}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <section className="v2-card v2-form-card">
+            <h2>{t("design.counter")}</h2>
+            <textarea className="v2-textarea" value={(lang === "zh" ? plan.counterExampleDirectionsZh : plan.counterExampleDirectionsEn).join("\n")} onChange={(event) => update(lang === "zh" ? { counterExampleDirectionsZh: lines(event.target.value) } : { counterExampleDirectionsEn: lines(event.target.value) })} />
+          </section>
+
+          <section className="v2-card v2-form-card">
+            <h2>{t("design.inclusion")} / {t("design.exclusion")}</h2>
+            <div className="v2-grid-2" style={{ marginTop: 10 }}>
+              <div className="v2-field">
+                <textarea className="v2-textarea" value={(lang === "zh" ? plan.inclusionZh : plan.inclusionEn).join("\n")} onChange={(event) => update(lang === "zh" ? { inclusionZh: lines(event.target.value) } : { inclusionEn: lines(event.target.value) })} />
+              </div>
+              <div className="v2-field">
+                <textarea className="v2-textarea" value={(lang === "zh" ? plan.exclusionZh : plan.exclusionEn).join("\n")} onChange={(event) => update(lang === "zh" ? { exclusionZh: lines(event.target.value) } : { exclusionEn: lines(event.target.value) })} />
+              </div>
+            </div>
+          </section>
+        </div>
+
+        <aside className="v2-plan-side">
+          <section className="v2-card v2-side-card">
+            <h2>{t("design.budget")}</h2>
+            <div style={{ marginTop: 8 }}>
+              <div className="v2-check-row"><span>{lang === "zh" ? "种子查询" : "Seed queries"}</span><b>{plan.budget.seedQueries}</b></div>
+              <div className="v2-check-row"><span>{lang === "zh" ? "最多轮次" : "Max rounds"}</span><b>{plan.budget.maxRounds}</b></div>
+              <div className="v2-check-row"><span>{lang === "zh" ? "每轮扩展" : "Per round"}</span><b>{plan.budget.perRound}</b></div>
+              <div className="v2-check-row"><span>{lang === "zh" ? "总查询上限" : "Max queries"}</span><b>{plan.budget.maxQueries}</b></div>
+              <div className="v2-check-row"><span>{lang === "zh" ? "候选上限" : "Max candidates"}</span><b>{plan.budget.maxCandidates}</b></div>
+              <div className="v2-check-row"><span>{lang === "zh" ? "时间窗" : "Time window"}</span><b>{plan.budget.timeWindowMonths} mo</b></div>
+            </div>
+            <div className="v2-row" style={{ marginTop: 12 }}>
+              <span className={`v2-badge ${gate.fit === "fit" ? "v2-badge-fit" : gate.fit === "partial" ? "v2-badge-partial" : "v2-badge-mismatch"}`}>
+                <Lock size={12} style={{ marginRight: 3 }} /> {outputLabel}
+              </span>
+            </div>
+            <div className="v2-field" style={{ marginTop: 12 }}>
+              <label className="v2-label" htmlFor="v2-mode">{lang === "zh" ? "现场检索模式" : "Live mode"}</label>
+              <select id="v2-mode" className="v2-select" value={mode} onChange={(event) => setMode(event.target.value === "full" ? "full" : "lite")}>
+                <option value="lite">{lang === "zh" ? "轻量实时检索（约 10–15 分钟）" : "Lightweight live study (~10–15 min)"}</option>
+                <option value="full">{lang === "zh" ? "完整实时检索（约 20–30 分钟）" : "Full live study (~20–30 min)"}</option>
+              </select>
+              <span className="v2-hint">
+                {lang === "zh"
+                  ? "评委演示优先打开缓存主案例；实时路径用于验证真实接口。"
+                  : "Use the cached main case for the demo; the live path verifies the real API."}
+              </span>
+            </div>
+            <button className="v2-btn v2-btn-primary v2-btn-lg" type="button" data-testid="v2-confirm" disabled={busy} onClick={() => void confirm()} style={{ width: "100%", marginTop: 14 }}>
+              {busy ? <span className="v2-spinner" /> : null}
+              {busy ? t("design.confirming") : t("design.confirm")}
+              {!busy ? <ArrowRight size={15} /> : null}
             </button>
-          </section>
-        </div>
-
-        <aside className="run-panel card" aria-label="执行前检查">
-          <div className="run-panel-head">
-            <h2>
-              <ClipboardCheck size={16} /> 执行前检查
-            </h2>
-            <p className="field-hint" style={{ marginTop: 4 }}>
-              确认后才会发起下面这些调用
-            </p>
-          </div>
-          <div className="run-panel-body">
-            <div className="run-check">
-              <span>已调用知乎</span>
-              <strong className="blue">0 次</strong>
-            </div>
-            <div className="run-check">
-              <span>计划检索词</span>
-              <strong>{design.queries.filter((query) => query.trim()).length} 条</strong>
-            </div>
-            <div className="run-check">
-              <span>研究场景</span>
-              <strong>{design.scenes.length} 个</strong>
-            </div>
-            <div className="run-check">
-              <span>编码规则</span>
-              <strong>{design.codebook.length} 条</strong>
-            </div>
-            <div className="run-check">
-              <span>时间窗</span>
-              <strong>24 个月</strong>
-            </div>
-            <div className="run-callout">
-              将调用：知乎搜索 {design.queries.filter((query) => query.trim()).length} 次 · 热榜 1 次 · 直答 1 次（仅补漏）
-            </div>
-            <div className="run-actions">
-              <button className="btn btn-primary btn-block btn-lg" type="button" data-testid="confirm-button" disabled={busy} onClick={() => void confirm()}>
-                {busy ? (
-                  <>
-                    <span className="spinner" /> 正在检索知乎
-                  </>
-                ) : (
-                  <>
-                    确认设计并开始检索 <ArrowRight size={16} />
-                  </>
-                )}
-              </button>
-              <p className="run-hint">检索通常需要 30–90 秒。中途失败会明确提示，不会用直答顶替结论。</p>
-            </div>
-
-            {progress ? (
-              <div className="progress-box" data-testid="retrieve-progress">
-                <div className="progress-head">
-                  {busy ? <span className="spinner" /> : <CheckCircle2 size={14} />}
-                  {progress.step}
-                </div>
-                {progress.finished.length > 0 ? (
-                  <div className="progress-finished">
-                    {progress.finished.map((query) => (
-                      <span className="tag tag-green" key={query}>
-                        {query}
-                      </span>
-                    ))}
-                  </div>
-                ) : null}
+            <p className="v2-hint" style={{ marginTop: 7 }}>{t("design.notConfirmed")}</p>
+            {busy ? (
+              <div className="v2-progress">
+                <span className="v2-spinner" />
+                <span>{lang === "zh" ? "种子检索 → 关键词扩展 → 反例检索 → 语义编码 → 双语简报" : "Seed → vocabulary expansion → counter-example → coding → bilingual brief"}</span>
               </div>
             ) : null}
-
             {error ? (
-              <p className="error-text" data-testid="form-error" style={{ marginTop: 10 }}>
-                <AlertTriangle size={14} /> {error}
-              </p>
+              <div className="v2-error">
+                <AlertTriangle size={13} style={{ verticalAlign: "-2px", marginRight: 4 }} />
+                {error}
+                <div style={{ marginTop: 6 }}>
+                  <Link className="v2-small" href="/workbench?demo=main-case">{lang === "zh" ? "打开缓存主案例" : "Open cached main case"} →</Link>
+                </div>
+              </div>
             ) : null}
+          </section>
 
-            <div className="divider" />
-            <div className="row" style={{ justifyContent: "space-between" }}>
-              <span className="mini muted">设计由确定性规则编译</span>
-              <Link className="mini" href="/examples">
-                先看示例
-              </Link>
+          <section className="v2-card v2-side-card">
+            <h2>{t("design.versions")}</h2>
+            <div style={{ marginTop: 6 }}>
+              {plan.versions.slice().reverse().map((version) => (
+                <div className="v2-version" key={version.version}>
+                  <b>v{version.version}</b>
+                  <span>{lang === "zh" ? version.reasonZh : version.reasonEn}</span>
+                </div>
+              ))}
             </div>
-          </div>
+          </section>
+
+          <section className="v2-card v2-side-card">
+            <h2>{t("design.deliverables")}</h2>
+            <ul className="v2-list" style={{ marginTop: 6 }}>
+              {(lang === "zh" ? plan.deliverablesZh : plan.deliverablesEn).map((item) => <li key={item}>{item}</li>)}
+            </ul>
+          </section>
+
+          <Link className="v2-small" href="/">{t("common.back")} →</Link>
         </aside>
       </div>
+      <p className="v2-mini v2-muted" style={{ marginTop: 18 }}>{activeDecision}</p>
     </main>
   );
 }

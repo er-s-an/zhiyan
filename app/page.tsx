@@ -1,315 +1,212 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import {
-  ArrowRight,
-  BadgeCheck,
-  ChevronRight,
-  ClipboardList,
-  Clock3,
-  Layers,
-  LibraryBig,
-  Play,
-  RefreshCw,
-  ScanSearch,
-  Search,
-  ShieldCheck,
-  Sparkles,
-  Users,
-} from "lucide-react";
+import { ArrowRight, BookOpen, ExternalLink, Search, Sparkles } from "lucide-react";
 import { Kanshan } from "./components/Kanshan";
-import { SCENARIOS } from "../lib/scenarios";
-import { loadRecent, saveDraft, type RecentEntry } from "../lib/storage";
-import type { ResearchDesign } from "../lib/types";
+import { useLang } from "./components/LanguageProvider";
+import { MAIN_CASE_BRIEF, MAIN_CASE_BRIEF_ZH } from "../lib/v2/copy";
+import type { DemoSummaryV2, Lang, ResearchPlanV2 } from "../lib/v2/types";
 
-const PROCESS = [
-  { title: "研究简报", note: "一句业务问题" },
-  { title: "研究设计", note: "可编辑、可确认" },
-  { title: "检索与样本", note: "确认后才调知乎", gate: true },
-  { title: "分析与交付", note: "结论带边界" },
-];
-
-const TRUST = [
-  {
-    icon: ShieldCheck,
-    title: "先确认，再检索",
-    text: "设计没被确认之前，知乎搜索、热榜和直答都不会被调用。每一步都能解释为什么发生。",
-  },
-  {
-    icon: ScanSearch,
-    title: "每条结论能回到样本",
-    text: "样本保留来源、日期、场景和纳入理由；排除、恢复或改标签后，计数与报告一起重算。",
-  },
-  {
-    icon: ClipboardList,
-    title: "把不能证明的写清楚",
-    text: "购买意愿和宣称验证被锁在方法之外。交付页第一屏就告诉你这份研究能支持什么、不能证明什么。",
-  },
-];
+interface Recent {
+  decision: string;
+  at: string;
+  demo?: boolean;
+}
 
 export default function HomePage() {
   const router = useRouter();
-  const [brief, setBrief] = useState(SCENARIOS[0].brief);
-  const [error, setError] = useState("");
+  const { lang, t } = useLang();
+  const [brief, setBrief] = useState("");
   const [busy, setBusy] = useState(false);
-  const [recent, setRecent] = useState<RecentEntry[]>([]);
+  const [error, setError] = useState("");
+  const [demos, setDemos] = useState<DemoSummaryV2[]>([]);
+  const [recent, setRecent] = useState<Recent[]>([]);
 
   useEffect(() => {
-    setRecent(loadRecent());
+    setBrief(lang === "zh" ? MAIN_CASE_BRIEF_ZH : MAIN_CASE_BRIEF);
+  }, [lang]);
+
+  useEffect(() => {
+    fetch("/api/v2/demos")
+      .then((response) => response.json())
+      .then((body: { demos?: DemoSummaryV2[] }) => setDemos(Array.isArray(body.demos) ? body.demos : []))
+      .catch(() => setDemos([]));
+    try {
+      const raw = window.localStorage.getItem("zhiyan.v2.recent");
+      if (raw) setRecent(JSON.parse(raw) as Recent[]);
+    } catch {
+      setRecent([]);
+    }
   }, []);
 
-  const cards = useMemo(
-    () =>
-      SCENARIOS.map((scenario) => {
-        const design = scenario.build(new Date());
-        return {
-          scenario,
-          scenes: design.scenes.length,
-          queries: design.queries.length,
-          codes: design.codebook.length,
-        };
-      }),
-    [],
-  );
-
-  async function compile(text: string) {
-    const value = text.trim();
+  async function start() {
+    const value = brief.trim();
     if (!value) {
-      setError("先写一句你想弄清楚的业务问题。");
+      setError(lang === "zh" ? "先写一句你要做的产品决定。" : "Write the product decision first.");
       return;
     }
     setBusy(true);
     setError("");
     try {
-      const response = await fetch("/api/design", {
+      const response = await fetch("/api/v2/plan", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ brief: value }),
+        body: JSON.stringify({ brief: value, language: lang }),
       });
-      const body = (await response.json()) as { design?: ResearchDesign; error?: string; zhihuCalls?: number };
-      if (!response.ok || !body.design) {
-        setError(body.error || "研究设计没有编译成功，请再试一次。");
-        return;
-      }
-      if (body.zhihuCalls !== 0) {
-        setError("检索在确认前启动了，已停止。");
-        return;
-      }
-      saveDraft({ design: body.design, study: null, demoId: null });
+      const body = (await response.json()) as { plan?: ResearchPlanV2; error?: string };
+      if (!response.ok || !body.plan) throw new Error(body.error || "PLAN_FAILED");
+      window.localStorage.setItem("zhiyan.v2.plan", JSON.stringify(body.plan));
+      window.localStorage.removeItem("zhiyan.v2.study");
       router.push("/design");
-    } catch {
-      setError("请求没有送达。检查网络后再试一次。");
+    } catch (caught) {
+      setError(caught instanceof Error ? caught.message : t("error.generic"));
     } finally {
       setBusy(false);
     }
   }
 
-  function openDemo(id: string) {
-    router.push(`/workbench?demo=${id}`);
-  }
+  const mainDemo = demos.find((demo) => demo.id === "main-case");
 
   return (
-    <main>
-      <section className="home-hero">
-        <div>
-          <span className="eyebrow">
-            <Sparkles size={14} />
-            知乎开放能力 × 研究执行
-          </span>
-          <h1>
-            把一句业务问题，
-            <br />
-            跑成一份<em>可核对</em>的知乎研究。
-          </h1>
-          <p className="lede">
-            知研台不是搜索框。它先把决策编译成研究设计，等你确认后再检索知乎、建立样本、编码分析，
-            最后交付一份写明「能支持什么、不能证明什么」的团队简报。
-          </p>
-        </div>
-        <div className="hero-art" aria-hidden="true">
-          <span className="hero-chip one">
-            <ShieldCheck size={12} /> 确认门
-          </span>
-          <Kanshan variant="front" size={196} hidden />
-          <span className="hero-chip two">
-            <BadgeCheck size={12} /> 每条有出处
-          </span>
-        </div>
+    <main className="v2-page">
+      <section className="v2-home-hero">
+        <p className="v2-kicker">{t("home.eyebrow")}</p>
+        <h1>{lang === "zh" ? "让一个人，也有一支懂中国用户的研究团队。" : "A research team for global builders, built on real Zhihu conversations."}</h1>
+        <p className="v2-lede">
+          {lang === "zh"
+            ? "把一个英文产品决策，变成中文研究计划、适应性知乎检索和一份可复核的双语决策简报。不是通用 AI 搜索，而是在知乎里执行一次可检查的用户研究。"
+            : "Turn an English product decision into a Chinese research plan, adaptive Zhihu retrieval, and a reviewable bilingual decision brief. Not generic AI search — a checkable user study executed inside Zhihu."}
+        </p>
       </section>
 
-      <section className="card composer" aria-label="研究简报">
-        <div className="composer-field">
-          <div className="composer-label">
-            <span>研究简报</span>
-            <span>中文即可 · 生成设计前不调用知乎</span>
-          </div>
+      <section className="v2-card v2-home-brief">
+        <div className="v2-between" style={{ marginBottom: 9 }}>
+          <span className="v2-label">{t("home.briefLabel")}</span>
+          <span className="v2-mini v2-muted">{lang === "zh" ? "生成计划前不调用知乎" : "No Zhihu calls before the plan"}</span>
+        </div>
+        <div className="v2-home-brief-box">
           <textarea
-            id="brief"
-            data-testid="brief-input"
+            className="v2-textarea"
+            data-testid="v2-brief-input"
             value={brief}
-            placeholder="例如：我们在做一款面向产研团队的 AI 会议纪要工具，想知道团队真实的使用场景，以及哪些能力只是演示效果。"
+            placeholder={t("home.briefPlaceholder")}
             onChange={(event) => setBrief(event.target.value)}
-            onKeyDown={(event) => {
-              if ((event.metaKey || event.ctrlKey) && event.key === "Enter") void compile(brief);
-            }}
           />
         </div>
-        <div className="composer-foot">
-          <div className="chip-row">
-            <span className="chip-label">试试</span>
-            {SCENARIOS.map((scenario) => (
-              <button key={scenario.id} type="button" className="chip" onClick={() => setBrief(scenario.brief)}>
-                <LibraryBig size={12} />
-                {scenario.title}
-              </button>
-            ))}
-          </div>
-          <button className="btn btn-primary btn-lg" type="button" data-testid="compile-button" disabled={busy} onClick={() => void compile(brief)}>
-            {busy ? (
-              <>
-                <span className="spinner" /> 正在编译设计
-              </>
-            ) : (
-              <>
-                生成研究设计 <ArrowRight size={16} />
-              </>
-            )}
+        <div className="v2-home-actions">
+          <span className="v2-home-meta">
+            {lang === "zh" ? "中文 / English 输入均可 · 系统会拆出中文研究计划" : "Chinese or English input · the system drafts a Chinese research plan"}
+          </span>
+          <button className="v2-btn v2-btn-primary v2-btn-lg" type="button" data-testid="v2-start" disabled={busy} onClick={() => void start()}>
+            {busy ? <span className="v2-spinner" /> : <Search size={15} />}
+            {busy ? t("home.starting") : t("home.start")}
+            {!busy ? <ArrowRight size={15} /> : null}
           </button>
         </div>
-        <div className="row" style={{ marginTop: 10, justifyContent: "space-between" }}>
-          <span className="mini muted" data-testid="pre-retrieval">
-            已调用知乎 0 次
-          </span>
-          <span className="mini muted">⌘ / Ctrl + Enter 快速生成</span>
-        </div>
-        {error ? (
-          <p className="error-text" data-testid="form-error" style={{ marginTop: 8 }}>
-            {error}
-          </p>
-        ) : null}
+        {error ? <p className="v2-error">{error}</p> : null}
       </section>
 
-      <div className="flow-strip" aria-label="研究流程">
-        {PROCESS.map((step, index) => (
-          <div key={step.title} className={`flow-step${step.gate ? " is-gate" : ""}`}>
-            <span className="flow-num">{index + 1}</span>
-            <div>
-              <strong>{step.title}</strong>
-              <span>{step.note}</span>
-            </div>
-          </div>
-        ))}
-      </div>
-
-      <div className="section-head">
+      <section className="v2-card v2-home-example">
         <div>
-          <h2>示例工作台</h2>
-          <p>已经跑完的真实研究，点开就能看完整样本、质检与交付。也可以基于示例重新跑一遍。</p>
+          <div className="v2-row" style={{ gap: 6 }}>
+            <span className="v2-tag v2-tag-blue">{t("examples.main")}</span>
+            <span className="v2-tag">{lang === "zh" ? "AI × 出海" : "AI × Going Global"}</span>
+            <span className="v2-tag">{lang === "zh" ? "真实知乎检索缓存" : "Real Zhihu cache"}</span>
+          </div>
+          <h2 style={{ marginTop: 9 }}>{t("home.mainExample")}</h2>
+          <p>{t("home.mainExampleDesc")}</p>
+          {mainDemo ? (
+            <div className="v2-home-stats">
+              <span>{mainDemo.includedCount} {lang === "zh" ? "条纳入样本" : "included samples"}</span>
+              <span>{mainDemo.findingCount} {lang === "zh" ? "条发现" : "findings"}</span>
+              <span>{mainDemo.vocabularyCount} {lang === "zh" ? "个新关键词" : "new keywords"}</span>
+            </div>
+          ) : null}
+          <div className="v2-row" style={{ marginTop: 14 }}>
+            <Link className="v2-btn v2-btn-primary" href="/workbench?demo=main-case">
+              {t("home.openExample")} <ArrowRight size={14} />
+            </Link>
+            <Link className="v2-btn" href="/examples">
+              {t("home.auxExamples")} <ExternalLink size={13} />
+            </Link>
+          </div>
         </div>
-        <Link className="link-more" href="/examples">
-          查看全部示例 <ChevronRight size={14} />
-        </Link>
-      </div>
+        <div className="v2-home-example-art" aria-hidden="true">
+          <Kanshan variant="front" size={130} hidden />
+        </div>
+      </section>
 
-      <div className="examples-grid">
-        {cards.map(({ scenario, scenes, queries, codes }) => (
-          <article className="example-card" key={scenario.id}>
-            <div className="example-top">
-              {scenario.tags.map((tag) => (
-                <span className="tag tag-blue" key={tag}>
-                  {tag}
-                </span>
-              ))}
-              <span className="tag">{scenario.audience}</span>
-            </div>
-            <h3 className="example-title">{scenario.title}</h3>
-            <p className="example-sub">{scenario.subtitle}</p>
-            <div className="example-meta">
-              <span>
-                <Layers size={12} /> {scenes} 个场景
-              </span>
-              <span>
-                <Search size={12} /> {queries} 条检索
-              </span>
-              <span>
-                <ClipboardList size={12} /> {codes} 个编码
-              </span>
-            </div>
-            <div className="example-foot">
-              <button className="example-open" type="button" onClick={() => openDemo(scenario.id)}>
-                <Play size={13} /> 查看完整示例
-              </button>
-              <button className="btn btn-sm" type="button" onClick={() => void compile(scenario.brief)}>
-                <RefreshCw size={13} /> 重新研究
-              </button>
-            </div>
-          </article>
-        ))}
-      </div>
+      <section className="v2-home-feed">
+        <div className="v2-section-head">
+          <div>
+            <h2>{lang === "zh" ? "它怎么工作" : "How it works"}</h2>
+            <p>{lang === "zh" ? "研究先于搜索，证据先于结论。" : "Research before search, evidence before conclusions."}</p>
+          </div>
+        </div>
+        <div className="v2-card" style={{ padding: "4px 20px" }}>
+          {[
+            {
+              titleZh: "先把决策拆成研究计划",
+              titleEn: "Turn the decision into a research plan",
+              descZh: "方法适用闸门先判断知乎能不能回答；不能回答的部分会在报告里被限制措辞。",
+              descEn: "The method-fit gate checks what Zhihu can answer; unsupported claims are constrained in the report.",
+            },
+            {
+              titleZh: "从真实讨论里长出关键词",
+              titleEn: "Grow vocabulary from real discussion",
+              descZh: "不预设同义词表。系统从样本中提取新表达、来源原句和下一轮查询，并写入计划新版本。",
+              descEn: "No synonym list. The system extracts new expressions, source quotes and next queries from samples, then writes a new plan version.",
+            },
+            {
+              titleZh: "交付可复核的双语简报",
+              titleEn: "Deliver a reviewable bilingual brief",
+              descZh: "每条发现可回到中文原话和知乎原文；中英文来自同一份结构化研究。",
+              descEn: "Every finding traces back to the Chinese quote and Zhihu source; Chinese and English come from the same structured study.",
+            },
+          ].map((item, index) => (
+            <article className="v2-feed-item" key={item.titleZh}>
+              <span className="v2-feed-dot">{index + 1}</span>
+              <div>
+                <div className="v2-feed-title">{lang === "zh" ? item.titleZh : item.titleEn}</div>
+                <div className="v2-feed-desc">{lang === "zh" ? item.descZh : item.descEn}</div>
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
 
       {recent.length > 0 ? (
-        <>
-          <div className="section-head">
+        <section className="v2-home-feed">
+          <div className="v2-section-head">
             <div>
-              <h2>最近的本地记录</h2>
-              <p>只保存在这台浏览器的本地存储里，不会上传。</p>
+              <h2>{t("home.recent")}</h2>
+              <p>{lang === "zh" ? "只保存在这台浏览器本地。" : "Stored only in this browser."}</p>
             </div>
           </div>
-          {recent.slice(0, 3).map((entry) => (
-            <div className="recent-card" key={`${entry.decision}-${entry.updatedAt}`}>
-              <span className="recent-icon">
-                <Clock3 size={17} />
-              </span>
-              <div className="recent-body">
-                <strong>{entry.decision}</strong>
-                <span>
-                  {entry.demo ? "示例快照" : `${entry.includedCount} 条纳入条目`} ·{" "}
-                  {new Date(entry.updatedAt).toLocaleString("zh-CN", { hour12: false })}
-                </span>
-              </div>
-              <Link className="btn btn-sm" href="/workbench?view=sample">
-                打开
-              </Link>
-            </div>
-          ))}
-        </>
+          <div className="v2-card" style={{ padding: "2px 20px" }}>
+            {recent.slice(0, 4).map((entry) => (
+              <article className="v2-feed-item" key={`${entry.decision}-${entry.at}`}>
+                <span className="v2-feed-dot"><BookOpen size={13} /></span>
+                <div>
+                  <div className="v2-feed-title">{entry.decision}</div>
+                  <div className="v2-feed-meta">
+                    {entry.demo ? t("common.demo") : t("common.live")} · {new Date(entry.at).toLocaleString(lang === "zh" ? "zh-CN" : "en-US", { hour12: false })}
+                  </div>
+                  <Link className="v2-small" href="/workbench?view=explore" style={{ display: "inline-block", marginTop: 4 }}>
+                    {t("common.open")} →
+                  </Link>
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
       ) : null}
 
-      <div className="section-head">
-        <div>
-          <h2>为什么这份研究可以拿去开会</h2>
-          <p>方法先于结论，边界先于好看。</p>
-        </div>
-      </div>
-      <div className="trust-grid">
-        {TRUST.map((item) => {
-          const Icon = item.icon;
-          return (
-            <div className="trust-card" key={item.title}>
-              <span className="trust-icon">
-                <Icon size={17} />
-              </span>
-              <h3>{item.title}</h3>
-              <p>{item.text}</p>
-            </div>
-          );
-        })}
-      </div>
-
-      <div className="card tip-card" style={{ marginTop: 22, padding: 18, display: "flex", alignItems: "center", gap: 16 }}>
-        <Kanshan variant="side" size={74} hidden />
-        <div style={{ minWidth: 0 }}>
-          <h3 style={{ fontSize: 14 }}>刘看山提示</h3>
-          <p className="small muted" style={{ marginTop: 4 }}>
-            演示时打开「示例库」，选择任意一个已完成的案例，从样本一路讲到交付页，比现场等检索更稳。
-          </p>
-        </div>
-        <Link className="btn btn-sm" href="/examples" style={{ marginLeft: "auto", flex: "none" }}>
-          <Users size={13} /> 打开示例库
-        </Link>
-      </div>
+      <p className="v2-mini v2-muted" style={{ marginTop: 22 }}>
+        {t("home.disclaimer")}
+      </p>
     </main>
   );
 }

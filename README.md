@@ -1,122 +1,121 @@
-# 知研台 Zhiyan
+# 知研台 Zhiyan V2
 
-**把一句业务问题，跑成一份可核对的知乎研究。**
+**面向全球 OPC 的知乎研究台。**
+把英文产品决策变成中文研究计划、适应性知乎检索和一份可复核的双语决策简报。
 
-知研台是一个面向产研团队的**公开社区证据工作台**。用户交来的是一句商业决策，不是一个搜索词。系统先把决策编译成一份可编辑的研究设计；确认之后，才检索知乎、热榜核对、直答补漏，建立样本、编码、质检，最后交付一份写明边界的团队研究简报。
+> A research team for global builders, built on real Zhihu conversations.
 
-现阶段它聚焦「公开社区二手内容的早期发现」，不替代访谈、问卷、市场/定价模型、竞争情报或 B2B win/loss；这些边界在 [专业调研对照](docs/专业调研实践对照与差距分析.md) 里有完整评估。
+- **主案例（真实检索缓存）**：海外 OPC × 中国自由职业者，AI 合同与回款工具是否值得做
+- **主报赛道**：AI × 出海；能力底色：AI × 知识与探索
+- **产品说明**：[V2 PRD](<docs/知研台_V2_PRD_全球OPC与知乎知识出海.md>)
+- **GitHub**：<https://github.com/er-s-an/zhiyan>
 
-知乎黑客松 S3 · 湾区共创季 · **AI × 知识与探索**
+## 它解决什么
 
-- 演示：`npm run build && npm start`；示例库四个案例可离线走完整闭环
-- 既有 Vercel 项目：<https://zhiyan-five.vercel.app>（旧版，需在 Vercel 项目里重新部署最新 `main` 后更新）
-- 产品说明计划书：[docs/产品说明计划书.md](docs/产品说明计划书.md)
-- 专业调研实践对照与差距分析：[docs/专业调研实践对照与差距分析.md](docs/专业调研实践对照与差距分析.md)
-- 下一步行动方案（Pre-build 决策冲刺）：[docs/下一步行动方案.md](docs/下一步行动方案.md)
-- 示例库：`/examples`（四个真实检索快照，离线可演示）
+通用 AI 可以读到部分公开网页，也可能搜到部分知乎内容。知研台的差别不是模型会不会搜索，而是**系统是否真的执行一次研究**：
 
-## 为什么是它
+1. **方法适用闸门**：先判断知乎能不能回答，不能回答的部分限制报告措辞。
+2. **适应性检索**：种子查询 → 读真实样本 → 提取新词与来源原句 → 写入计划新版本 → 补覆盖/找反例 → 预算内停止。
+3. **可接管证据**：用户可以搁置样本、修改编码、改主题；发现、计数和双语报告同步重算。
+4. **双语决策交付**：Decision Memo + 关键发现 + 反例/缺口 + 中文原话/英文翻译 + 下一步验证与证伪条件。
 
-- **先确认，再检索**：设计没确认前，知乎搜索、热榜、直答都不会被调用；服务端每次检索都会重新校验设计。
-- **每条结论有出处**：样本保留来源、日期、场景、纳入理由和编码；排除、恢复或改标签后，计数与报告一起重算。
-- **把不能证明的写清楚**：购买意愿与宣称验证被锁在方法之外；质检页和交付页首屏都写着「可以支持 / 不能证明」。
-- **为演示准备的真实案例**：消费硬件、B2B SaaS、跨境出海、企业 AI 四个案例，均已通过真实知乎接口检索并缓存。
+P0 明确不做市场规模、购买率、Conjoint/MaxDiff、多平台接入、自动访谈、SSO 和多 Agent 聊天界面。
 
 ## 界面
 
-知乎蓝白主题，中文优先，左侧工作台导航 + 顶部路径 + 内容卡片。品牌位、空态和提示使用刘看山官方三视图素材。
+| 首页（中文） | 探索 |
+|---|---|
+| ![首页](docs/screenshots-v2/home-zh.png) | ![探索](docs/screenshots-v2/explore.png) |
 
-| 工作台 | 研究设计 |
-| --- | --- |
-| ![工作台](docs/screenshots/home.png) | ![研究设计](docs/screenshots/design.png) |
+| 样本工作台 | 双语交付 |
+|---|---|
+| ![样本](docs/screenshots-v2/sample.png) | ![交付](docs/screenshots-v2/delivery.png) |
 
-| 样本 | 质检 |
-| --- | --- |
-| ![样本](docs/screenshots/sample.png) | ![质检](docs/screenshots/quality.png) |
-
-## 快速开始
-
-要求 Node.js 20+。
+## 演示
 
 ```bash
 npm install
-cp .env.example .env.local   # 填入知乎 Access Secret 与本机 LLM 配置
+cp .env.example .env.local   # 填入知乎 Access Secret 与 LLM 配置
 npm run dev                  # http://localhost:3000
 ```
 
-部署到已有 Vercel 项目（项目与环境变量已存在时）：
+- 首页：`/`
+- 主案例缓存：`/workbench?demo=main-case`（离线可用，不消耗接口）
+- 示例库：`/examples`
+- 产品说明：`/plan`
+- 实时路径：首页输入英文 Brief → 研究计划 → 选择「轻量实时检索」确认。实时路径会真实调用知乎和 LLM，通常 10–15 分钟；5 分钟演示请使用缓存主案例。
+- 已实测的实时路径：7 次真实查询、29 条候选、26 条纳入、9 个有来源新词、8 条发现，完整返回约 9 分钟。
 
-```bash
-npx vercel link       # 选择 er-s-an/zhiyan 对应的项目
-npx vercel env pull   # 拉取 ZHIHU_ACCESS_SECRET 与 LLM 变量
-npx vercel --prod
+## 当前主案例
+
+| 指标 | 值 |
+|---|---:|
+| 真实检索查询 | 12 次（3 轮，含 1 次反例） |
+| 候选样本 | 60 |
+| 纳入样本 | 47 |
+| 从样本中发现的新词 | 12 个（全部带来源样本与原句） |
+| 计划版本 | 3 版 |
+| 六类发现 | 8 条（含反例/条件性证据） |
+| 交付 | 中英双语 Decision Memo + 完整报告 + 证据附录 |
+
+主案例展示了 PRD 要求的「哇时刻」：系统从真实讨论中发现用户原本不会想到的中文表达，例如：
+
+- 款清交源文件
+- 带水印的低清预览版
+- 视为验收条款
+- 需求变更书面确认
+- 资金托管
+- 正式书面催告
+
+这些词不是预先写进 Prompt 的同义词，而是从真实样本中提取、带来源样本 ID 和原句，并触发了后续查询。
+
+## 目录
+
+```
+app/                 页面与 Route Handlers
+app/components/      知乎式顶栏、语言切换、刘看山组件
+app/workbench/       Explore / Plan / Sample / Analysis / Quality / Delivery
+lib/v2/              V2 领域层：计划、方法闸门、适应性检索、编码、发现、双语报告
+lib/v2/demos/        主案例真实检索缓存
+scripts/seed-v2.ts   生成主案例缓存
+scripts/refine-v2.ts 在不重跑检索的情况下重生成发现/报告
+scripts/verify-v2.ts 端到端验收脚本
+docs/                V2 PRD、产品说明、UI/UX、专业调研对照
 ```
 
-没有服务端密钥也能打开页面和示例库；只有「确认并检索」会提示未配置。
+## 服务端配置
 
-服务端变量（只放在 `.env.local`，不要提交）：
+`.env.local`（不提交）：
 
 ```dotenv
-ZHIHU_ACCESS_SECRET=        # 知乎开放平台个人中心生成
+ZHIHU_ACCESS_SECRET=        # 知乎开放平台
 LLM_BASE_URL=               # OpenAI 兼容地址
 LLM_API_KEY=                # 模型 Key
 LLM_MODEL=deepseek-v4.1-flash
 ```
 
-模型只负责把中文摘录译成英文；研究设计、编码、计数和边界由确定性代码生成。LLM 失败时保留中文证据并标注，不影响分析。
-
-## 使用知乎开放能力
-
-| 能力 | 用途 | 边界 |
-| --- | --- | --- |
-| 知乎搜索 `zhihu_search` | 按已确认设计中的每条中文检索词取样 | 每条计划查询一次，不把服务端密钥变成开放搜索代理 |
-| 热榜 `hot_list` | 核对当天站内议程，与本品无关的标题只记入扫描记录 | 热榜必须调用，失败则不生成研究 |
-| 直答 `zhida` | 只根据已检索标题提示可能漏掉的场景 | 不进入发现，不进入报告正文，`usedAsFinding: false` |
-
-不写接口、不发帖、不批量操作。查询额度以知乎开放平台个人中心为准，调用前请做好缓存和去重。
-
-## 示例数据
-
-`lib/demos/*.json` 是四个已跑完的研究快照，由 `scripts/seed-demos.ts` 通过真实知乎接口生成：
-
-```bash
-npx tsx scripts/seed-demos.ts                 # 重新生成全部（需要 .env.local）
-npx tsx scripts/seed-demos.ts --only=ai-meeting
-```
-
-示例库页面通过 `/api/demos` 读取，不依赖现场网络和额度；每个案例仍保留「重新研究」路径。
+- 知乎能力：`zhihu_search`、`hot_list`、`zhida`。热榜只在相关时纳入，直答只做补漏提示，不进入发现。
+- LLM 负责：拆 Brief、从真实样本扩展词汇、辅助语义编码、生成发现/双语报告与访谈建议。
+- 确定性逻辑负责：查询白名单/预算/版本、样本去重与筛选、编码关联、计数、证据完整性、重算与导出。
 
 ## 验证
 
 ```bash
-npm test                                      # 领域测试
-npm run build                                 # 生产构建
-npx tsx .cursor/skills/verify-zhiyan/scripts/verify.ts --base http://127.0.0.1:3210 --study lib/demos/smart-feeder.json
+npm test          # 14 个测试：旧版回归 + 闸门/计划版本/适应性检索/双语/重算
+npm run build
+npx tsx scripts/verify-v2.ts --base http://127.0.0.1:3210 --skip-plan
 ```
 
-`verify-zhiyan` 覆盖确认门、设计外查询拒绝、真实快照投影、示例库和四个案例的中文场景包。浏览器里再走一遍：提交简报 → 设计 → 确认检索 → 样本 → 分析 → 质检 → 交付，并测试排除一条后计数与报告变化。
+`verify-v2` 检查：缓存主案例、方法闸门、真实查询轮次与反例、新词来源、六类发现与双语一致性、搁置样本后报告重算、未确认拒绝。
 
-## 目录
+真实主案例由 `scripts/seed-v2.ts` 使用知乎官方接口 + LLM 生成，已完整跑通并写入 `lib/v2/demos/main-case.json`。
 
-```
-app/                 页面与 Route Handlers（工作台、研究设计、当前研究、示例库、产品说明）
-app/components/      应用外壳、步骤条、刘看山组件
-app/workbench/       协议、样本、分析、质检、交付五个视图
-lib/                 领域层：编译、样本、投影、类型、场景、本地存储
-lib/server/          知乎与 LLM 服务端适配
-lib/demos/           四个真实研究快照 + index
-scripts/             示例数据生成脚本
-design-system/       UI/UX Pro Max 生成并覆写为知乎蓝白的设计系统
-docs/                产品说明计划书、UI/UX Skill 使用记录、截图
-public/brand/        刘看山官方三视图处理后的透明素材
-```
+## 与 V1 的关系
 
-## UI/UX Skill
-
-按任务要求安装并实测了 [UI/UX Pro Max](https://github.com/nextlevelbuilder/ui-ux-pro-max-skill)：设计系统生成、domain 搜索、Next.js stack 指引均完整跑通。安装与验收命令见 [docs/uiux-skill.md](docs/uiux-skill.md)。
+V1 的知乎蓝白 UI、刘看山 IP、确认门、样本工作台和缓存机制被复用；四个旧案例降级为辅助案例，不再承担主叙事。旧版接口与测试保留，避免回归。
 
 ## 说明
 
-- 示例快照中的中文摘录来自公开知乎内容，用于演示研究方法；引用请回到原链接。
+- 知乎公开讨论适合定性探索，不能证明市场规模、购买率、因果关系或整体人群分布。
+- 不生产垃圾回答、不批量发帖、不绕过平台抓取内容；保留作者、出处和原文链接。
 - 刘看山素材来自知乎黑客松 S3 官方素材包，仅用于本次参赛作品。
-- 本项目不把一次样本当作市场规模、购买意愿或宣称验证的证明。

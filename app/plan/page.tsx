@@ -1,231 +1,90 @@
-import { readFileSync } from "node:fs";
-import path from "node:path";
+"use client";
+
 import Link from "next/link";
-import { ArrowRight, BadgeCheck, BookOpen, ExternalLink, PlayCircle, Sparkles } from "lucide-react";
-import { Kanshan } from "../components/Kanshan";
-
-interface Block {
-  kind: "h1" | "h2" | "h3" | "ul" | "ol" | "quote" | "p" | "table";
-  content: string | string[];
-  header?: string[];
-  rows?: string[][];
-}
-
-function parse(text: string): Block[] {
-  const blocks: Block[] = [];
-  for (const chunk of text.trim().split(/\n{2,}/)) {
-    const lines = chunk.split("\n").map((line) => line.trimEnd());
-    const first = lines[0] || "";
-    if (lines.length === 1 && first.startsWith("# ")) {
-      blocks.push({ kind: "h1", content: first.slice(2) });
-    } else if (lines.length === 1 && first.startsWith("## ")) {
-      blocks.push({ kind: "h2", content: first.slice(3) });
-    } else if (lines.length === 1 && first.startsWith("### ")) {
-      blocks.push({ kind: "h3", content: first.slice(4) });
-    } else if (lines.every((line) => line.startsWith("- "))) {
-      blocks.push({ kind: "ul", content: lines.map((line) => line.slice(2)) });
-    } else if (lines.every((line) => /^\d+\.\s/.test(line))) {
-      blocks.push({ kind: "ol", content: lines.map((line) => line.replace(/^\d+\.\s/, "")) });
-    } else if (lines.every((line) => line.startsWith(">"))) {
-      blocks.push({ kind: "quote", content: lines.map((line) => line.replace(/^>\s?/, "")).join(" ") });
-    } else if (lines.every((line) => line.trim().startsWith("|"))) {
-      const cells = (line: string) =>
-        line
-          .trim()
-          .replace(/^\|/, "")
-          .replace(/\|$/, "")
-          .split("|")
-          .map((cell) => cell.trim());
-      const rows = lines.filter((line) => !/^\|[\s:|-]+\|?$/.test(line.trim())).map(cells);
-      if (rows.length > 0) blocks.push({ kind: "table", content: "", header: rows[0], rows: rows.slice(1) });
-    } else {
-      blocks.push({ kind: "p", content: lines.join(" ") });
-    }
-  }
-  return blocks;
-}
-
-function Inline({ text }: { text: string }) {
-  const chunks = text.split(/(\*\*[^*]+\*\*|`[^`]+`)/g).filter(Boolean);
-  return (
-    <>
-      {chunks.map((chunk, index) => {
-        if (chunk.startsWith("**") && chunk.endsWith("**")) {
-          return <strong key={index}>{chunk.slice(2, -2)}</strong>;
-        }
-        if (chunk.startsWith("`") && chunk.endsWith("`")) {
-          return <code key={index}>{chunk.slice(1, -1)}</code>;
-        }
-        return <span key={index}>{chunk}</span>;
-      })}
-    </>
-  );
-}
+import { ArrowRight, BookOpen, ExternalLink, Code2 } from "lucide-react";
+import { useLang } from "../components/LanguageProvider";
 
 export default function PlanPage() {
-  const text = readFileSync(path.join(process.cwd(), "docs/产品说明计划书.md"), "utf8");
-  const blocks = parse(text);
-  const sections = blocks
-    .filter((block): block is Block & { kind: "h2"; content: string } => block.kind === "h2")
-    .map((block, index) => ({ title: String(block.content), id: `section-${index + 1}` }));
-  let h2Index = 0;
-
+  const { lang, t } = useLang();
   return (
-    <main>
-      <section className="plan-hero">
-        <div>
-          <span className="eyebrow">
-            <BookOpen size={14} /> 知乎黑客松 S3 · 湾区共创季
-          </span>
-          <h1>知研台 Zhiyan</h1>
-          <p>
-            把一句业务问题编译成可核对的研究设计，确认后检索知乎、建立样本、编码分析，交付一份写明边界的团队研究简报。
-          </p>
-          <div className="head-meta">
-            <span className="pill pill-blue">
-              <BadgeCheck size={12} /> AI × 知识与探索
-            </span>
-            <span className="pill">Next.js · TypeScript</span>
-            <span className="pill">知乎搜索 / 热榜 / 直答</span>
-            <span className="pill">刘看山 IP</span>
-          </div>
+    <main className="v2-page v2-narrow">
+      <div className="v2-page-head">
+        <p className="v2-kicker">{t("plan.title")} · V2</p>
+        <h1>{lang === "zh" ? "知研台：全球 OPC 的知乎研究台" : "Zhiyan: a Zhihu research desk for global builders"}</h1>
+        <p className="v2-lede">
+          {lang === "zh"
+            ? "把英文产品决策变成中文研究计划、适应性知乎检索和一份可复核的双语决策简报。知乎是证据来源，不是答案生成器。"
+            : "Turn an English product decision into a Chinese research plan, adaptive Zhihu retrieval and a reviewable bilingual decision brief. Zhihu is the evidence source, not an answer generator."}
+        </p>
+      </div>
+
+      <article className="v2-article">
+        <h2>{lang === "zh" ? "一句话" : "One sentence"}</h2>
+        <p>{lang === "zh" ? "让一个人，也有一支懂中国用户的研究团队。" : "A research team for global builders, built on real Zhihu conversations."}</p>
+
+        <h2>{lang === "zh" ? "为什么是现在" : "Why now"}</h2>
+        <p>
+          {lang === "zh"
+            ? "AI 正在把「把产品做出来」的成本打下来，判断「什么值得做」反而成为新的瓶颈。一人公司和小团队没有专职研究团队，却要在开发前理解真实用户、发现未知问题、检查产品假设。中文知乎有大量真实讨论，但海外团队很难系统使用。"
+            : "AI is lowering the cost of building, which makes judgment about what to build the new bottleneck. Solo founders and small teams have no dedicated research team, yet they must understand real users and test product assumptions before building. Chinese Zhihu contains rich first-hand discussion, but global teams struggle to use it systematically."}
+        </p>
+
+        <h2>{lang === "zh" ? "三层出海" : "Three layers of going global"}</h2>
+        <ul>
+          <li>{lang === "zh" ? "产品出海：英文优先，面向全球用户。" : "Product: English-first, built for global users."}</li>
+          <li>{lang === "zh" ? "知识出海：把知乎中文公开讨论转成可复核的英文研究证据。" : "Knowledge: turn Chinese public Zhihu discussion into reviewable English research evidence."}</li>
+          <li>{lang === "zh" ? "决策出海/入华：海外团队进入中国前理解本地用户，全球 OPC 获得中文用户研究能力。" : "Decision-making: help global teams understand Chinese users before entering, and give solo founders Chinese user-research capability."}</li>
+        </ul>
+
+        <h2>{lang === "zh" ? "与通用 AI 的差别" : "How it differs from general AI"}</h2>
+        <p>
+          {lang === "zh"
+            ? "通用 AI 可以读到部分公开网页，也可能搜到部分知乎内容。知研台的差别不是模型会不会搜索，而是系统是否真的执行研究：查询有预算和目的，新词必须来自真实样本，覆盖和反例要写进计划版本，样本可被用户修改，结论可回到原话和原文链接。"
+            : "General AI can read some public pages and may find some Zhihu content. The difference is not whether a model can search; it is whether the system actually executes a study: queries have budgets and purposes, new words must come from real samples, coverage and counter-evidence enter plan versions, samples are editable, and conclusions trace back to quotes and source links."}
+        </p>
+
+        <h2>{lang === "zh" ? "P0 范围" : "P0 scope"}</h2>
+        <ul>
+          <li>{lang === "zh" ? "中英文 Brief 与界面切换" : "Chinese/English brief and interface"}</li>
+          <li>{lang === "zh" ? "方法适用闸门与报告措辞约束" : "Method-fit gate and report wording constraints"}</li>
+          <li>{lang === "zh" ? "研究计划确认与版本更新" : "Research plan confirmation and versioning"}</li>
+          <li>{lang === "zh" ? "至少一轮由样本证据触发的真实查询扩展" : "At least one real query expansion triggered by sample evidence"}</li>
+          <li>{lang === "zh" ? "查询目的、词汇来源、覆盖缺口可视化" : "Query purpose, vocabulary sources and coverage gaps"}</li>
+          <li>{lang === "zh" ? "主动反例检索或明确的反例缺口披露" : "Active counter-example retrieval or explicit disclosure"}</li>
+          <li>{lang === "zh" ? "LLM 辅助语义编码、确定性计数、人工修改" : "LLM-assisted semantic coding, deterministic counts and human edits"}</li>
+          <li>{lang === "zh" ? "双语 Decision Memo 与下一步验证" : "Bilingual Decision Memo and next validation"}</li>
+        </ul>
+
+        <h2>{lang === "zh" ? "明确不做" : "Explicitly out of scope"}</h2>
+        <ul>
+          <li>{lang === "zh" ? "市场规模、购买率预测" : "Market size and purchase-rate forecasts"}</li>
+          <li>{lang === "zh" ? "Conjoint、MaxDiff 等定量模块" : "Conjoint, MaxDiff and other quantitative modules"}</li>
+          <li>{lang === "zh" ? "多平台数据接入、自动招募、AI 访谈" : "Multi-platform ingestion, auto-recruitment, AI interviews"}</li>
+          <li>{lang === "zh" ? "企业 SSO、复杂权限、多 Agent 聊天界面" : "Enterprise SSO, complex permissions, multi-agent chat UI"}</li>
+        </ul>
+
+        <h2>{lang === "zh" ? "演示" : "Demo"}</h2>
+        <p>{lang === "zh" ? "先看示例库里的主案例：英文决策 → 中文计划 → 新词发现 → 可接管证据 → 双语 Decision Memo。" : "Open the main case: English decision → Chinese plan → vocabulary discovery → editable evidence → bilingual Decision Memo."}</p>
+        <div className="v2-row" style={{ marginTop: 10 }}>
+          <Link className="v2-btn v2-btn-primary" href="/workbench?demo=main-case">{lang === "zh" ? "打开主案例" : "Open main case"} <ArrowRight size={14} /></Link>
+          <Link className="v2-btn" href="/">{lang === "zh" ? "开始自己的研究" : "Start your own"}</Link>
         </div>
-        <Kanshan variant="front" size={168} hidden />
-      </section>
 
-      <div className="plan-layout">
-        <aside className="card plan-toc">
-          <h3>目录</h3>
-          {sections.map((section) => (
-            <a key={section.id} href={`#${section.id}`}>
-              {section.title}
+        <h2>{lang === "zh" ? "材料" : "Materials"}</h2>
+        <ul>
+          <li>
+            <a href="https://github.com/er-s-an/zhiyan/blob/main/docs/%E7%9F%A5%E7%A0%94%E5%8F%B0_V2_PRD_%E5%85%A8%E7%90%83OPC%E4%B8%8E%E7%9F%A5%E4%B9%8E%E7%9F%A5%E8%AF%86%E5%87%BA%E6%B5%B7.md" target="_blank" rel="noreferrer">
+              <BookOpen size={12} /> {t("plan.source")} <ExternalLink size={11} />
             </a>
-          ))}
-          <div className="divider" />
-          <a href="#demo" style={{ color: "var(--blue)", fontWeight: 600 }}>
-            评委演示动线
-          </a>
-        </aside>
-
-        <article className="card plan-article" lang="zh-CN" data-testid="plan">
-          {blocks.map((block, index) => {
-            if (block.kind === "h1") {
-              if (index === 0) return null;
-              return <h1 key={index}>{String(block.content)}</h1>;
-            }
-            if (block.kind === "h2") {
-              h2Index += 1;
-              return (
-                <h2 key={index} id={`section-${h2Index}`}>
-                  {String(block.content)}
-                </h2>
-              );
-            }
-            if (block.kind === "h3") {
-              return <h3 key={index}>{String(block.content)}</h3>;
-            }
-            if (block.kind === "ul") {
-              return (
-                <ul key={index}>
-                  {(block.content as string[]).map((line) => (
-                    <li key={line}>
-                      <Inline text={line} />
-                    </li>
-                  ))}
-                </ul>
-              );
-            }
-            if (block.kind === "ol") {
-              return (
-                <ol key={index}>
-                  {(block.content as string[]).map((line) => (
-                    <li key={line}>
-                      <Inline text={line} />
-                    </li>
-                  ))}
-                </ol>
-              );
-            }
-            if (block.kind === "quote") {
-              return (
-                <blockquote key={index}>
-                  <Inline text={String(block.content)} />
-                </blockquote>
-              );
-            }
-            if (block.kind === "table") {
-              return (
-                <div key={index} style={{ overflowX: "auto", marginTop: 12 }}>
-                  <table className="plan-table">
-                    <thead>
-                      <tr>
-                        {(block.header || []).map((cell) => (
-                          <th key={cell}>{cell}</th>
-                        ))}
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {(block.rows || []).map((row, rowIndex) => (
-                        <tr key={rowIndex}>
-                          {row.map((cell, cellIndex) => (
-                            <td key={cellIndex}>
-                              <Inline text={cell} />
-                            </td>
-                          ))}
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-              );
-            }
-            return (
-              <p key={index}>
-                <Inline text={String(block.content)} />
-              </p>
-            );
-          })}
-
-          <div id="demo" style={{ scrollMarginTop: 84 }}>
-            <h2>评委演示动线</h2>
-            <p>现场建议 5 分钟，按下面的顺序走。示例库里的数据已经缓存，不依赖现场网络和额度。</p>
-            <ol>
-              <li>
-                打开 <Link href="/examples">示例库</Link>，选「多猫智能喂食器」，进入「协议」页：先讲清楚先确认、后检索。
-              </li>
-              <li>切到「样本」：点一条来源，展示纳入理由、原始中文摘录和编码；搁置一条，看分析计数与报告一起变化。</li>
-              <li>切到「分析」：指出发现的门槛是两条纳入条目，不是模型自由发挥。</li>
-              <li>切到「质检」：第一屏就是「可以支持 / 不能证明」，再讲场景与角色覆盖、过时内容和单一来源。</li>
-              <li>切到「交付」：导出 Markdown，或者复制报告；最后回到首页，用一句新的业务问题现场生成设计。</li>
-            </ol>
-            <div className="plan-cta">
-              <div>
-                <strong>现在打开一个完整示例</strong>
-                <span>四个案例覆盖消费硬件、B2B SaaS、跨境出海和企业知识管理。</span>
-              </div>
-              <Link className="btn btn-primary" href="/examples">
-                <PlayCircle size={15} /> 打开示例库 <ArrowRight size={15} />
-              </Link>
-            </div>
-          </div>
-        </article>
-      </div>
-
-      <div className="row" style={{ marginTop: 20, justifyContent: "space-between" }}>
-        <span className="mini muted">
-          <Sparkles size={12} style={{ verticalAlign: "-1px", marginRight: 4 }} />
-          设计遵循知乎蓝白主题，使用刘看山官方三视图素材
-        </span>
-        <span className="row" style={{ gap: 14 }}>
-          <a className="mini" href="https://github.com/er-s-an/zhiyan" target="_blank" rel="noreferrer">
-            <ExternalLink size={12} style={{ verticalAlign: "-1px", marginRight: 4 }} />
-            GitHub 仓库
-          </a>
-          <Link className="mini" href="/">
-            回到工作台
-          </Link>
-        </span>
-      </div>
+          </li>
+          <li>
+            <a href="https://github.com/er-s-an/zhiyan" target="_blank" rel="noreferrer">
+              <Code2 size={12} /> {t("plan.github")} <ExternalLink size={11} />
+            </a>
+          </li>
+        </ul>
+        <p className="v2-mini v2-muted" style={{ marginTop: 18 }}>{lang === "zh" ? "知乎讨论适合定性探索，不证明市场规模、购买率或整体人群分布。" : "Zhihu discussion supports qualitative exploration, not market size, purchase rates or population distribution."}</p>
+      </article>
     </main>
   );
 }

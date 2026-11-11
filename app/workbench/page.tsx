@@ -3,43 +3,36 @@
 import { Suspense, useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
-import {
-  AlertTriangle,
-  ArrowRight,
-  CalendarClock,
-  Download,
-  FileText,
-  Layers,
-  ListChecks,
-  PencilLine,
-  PlayCircle,
-  Search,
-  Sparkles,
-  Users,
-} from "lucide-react";
-import { Kanshan } from "../components/Kanshan";
-import { StepRail } from "../components/StepRail";
-import { project } from "../../lib/project";
-import { loadDraft, saveDraft } from "../../lib/storage";
-import { STAGE_LABEL, type Study } from "../../lib/types";
-import { AnalysisView, DeliveryView, ProtocolView, QualityView, SampleView } from "./views";
+import { ArrowRight, Download, PencilLine, RefreshCw } from "lucide-react";
+import { useLang } from "../components/LanguageProvider";
+import { projectStudy } from "../../lib/v2/semantic";
+import type { StudyV2 } from "../../lib/v2/types";
+import { AnalysisView, DeliveryView, ExploreView, ProtocolView, QualityView, SampleView } from "./views-v2";
 
-const VIEWS = ["protocol", "sample", "analysis", "quality", "delivery"] as const;
-type View = (typeof VIEWS)[number];
+const TABS = ["explore", "protocol", "sample", "analysis", "quality", "delivery"] as const;
+type Tab = (typeof TABS)[number];
 
-function isView(value: string | null): value is View {
-  if (value === "design") return true;
-  return VIEWS.includes(value as View);
+function isTab(value: string | null): value is Tab {
+  return TABS.includes(value as Tab);
+}
+
+function readStudy(): StudyV2 | null {
+  try {
+    const raw = window.localStorage.getItem("zhiyan.v2.study");
+    return raw ? (JSON.parse(raw) as StudyV2) : null;
+  } catch {
+    return null;
+  }
 }
 
 function Workbench() {
   const params = useSearchParams();
+  const { lang, t } = useLang();
+  const demoId = params.get("demo");
   const rawView = params.get("view");
-  const view: View = rawView === "design" ? "protocol" : isView(rawView) ? (rawView as View) : "sample";
-  const demoParam = params.get("demo");
-
-  const [study, setStudy] = useState<Study | null>(null);
-  const [demoId, setDemoId] = useState<string | null>(null);
+  const view: Tab = isTab(rawView) ? rawView : "explore";
+  const [study, setStudy] = useState<StudyV2 | null>(null);
+  const [demo, setDemo] = useState(false);
   const [ready, setReady] = useState(false);
   const [error, setError] = useState("");
 
@@ -48,172 +41,127 @@ function Workbench() {
     async function load() {
       setReady(false);
       setError("");
-      if (demoParam) {
-        const cached = loadDraft();
-        if (cached?.demoId === demoParam && cached.study) {
-          setStudy(cached.study);
-          setDemoId(demoParam);
-          setReady(true);
-          return;
-        }
+      if (demoId) {
         try {
-          const response = await fetch(`/api/demos/${encodeURIComponent(demoParam)}`);
+          const response = await fetch(`/api/v2/demos/${encodeURIComponent(demoId)}`);
           if (!response.ok) throw new Error("DEMO_NOT_FOUND");
-          const body = (await response.json()) as { study?: Study };
-          if (cancelled) return;
+          const body = (await response.json()) as { study?: StudyV2 };
           if (!body.study) throw new Error("DEMO_NOT_FOUND");
-          saveDraft({ design: body.study.design, study: body.study, demoId: demoParam });
+          if (cancelled) return;
+          window.localStorage.setItem("zhiyan.v2.study", JSON.stringify(body.study));
+          window.localStorage.setItem("zhiyan.v2.plan", JSON.stringify(body.study.plan));
           setStudy(body.study);
-          setDemoId(demoParam);
+          setDemo(true);
         } catch {
-          if (!cancelled) setError("这个示例还没有生成，或缓存文件暂时不可用。可以先用「重新研究」现场跑一遍。");
+          if (!cancelled) setError(t("workbench.liveFailed"));
         } finally {
           if (!cancelled) setReady(true);
         }
         return;
       }
-      const draft = loadDraft();
+      const stored = readStudy();
       if (cancelled) return;
-      setStudy(draft?.study ?? null);
-      setDemoId(draft?.demoId ?? null);
+      setStudy(stored);
+      setDemo(Boolean(stored?.demo));
       setReady(true);
     }
     void load();
     return () => {
       cancelled = true;
     };
-  }, [demoParam]);
+  }, [demoId, t]);
 
-  const viewModel = useMemo(() => (study ? project(study) : null), [study]);
+  const visibleFindings = useMemo(() => study?.findings.filter((finding) => !finding.hidden).length || 0, [study]);
 
-  function commit(next: Study) {
-    const draft = loadDraft();
-    saveDraft({ design: next.design, study: next, demoId });
-    setStudy(next);
-    if (!draft) return;
+  function commit(next: StudyV2) {
+    const projected = projectStudy(next);
+    window.localStorage.setItem("zhiyan.v2.study", JSON.stringify(projected));
+    setStudy(projected);
   }
 
   if (!ready) {
-    return (
-      <div className="loading-screen">
-        <span className="spinner" />
-        正在打开研究
-      </div>
-    );
+    return <div className="v2-loading"><span className="v2-spinner" /> {t("workbench.loading")}</div>;
   }
 
-  if (!study || !viewModel) {
+  if (!study) {
     return (
-      <main>
-        <StepRail current={1} />
-        <div className="card empty">
-          <Kanshan variant="side" size={168} />
-          <h2>{error ? "示例暂时打不开" : "还没有可查看的样本"}</h2>
-          <p>
-            {error ||
-              "先提交一句研究简报，确认研究设计后才会检索知乎并生成样本。已经有示例库里的完整案例可以直接打开。"}
-          </p>
-          <div className="empty-actions">
-            <Link className="btn btn-primary" href="/">
-              去写研究简报 <ArrowRight size={15} />
-            </Link>
-            <Link className="btn" href="/examples">
-              <PlayCircle size={15} /> 打开示例库
-            </Link>
+      <main className="v2-page">
+        <div className="v2-card v2-empty">
+          <h2>{t("workbench.empty")}</h2>
+          <p>{t("workbench.emptyDesc")}</p>
+          <div className="v2-row">
+            <Link className="v2-btn v2-btn-primary" href="/">{t("home.start")} <ArrowRight size={14} /></Link>
+            <Link className="v2-btn" href="/workbench?demo=main-case">{t("home.openExample")}</Link>
           </div>
+          {error ? <p className="v2-error">{error}</p> : null}
         </div>
       </main>
     );
   }
 
   const included = study.sample.filter((item) => item.included).length;
-  const tabs: { id: View; label: string; count?: number }[] = [
-    { id: "protocol", label: "协议" },
-    { id: "sample", label: "样本", count: study.sample.length },
-    { id: "analysis", label: "分析", count: viewModel.findings.length },
-    { id: "quality", label: "质检", count: viewModel.quality.length },
-    { id: "delivery", label: "交付" },
+  const plan = study.plan;
+  const tabs: { id: Tab; label: string; count?: number }[] = [
+    { id: "explore", label: t("workbench.tabs.explore"), count: study.runs.length },
+    { id: "protocol", label: t("workbench.tabs.protocol"), count: plan.versions.length },
+    { id: "sample", label: t("workbench.tabs.sample"), count: study.sample.length },
+    { id: "analysis", label: t("workbench.tabs.analysis"), count: visibleFindings },
+    { id: "quality", label: t("workbench.tabs.quality") },
+    { id: "delivery", label: t("workbench.tabs.delivery") },
   ];
 
   return (
-    <main>
-      <StepRail current={view === "protocol" || view === "sample" ? 2 : 3} />
-
-      {demoId ? (
-        <div className="demo-banner">
-          <span className="tag tag-blue">
-            <Sparkles size={11} /> 示例快照
-          </span>
-          <p>
-            这是一个已经跑完的真实研究，数据缓存在仓库里，演示时不会消耗知乎接口。想自己跑一遍，用右上角「重新研究」。
-          </p>
-          <Link className="btn btn-sm" href="/examples">
-            换一个示例
-          </Link>
+    <main className="v2-page">
+      {demo ? (
+        <div className="v2-demo-banner">
+          <span className="v2-badge v2-badge-demo">{t("common.demo")}</span>
+          <p>{t("workbench.demoNote")}</p>
+          <Link className="v2-btn v2-btn-sm" href="/examples">{lang === "zh" ? "换一个案例" : "Other cases"}</Link>
         </div>
       ) : null}
 
-      <div className="study-head">
-        <div>
-          <span className="eyebrow">
-            <FileText size={14} /> 当前研究 · 已确认
-          </span>
-          <h1>{view === "delivery" ? "研究简报" : study.design.decision}</h1>
-          <div className="study-meta">
-            <span className="pill pill-blue">
-              <Layers size={12} /> {STAGE_LABEL[study.design.stage]}
-            </span>
-            <span className="pill">
-              <Users size={12} /> 纳入 {included} 条 / 共 {study.sample.length} 条
-            </span>
-            <span className="pill">
-              <Search size={12} /> {study.retrieval.filter((entry) => entry.kind === "zhihu_search" && !entry.error).length} 次搜索
-            </span>
-            <span className="pill">
-              <CalendarClock size={12} /> {new Date(study.confirmedAt).toLocaleDateString("zh-CN")}
-            </span>
-            <span className="pill pill-green">
-              <ListChecks size={12} /> {viewModel.findings.length} 条发现
-            </span>
+      <header className="v2-study-head">
+        <div className="v2-between">
+          <div>
+            <p className="v2-kicker">{t("workbench.title")} · {lang === "zh" ? "已确认计划" : "confirmed plan"}</p>
+            <h1>{lang === "zh" ? plan.decisionZh : plan.decisionEn}</h1>
+          </div>
+          <div className="v2-row">
+            <Link className="v2-btn" href="/design"><PencilLine size={13} /> {t("workbench.reconfigure")}</Link>
+            <Link className="v2-btn v2-btn-primary" href="/workbench?view=delivery"><Download size={13} /> {t("workbench.tabs.delivery")}</Link>
           </div>
         </div>
-        <div className="study-actions">
-          <Link className="btn" href="/design">
-            <PencilLine size={14} /> 重新研究
-          </Link>
-          <Link className={`btn ${view === "delivery" ? "" : "btn-primary"}`} href="/workbench?view=delivery">
-            <Download size={14} /> 打开交付
-          </Link>
+        <div className="v2-study-meta">
+          <span className={`v2-badge ${plan.methodGate.fit === "fit" ? "v2-badge-fit" : plan.methodGate.fit === "partial" ? "v2-badge-partial" : "v2-badge-mismatch"}`}>{t(`workbench.gate.${plan.methodGate.fit}`)}</span>
+          <span className="v2-tag">{lang === "zh" ? `纳入 ${included} / ${study.sample.length}` : `${included} / ${study.sample.length} included`}</span>
+          <span className="v2-tag">{study.runs.length} {t("common.queries")}</span>
+          <span className="v2-tag">{study.vocabulary.length} {t("common.vocabulary")}</span>
+          <span className="v2-tag">{visibleFindings} {t("common.findings")}</span>
+          <span className="v2-tag">{lang === "zh" ? `计划 v${plan.version}` : `plan v${plan.version}`}</span>
+          <span className="v2-tag">{study.demo ? t("common.demo") : t("common.live")}</span>
         </div>
-      </div>
+      </header>
 
-      <nav className="tabbar" aria-label="工作台视图">
+      <nav className="v2-tabs" aria-label="Research views">
         {tabs.map((tab) => (
-          <Link
-            key={tab.id}
-            href={`/workbench?view=${tab.id}`}
-            className={`tab${view === tab.id ? " is-active" : ""}`}
-            aria-current={view === tab.id ? "page" : undefined}
-            data-testid={`tab-${tab.id}`}
-          >
+          <Link key={tab.id} href={`/workbench?view=${tab.id}`} className={`v2-tab${view === tab.id ? " is-active" : ""}`} data-testid={`v2-tab-${tab.id}`}>
             {tab.label}
-            {typeof tab.count === "number" ? <span className="tab-count">{tab.count}</span> : null}
+            {typeof tab.count === "number" ? <span className="v2-tab-count">{tab.count}</span> : null}
           </Link>
         ))}
       </nav>
 
+      {view === "explore" ? <ExploreView study={study} /> : null}
       {view === "protocol" ? <ProtocolView study={study} /> : null}
       {view === "sample" ? <SampleView study={study} onCommit={commit} /> : null}
-      {view === "analysis" ? <AnalysisView study={study} viewModel={viewModel} /> : null}
-      {view === "quality" ? <QualityView study={study} viewModel={viewModel} /> : null}
-      {view === "delivery" ? <DeliveryView study={study} viewModel={viewModel} /> : null}
+      {view === "analysis" ? <AnalysisView study={study} onCommit={commit} /> : null}
+      {view === "quality" ? <QualityView study={study} /> : null}
+      {view === "delivery" ? <DeliveryView study={study} /> : null}
 
       {view !== "delivery" ? (
-        <div className="row" style={{ marginTop: 18, justifyContent: "space-between" }}>
-          <span className="mini muted">所有计数只属于本样本，不构成市场结论。</span>
-          <Link className="btn btn-sm" href="/workbench?view=delivery">
-            去交付页 <ArrowRight size={13} />
-          </Link>
+        <div className="v2-between" style={{ marginTop: 18 }}>
+          <span className="v2-mini v2-muted">{lang === "zh" ? "所有计数只描述本样本，不构成市场结论。" : "All counts describe this sample only, not the market."}</span>
+          <Link className="v2-btn v2-btn-sm" href="/workbench?view=delivery">{t("workbench.tabs.delivery")} <ArrowRight size={12} /></Link>
         </div>
       ) : null}
     </main>
@@ -222,14 +170,7 @@ function Workbench() {
 
 export default function WorkbenchPage() {
   return (
-    <Suspense
-      fallback={
-        <div className="loading-screen">
-          <span className="spinner" />
-          正在打开研究
-        </div>
-      }
-    >
+    <Suspense fallback={<div className="v2-loading"><span className="v2-spinner" /> Loading</div>}>
       <Workbench />
     </Suspense>
   );

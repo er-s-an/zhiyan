@@ -2,109 +2,66 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import {
-  BookOpen,
-  FileText,
-  LayoutDashboard,
-  LibraryBig,
-  PenLine,
-  PlayCircle,
-  Sparkles,
-} from "lucide-react";
+import { Globe2 } from "lucide-react";
 import type { ReactNode } from "react";
+import { useLang } from "./LanguageProvider";
 
 const NAV = [
-  { href: "/", label: "工作台", icon: LayoutDashboard, match: (path: string) => path === "/" },
-  { href: "/design", label: "新建研究", icon: PenLine, match: (path: string) => path.startsWith("/design") },
-  { href: "/workbench", label: "当前研究", icon: Sparkles, match: (path: string) => path.startsWith("/workbench") },
-  { href: "/examples", label: "示例库", icon: LibraryBig, match: (path: string) => path.startsWith("/examples") },
-  { href: "/plan", label: "产品说明", icon: FileText, match: (path: string) => path.startsWith("/plan") },
-];
-
-const TITLES: [RegExp, string][] = [
-  [/^\/$/, "工作台"],
-  [/^\/design/, "研究设计"],
-  [/^\/workbench/, "当前研究"],
-  [/^\/examples/, "示例库"],
-  [/^\/plan/, "产品说明"],
+  { href: "/", key: "nav.home" },
+  { href: "/workbench", key: "nav.research" },
+  { href: "/examples", key: "nav.examples" },
+  { href: "/plan", key: "nav.plan" },
 ];
 
 export function AppShell({ children }: { children: ReactNode }) {
   const pathname = usePathname() || "/";
-  const title = TITLES.find(([pattern]) => pattern.test(pathname))?.[1] || "知研台";
+  const { lang, setLang, t } = useLang();
 
   return (
-    <div className="app">
-      <aside className="sidebar">
-        <Link className="brand" href="/" aria-label="知研台首页">
-          <span className="brand-mark">
-            <img src="/brand/kanshan-face.png" alt="" width={34} height={34} />
-          </span>
-          <span className="brand-text">
-            <b>知研台</b>
-            <small>ZHIYAN</small>
-          </span>
-        </Link>
-
-        <nav className="side-nav" aria-label="主导航">
-          {NAV.map((item) => {
-            const Icon = item.icon;
-            const active = item.match(pathname);
-            return (
-              <Link key={item.href} href={item.href} className={`side-link${active ? " is-active" : ""}`} aria-current={active ? "page" : undefined}>
-                <Icon size={18} strokeWidth={1.9} />
-                <span>{item.label}</span>
-              </Link>
-            );
-          })}
-        </nav>
-
-        <div className="side-spacer" />
-
-        <div className="cap-card">
-          <div className="cap-title">
-            <span className="zhihu-mark">知</span>
-            知乎开放能力
-          </div>
-          <p className="cap-status">
-            <span className="status-dot" />
-            搜索 · 热榜 · 直答
-          </p>
-          <p className="cap-note">确认设计后才会发起调用</p>
-        </div>
-
-        <Link className="side-demo" href="/examples">
-          <PlayCircle size={16} />
-          评委演示入口
-        </Link>
-
-        <p className="side-foot">
-          知乎黑客松 S3
-          <br />
-          湾区共创季
-        </p>
-      </aside>
-
-      <div className="app-main">
-        <header className="topbar">
-          <div className="topbar-left">
-            <span className="topbar-brand">知研台</span>
-            <span className="crumb-sep">/</span>
-            <span className="crumb">{title}</span>
-          </div>
-          <div className="topbar-right">
-            <Link className="badge-link" href="/plan">
-              <BookOpen size={14} />
-              产品说明
-            </Link>
-            <span className="hack-pill">知乎黑客松 S3 · 湾区共创季</span>
-            <span className="avatar" title="研究员">
-              研
+    <div className="v2">
+      <header className="v2-header">
+        <div className="v2-header-inner">
+          <Link className="v2-brand" href="/">
+            <span className="v2-brand-mark">
+              <img src="/brand/kanshan-face.png" alt="" width={30} height={30} />
             </span>
+            <span className="v2-brand-text">
+              <b>{t("app.name")}</b>
+              <small>{lang === "zh" ? "知乎研究台" : "Zhihu research desk"}</small>
+            </span>
+          </Link>
+
+          <nav className="v2-nav" aria-label="Main navigation">
+            {NAV.map((item) => {
+              const active = item.href === "/" ? pathname === "/" : pathname.startsWith(item.href);
+              return (
+                <Link key={item.href} href={item.href} className={`v2-nav-link${active ? " is-active" : ""}`} aria-current={active ? "page" : undefined}>
+                  {t(item.key)}
+                </Link>
+              );
+            })}
+          </nav>
+
+          <div className="v2-header-actions">
+            <button className="v2-lang" type="button" onClick={() => setLang(lang === "zh" ? "en" : "zh")} title={t("home.langHint")}>
+              <Globe2 size={14} />
+              {lang === "zh" ? "EN" : "中文"}
+            </button>
+            <Link className="v2-header-cta" href="/">
+              {lang === "zh" ? "开始研究" : "Start"}
+            </Link>
           </div>
-        </header>
-        <div className="page">{children}</div>
-      </div>
+        </div>
+      </header>
+      <div className="v2-main">{children}</div>
+      <footer className="v2-footer">
+        <div className="v2-footer-inner">
+          <span>{lang === "zh" ? "知研台 · 知乎黑客松 S3" : "Zhiyan · Zhihu Hackathon S3"}</span>
+          <a href="https://github.com/er-s-an/zhiyan" target="_blank" rel="noreferrer">
+            GitHub
+          </a>
+        </div>
+      </footer>
     </div>
   );
 }
