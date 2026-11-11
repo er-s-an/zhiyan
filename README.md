@@ -12,6 +12,7 @@
 - 既有 Vercel 项目：<https://zhiyan-five.vercel.app>（旧版，需在 Vercel 项目里重新部署最新 `main` 后更新）
 - 产品说明计划书：[docs/产品说明计划书.md](docs/产品说明计划书.md)
 - 专业调研实践对照与差距分析：[docs/专业调研实践对照与差距分析.md](docs/专业调研实践对照与差距分析.md)
+- 下一步行动方案（Pre-build 决策冲刺）：[docs/下一步行动方案.md](docs/下一步行动方案.md)
 - 示例库：`/examples`（四个真实检索快照，离线可演示）
 
 ## 为什么是它
