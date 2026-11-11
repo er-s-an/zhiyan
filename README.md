@@ -6,7 +6,8 @@
 
 知乎黑客松 S3 · 湾区共创季 · **AI × 知识与探索**
 
-- 公开演示：<https://zhiyan-five.vercel.app>
+- 演示：`npm run build && npm start`；示例库四个案例可离线走完整闭环
+- 既有 Vercel 项目：<https://zhiyan-five.vercel.app>（旧版，需在 Vercel 项目里重新部署最新 `main` 后更新）
 - 产品说明计划书：[docs/产品说明计划书.md](docs/产品说明计划书.md)
 - 示例库：`/examples`（四个真实检索快照，离线可演示）
 
@@ -37,6 +38,14 @@
 npm install
 cp .env.example .env.local   # 填入知乎 Access Secret 与本机 LLM 配置
 npm run dev                  # http://localhost:3000
+```
+
+部署到已有 Vercel 项目（项目与环境变量已存在时）：
+
+```bash
+npx vercel link       # 选择 er-s-an/zhiyan 对应的项目
+npx vercel env pull   # 拉取 ZHIHU_ACCESS_SECRET 与 LLM 变量
+npx vercel --prod
 ```
 
 没有服务端密钥也能打开页面和示例库；只有「确认并检索」会提示未配置。
