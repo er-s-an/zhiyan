@@ -3,10 +3,10 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { ArrowRight, BookOpen, ExternalLink, Search, Sparkles } from "lucide-react";
+import { ArrowRight, BookOpen, ExternalLink, Search, Shuffle, Sparkles } from "lucide-react";
 import { Kanshan } from "./components/Kanshan";
 import { useLang } from "./components/LanguageProvider";
-import { MAIN_CASE_BRIEF, MAIN_CASE_BRIEF_ZH } from "../lib/v2/copy";
+import { PLAY_BRIEFS, playBriefById, randomPlayBrief } from "../lib/v2/play-briefs";
 import type { DemoSummaryV2, Lang, ResearchPlanV2 } from "../lib/v2/types";
 
 interface Recent {
@@ -19,14 +19,25 @@ export default function HomePage() {
   const router = useRouter();
   const { lang, t } = useLang();
   const [brief, setBrief] = useState("");
+  const [briefId, setBriefId] = useState("freelancer-contract");
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
   const [demos, setDemos] = useState<DemoSummaryV2[]>([]);
   const [recent, setRecent] = useState<Recent[]>([]);
 
+  const selectedBrief = playBriefById(briefId) ?? PLAY_BRIEFS[0];
+  const briefIndex = PLAY_BRIEFS.findIndex((item) => item.id === selectedBrief.id);
+
   useEffect(() => {
-    setBrief(lang === "zh" ? MAIN_CASE_BRIEF_ZH : MAIN_CASE_BRIEF);
-  }, [lang]);
+    const selected = playBriefById(briefId) ?? PLAY_BRIEFS[0];
+    setBrief(lang === "zh" ? selected.textZh : selected.textEn);
+  }, [lang, briefId]);
+
+  function randomizeBrief() {
+    const next = randomPlayBrief(briefId);
+    setBriefId(next.id);
+    setError("");
+  }
 
   useEffect(() => {
     fetch("/api/v2/demos")
@@ -82,9 +93,18 @@ export default function HomePage() {
       </section>
 
       <section className="v2-card v2-home-brief">
-        <div className="v2-between" style={{ marginBottom: 9 }}>
+        <div className="v2-between v2-home-brief-head" style={{ marginBottom: 9 }}>
           <span className="v2-label">{t("home.briefLabel")}</span>
-          <span className="v2-mini v2-muted">{lang === "zh" ? "生成计划前不调用知乎" : "No Zhihu calls before the plan"}</span>
+          <div className="v2-row" style={{ gap: 8 }}>
+            <span className="v2-mini v2-muted">{lang === "zh" ? "生成计划前不调用知乎" : "No Zhihu calls before the plan"}</span>
+            <span className="v2-tag" data-testid="v21-brief-index">{lang === "zh" ? `示例 ${briefIndex + 1}/${PLAY_BRIEFS.length}` : `Example ${briefIndex + 1}/${PLAY_BRIEFS.length}`}</span>
+            <button className="v2-btn v2-btn-sm" type="button" data-testid="v21-random-brief" onClick={randomizeBrief} disabled={busy} title={lang === "zh" ? "随机换一个产品问题" : "Try another product decision"}>
+              <Shuffle size={12} /> {lang === "zh" ? "随机换一个" : "Try another"}
+            </button>
+          </div>
+        </div>
+        <div className="v2-mini v2-muted" style={{ marginBottom: 6 }}>
+          {lang === "zh" ? selectedBrief.labelZh : selectedBrief.labelEn}
         </div>
         <div className="v2-home-brief-box">
           <textarea

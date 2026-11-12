@@ -44,7 +44,7 @@ cp .env.example .env.local   # 填入知乎 Access Secret 与 LLM 配置
 npm run dev                  # http://localhost:3000
 ```
 
-- 首页：`/`
+- 首页：`/`（内置 10 个可随机切换的产品问题，点「随机换一个」即可试玩）
 - 主案例缓存：`/workbench?demo=main-case`（离线可用，不消耗接口）
 - 示例库：`/examples`
 - 产品说明：`/plan`

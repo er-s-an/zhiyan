@@ -560,3 +560,11 @@
 .v21-progress-meta { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 12px; padding-top: 10px; border-top: 1px solid var(--z-line); color: var(--z-muted); font-size: 11.5px; }
 .v21-job-error { display: flex; align-items: center; gap: 8px; margin-top: 12px; padding: 10px 12px; border: 1px solid #f0c8c4; background: #fff7f6; color: var(--z-red); font-size: 12px; }
 .v21-job-error span { flex: 1; }
+
+/* Home random brief picker */
+.v2-home-brief-head { align-items: flex-start; }
+.v2-home-brief-head .v2-row { flex-wrap: wrap; justify-content: flex-end; }
+@media (max-width: 680px) {
+  .v2-home-brief-head { flex-direction: column; gap: 6px; }
+  .v2-home-brief-head .v2-row { justify-content: flex-start; }
+}
