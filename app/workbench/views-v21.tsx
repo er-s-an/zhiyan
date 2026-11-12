@@ -67,10 +67,36 @@ function EvidenceItem({ item, lang }: { item: BriefEvidence; lang: "zh" | "en" }
   );
 }
 
+function OpportunityCard({ card, brief, lang, lead = false }: { card: OpportunityHypothesisV21; brief: DecisionBriefV21; lang: "zh" | "en"; lead?: boolean }) {
+  return (
+    <article className={`v21-opportunity${lead ? " is-lead" : ""}`} data-testid="v21-opportunity">
+      <div className="v21-opportunity-head">
+        <span className="v2-tag v2-tag-blue">{lead ? local(lang, "最值得先验证", "First to validate") : local(lang, "机会假设", "Opportunity hypothesis")}</span>
+        <span className={`v21-strength ${card.evidenceStrength}`}>{local(lang, "证据强度", "Evidence")}: {strengthLabel(lang, card.evidenceStrength)}</span>
+      </div>
+      <h3>{lang === "zh" ? `${card.targetUserZh} · ${card.scenarioZh}` : `${card.targetUserEn} · ${card.scenarioEn}`}</h3>
+      <p><b>{local(lang, "问题", "Problem")}：</b>{lang === "zh" ? card.problemZh : card.problemEn}</p>
+      <p><b>{local(lang, "现有替代方案", "Current alternatives")}：</b>{(lang === "zh" ? card.currentAlternativesZh : card.currentAlternativesEn).join(" / ")}</p>
+      <p><b>{local(lang, "为什么仍不够", "Why not enough")}：</b>{lang === "zh" ? card.whyAlternativesInsufficientZh : card.whyAlternativesInsufficientEn}</p>
+      <p className="v21-direction"><b>{local(lang, "可能的产品方向", "Product direction")}：</b>{lang === "zh" ? card.productDirectionZh : card.productDirectionEn}</p>
+      <p><b>{local(lang, "证伪条件", "Falsification")}：</b>{lang === "zh" ? card.falsificationSignalZh : card.falsificationSignalEn}</p>
+      <p className="v2-mini v2-muted">{lang === "zh" ? card.strengthReasonZh : card.strengthReasonEn}</p>
+      <div className="v21-evidence-row">
+        <EvidenceList brief={brief} ids={card.evidenceIds} lang={lang} title={local(lang, "支持证据", "Evidence")} />
+        <EvidenceList brief={brief} ids={card.counterIds} lang={lang} title={local(lang, "反例/条件", "Counter/conditional")} />
+      </div>
+    </article>
+  );
+}
+
 export function DecisionBriefView({ brief, study, onOpenEvidence }: { brief: DecisionBriefV21; study: StudyV2; onOpenEvidence: () => void }) {
   const { lang } = useLang();
   const beliefs = brief.beliefUpdates.slice(0, 3);
   const opportunities = brief.opportunities.filter((item) => !item.hidden).slice(0, 3);
+  const lead = opportunities[0];
+  const others = opportunities.slice(1);
+  const firstUpdate = beliefs[0];
+  const nextTest = lang === "zh" ? brief.nextValidation.cheapestTestZh : brief.nextValidation.cheapestTestEn;
   return (
     <div className="v2-stack">
       <section className="v21-brief-hero">
@@ -85,22 +111,40 @@ export function DecisionBriefView({ brief, study, onOpenEvidence }: { brief: Dec
         </div>
       </section>
 
-      <section className="v2-card v2-card-pad">
-        <div className="v2-between">
-          <h2 style={{ fontSize: 17 }}>{local(lang, "原来的想法", "Original belief")}</h2>
-          <span className="v2-mini v2-muted">{local(lang, "检索前捕获", "Captured before retrieval")} · {brief.initialBelief.capturedAt.slice(0, 10)}</span>
+      <section className="v21-at-a-glance" data-testid="v21-glance">
+        <div>
+          <span className="v21-glance-label">{local(lang, "最值得先验证", "First to validate")}</span>
+          <strong>{lead ? (lang === "zh" ? lead.productDirectionZh : lead.productDirectionEn) : local(lang, "暂无足够证据", "Not enough evidence")}</strong>
         </div>
-        <div className="v21-belief-original">
-          <div><h4>{local(lang, "产品想法", "Product idea")}</h4><p>{lang === "zh" ? brief.initialBelief.productIdeaZh : brief.initialBelief.productIdeaEn}</p></div>
-          <div><h4>{local(lang, "目标人群", "Target users")}</h4><p>{(lang === "zh" ? brief.initialBelief.targetUsersZh : brief.initialBelief.targetUsersEn).join(" / ")}</p></div>
-          <div><h4>{local(lang, "最担心", "Biggest concern")}</h4><p>{lang === "zh" ? brief.initialBelief.concernsZh[0] : brief.initialBelief.concernsEn[0]}</p></div>
+        <div>
+          <span className="v21-glance-label">{local(lang, "讨论改变了什么", "What changed")}</span>
+          <strong>{firstUpdate ? (lang === "zh" ? firstUpdate.newUnderstandingZh : firstUpdate.newUnderstandingEn) : "—"}</strong>
+        </div>
+        <div>
+          <span className="v21-glance-label">{local(lang, "下一步", "Next step")}</span>
+          <strong>{nextTest}</strong>
         </div>
       </section>
 
+      {lead ? (
+        <section className="v2-card v2-card-pad v21-lead-opp">
+          <div className="v2-between" style={{ marginBottom: 2 }}>
+            <h2 style={{ fontSize: 17 }}>{local(lang, "现在最值得验证的机会", "The opportunity to validate first")}</h2>
+            <span className="v2-mini v2-muted">{local(lang, "先看这一张，其他机会在下方", "Start here; other opportunities are below")}</span>
+          </div>
+          <OpportunityCard card={lead} brief={brief} lang={lang} lead />
+        </section>
+      ) : null}
+
       <section className="v2-card v2-card-pad">
         <div className="v2-between">
-          <h2 style={{ fontSize: 17 }}>{local(lang, "讨论带来的新理解", "What the discussion changed")}</h2>
-          <span className="v2-mini v2-muted">{beliefs.length} / 3</span>
+          <h2 style={{ fontSize: 17 }}>{local(lang, "原来的想法 → 讨论后的新理解", "Original belief → what changed")}</h2>
+          <span className="v2-mini v2-muted">{local(lang, "检索前捕获", "Captured before retrieval")} · {brief.initialBelief.capturedAt.slice(0, 10)}</span>
+        </div>
+        <div className="v21-belief-original v21-original-compact">
+          <div><h4>{local(lang, "产品想法", "Product idea")}</h4><p>{lang === "zh" ? brief.initialBelief.productIdeaZh : brief.initialBelief.productIdeaEn}</p></div>
+          <div><h4>{local(lang, "目标人群", "Target users")}</h4><p>{(lang === "zh" ? brief.initialBelief.targetUsersZh : brief.initialBelief.targetUsersEn).join(" / ")}</p></div>
+          <div><h4>{local(lang, "最担心", "Biggest concern")}</h4><p>{lang === "zh" ? brief.initialBelief.concernsZh[0] : brief.initialBelief.concernsEn[0]}</p></div>
         </div>
         <div className="v21-belief-table">
           <div className="v21-belief-head"><span>{local(lang, "原来的假设", "Original assumption")}</span><span>{local(lang, "新理解", "New understanding")}</span><span>{local(lang, "所以下一步", "Next step")}</span></div>
@@ -120,53 +164,29 @@ export function DecisionBriefView({ brief, study, onOpenEvidence }: { brief: Dec
       </section>
 
       <section className="v2-card v2-card-pad">
-        <div className="v2-between">
-          <div>
-            <h2 style={{ fontSize: 17 }}>{local(lang, "值得验证的机会", "Opportunities worth validating")}</h2>
-            <p className="v2-mini v2-muted">{local(lang, "最多三张；证据不足不凑数。", "Up to three; no padding when evidence is insufficient.")}</p>
-          </div>
-          <span className="v2-tag">{opportunities.length} / 3</span>
-        </div>
-        {opportunities.map((card) => (
-          <article className="v21-opportunity" key={card.id} data-testid="v21-opportunity">
-            <div className="v21-opportunity-head">
-              <span className="v2-tag v2-tag-blue">{local(lang, "机会假设", "Opportunity hypothesis")}</span>
-              <span className={`v21-strength ${card.evidenceStrength}`}>{local(lang, "证据强度", "Evidence strength")}: {strengthLabel(lang, card.evidenceStrength)}</span>
-            </div>
-            <h3>{lang === "zh" ? `${card.targetUserZh} · ${card.scenarioZh}` : `${card.targetUserEn} · ${card.scenarioEn}`}</h3>
-            <p><b>{local(lang, "问题", "Problem")}：</b>{lang === "zh" ? card.problemZh : card.problemEn}</p>
-            <p><b>{local(lang, "现有替代方案", "Current alternatives")}：</b>{(lang === "zh" ? card.currentAlternativesZh : card.currentAlternativesEn).join(" / ")}</p>
-            <p><b>{local(lang, "为什么仍不够", "Why not enough")}：</b>{lang === "zh" ? card.whyAlternativesInsufficientZh : card.whyAlternativesInsufficientEn}</p>
-            <p className="v21-direction"><b>{local(lang, "可能的产品方向", "Product direction")}：</b>{lang === "zh" ? card.productDirectionZh : card.productDirectionEn}</p>
-            <p><b>{local(lang, "证伪条件", "Falsification")}：</b>{lang === "zh" ? card.falsificationSignalZh : card.falsificationSignalEn}</p>
-            <p className="v2-mini v2-muted">{lang === "zh" ? card.strengthReasonZh : card.strengthReasonEn}</p>
-            <div className="v21-evidence-row">
-              <EvidenceList brief={brief} ids={card.evidenceIds} lang={lang} title={local(lang, "支持证据", "Evidence")} />
-              <EvidenceList brief={brief} ids={card.counterIds} lang={lang} title={local(lang, "反例/条件", "Counter/conditional")} />
-            </div>
-          </article>
-        ))}
-        {opportunities.length < 3 ? <p className="v2-mini v2-muted">{local(lang, "本预算内未形成第三个机会：部分方向的直接用户证据不足，不凑数。", "A third opportunity was not formed within this budget: some directions lack direct user evidence, so it is not padded.")}</p> : null}
-      </section>
-
-      <section className="v2-card v2-card-pad">
         <h2 style={{ fontSize: 17 }}>{local(lang, "建议做什么，不做什么", "What to do and not do")}</h2>
-        <div className="v21-do-grid">
-          <div><h4>{local(lang, "先验证", "Validate first")}</h4><ul>{brief.validateFirstZh.length > 0 ? (lang === "zh" ? brief.validateFirstZh : brief.validateFirstEn).map((item) => <li key={item}>{item}</li>) : <li>—</li>}</ul></div>
-          <div><h4>{local(lang, "暂时不要做", "Do not do yet")}</h4><ul>{(lang === "zh" ? brief.doNotDoZh : brief.doNotDoEn).map((item) => <li key={item}>{item}</li>)}</ul></div>
+        <div className="v21-action-grid">
+          <div>
+            <h4>{local(lang, "先验证", "Validate first")}</h4>
+            <ul>{brief.validateFirstZh.length > 0 ? (lang === "zh" ? brief.validateFirstZh : brief.validateFirstEn).map((item) => <li key={item}>{item}</li>) : <li>—</li>}</ul>
+            <h4 style={{ marginTop: 12 }}>{local(lang, "暂时不要做", "Do not do yet")}</h4>
+            <ul>{(lang === "zh" ? brief.doNotDoZh : brief.doNotDoEn).map((item) => <li key={item}>{item}</li>)}</ul>
+          </div>
+          <div>
+            <h4>{local(lang, "下一步怎么验证", "How to validate next")}</h4>
+            <p className="v2-small">{nextTest}</p>
+            <div className="v2-row" style={{ marginTop: 7 }}>
+              {(lang === "zh" ? brief.nextValidation.personasZh : brief.nextValidation.personasEn).map((item) => <span className="v2-tag" key={item}>{item}</span>)}
+            </div>
+            <details className="v21-details" style={{ marginTop: 9 }}>
+              <summary>{local(lang, "查看访谈问题与证伪条件", "View interview questions and falsification")}</summary>
+              <ol className="v21-questions">
+                {(lang === "zh" ? brief.nextValidation.questionsZh : brief.nextValidation.questionsEn).map((item) => <li key={item}>{item}</li>)}
+              </ol>
+              <div className="v21-falsify"><b>{local(lang, "证伪条件", "Falsification")}：</b>{lang === "zh" ? brief.nextValidation.falsificationZh : brief.nextValidation.falsificationEn}</div>
+            </details>
+          </div>
         </div>
-      </section>
-
-      <section className="v2-card v2-card-pad">
-        <h2 style={{ fontSize: 17 }}>{local(lang, "下一步怎么验证", "How to validate next")}</h2>
-        <p className="v2-small" style={{ marginTop: 6 }}>{lang === "zh" ? brief.nextValidation.cheapestTestZh : brief.nextValidation.cheapestTestEn}</p>
-        <div className="v2-row" style={{ marginTop: 8 }}>
-          {(lang === "zh" ? brief.nextValidation.personasZh : brief.nextValidation.personasEn).map((item) => <span className="v2-tag" key={item}>{item}</span>)}
-        </div>
-        <ol className="v21-questions">
-          {(lang === "zh" ? brief.nextValidation.questionsZh : brief.nextValidation.questionsEn).map((item) => <li key={item}>{item}</li>)}
-        </ol>
-        <div className="v21-falsify"><b>{local(lang, "证伪条件", "Falsification")}：</b>{lang === "zh" ? brief.nextValidation.falsificationZh : brief.nextValidation.falsificationEn}</div>
       </section>
 
       <section className="v2-card v2-card-pad v21-unanswered">
@@ -177,6 +197,23 @@ export function DecisionBriefView({ brief, study, onOpenEvidence }: { brief: Dec
           {lang === "zh" ? brief.aiDisclosureZh : brief.aiDisclosureEn}
         </div>
       </section>
+
+      {others.length > 0 ? (
+        <section className="v2-card v2-card-pad">
+          <h2 style={{ fontSize: 17 }}>{local(lang, "另一个机会方向", "Another opportunity")}</h2>
+          <p className="v2-mini v2-muted">{local(lang, "第一机会验证通过前，不并行开发。", "Do not build in parallel before the first opportunity is validated.")}</p>
+          {others.map((card) => (
+            <details className="v21-other-opp" key={card.id}>
+              <summary>
+                <b>{lang === "zh" ? card.targetUserZh : card.targetUserEn}</b>
+                <span>{lang === "zh" ? card.problemZh : card.problemEn}</span>
+                <em className={`v21-strength ${card.evidenceStrength}`}>{strengthLabel(lang, card.evidenceStrength)}</em>
+              </summary>
+              <OpportunityCard card={card} brief={brief} lang={lang} />
+            </details>
+          ))}
+        </section>
+      ) : null}
 
       <section className="v2-card v2-card-pad">
         <div className="v2-between">

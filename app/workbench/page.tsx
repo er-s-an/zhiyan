@@ -244,10 +244,9 @@ function Workbench() {
           <span className={`v2-badge ${brief.recommendation === "conditional_proceed" ? "v2-badge-fit" : brief.recommendation === "hold" ? "v2-badge-partial" : "v2-badge-mismatch"}`}>
             {brief.recommendation === "conditional_proceed" ? (lang === "zh" ? "有条件下一步" : "Conditional next step") : brief.recommendation}
           </span>
-          <span className="v2-tag">{lang === "zh" ? `纳入 ${study.sample.filter((item) => item.included).length} / ${study.sample.length}` : `${study.sample.filter((item) => item.included).length} / ${study.sample.length} included`}</span>
-          <span className="v2-tag">{study.runs.length} {t("common.queries")}</span>
-          <span className="v2-tag">{brief.highImpactTerms.length} {lang === "zh" ? "个改变方向的词" : "terms changed the study"}</span>
-          <span className="v2-tag">{study.findings.filter((finding) => !finding.hidden).length} {t("common.findings")}</span>
+          <span className="v2-tag">{brief.opportunities.filter((item) => !item.hidden).length} {lang === "zh" ? "个机会假设" : "opportunity hypotheses"}</span>
+          <span className="v2-tag">{brief.beliefUpdates.length} {lang === "zh" ? "条认知更新" : "belief updates"}</span>
+          <span className="v2-tag">{study.sample.filter((item) => item.included).length} {lang === "zh" ? "条可回查证据" : "traceable evidence items"}</span>
           <span className="v2-tag">{study.demo ? t("common.demo") : t("common.live")}</span>
         </div>
       </header>

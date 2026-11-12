@@ -568,3 +568,32 @@
   .v2-home-brief-head { flex-direction: column; gap: 6px; }
   .v2-home-brief-head .v2-row { justify-content: flex-start; }
 }
+
+/* V2.1 hierarchy: glance strip + lead opportunity + action grid */
+.v21-at-a-glance { display: grid; grid-template-columns: 1.05fr 1.25fr 1fr; border: 1px solid var(--z-line); background: #fff; }
+.v21-at-a-glance > div { padding: 14px 16px; border-left: 1px solid var(--z-line); min-width: 0; }
+.v21-at-a-glance > div:first-child { border-left: 3px solid var(--z-blue); }
+.v21-glance-label { display: block; color: var(--z-muted); font-size: 11px; letter-spacing: .04em; margin-bottom: 5px; }
+.v21-at-a-glance strong { display: block; font-size: 13px; line-height: 1.65; color: var(--z-ink-2); font-weight: 500; }
+.v21-lead-opp { border-left: 3px solid var(--z-blue); }
+.v21-original-compact { margin-top: 10px; }
+.v21-original-compact > div { background: #fafafa; padding: 10px 12px; }
+.v21-original-compact p { font-size: 12.5px; }
+.v21-action-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; margin-top: 10px; }
+.v21-action-grid h4 { font-size: 12px; color: var(--z-muted); margin: 0 0 5px; }
+.v21-action-grid ul { margin: 0 0 4px; padding-left: 1.1em; }
+.v21-action-grid li { font-size: 13px; color: var(--z-ink-2); line-height: 1.75; margin: 4px 0; }
+.v21-action-grid .v2-small { font-size: 13px; color: var(--z-ink-2); }
+.v21-other-opp { border-top: 1px solid var(--z-line); margin-top: 10px; padding-top: 10px; }
+.v21-other-opp summary { display: flex; align-items: baseline; gap: 10px; cursor: pointer; color: var(--z-link); font-size: 12.5px; line-height: 1.6; }
+.v21-other-opp summary b { color: var(--z-ink); font-weight: 600; }
+.v21-other-opp summary span { color: var(--z-muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; flex: 1; }
+.v21-other-opp summary em { font-style: normal; color: var(--z-muted); font-size: 11px; }
+.v21-other-opp .v21-opportunity { border-top: 0; padding-bottom: 0; }
+@media (max-width: 920px) {
+  .v21-at-a-glance { grid-template-columns: 1fr; }
+  .v21-at-a-glance > div { border-left: 0; border-top: 1px solid var(--z-line); }
+  .v21-at-a-glance > div:first-child { border-top: 0; }
+  .v21-action-grid { grid-template-columns: 1fr; gap: 14px; }
+  .v21-other-opp summary span { white-space: normal; }
+}
