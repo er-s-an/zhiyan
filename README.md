@@ -1,35 +1,40 @@
-# 知研台 Zhiyan V2
+# 知研台 Zhiyan V2.1
 
 **面向全球 OPC 的知乎研究台。**
-把英文产品决策变成中文研究计划、适应性知乎检索和一份可复核的双语决策简报。
+把英文产品决策变成中文研究计划、适应性知乎检索，以及一份能改变产品判断的双语决策简报。
 
 > A research team for global builders, built on real Zhihu conversations.
 
 - **主案例（真实检索缓存）**：海外 OPC × 中国自由职业者，AI 合同与回款工具是否值得做
 - **主报赛道**：AI × 出海；能力底色：AI × 知识与探索
-- **产品说明**：[V2 PRD](<docs/知研台_V2_PRD_全球OPC与知乎知识出海.md>)
+- **V2.1 任务书**：[DeepSeek 开发任务书](<docs/知研台_V2.1_DeepSeek开发任务书.md>)
+- **一页决策简报样例**：[main-case-decision-brief.html](<docs/v2.1/main-case-decision-brief.html>)
+- **质量审计**：[quality-audit.md](<docs/v2.1/quality-audit.md>)
 - **GitHub**：<https://github.com/er-s-an/zhiyan>
 
 ## 它解决什么
 
-通用 AI 可以读到部分公开网页，也可能搜到部分知乎内容。知研台的差别不是模型会不会搜索，而是**系统是否真的执行一次研究**：
+V2.1 默认打开的不是研究日志，而是**决策简报**。它按顺序回答：
 
-1. **方法适用闸门**：先判断知乎能不能回答，不能回答的部分限制报告措辞。
-2. **适应性检索**：种子查询 → 读真实样本 → 提取新词与来源原句 → 写入计划新版本 → 补覆盖/找反例 → 预算内停止。
-3. **可接管证据**：用户可以搁置样本、修改编码、改主题；发现、计数和双语报告同步重算。
-4. **双语决策交付**：Decision Memo + 关键发现 + 反例/缺口 + 中文原话/英文翻译 + 下一步验证与证伪条件。
+1. 我原来的想法是什么（检索前捕获，不允许事后倒写）。
+2. 讨论让问题理解发生了什么变化（最多 3 条认知更新）。
+3. 出现了哪些值得验证的机会（最多 3 张机会卡，证据不足不凑数）。
+4. 现在建议做什么、不做什么。
+5. 这份研究没有回答什么，下一步如何低成本证伪。
+
+底层仍然执行真实研究：方法适用闸门、适应性检索、新词来源、反例、人工可接管证据和双语报告。差别是这些不再占据第一屏。
 
 P0 明确不做市场规模、购买率、Conjoint/MaxDiff、多平台接入、自动访谈、SSO 和多 Agent 聊天界面。
 
 ## 界面
 
-| 首页（中文） | 探索 |
+| 决策简报 | 研究过程 |
 |---|---|
-| ![首页](docs/screenshots-v2/home-zh.png) | ![探索](docs/screenshots-v2/explore.png) |
+| ![决策简报](docs/screenshots-v2.1/decision-brief.png) | ![研究过程](docs/screenshots-v2.1/research-process.png) |
 
-| 样本工作台 | 双语交付 |
+| 证据与质检 | 一页手工样例 |
 |---|---|
-| ![样本](docs/screenshots-v2/sample.png) | ![交付](docs/screenshots-v2/delivery.png) |
+| ![证据与质检](docs/screenshots-v2.1/evidence-qa.png) | ![Gate A 样例](docs/screenshots-v2.1/gate-a-sample.png) |
 
 ## 演示
 
@@ -43,19 +48,22 @@ npm run dev                  # http://localhost:3000
 - 主案例缓存：`/workbench?demo=main-case`（离线可用，不消耗接口）
 - 示例库：`/examples`
 - 产品说明：`/plan`
-- 实时路径：首页输入英文 Brief → 研究计划 → 选择「轻量实时检索」确认。实时路径会真实调用知乎和 LLM，通常 10–15 分钟；5 分钟演示请使用缓存主案例。
-- 已实测的实时路径：7 次真实查询、29 条候选、26 条纳入、9 个有来源新词、8 条发现，完整返回约 9 分钟。
+- 实时路径：首页输入英文 Brief → 研究计划 → 选择「轻量实时后台任务」确认。确认后立即创建任务，页面边跑边看轮次快照；5 分钟演示请使用缓存主案例。
+- 已实测的后台任务：7 次真实查询、31 条候选、26 条纳入、8 条发现、3 轮快照；任务创建后立即返回，完整完成约 530 秒。
 
 ## 当前主案例
 
 | 指标 | 值 |
 |---|---:|
 | 真实检索查询 | 12 次（3 轮，含 1 次反例） |
-| 候选样本 | 60 |
-| 纳入样本 | 47 |
+| 候选样本 | 61（搜索 60 + 热榜 1） |
+| 纳入样本 | 41（清理 6 条营销/无具体经历内容后，纳入率 67.2%） |
 | 从样本中发现的新词 | 12 个（全部带来源样本与原句） |
 | 计划版本 | 3 版 |
-| 六类发现 | 8 条（含反例/条件性证据） |
+| 六类发现 | 8 条（保留在完整报告） |
+| V2.1 决策简报 | 3 条认知更新 · 2 张机会卡 · 2 个产品选项 |
+| 后台任务实测 | 3 轮快照 · 31 候选 · 26 纳入 · 8 发现 |
+| 候选计数 | 搜索 60 + 热榜 1 = 61 条候选样本 |
 | 交付 | 中英双语 Decision Memo + 完整报告 + 证据附录 |
 
 主案例展示了 PRD 要求的「哇时刻」：系统从真实讨论中发现用户原本不会想到的中文表达，例如：
@@ -74,12 +82,17 @@ npm run dev                  # http://localhost:3000
 ```
 app/                 页面与 Route Handlers
 app/components/      知乎式顶栏、语言切换、刘看山组件
-app/workbench/       Explore / Plan / Sample / Analysis / Quality / Delivery
-lib/v2/              V2 领域层：计划、方法闸门、适应性检索、编码、发现、双语报告
+app/workbench/       决策简报 / 研究过程 / 证据与质检
+lib/v2/              V2/V2.1 领域层：计划、方法闸门、适应性检索、编码、发现、决策简报
+lib/v2/briefs/       主案例真实 DecisionBrief JSON
+docs/v2.1/           Gate A 样例、证据映射、质量审计、用户测试与对照协议
 lib/v2/demos/        主案例真实检索缓存
 scripts/seed-v2.ts   生成主案例缓存
 scripts/refine-v2.ts 在不重跑检索的情况下重生成发现/报告
 scripts/verify-v2.ts 端到端验收脚本
+scripts/verify-v21.ts V2.1 决策简报验收脚本
+scripts/build-v21-brief.ts 从真实主案例生成 DecisionBrief
+scripts/audit-v21.ts 证据质量审计
 docs/                V2 PRD、产品说明、UI/UX、专业调研对照
 ```
 
@@ -101,14 +114,26 @@ LLM_MODEL=deepseek-v4.1-flash
 ## 验证
 
 ```bash
-npm test          # 14 个测试：旧版回归 + 闸门/计划版本/适应性检索/双语/重算
+npm test          # 16 个测试：旧版回归 + 闸门/计划版本/适应性检索/双语/重算 + V2.1 简报
 npm run build
-npx tsx scripts/verify-v2.ts --base http://127.0.0.1:3210 --skip-plan
+npx tsx scripts/verify-v21.ts --base http://127.0.0.1:3211
+npx tsx scripts/verify-v2.ts --base http://127.0.0.1:3211 --skip-plan
 ```
 
-`verify-v2` 检查：缓存主案例、方法闸门、真实查询轮次与反例、新词来源、六类发现与双语一致性、搁置样本后报告重算、未确认拒绝。
+`verify-v2` 检查：缓存主案例、方法闸门、真实查询轮次与反例、新词来源、六类发现与双语一致性、搁置样本后报告重算、未确认拒绝。V2.1 另见 `docs/v2.1/acceptance-checklist.md`、`docs/v2.1/gate-a-checklist.md`、`docs/v2.1/job-acceptance.md` 与浏览器截图。
 
 真实主案例由 `scripts/seed-v2.ts` 使用知乎官方接口 + LLM 生成，已完整跑通并写入 `lib/v2/demos/main-case.json`。
+
+## V2.1 文档
+
+- [V2.1 开发任务书](<docs/知研台_V2.1_DeepSeek开发任务书.md>)
+- [一页决策简报样例](<docs/v2.1/main-case-decision-brief.html>)
+- [证据映射](<docs/v2.1/evidence-map.md>)
+- [质量审计](<docs/v2.1/quality-audit.md>)
+- [验收清单](<docs/v2.1/acceptance-checklist.md>)
+- [后台任务验收](<docs/v2.1/job-acceptance.md>)
+- [用户测试脚本](<docs/v2.1/user-test-script.md>)
+- [对照评估协议](<docs/v2.1/comparison-protocol.md>)
 
 ## 与 V1 的关系
 

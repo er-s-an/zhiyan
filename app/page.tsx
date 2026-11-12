@@ -119,9 +119,9 @@ export default function HomePage() {
           <p>{t("home.mainExampleDesc")}</p>
           {mainDemo ? (
             <div className="v2-home-stats">
-              <span>{mainDemo.includedCount} {lang === "zh" ? "条纳入样本" : "included samples"}</span>
-              <span>{mainDemo.findingCount} {lang === "zh" ? "条发现" : "findings"}</span>
-              <span>{mainDemo.vocabularyCount} {lang === "zh" ? "个新关键词" : "new keywords"}</span>
+              <span>{mainDemo.opportunityCount ?? 2} {lang === "zh" ? "个机会假设" : "opportunity hypotheses"}</span>
+              <span>{mainDemo.beliefUpdateCount ?? 3} {lang === "zh" ? "条认知更新" : "belief updates"}</span>
+              <span>{mainDemo.includedCount} {lang === "zh" ? "条可回查证据" : "traceable evidence items"}</span>
             </div>
           ) : null}
           <div className="v2-row" style={{ marginTop: 14 }}>
@@ -148,22 +148,22 @@ export default function HomePage() {
         <div className="v2-card" style={{ padding: "4px 20px" }}>
           {[
             {
-              titleZh: "先把决策拆成研究计划",
-              titleEn: "Turn the decision into a research plan",
-              descZh: "方法适用闸门先判断知乎能不能回答；不能回答的部分会在报告里被限制措辞。",
-              descEn: "The method-fit gate checks what Zhihu can answer; unsupported claims are constrained in the report.",
+              titleZh: "先看讨论改变了什么",
+              titleEn: "See what the discussion changed",
+              descZh: "原来的想法 vs 讨论后的新理解；每条认知更新都能回到真实讨论。",
+              descEn: "Original belief vs revised understanding; every update traces back to real discussion.",
             },
             {
-              titleZh: "从真实讨论里长出关键词",
-              titleEn: "Grow vocabulary from real discussion",
-              descZh: "不预设同义词表。系统从样本中提取新表达、来源原句和下一轮查询，并写入计划新版本。",
-              descEn: "No synonym list. The system extracts new expressions, source quotes and next queries from samples, then writes a new plan version.",
+              titleZh: "形成最多三张机会假设",
+              titleEn: "Form up to three opportunity hypotheses",
+              descZh: "谁在什么场景遇到什么问题、现有替代方案为什么不够、下一步如何证伪。证据不足不凑数。",
+              descEn: "Who has what problem in which scene, why current alternatives fall short, and how to falsify it next. No padding when evidence is insufficient.",
             },
             {
-              titleZh: "交付可复核的双语简报",
-              titleEn: "Deliver a reviewable bilingual brief",
-              descZh: "每条发现可回到中文原话和知乎原文；中英文来自同一份结构化研究。",
-              descEn: "Every finding traces back to the Chinese quote and Zhihu source; Chinese and English come from the same structured study.",
+              titleZh: "最后看证据和验证",
+              titleEn: "Then see evidence and validation",
+              descZh: "每条判断可回到中文原话和知乎原文；简报直接给出下一步该验证什么、什么情况下停。",
+              descEn: "Every judgment traces back to the Chinese quote and Zhihu source; the brief states what to validate next and when to stop.",
             },
           ].map((item, index) => (
             <article className="v2-feed-item" key={item.titleZh}>

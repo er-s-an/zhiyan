@@ -9,12 +9,12 @@ export default function PlanPage() {
   return (
     <main className="v2-page v2-narrow">
       <div className="v2-page-head">
-        <p className="v2-kicker">{t("plan.title")} · V2</p>
+        <p className="v2-kicker">{t("plan.title")} · V2.1</p>
         <h1>{lang === "zh" ? "知研台：全球 OPC 的知乎研究台" : "Zhiyan: a Zhihu research desk for global builders"}</h1>
         <p className="v2-lede">
           {lang === "zh"
-            ? "把英文产品决策变成中文研究计划、适应性知乎检索和一份可复核的双语决策简报。知乎是证据来源，不是答案生成器。"
-            : "Turn an English product decision into a Chinese research plan, adaptive Zhihu retrieval and a reviewable bilingual decision brief. Zhihu is the evidence source, not an answer generator."}
+            ? "把英文产品决策变成中文研究计划、适应性知乎检索，以及一份先回答“发现了什么”的双语决策简报。知乎是证据来源，不是答案生成器。"
+            : "Turn an English product decision into a Chinese research plan, adaptive Zhihu retrieval and a bilingual decision brief that starts with what changed. Zhihu is the evidence source, not an answer generator."}
         </p>
       </div>
 
@@ -45,14 +45,12 @@ export default function PlanPage() {
 
         <h2>{lang === "zh" ? "P0 范围" : "P0 scope"}</h2>
         <ul>
-          <li>{lang === "zh" ? "中英文 Brief 与界面切换" : "Chinese/English brief and interface"}</li>
-          <li>{lang === "zh" ? "方法适用闸门与报告措辞约束" : "Method-fit gate and report wording constraints"}</li>
-          <li>{lang === "zh" ? "研究计划确认与版本更新" : "Research plan confirmation and versioning"}</li>
-          <li>{lang === "zh" ? "至少一轮由样本证据触发的真实查询扩展" : "At least one real query expansion triggered by sample evidence"}</li>
-          <li>{lang === "zh" ? "查询目的、词汇来源、覆盖缺口可视化" : "Query purpose, vocabulary sources and coverage gaps"}</li>
-          <li>{lang === "zh" ? "主动反例检索或明确的反例缺口披露" : "Active counter-example retrieval or explicit disclosure"}</li>
-          <li>{lang === "zh" ? "LLM 辅助语义编码、确定性计数、人工修改" : "LLM-assisted semantic coding, deterministic counts and human edits"}</li>
-          <li>{lang === "zh" ? "双语 Decision Memo 与下一步验证" : "Bilingual Decision Memo and next validation"}</li>
+          <li>{lang === "zh" ? "检索前捕获原始想法，研究不做事后倒写" : "Capture the initial belief before retrieval; no post-hoc rewriting"}</li>
+          <li>{lang === "zh" ? "三个 Tab：决策简报 / 研究过程 / 证据与质检" : "Three tabs: decision brief / research process / evidence & QA"}</li>
+          <li>{lang === "zh" ? "最多 3 条认知更新和 3 张机会假设，证据不足不凑数" : "Up to 3 belief updates and 3 opportunity hypotheses; no padding"}</li>
+          <li>{lang === "zh" ? "后台任务、轮次快照与失败重试" : "Background jobs, round snapshots and retry"}</li>
+          <li>{lang === "zh" ? "每条判断可回查中文原话与知乎原文" : "Every judgment traces to the Chinese quote and Zhihu source"}</li>
+          <li>{lang === "zh" ? "双语 Decision Brief、证据边界与下一步验证" : "Bilingual decision brief, boundaries and next validation"}</li>
         </ul>
 
         <h2>{lang === "zh" ? "明确不做" : "Explicitly out of scope"}</h2>
@@ -64,7 +62,7 @@ export default function PlanPage() {
         </ul>
 
         <h2>{lang === "zh" ? "演示" : "Demo"}</h2>
-        <p>{lang === "zh" ? "先看示例库里的主案例：英文决策 → 中文计划 → 新词发现 → 可接管证据 → 双语 Decision Memo。" : "Open the main case: English decision → Chinese plan → vocabulary discovery → editable evidence → bilingual Decision Memo."}</p>
+        <p>{lang === "zh" ? "打开主案例：默认看到决策简报——原想法、讨论后的新理解、2 张机会卡和下一步验证。研究过程与证据质检在另外两个 Tab。" : "Open the main case: the decision brief opens by default with the original belief, revised understanding, two opportunity cards and next validation. Process and evidence sit in the other two tabs."}</p>
         <div className="v2-row" style={{ marginTop: 10 }}>
           <Link className="v2-btn v2-btn-primary" href="/workbench?demo=main-case">{lang === "zh" ? "打开主案例" : "Open main case"} <ArrowRight size={14} /></Link>
           <Link className="v2-btn" href="/">{lang === "zh" ? "开始自己的研究" : "Start your own"}</Link>
@@ -73,7 +71,7 @@ export default function PlanPage() {
         <h2>{lang === "zh" ? "材料" : "Materials"}</h2>
         <ul>
           <li>
-            <a href="https://github.com/er-s-an/zhiyan/blob/main/docs/%E7%9F%A5%E7%A0%94%E5%8F%B0_V2_PRD_%E5%85%A8%E7%90%83OPC%E4%B8%8E%E7%9F%A5%E4%B9%8E%E7%9F%A5%E8%AF%86%E5%87%BA%E6%B5%B7.md" target="_blank" rel="noreferrer">
+            <a href="https://github.com/er-s-an/zhiyan/blob/main/docs/%E7%9F%A5%E7%A0%94%E5%8F%B0_V2.1_DeepSeek%E5%BC%80%E5%8F%91%E4%BB%BB%E5%8A%A1%E4%B9%A6.md" target="_blank" rel="noreferrer">
               <BookOpen size={12} /> {t("plan.source")} <ExternalLink size={11} />
             </a>
           </li>

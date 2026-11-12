@@ -208,3 +208,37 @@ test("adaptive exploration grows vocabulary, adds a plan version and runs a coun
   assert.ok(result.vocabulary.filter((item) => item.source === "sample" && item.sourceSampleId).length >= 1);
   assert.ok(result.sample.filter((item) => item.included).length > 0);
 });
+
+test("V2.1 cached decision brief is grounded in included evidence", async () => {
+  const { readFileSync } = await import("node:fs");
+  const { recomputeBrief, validateBrief } = await import("./brief");
+  const study = (JSON.parse(readFileSync("lib/v2/demos/main-case.json", "utf8")) as { study: StudyV2 }).study;
+  const brief = (JSON.parse(readFileSync("lib/v2/briefs/main-case.json", "utf8")) as { brief: import("./brief").DecisionBriefV21 }).brief;
+  assert.deepEqual(validateBrief(brief, study), []);
+  assert.ok(brief.beliefUpdates.length <= 3);
+  assert.ok(brief.opportunities.length <= 3);
+  assert.equal(brief.stopReason.type, "budget_exhausted");
+  assert.ok(brief.stopReason.detailZh.includes("预算"));
+  assert.ok(brief.stopReason.detailZh.includes("不宣称主题"));
+  assert.ok(new Date(brief.initialBelief.capturedAt).getTime() <= new Date(study.confirmedAt).getTime());
+  for (const opportunity of brief.opportunities) {
+    assert.ok(opportunity.evidenceIds.length >= 1);
+    assert.ok(opportunity.evidenceIds.every((id) => study.sample.some((item) => item.id === id && item.included)));
+  }
+  const first = brief.opportunities[0];
+  const removed = { ...study, sample: study.sample.map((item) => (item.id === first.evidenceIds[0] ? { ...item, included: false } : item)) };
+  const recomputed = recomputeBrief(brief, removed);
+  assert.ok(recomputed.opportunities[0].evidenceIds.length < first.evidenceIds.length);
+});
+
+test("V2.1 brief falls back to insufficient evidence when key evidence is removed", async () => {
+  const { readFileSync } = await import("node:fs");
+  const { recomputeBrief } = await import("./brief");
+  const study = (JSON.parse(readFileSync("lib/v2/demos/main-case.json", "utf8")) as { study: StudyV2 }).study;
+  const brief = (JSON.parse(readFileSync("lib/v2/briefs/main-case.json", "utf8")) as { brief: import("./brief").DecisionBriefV21 }).brief;
+  const evidenceIds = new Set(brief.opportunities.flatMap((item) => item.evidenceIds));
+  const removed = { ...study, sample: study.sample.map((item) => (evidenceIds.has(item.id) ? { ...item, included: false } : item)) };
+  const recomputed = recomputeBrief(brief, removed);
+  assert.equal(recomputed.recommendation, "insufficient_evidence");
+  assert.ok(recomputed.opportunities.every((item) => item.hidden || item.evidenceIds.length === 0));
+});

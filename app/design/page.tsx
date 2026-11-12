@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { AlertTriangle, ArrowRight, CheckCircle2, Lock, Plus, Trash2 } from "lucide-react";
 import { useLang } from "../components/LanguageProvider";
-import type { QueryDimension, QuerySeedV2, ResearchPlanV2, StudyV2 } from "../../lib/v2/types";
+import type { QueryDimension, QuerySeedV2, ResearchPlanV2 } from "../../lib/v2/types";
 
 function lines(value: string): string[] {
   return value.split("\n").map((line) => line.trim()).filter(Boolean);
@@ -74,25 +74,15 @@ export default function DesignPage() {
     setBusy(true);
     setError("");
     try {
-      const response = await fetch("/api/v2/study", {
+      const response = await fetch("/api/v2/jobs", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ plan: { ...plan, confirmed: true }, confirmed: true, mode }),
       });
-      const body = (await response.json()) as { study?: StudyV2; error?: string };
-      if (!response.ok || !body.study) throw new Error(body.error || "STUDY_FAILED");
-      window.localStorage.setItem("zhiyan.v2.study", JSON.stringify(body.study));
-      try {
-        const raw = window.localStorage.getItem("zhiyan.v2.recent");
-        const recent = raw ? (JSON.parse(raw) as unknown[]) : [];
-        window.localStorage.setItem(
-          "zhiyan.v2.recent",
-          JSON.stringify([{ decision: body.study.plan.decisionZh, at: new Date().toISOString(), demo: false }, ...recent].slice(0, 6)),
-        );
-      } catch {
-        // Recent history is optional.
-      }
-      router.push("/workbench?view=explore");
+      const body = (await response.json()) as { jobId?: string; job?: { id: string }; error?: string };
+      const jobId = body.jobId || body.job?.id;
+      if (!response.ok || !jobId) throw new Error(body.error || "JOB_FAILED");
+      router.push(`/workbench?job=${encodeURIComponent(jobId)}`);
     } catch (caught) {
       setError(caught instanceof Error ? caught.message : t("design.errorStudy"));
     } finally {
@@ -276,13 +266,13 @@ export default function DesignPage() {
             <div className="v2-field" style={{ marginTop: 12 }}>
               <label className="v2-label" htmlFor="v2-mode">{lang === "zh" ? "现场检索模式" : "Live mode"}</label>
               <select id="v2-mode" className="v2-select" value={mode} onChange={(event) => setMode(event.target.value === "full" ? "full" : "lite")}>
-                <option value="lite">{lang === "zh" ? "轻量实时检索（约 10–15 分钟）" : "Lightweight live study (~10–15 min)"}</option>
-                <option value="full">{lang === "zh" ? "完整实时检索（约 20–30 分钟）" : "Full live study (~20–30 min)"}</option>
+                <option value="lite">{lang === "zh" ? "轻量实时后台任务（约 10–15 分钟）" : "Lightweight live job (~10–15 min)"}</option>
+                <option value="full">{lang === "zh" ? "完整实时后台任务（约 20–30 分钟）" : "Full live job (~20–30 min)"}</option>
               </select>
               <span className="v2-hint">
                 {lang === "zh"
-                  ? "评委演示优先打开缓存主案例；实时路径用于验证真实接口。"
-                  : "Use the cached main case for the demo; the live path verifies the real API."}
+                  ? "确认后立即创建后台任务，页面可边跑边看；演示优先用缓存主案例。"
+                  : "A background job starts immediately and streams round snapshots. Use the cached main case for the demo."}
               </span>
             </div>
             <button className="v2-btn v2-btn-primary v2-btn-lg" type="button" data-testid="v2-confirm" disabled={busy} onClick={() => void confirm()} style={{ width: "100%", marginTop: 14 }}>

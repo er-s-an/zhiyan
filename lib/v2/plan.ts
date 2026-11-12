@@ -348,11 +348,40 @@ function normalizePlan(raw: unknown, fallback: ResearchPlanV2, briefText: string
   return plan;
 }
 
+function withInitialBelief(plan: ResearchPlanV2): ResearchPlanV2 {
+  if (plan.initialBelief) return plan;
+  const concernsZh = [
+    plan.brief.biggestRisk,
+    ...plan.methodGate.cannotProveZh.slice(0, 2),
+  ].filter(Boolean);
+  const concernsEn = [
+    plan.brief.biggestRisk,
+    ...plan.methodGate.cannotProveEn.slice(0, 2),
+  ].filter(Boolean);
+  return {
+    ...plan,
+    initialBelief: {
+      decisionQuestionZh: plan.decisionZh,
+      decisionQuestionEn: plan.decisionEn,
+      productIdeaZh: plan.brief.product,
+      productIdeaEn: plan.brief.product,
+      targetUsersZh: plan.targetUsersZh,
+      targetUsersEn: plan.targetUsersEn,
+      assumptionsZh: plan.productHypothesesZh,
+      assumptionsEn: plan.productHypothesesEn,
+      concernsZh,
+      concernsEn,
+      capturedAt: plan.createdAt,
+      planVersion: plan.version,
+    },
+  };
+}
+
 export async function createResearchPlan(briefText: string, language: "zh" | "en"): Promise<ResearchPlanV2> {
   const text = briefText.trim();
   const isMain = /freelanc|自由职业|合同|回款|contract|payment/i.test(text);
   const fallback = isMain ? mainCasePlan(text, language) : genericFallbackPlan(text, language);
-  if (!hasLlm()) return fallback;
+  if (!hasLlm()) return withInitialBelief(fallback);
 
   const prompt = [
     "You are a senior product researcher designing a Zhihu-based qualitative study.",
@@ -369,15 +398,19 @@ export async function createResearchPlan(briefText: string, language: "zh" | "en
 
   try {
     const raw = await completeJson<Record<string, unknown>>(prompt, { timeoutMs: 40000, maxTokens: 7000, retries: 0 });
-    return normalizePlan(raw, fallback, text, language);
+    return withInitialBelief(normalizePlan(raw, fallback, text, language));
   } catch {
-    return fallback;
+    return withInitialBelief(fallback);
   }
 }
 
 export function extendPlan(plan: ResearchPlanV2, seeds: QuerySeedV2[], reasonZh: string, reasonEn: string): ResearchPlanV2 {
   const existing = new Set(plan.queryMatrix.map((seed) => seed.query));
-  const fresh = seeds.filter((seed) => seed.query.trim() && !existing.has(seed.query)).slice(0, plan.budget.maxQueries - plan.queryMatrix.length);
+  const compact = (value: string) => value.trim().split(/\s+/).filter(Boolean).slice(0, 4).join(" ");
+  const fresh = seeds
+    .map((seed) => ({ ...seed, query: compact(seed.query) }))
+    .filter((seed) => seed.query && !existing.has(seed.query))
+    .slice(0, plan.budget.maxQueries - plan.queryMatrix.length);
   if (fresh.length === 0) return plan;
   const version = plan.version + 1;
   const normalized = fresh.map((seed, index) => ({

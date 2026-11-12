@@ -1,0 +1,1166 @@
+{
+  "brief": {
+    "id": "brief_main_case_v21",
+    "studyId": "study_1794427479121",
+    "initialBelief": {
+      "decisionQuestionZh": "海外 OPC 是否应该投入开发一款面向中国自由职业者的 AI 合同与回款工具，首版先做什么？",
+      "decisionQuestionEn": "Should a global OPC invest in an AI contract and payment-collection tool for Chinese freelancers, and what should the first version do?",
+      "productIdeaZh": "面向中国自由职业者的 AI 合同与回款工具",
+      "productIdeaEn": "An AI contract and payment-collection tool for Chinese freelancers",
+      "targetUsersZh": [
+        "中国自由职业者：设计师、开发者、撰稿人、顾问"
+      ],
+      "targetUsersEn": [
+        "Chinese freelancers: designers, developers, writers, consultants"
+      ],
+      "assumptionsZh": [
+        "自由职业者最痛的不是写合同，而是报价、改需求、验收和尾款回收的链条。",
+        "合同模板、电子签和平台担保不足以解决实际纠纷，因此存在工具机会。",
+        "自由职业者可能愿意为降低回款风险付费，但付费意愿不能由知乎讨论证明。"
+      ],
+      "assumptionsEn": [
+        "The hardest part is not writing a contract, but the chain of quoting, scope changes, acceptance and collecting final payment.",
+        "Templates, e-signature and platform guarantees do not solve the actual disputes, so there is room for a tool.",
+        "Freelancers may pay to reduce collection risk, but willingness to pay cannot be proven by Zhihu posts."
+      ],
+      "concernsZh": [
+        "这个痛点可能真实，但频率和付费价值不足以支撑一个独立产品。",
+        "合同模板、电子签或平台担保可能已经足够。",
+        "付费意愿不能由知乎讨论证明。"
+      ],
+      "concernsEn": [
+        "The pain may be real but not frequent or valuable enough to support a standalone product.",
+        "Contract templates, e-signature or platform guarantees may already be sufficient.",
+        "Willingness to pay cannot be proven by Zhihu discussion."
+      ],
+      "capturedAt": "2026-11-11T19:45:19.630Z",
+      "planVersion": 1
+    },
+    "decisionQuestionZh": "海外 OPC 是否应该投入开发一款面向中国自由职业者的 AI 合同与回款工具，首版先做什么？",
+    "decisionQuestionEn": "Should a global OPC invest in an AI contract and payment-collection tool for Chinese freelancers, and what should the first version do?",
+    "recommendation": "conditional_proceed",
+    "recommendationReasonZh": "证据足以支持一个值得验证的方向：先做「验收—尾款工作流」，而不是直接做完整合同生成器。进入开发前，需要用访谈验证用户是否愿意改变现有流程，以及是否会为此付费。",
+    "recommendationReasonEn": "The evidence supports a direction worth validating: start with an acceptance-to-final-payment workflow, not a full contract generator. Before building, validate whether users will change their workflow and pay for it.",
+    "validateFirstZh": [
+      "找 5 位接私活/接外包的程序员或小团队负责人，复盘最近一单从报价到收尾款的全过程。",
+      "用两版价值主张做落地页测试：A「验收与尾款工作流」，B「AI 合同生成器」。",
+      "复盘 3 个真实尾款纠纷案例，检查验收标准、变更记录和交付物控制是否真的缺失。"
+    ],
+    "validateFirstEn": [
+      "Interview five freelance developers or small outsourcing teams and replay their most recent project from quote to final payment.",
+      "Test two value propositions on a landing page: A) acceptance-to-payment workflow, B) AI contract generator.",
+      "Review three real late-payment cases and check whether acceptance criteria, change records or deliverable control were actually missing."
+    ],
+    "doNotDoZh": [
+      "不要先做完整合同生成、电子签或全流程 SaaS。",
+      "不要同时服务所有自由职业者；先选一个细分场景。",
+      "不要把知乎讨论的条目数当成付费意愿或市场规模。",
+      "不要做 TAM、购买率或市场规模预测。"
+    ],
+    "doNotDoEn": [
+      "Do not build a full contract generator, e-signature or end-to-end SaaS first.",
+      "Do not serve all freelancers at once; choose one segment first.",
+      "Do not treat Zhihu item counts as willingness to pay or market size.",
+      "Do not forecast TAM, purchase rates or market size."
+    ],
+    "beliefUpdates": [
+      {
+        "id": "belief_1",
+        "initialAssumptionZh": "用户需要一款更好的 AI 合同工具。",
+        "initialAssumptionEn": "Users need a better AI contract tool.",
+        "newUnderstandingZh": "讨论更多集中在需求变更、验收、交付物控制和尾款回收，合同文本只是其中一环；条款写不清和交付后失去抓手，比「没有合同」更常被提到。",
+        "newUnderstandingEn": "Discussion concentrates on scope changes, acceptance, deliverable control and final payment; contract text is only one part. Unclear clauses and losing leverage after delivery are mentioned more often than 'no contract'.",
+        "changeType": "revise",
+        "evidenceIds": [
+          "src_134ad868",
+          "src_4ee7e333",
+          "src_6f504bd4",
+          "src_b3611a84"
+        ],
+        "counterIds": [
+          "src_58ec026d",
+          "src_d7edba36"
+        ],
+        "productImplicationZh": "产品应从「写合同」前移到「范围、验收和交付物控制」，并把尾款节点串起来。",
+        "productImplicationEn": "Move the product upstream from contract writing to scope, acceptance and deliverable control, and connect the final-payment milestone.",
+        "nextActionZh": "先验证验收—尾款工作流，而不是合同生成器。",
+        "nextActionEn": "Validate the acceptance-to-payment workflow first, not the contract generator.",
+        "status": "supported"
+      },
+      {
+        "id": "belief_2",
+        "initialAssumptionZh": "这个工具可以面向所有中国自由职业者。",
+        "initialAssumptionEn": "The tool can serve all Chinese freelancers.",
+        "newUnderstandingZh": "至少分成两类不同风险：程序员/软件外包承接方更关心验收标准、范围变更和尾款催收；插画/约稿创作者更关心定金比例、交付源文件和版权归属。",
+        "newUnderstandingEn": "At least two risk profiles emerge: freelance developers/software outsourcing teams care about acceptance criteria, scope changes and payment collection; illustrators/commission creators care about deposit ratio, source-file handoff and copyright.",
+        "changeType": "new_angle",
+        "evidenceIds": [
+          "src_134ad868",
+          "src_9100dbe8",
+          "src_6d932445",
+          "src_4ee7e333"
+        ],
+        "counterIds": [
+          "src_58ec026d"
+        ],
+        "productImplicationZh": "先选一个细分场景做透，不要同时承诺「所有人都能用」。",
+        "productImplicationEn": "Choose one segment first; do not promise a tool for everyone.",
+        "nextActionZh": "在访谈中分别招募程序员外包和插画约稿两类用户，比较问题强度。",
+        "nextActionEn": "Recruit both developer/outsourcing and illustration/commission users in interviews and compare pain intensity.",
+        "status": "supported"
+      },
+      {
+        "id": "belief_3",
+        "initialAssumptionZh": "现有模板和电子签不够，所以需要更多合同功能。",
+        "initialAssumptionEn": "Templates and e-signature are insufficient, so users need more contract features.",
+        "newUnderstandingZh": "现有替代方案碎片化：模板/电子签覆盖签署，平台托管覆盖平台内交易，聊天记录和记账工具覆盖沟通与回款；真正的缺口是流程编排、证据链和交付物控制，而不是再造签署能力。",
+        "newUnderstandingEn": "Current alternatives are fragmented: templates/e-signature cover signing, platform escrow covers on-platform orders, chat logs and bookkeeping cover communication and payment. The real gap is workflow orchestration, evidence and deliverable control, not rebuilding signing.",
+        "changeType": "refute",
+        "evidenceIds": [
+          "src_f9d8bbad",
+          "src_134ad868",
+          "src_9097ef71"
+        ],
+        "counterIds": [
+          "src_e8c7b03f"
+        ],
+        "productImplicationZh": "不要重做电子签底层；把重点放在流程编排、证据包和交付物控制。",
+        "productImplicationEn": "Do not rebuild e-signature infrastructure; focus on workflow orchestration, evidence packs and deliverable control.",
+        "nextActionZh": "验证现有工具的使用断点，而不是问「要不要更多合同功能」。",
+        "nextActionEn": "Validate where current tools break, rather than asking for more contract features.",
+        "status": "supported"
+      }
+    ],
+    "opportunities": [
+      {
+        "id": "opportunity_acceptance_payment",
+        "targetUserZh": "接私活/接外包的程序员与小型承接团队",
+        "targetUserEn": "Freelance developers and small outsourcing teams",
+        "scenarioZh": "报价后客户反复改需求，验收标准模糊，尾款拖到交付后",
+        "scenarioEn": "Clients repeatedly change scope after quoting, acceptance criteria are vague, and final payment is delayed after delivery",
+        "problemZh": "开工前没有把范围、验收标准和变更流程写成可执行记录；交付后又过早交出源文件或成品，失去回款抓手。",
+        "problemEn": "Scope, acceptance criteria and change process are not written down before work starts; source files or final deliverables are handed over too early, leaving no leverage for payment.",
+        "currentAlternativesZh": [
+          "合同模板/电子签",
+          "口头约定 + 聊天记录",
+          "平台担保/资金托管",
+          "律师起草"
+        ],
+        "currentAlternativesEn": [
+          "Contract templates / e-signature",
+          "Verbal agreement + chat logs",
+          "Platform guarantees / escrow",
+          "Lawyer-drafted contracts"
+        ],
+        "whyAlternativesInsufficientZh": "模板和电子签主要覆盖签署形式；平台担保只覆盖平台内订单；聊天记录不是结构化证据。用户需要的是范围确认、验收项、交付物控制和催款节点串成一条流程。",
+        "whyAlternativesInsufficientEn": "Templates and e-signature mainly cover signing; platform guarantees only cover on-platform orders; chat logs are not structured evidence. Users need scope confirmation, acceptance items, deliverable control and collection milestones in one workflow.",
+        "productDirectionZh": "先做「验收—尾款工作流」：报价前范围清单、可测试验收项、变更单、分阶段交付、证据包和催款节点；不是合同生成器。",
+        "productDirectionEn": "Build an acceptance-to-payment workflow: a scope checklist before quoting, testable acceptance items, change orders, staged delivery, an evidence pack and collection milestones—not a contract generator.",
+        "expectedOutcomeZh": "用户能在一单内完成验收确认、交付控制和尾款节点跟踪，减少扯皮和证据缺失。",
+        "expectedOutcomeEn": "Users can confirm acceptance, control deliverables and track final-payment milestones within one project, reducing disputes and missing evidence.",
+        "falsificationSignalZh": "如果 5 位目标用户中多数表示尾款很少拖延，或模板/熟人合作已经足够，或只需要合同文本，则收窄或停止这个方向。",
+        "falsificationSignalEn": "If most of five target users say late payment is rare, templates/trusted relationships are enough, or they only need contract text, narrow or stop this direction.",
+        "evidenceIds": [
+          "src_134ad868",
+          "src_4ee7e333",
+          "src_b3611a84",
+          "src_6f504bd4",
+          "src_f0d61d86"
+        ],
+        "counterIds": [
+          "src_58ec026d",
+          "src_d7edba36"
+        ],
+        "evidenceStrength": "strong",
+        "strengthReasonZh": "5 条证据、5 位不同作者，并有 2 条反例/条件性证据。",
+        "strengthReasonEn": "5 evidence items from 5 authors, with 2 counter/conditional evidence items.",
+        "unknownsZh": [
+          "用户是否愿意为验收/回款工具付费",
+          "验收工具与合同/项目管理的边界",
+          "程序员外包与创作者谁更适合先做"
+        ],
+        "unknownsEn": [
+          "Whether users will pay for an acceptance/payment tool",
+          "The boundary between acceptance, contracts and project management",
+          "Whether developers/outsourcers or creators should be first"
+        ],
+        "nextValidationZh": "5 位程序员/小外包团队访谈；用真实项目复盘验收、变更、交付和尾款节点。",
+        "nextValidationEn": "Interview five freelance developers or small outsourcing teams; replay acceptance, scope changes, delivery and payment milestones from real projects.",
+        "hidden": false
+      },
+      {
+        "id": "opportunity_deliverable_control",
+        "targetUserZh": "插画师、约稿创作者、独立设计师",
+        "targetUserEn": "Illustrators, commission creators and independent designers",
+        "scenarioZh": "交完成稿或源文件后客户拖尾款，客户还主张已付定金、图已使用、版权归其所有",
+        "scenarioEn": "Clients delay final payment after receiving final artwork or source files, then argue they already paid a deposit, used the work, or own the copyright",
+        "problemZh": "交付物一旦给出高清成品或源文件，就失去付款谈判力；低定金进一步放大风险。",
+        "problemEn": "Once high-resolution deliverables or source files are handed over, the creator loses payment leverage; a low deposit amplifies the risk.",
+        "currentAlternativesZh": [
+          "带水印低清预览",
+          "款清交源文件",
+          "平台担保",
+          "合同/口头约定"
+        ],
+        "currentAlternativesEn": [
+          "Watermarked low-res preview",
+          "Source files only after payment",
+          "Platform guarantees",
+          "Contracts / verbal agreements"
+        ],
+        "whyAlternativesInsufficientZh": "这些是个人经验规则，缺少工具化的分阶段交付、访问权限、水印/解锁和验收记录；平台外交易没有平台担保。",
+        "whyAlternativesInsufficientEn": "These are personal rules of thumb, not a tool for staged delivery, access permissions, watermark/unlock and acceptance records; off-platform deals have no platform guarantee.",
+        "productDirectionZh": "做「交付物控制 + 尾款节点」轻工具，服务插画/约稿创作者的第一单到回头客；可与程序员工作流共用证据链能力，但先单独验证。",
+        "productDirectionEn": "Build a lightweight deliverable-control and final-payment tool for illustrators/commission creators, from first job to repeat clients. It can share evidence-chain capabilities with the developer workflow, but should be validated separately first.",
+        "expectedOutcomeZh": "创作者在交付过程中保留谈判抓手，尾款节点可追踪，版权交接可记录。",
+        "expectedOutcomeEn": "Creators keep leverage during delivery, track final-payment milestones and record copyright handoff.",
+        "falsificationSignalZh": "如果创作者主要走平台担保，或客户接受高定金/熟人合作，工具价值不足。",
+        "falsificationSignalEn": "If creators mainly use platform guarantees, or clients accept high deposits/trusted relationships, the tool value is insufficient.",
+        "evidenceIds": [
+          "src_9100dbe8",
+          "src_6d932445",
+          "src_134ad868"
+        ],
+        "counterIds": [
+          "src_58ec026d"
+        ],
+        "evidenceStrength": "medium",
+        "strengthReasonZh": "3 条证据、3 位作者，1 条反例/条件性证据；仍需访谈确认。",
+        "strengthReasonEn": "3 evidence items from 3 authors and 1 counter/conditional items; still needs interviews.",
+        "unknownsZh": [
+          "创作者是否愿意改变交付流程",
+          "水印/权限是否影响客户体验",
+          "版权条款是否在需求内"
+        ],
+        "unknownsEn": [
+          "Whether creators will change their delivery workflow",
+          "Whether watermarks/permissions hurt client experience",
+          "Whether copyright terms are in scope"
+        ],
+        "nextValidationZh": "找 3 位插画/约稿创作者做流程走查，验证水印预览、分阶段交付和尾款节点是否真的改变行为。",
+        "nextValidationEn": "Walk three illustrators/commission creators through the flow and test whether watermarked previews, staged delivery and payment milestones actually change behaviour.",
+        "hidden": false
+      }
+    ],
+    "productOptions": [
+      {
+        "id": "option_acceptance_payment",
+        "titleZh": "验收—尾款工作流",
+        "titleEn": "Acceptance-to-payment workflow",
+        "scopeZh": "范围清单、验收项、变更单、分阶段交付、证据包、催款节点。",
+        "scopeEn": "Scope checklist, acceptance items, change orders, staged delivery, evidence pack and payment milestones.",
+        "evidenceIds": [
+          "src_134ad868",
+          "src_4ee7e333",
+          "src_b3611a84",
+          "src_6f504bd4",
+          "src_f0d61d86"
+        ],
+        "counterIds": [
+          "src_58ec026d",
+          "src_d7edba36"
+        ],
+        "riskZh": "用户可能只需要合同文本；验收流程可能被认为太重；付费意愿未知。",
+        "riskEn": "Users may only want contract text; the acceptance flow may feel heavy; willingness to pay is unknown.",
+        "recommendation": "validate_first",
+        "nextValidationZh": "5 个访谈 + 两版落地页测试；通过后再做原型。",
+        "nextValidationEn": "Five interviews plus a two-version landing page test; prototype only after that."
+      },
+      {
+        "id": "option_contract_generator",
+        "titleZh": "AI 合同生成器",
+        "titleEn": "AI contract generator",
+        "scopeZh": "按场景生成合同文本、条款解释和模板。",
+        "scopeEn": "Generate contract text, clause explanations and templates by scenario.",
+        "evidenceIds": [
+          "src_6f504bd4",
+          "src_134ad868"
+        ],
+        "counterIds": [
+          "src_f9d8bbad",
+          "src_e8c7b03f"
+        ],
+        "riskZh": "现有模板/电子签已覆盖签署；合同文本不是主要卡点；容易被通用 AI 替代。",
+        "riskEn": "Templates/e-signature already cover signing; contract text is not the main bottleneck; easily replaced by general AI.",
+        "recommendation": "hold",
+        "nextValidationZh": "暂不开发；只有当访谈明确显示合同文本是阻塞点时才重新评估。",
+        "nextValidationEn": "Do not build yet; revisit only if interviews show contract text is the blocker."
+      },
+      {
+        "id": "option_creator_delivery",
+        "titleZh": "创作者交付物控制",
+        "titleEn": "Creator deliverable control",
+        "scopeZh": "水印预览、访问权限、款清解锁源文件、版权交接记录。",
+        "scopeEn": "Watermarked previews, access permissions, source-file unlock after payment and copyright handoff records.",
+        "evidenceIds": [
+          "src_9100dbe8",
+          "src_6d932445"
+        ],
+        "counterIds": [
+          "src_58ec026d"
+        ],
+        "riskZh": "与程序员工作流共用能力，但用户和交付物形态不同；同时开两条线会失焦。",
+        "riskEn": "Shares capabilities with the developer workflow but has different users and deliverables; running two lines at once would dilute focus.",
+        "recommendation": "not_now",
+        "nextValidationZh": "先作为第二细分验证，不进入首版开发。",
+        "nextValidationEn": "Validate as a second segment; do not include in the first build."
+      }
+    ],
+    "nextValidation": {
+      "personasZh": [
+        "接私活的程序员",
+        "小型软件外包团队负责人",
+        "插画/约稿创作者（作为对照）"
+      ],
+      "personasEn": [
+        "Freelance developers",
+        "Small software outsourcing team leads",
+        "Illustrators/commission creators (as comparison)"
+      ],
+      "questionsZh": [
+        "你最近一单从报价到收到尾款，实际经过了哪些步骤？",
+        "有没有遇到过改需求或验收标准不清？当时怎么处理？",
+        "尾款被拖过吗？你当时做了什么？最后收回了吗？",
+        "你用过合同模板、电子签、平台担保或收款工具吗？为什么用/不用？",
+        "什么情况下你会觉得合同或工具是必要的？什么情况下完全不需要？"
+      ],
+      "questionsEn": [
+        "Walk me through your most recent project from quote to final payment.",
+        "Have you had scope changes or unclear acceptance criteria? How did you handle them?",
+        "Have you had late final payment? What did you do, and did you get paid?",
+        "Have you used contract templates, e-signature, platform guarantees or payment tools? Why or why not?",
+        "When do you feel a contract or tool is necessary, and when is it completely unnecessary?"
+      ],
+      "cheapestTestZh": "先做 5 个 30 分钟访谈（3 位程序员、2 位小外包团队负责人），不先做原型；再用两版价值主张做落地页测试。",
+      "cheapestTestEn": "Run five 30-minute interviews first (3 developers, 2 small outsourcing team leads) before building a prototype; then test two value propositions on a landing page.",
+      "falsificationZh": "如果多数用户表示尾款很少拖延、现有模板/熟人合作足够，或只需要合同文本，则收窄或停止这个方向。",
+      "falsificationEn": "If most users say late payment is rare, templates/trusted relationships are enough, or they only need contract text, narrow or stop this direction."
+    },
+    "unansweredZh": [
+      "用户是否愿意为验收/回款工具付费，愿意付多少。",
+      "应该先服务程序员/外包承接方，还是插画/约稿创作者。",
+      "平台外交易的用户是否愿意把流程迁移到一个新工具。",
+      "验收工具与合同、项目管理、记账工具之间的边界。",
+      "反例是否足够：小额、熟人、平台内订单可能不需要工具。",
+      "第三个机会方向（平台担保/电子签替代）当前证据不足，不构成机会卡。"
+    ],
+    "unansweredEn": [
+      "Whether users will pay for an acceptance/payment tool, and how much.",
+      "Whether to serve developers/outsourcers or illustrators/commission creators first.",
+      "Whether off-platform users will move their workflow to a new tool.",
+      "The boundary between acceptance, contracts, project management and bookkeeping.",
+      "Whether counter-examples are sufficient: small, trusted or platform orders may not need a tool.",
+      "A third opportunity (platform guarantees / e-signature replacement) lacks enough evidence and is not shown as a card."
+    ],
+    "boundariesZh": [
+      "知乎公开讨论是定性探索样本，不是概率样本，不能代表整体自由职业者。",
+      "不能证明市场规模、购买率、付费意愿或因果关系。",
+      "不能把知乎讨论当成对尚不存在产品的评价；这里研究的是问题、场景、替代方案和采用障碍。",
+      "关键证据仍需回查原文；反例不足是当前研究边界。"
+    ],
+    "boundariesEn": [
+      "Public Zhihu discussion is a qualitative exploration sample, not a probability sample; it does not represent all freelancers.",
+      "It cannot prove market size, purchase rates, willingness to pay or causality.",
+      "It is not a review of a product that does not exist; it studies problems, scenes, alternatives and adoption barriers.",
+      "Key evidence must be checked against the original posts; insufficient counter-evidence is a study boundary."
+    ],
+    "highImpactTerms": [
+      {
+        "raw": "款清交源文件",
+        "type": "alternative",
+        "sourceSampleId": "src_134ad868",
+        "sourceQuoteZh": "款清交源文件",
+        "proposedQuery": "款清交源文件 尾款 纠纷 自由职业",
+        "whyZh": "把「先交源文件还是先收尾款」变成可执行的交付规则，改变了产品应从合同文本转向交付物控制。",
+        "whyEn": "Turns 'deliver source files or collect payment first' into an executable delivery rule, shifting the product from contract text to deliverable control."
+      },
+      {
+        "raw": "带水印的低清预览版",
+        "type": "alternative",
+        "sourceSampleId": "src_134ad868",
+        "sourceQuoteZh": "带水印的低清预览版",
+        "proposedQuery": "带水印 低清 预览版 交源文件 尾款",
+        "whyZh": "说明用户已经在用土办法控制交付物，工具机会在权限、预览和解锁流程。",
+        "whyEn": "Users already use a workaround to control deliverables; the opportunity is permissioned previews and unlock flows."
+      },
+      {
+        "raw": "视为验收",
+        "type": "task",
+        "sourceSampleId": "src_37e0e3a6",
+        "sourceQuoteZh": "视为验收",
+        "proposedQuery": "视为验收 条款 甲方 不验收 尾款",
+        "whyZh": "把模糊的「满意为止」转成可测试的验收条款，直接指向验收工作流。",
+        "whyEn": "Turns a vague 'until satisfied' into a testable acceptance clause, pointing directly to an acceptance workflow."
+      },
+      {
+        "raw": "需求变更书面确认",
+        "type": "task",
+        "sourceSampleId": "src_4ee7e333",
+        "sourceQuoteZh": "需求变更书面确认",
+        "proposedQuery": "需求变更 书面确认 合同 外包",
+        "whyZh": "范围变更不是记忆问题，而是缺少可执行的变更单流程。",
+        "whyEn": "Scope changes are not a memory problem but a missing change-order workflow."
+      },
+      {
+        "raw": "正式书面催告",
+        "type": "alternative",
+        "sourceSampleId": "src_134ad868",
+        "sourceQuoteZh": "正式书面催告",
+        "proposedQuery": "尾款 拖欠 书面催告 模板 自由职业",
+        "whyZh": "尾款问题有明确的证据和催告动作，可以产品化为证据包与催款节点。",
+        "whyEn": "Final-payment problems have concrete evidence and escalation actions that can become an evidence pack and payment reminders."
+      }
+    ],
+    "roundSnapshots": [
+      {
+        "round": 0,
+        "objectiveZh": "先确认中国自由职业者是否真的在公开讨论报价、合同、验收和尾款问题。",
+        "objectiveEn": "First check whether Chinese freelancers really discuss quoting, contracts, acceptance and final payment in public.",
+        "queryIds": [
+          "run_1",
+          "run_2",
+          "run_3",
+          "run_4",
+          "run_5",
+          "run_6"
+        ],
+        "newTerms": [
+          {
+            "raw": "款清交源文件",
+            "type": "alternative",
+            "sourceSampleId": "src_134ad868",
+            "sourceQuoteZh": "款清交源文件",
+            "proposedQuery": "款清交源文件 尾款 纠纷 自由职业",
+            "whyZh": "把「先交源文件还是先收尾款」变成可执行的交付规则，改变了产品应从合同文本转向交付物控制。",
+            "whyEn": "Turns 'deliver source files or collect payment first' into an executable delivery rule, shifting the product from contract text to deliverable control."
+          },
+          {
+            "raw": "带水印的低清预览版",
+            "type": "alternative",
+            "sourceSampleId": "src_134ad868",
+            "sourceQuoteZh": "带水印的低清预览版",
+            "proposedQuery": "带水印 低清 预览版 交源文件 尾款",
+            "whyZh": "说明用户已经在用土办法控制交付物，工具机会在权限、预览和解锁流程。",
+            "whyEn": "Users already use a workaround to control deliverables; the opportunity is permissioned previews and unlock flows."
+          },
+          {
+            "raw": "视为验收",
+            "type": "task",
+            "sourceSampleId": "src_37e0e3a6",
+            "sourceQuoteZh": "视为验收",
+            "proposedQuery": "视为验收 条款 甲方 不验收 尾款",
+            "whyZh": "把模糊的「满意为止」转成可测试的验收条款，直接指向验收工作流。",
+            "whyEn": "Turns a vague 'until satisfied' into a testable acceptance clause, pointing directly to an acceptance workflow."
+          },
+          {
+            "raw": "需求变更书面确认",
+            "type": "task",
+            "sourceSampleId": "src_4ee7e333",
+            "sourceQuoteZh": "需求变更书面确认",
+            "proposedQuery": "需求变更 书面确认 合同 外包",
+            "whyZh": "范围变更不是记忆问题，而是缺少可执行的变更单流程。",
+            "whyEn": "Scope changes are not a memory problem but a missing change-order workflow."
+          }
+        ],
+        "newUnderstandingZh": "第一轮出现了「款清交源文件」「带水印的低清预览版」「视为验收」「需求变更书面确认」等表达，说明真正的风险在交付物控制、验收和范围变更加固，而不只是合同文本。",
+        "newUnderstandingEn": "Round one surfaced expressions such as 'payment-before-source-files', 'watermarked low-res preview', 'deemed acceptance' and 'written confirmation of scope changes'. The risk sits in deliverable control, acceptance and scope confirmation, not just contract text.",
+        "coverageChangeZh": "从产品词扩展到 4 个具体环节：报价、改需求、验收、尾款；共执行 6 条查询。",
+        "coverageChangeEn": "Expanded from product terms into four concrete steps: quoting, scope changes, acceptance and final payment; six queries ran.",
+        "nextRoundReasonZh": "因为发现了「款清交源文件」「带水印低清预览版」「视为验收」等原生做法，所以下一轮直接搜索这些表达，看它们在不同人群和场景中如何出现。",
+        "nextRoundReasonEn": "Because the first round surfaced native practices like 'payment-before-source-files', 'watermarked low-res preview' and 'deemed acceptance', the next round searched those expressions directly.",
+        "preliminaryOnly": true
+      },
+      {
+        "round": 1,
+        "objectiveZh": "沿真实表达继续探索交付物控制、验收条款和催告凭证。",
+        "objectiveEn": "Follow the native expressions into deliverable control, acceptance clauses and payment evidence.",
+        "queryIds": [
+          "run_7",
+          "run_8",
+          "run_9"
+        ],
+        "newTerms": [
+          {
+            "raw": "报价单",
+            "type": "task",
+            "sourceSampleId": "src_e6246f8d",
+            "sourceQuoteZh": "报价单",
+            "proposedQuery": "自由职业 报价单 模板 合同 尾款",
+            "whyZh": "报价单被当成范围与付款的前置文件，而不是一张价格表。",
+            "whyEn": "The quote is used as a scope-and-payment instrument, not just a price list."
+          },
+          {
+            "raw": "收款收据",
+            "type": "task",
+            "sourceSampleId": "src_e6246f8d",
+            "sourceQuoteZh": "收款收据",
+            "proposedQuery": "自由职业 收款收据 尾款 凭证 编号",
+            "whyZh": "说明用户在用编号、凭证和收据构建证据链。",
+            "whyEn": "Users use numbers, receipts and evidence records to build a paper trail."
+          },
+          {
+            "raw": "正式书面催告",
+            "type": "alternative",
+            "sourceSampleId": "src_134ad868",
+            "sourceQuoteZh": "正式书面催告",
+            "proposedQuery": "尾款 拖欠 正式书面催告 模板 自由职业",
+            "whyZh": "催款不是情绪动作，而是可模板化的证据动作。",
+            "whyEn": "Chasing payment is an evidence action that can be templated, not just an emotional one."
+          }
+        ],
+        "newUnderstandingZh": "替代方案不是没有，而是碎片化：模板/电子签管签署，平台托管管平台内交易，聊天记录管沟通，记账工具管回款；没有人把范围确认、验收、交付物控制和催款证据串成一条流程。",
+        "newUnderstandingEn": "Alternatives are not absent but fragmented: templates/e-signature cover signing, platform escrow covers platform orders, chat logs cover communication and bookkeeping covers payment records. None connects scope confirmation, acceptance, deliverable control and collection evidence.",
+        "coverageChangeZh": "补充了替代方案与交付环节；覆盖从「问题存在」转向「现有方案为什么不够」。",
+        "coverageChangeEn": "Added alternatives and delivery steps; coverage moved from 'the problem exists' to 'why current alternatives fall short'.",
+        "nextRoundReasonZh": "因为发现现有方案各管一段、平台外交易缺少证据闭环，所以下一轮专门找反例：合同是否真的必要、小额熟人单是否足以不用工具。",
+        "nextRoundReasonEn": "Because current alternatives are fragmented and off-platform deals lack an evidence loop, the next round looked for counter-examples: whether contracts are necessary and whether small trusted jobs make tools unnecessary.",
+        "preliminaryOnly": true
+      },
+      {
+        "round": 2,
+        "objectiveZh": "寻找反例和边界：合同是否必要、小额熟人单、平台担保的适用条件。",
+        "objectiveEn": "Look for counter-examples and boundaries: whether contracts are necessary, small trusted jobs, and when platform guarantees apply.",
+        "queryIds": [
+          "run_10",
+          "run_11",
+          "run_12"
+        ],
+        "newTerms": [],
+        "newUnderstandingZh": "分歧是条件性的：金额、客户类型和是否平台单决定合同必要性；小额熟人单可以当场口头完成。反例存在，但没有足够证据证明「多数自由职业者不需要工具」。",
+        "newUnderstandingEn": "The disagreement is conditional: deal size, client type and whether the order is on-platform determine whether a contract is needed. Some small trusted jobs are completed verbally. Counter-examples exist, but there is not enough evidence that most freelancers do not need a tool.",
+        "coverageChangeZh": "反例与条件性证据已出现，但付费意愿、采纳行为和工具使用复盘仍是空白。",
+        "coverageChangeEn": "Counter-examples and conditional evidence appeared, but willingness to pay, adoption behaviour and tool-use retrospectives remain gaps.",
+        "nextRoundReasonZh": "达到预算上限；同时已经没有新的重要主题，因此停止，而不是继续堆查询。",
+        "nextRoundReasonEn": "Reached the budget cap; no important new theme emerged, so the study stopped instead of stacking more queries.",
+        "preliminaryOnly": false,
+        "stopReason": {
+          "type": "budget_exhausted",
+          "detailZh": "达到查询/候选预算上限（12 次查询、60 条搜索候选）。这是预算停止，不宣称主题饱和。",
+          "detailEn": "Reached the query/candidate budget (12 queries, 60 search candidates). This is a budget stop, not a claim of saturation."
+        }
+      }
+    ],
+    "stopReason": {
+      "type": "budget_exhausted",
+      "detailZh": "达到查询/候选预算上限（12 次查询、60 条搜索候选）。这是预算停止，不宣称主题饱和。",
+      "detailEn": "Reached the query/candidate budget (12 queries, 60 search candidates). This is a budget stop, not a claim of saturation."
+    },
+    "evidenceIndex": {
+      "src_134ad868": {
+        "itemId": "src_134ad868",
+        "title": "自由职业避坑档案 :守住三条规则,避开绝大多数尾款纠纷 - 知乎",
+        "url": "https://zhuanlan.zhihu.com/p/2104005602963875753?utm_medium=openapi_platform&utm_source=b38f6831b176",
+        "author": "小雇-自由职业者",
+        "quoteZh": "未结清尾款就交付完整源文件与商用成品是最核心的失误。客户拿到成品后付款动力会直线下降，从业者自此再无约束抓手，所有催款都只能被动等待。 2.依赖口头约定，缺乏书面凭证 报价、付款节点、交付标准只靠随口商定，没有固化为文字记录。一旦出现纠纷，无论是平台介入还是正规维权，都会因证据不足难以推进。 3.情绪化催款，替代结构化催告 频繁发消息质问、抱怨，既说不清核心诉求，也没有明确期限与后果，反而激发对方抵触心理，加速失联。无效拉扯消耗的精力，远大于解决问题本身。 尾款逾期后的标准处理步骤 如果已经遇到拖欠，先离开情绪，按步骤推进，回款概率会显著提升。 1.固定完整证据链 第一时间整理所有凭证。需求约定记录、报价与付款节点说明、各阶段交付凭证、验收确认记录、逾期沟通截图。证据越完整，维权底气越足。 2.发送正式书面催告 停止零散追问，整理一份客观说明。列明项目名称、已交付成果、尾款金额、约定期限、最后付款时限与逾期措施。语气平和，只讲规则，比情绪化质问更有分量。 3.按层级递进维权 期限届满仍未回款，小额订单优先通过接单平台提交证据申请官方介入。金额较高的可发送法务告知函。符合条件的订单可走…",
+        "quoteEn": "The core mistake described is delivering complete source files and commercial deliverables before the balance is paid: once the client has the finished product, the incentive to pay drops sharply, the practitioner loses leverage, and collection becomes passive waiting. The excerpt also flags reliance on oral agreements without written records and emotional chasing in place of structured demands—leaving quotation, payment milestones, delivery standards, and evidence too weak to support platform intervention or formal claims when disputes arise.",
+        "publishDate": "2026-11-11",
+        "marketing": false
+      },
+      "src_6f504bd4": {
+        "itemId": "src_6f504bd4",
+        "title": "副业合同怎么签?我见过盖章的照样白干 - 知乎",
+        "url": "https://zhuanlan.zhihu.com/p/2102508594243560002?utm_medium=openapi_platform&utm_source=b38f6831b176",
+        "author": "向往自由的小杜",
+        "quoteZh": "标题：副业合同怎么签？我见过盖章的照样白干 先亮反常识的结论：副业签合同，盖章越红、纸张越厚，不等于你越安全。我见过盖了公司公章、一式两份的正规合同，照样因为条款写错，最后白干。真正护住你钱的，从来不是那枚章，是合同里那几条具体的话。下面三招，是接单三年我反复验证的。 第一招，验收标准写死，别写「满意为止」。很多人合同里写「交付后客户满意」，这是给自己埋雷。「满意」没有标准，对方永远可以「再改改」。正确写法：列交付清单（功能点 A/B/C 完成即验收），测哪个环境、谁拍板，白纸黑字。章再红，标准模糊照样输。 第二招，付款节点写死，别写「项目结束付款」。 正确写法：首付 30% 开工、验收 50%、尾款 20% 在验收后 7 天内清。 把「结束」拆成可执行的节点，钱才一段段落袋。 我见过盖了章的合同只写「完工付全款」，结果对方「完工」拖了半年，章救不了你。",
+        "quoteEn": "Even a formal, company-stamped contract in duplicate can leave you unpaid if the clauses are wrong, so the red seal and thick paper are not what protect your money—specific terms are. For side-work contracts, fix acceptance criteria (deliverables, test environment, decision-maker) rather than “until satisfied,” and tie payment to milestones rather than “after project completion.”",
+        "publishDate": "2026-11-10",
+        "marketing": false
+      },
+      "src_e6246f8d": {
+        "itemId": "src_e6246f8d",
+        "title": "从报价到收尾款:自由职业者一单完整闭环该有哪些文件? - 知乎",
+        "url": "https://zhuanlan.zhihu.com/p/2077078306680206194?utm_medium=openapi_platform&utm_source=b38f6831b176",
+        "author": "肖维",
+        "quoteZh": "本文适合：想系统化接单流程的自由职业者、兼职接单的职场人 一、很多人接单只有两步：谈价、干活 然后呢？ ・干完活了，客户拖着不验收 ・验收了，尾款一拖就是两个月 ・你连当初说好的交付范围都记不清了 问题的根源不是客户难搞，而是你的接单流程里只有”口头”和”聊天记录”，没有文件闭环。 做自由职业四年，我把接单流程固定成一套文件体系，每单必走，亲测把扯皮率降到接近零。今天完整拆给你看。 二、一单完整闭环：4份文件，缺一不可 ① 报价单（开工前）—— 锁范围 作用：白纸黑字说清”做什么、多少钱、多久交付”。 必须有的字段： ・项目明细（每一项服务和价格分开列） ・交付物清单（交付什么，验收标准） ・工期与排期 ・报价有效期（防止客户拿旧价来砍） ・付款方式（定金比例、尾款节点） 细节：报价单发出去之前，先自查”如果客户按字面理解，我吃不吃亏”。 ② 合同或确认函（开工前/大额必签）—— 锁责任 报价单是”要约”，合同是”双方确认”。金额大的项目（我定的是 5000 以上）建议签合同或让对方在报价单上签字确认。模板网上一大把，改改就能用。 ③ 收款收据（每次收款后）—— 锁凭证 定金、尾款，…",
+        "quoteEn": "Translation unavailable. Use the Chinese excerpt as the evidence.",
+        "publishDate": "2026-08-29",
+        "marketing": false
+      },
+      "src_74e7dcac": {
+        "itemId": "src_74e7dcac",
+        "title": "接单先签合同:10个流程规范的平台 - 知乎",
+        "url": "https://zhuanlan.zhihu.com/p/2098876525122736890?utm_medium=openapi_platform&utm_source=b38f6831b176",
+        "author": "撑雨伞",
+        "quoteZh": "接单纠纷十有八九，都卡在“当时没说清”：需求没落纸、变更没留痕、尾款没约定。合同不是为了防人，是把双方的预期钉在纸面上。这篇盘点10个流程规范、适合走合同化的平台，顺便给你一份接单合同的最小清单。 接单合同，最少写清五条 ・交付范围：功能清单列到功能点，别写“类似某某网站”。 ・变更规则：范围外需求怎么计费，提前写好。 ・验收标准：什么算交付完成，逐条可勾选。 ・付款节点：定金、中期款、尾款的比例和触发条件。 ・纠纷处理：约定争议解决方式和管辖。 1. 程序员客栈 项目制流程完整：需求确认、里程碑、验收、托管结算全程线上留痕，相当于平台帮你把合同要素都结构化了。官网： 程序员客栈-领先的程序员自由工作平台-程序员兼职 2. 码上达 无会员费、按成交结算，流程干净；需求经人工审核进系统，纠纷有技术团队人工仲裁，人工裁决讲事实看记录，比一刀切的机制更讲道理。官网： 兼职程序员_程序员接私活_程序员兼职|外包平台-码上达 3. Upwork 合同要素内建在订单里：工作范围、小时上限、托管金额全部书面化，纠纷按记录裁决，规范程度是行业标杆。",
+        "quoteEn": "Most freelance-order disputes come down to what wasn’t clarified upfront—requirements not put in writing, changes not documented, and final payment not agreed—so a contract is less about guarding against people than pinning both sides’ expectations to paper. The article reviews 10 process-standardized platforms it frames as suitable for contractualization, offers a minimal checklist (function-level delivery scope rather than “like such-and-such site,” out-of-scope change billing, checkable acceptance criteria, deposit/milestone/final payment proportions and triggers, and dispute-resolution/jur",
+        "publishDate": "2026-10-28",
+        "marketing": false
+      },
+      "src_9097ef71": {
+        "itemId": "src_9097ef71",
+        "title": "稿酬之外的静默战役:自由职业尾款拖延怎么办?3个风控技巧终结回款内耗 - 知乎",
+        "url": "https://zhuanlan.zhihu.com/p/2076069016817479692?utm_medium=openapi_platform&utm_source=b38f6831b176",
+        "author": "小雇-自由职业者",
+        "quoteZh": "✅ 今日行动：翻出最近3个项目的沟通记录，检查是否有未以书面明确的回款条款。 ▎二、告别账目混乱：精细化统筹自由职业收支，厘清回款账目 自由职业者的收入天然具有波动的周期性，若再叠加零散尾款的堆积与待结订单的积压，极易造成对自身资金状况的误判。小雇自由职业收支管理工具的价值，在于其能协助您建立一套去情绪化的财务仪表盘：将已到账收益、待结算尾款及固定支出进行系统化解构。通过理性、客观的数据呈现来替代模糊的感知，精准锚定资金状态，从而根治因不确定性衍生出的回款焦虑。 ✅ 今日行动：用记账工具梳理当前所有待结订单，列出一份清晰的“尾款追踪清单”。 ▎三、温和而坚定地确立职业边界，守住劳动价值 专业的服务理应获得对等的价值回馈。按时回款并非苛刻的诉求，而是商业伦理中最基础的体面与尊重。以适度的、礼貌的、主动的姿态跟进回款进度，既非卑微的乞求，亦非尖锐的对峙。这既是对自身劳动收益的合理捍卫，也是对长期、健康合作关系的一种隐形维系。它让每一次真诚的交付，都能落成稳妥的闭环。 ✅ 今日行动：为下一份合作拟定一份包含回款条款的标准化电子协议。 非常认同一种观点：职业者的底气，一半源于专业硬实力，一半…",
+        "quoteEn": "The excerpt advises freelancers to review recent project communications for written payment terms and to use bookkeeping tools to track pending final payments, asserting that a “de-emotionalized” financial dashboard can correct misjudgments and ease collection anxiety—a claim it presents without evidence. It also urges setting gentle but firm professional boundaries to protect labor value, though the overall framing remains more aspirational than demonstrated.",
+        "publishDate": "2026-08-26",
+        "marketing": false
+      },
+      "src_225214b5": {
+        "itemId": "src_225214b5",
+        "title": "用AI接私活3个月,我赚了28000:说点真话,别被割韭菜 - 知乎",
+        "url": "https://zhuanlan.zhihu.com/p/2096963528674521570?utm_medium=openapi_platform&utm_source=b38f6831b176",
+        "author": "小坏说Java",
+        "quoteZh": "三、什么单子适合用AI接，什么不适合 做了几单下来，我也总结出点规律： 适合AI辅助的单子（效率提升明显）： ・后台管理系统类（CRUD为主，业务逻辑不复杂） ・小程序后端接口（接口数量多，但套路固定） ・数据爬虫+报表（AI写爬虫和数据处理是真快） ・老项目改造、加小功能（看懂代码+加功能，AI帮你快速理解陌生代码） 不适合用AI的单子（别硬接）： ・高并发、高性能要求的（AI写的代码性能坑太多，要压测要优化，得不偿失） ・涉及支付、资金的（这玩意儿出问题赔不起，每个细节都得自己抠） ・客户需求特别模糊、反复变的（AI再快也架不住一天改三版） ・完全陌生的技术栈（你自己都不懂，AI生成的代码你审不了，就是定时炸弹） 我个人觉得，月入几万的单子就别指望AI了，但那种三五千、一万以内的小单子，用AI辅助真的香。这类单子以前我嫌便宜不接，因为纯手写太累；现在用AI提效，一个周末能搞定小单，一个月接两三个，房租+烟钱+偶尔下馆子就都有了。 四、接单渠道和报价，说几句实在的 很多人问在哪接单。我这几单主要来源： ・朋友/前同事介绍（最靠谱，价格也合理，占了我大概6成） ・程序员客栈、码市（价…",
+        "quoteEn": "After a few projects, I can sketch some tentative patterns: AI assistance tends to help with routine admin CRUD systems, mini-program API backends, crawler/reporting tasks, and small changes to unfamiliar legacy code, while it is poorly suited to high-concurrency or performance-sensitive work, payment/funds systems, vague or constantly shifting requirements, and completely unfamiliar tech stacks. These are only provisional observations from limited experience, not a basis for deciding what work to take on.",
+        "publishDate": "2026-10-23",
+        "marketing": true
+      },
+      "src_58ec026d": {
+        "itemId": "src_58ec026d",
+        "title": "接UI私单,甲方需求不停变化,而影响进度,要不要喊加钱? - 知乎",
+        "url": "https://www.zhihu.com/question/47203927/answer/1921272890151667704?utm_medium=openapi_platform&utm_source=b38f6831b176",
+        "author": "重生记得前世怎么死",
+        "quoteZh": "我最近也碰到这样的甲方头疼的要死 真的很想揍他们 听我同事说甲方都这样的 甲方需求改来改去，我们程序员是无权过问 你接私活，可以自己作主甲方改需求的代价和价格，一般就应该事先说好，因为这种私单甲方质量不保证 我曾经给一个人做毕业设计的程序，说了大概75左右，明天就要交了当天晚上做完，做完那个女生就后悔了说钱给多了",
+        "quoteEn": "I recently dealt with a client like this and it was maddening—colleagues say clients are all like this, and as programmers we have no say when requirements keep changing; for private gigs you can set your own terms and should agree upfront on the cost and price of requirement changes, since the quality of such clients isn’t guaranteed. I once wrote a graduation project program for someone for about 75, finished it the night before it was due, and afterward she regretted it and said she’d paid too much.",
+        "publishDate": "2025-06-25",
+        "marketing": false
+      },
+      "src_be7fc859": {
+        "itemId": "src_be7fc859",
+        "title": "程序员一般通过什么途径接私活? - 知乎",
+        "url": "https://www.zhihu.com/question/19716589/answer/56967341?utm_medium=openapi_platform&utm_source=b38f6831b176",
+        "author": "王龙行",
+        "quoteZh": "接活如何才靠谱？我们发现的程序员接私活的3个痛点： 1.工作前多数时间都浪费在和一些不靠谱雇主的沟通上。 2.工作中对方反复改需求 3.工作后对方拖款 我们的产品“ 实现网 ”专门解决这几个痛点，为有经验的工程师推荐兼职机会。 ・实现网严格过滤掉不靠谱的雇主，把经过我们审核的靠谱的需求推荐给你； ・我们按照时薪付费，改需求都是要加钱的； ・我们先支付到平台，再工作，保证及时收款。 截止16年4月18日的数据：累计产生了2990个兼职订单，累积交易金额超过 290 万元。 收入：超过 55 位技术顾问在实现网获得超过 10000 元的净收入，其中有5位技术顾问增加超过 50000 元净收入。 其中来自某知名互联网教育公司的前端工程师接单总金额超过72600元；某互联网公司CTO也加入实现网技术顾问，接单总收入65000 元，排名前两位。",
+        "quoteEn": "Translation unavailable. Use the Chinese excerpt as the evidence.",
+        "publishDate": "2015-07-29",
+        "marketing": false
+      },
+      "src_3ff408b4": {
+        "itemId": "src_3ff408b4",
+        "title": "1024 程序员节之际,鸿蒙坐拥超 9000万用户,目前的生态建设如何?又有哪些新的吸引开发者的能力? - 知乎",
+        "url": "https://www.zhihu.com/question/2096971670447830916/answer/2097295272753870113?utm_medium=openapi_platform&utm_source=b38f6831b176",
+        "author": "红儿",
+        "quoteZh": "1024，我在改一单鸿蒙私活 1024这天 还在改私活 本来今天想摸鱼的 需求周五来的 甲方要追加鸿蒙版 人话就是 加钱 加工期 去年 客户一听鸿蒙 直接砍价 砍半那种 今年 主动加钱 (这不叫红利叫什么 我先吃为敬 报价 报价的事 安卓版五万 鸿蒙版加了三万 去年有客户问我鸿蒙 我说加三万 他把我删了 删了！ (今年他回来了 回来了！ 工具 工具这块 DevEco的预览器 改个颜色 右边直接变 不用编译 不用！ (用过热重载的都懂 没用过的 羡慕吧 AI AI提效说下 上周三 晚上十点 甲方要个表单页 第二天要 我让AI写的 写完了 跑起来了 然后提交按钮 死活不弹窗 死！ 活！ 不！ 弹！ 查到十二点 事件名拼错了",
+        "quoteEn": "The author says he is still doing a HarmonyOS freelance job on 1024, claims clients who once balked at a HarmonyOS surcharge now pay more, and cites DevEco’s instant preview and AI-generated code as benefits—though the AI-written form’s submit button still failed to show a dialog. This is an anecdotal account, not evidence of a broader HarmonyOS premium or of reliable AI productivity.",
+        "publishDate": "2026-10-24",
+        "marketing": false
+      },
+      "src_f0d61d86": {
+        "itemId": "src_f0d61d86",
+        "title": "程序员接私活,别第一句话就报错了价 - 知乎",
+        "url": "https://zhuanlan.zhihu.com/p/2077769186412177078?utm_medium=openapi_platform&utm_source=b38f6831b176",
+        "author": "吴某说技术",
+        "quoteZh": "很多程序员接私活栽跟头，真不一定是甲方有多坏，而是一口价把后面的路全堵死了。 报价不是数字，是「预期管理」 私活和上班最大的区别：上班有 HR 帮你谈薪，私活是你自己上场。 你报出去的那个数，在甲方耳朵里会自动翻译成3句话：这人什么水平？这活能不能按时交付？后面加需求会不会翻脸？ 「8000 能做」 | 便宜货，需求可以随便加 「看需求，大概 2-4 万」 | 感觉有点谱，但还不确定 「我先帮你拆需求，拆完再报价」 | 专业，可以聊 在程序员客栈这类偏中高端的自由工作平台上，甲方对报价的合理性比你想的敏感。 先拆需求再报价，才是中高端平台上接单该有的开场白。 几种经典「自杀式报价」 没问清需求就报价。 「做一个小程序多少钱？」—— 这个问题本身就没有答案。同样是「小程序」，有的只是展示型，有的要对接 ERP、支付、库存，价格差一个数量级。先问功能清单、第三方对接、UI 归属、上线时间，再报价。 用「上班日薪 × 天数」硬算。 私活不是带薪摸鱼，沟通成本和需求变更都要自己扛。 可参考：私活报价 ≈ （预估工时 × 日薪 × 1.3~1.8）+ 风险缓冲。 为了抢单故意压价。 程序员客栈…",
+        "quoteEn": "The excerpt claims that freelancers often stumble not because clients are necessarily malicious but because a flat price can foreclose later negotiation, with a quote functioning less as a number than as expectation management—clients read it as questions about skill, delivery reliability, and how you’ll react to added requirements. It argues that breaking down requirements before quoting is the proper opening on mid-to-high-end freelance platforms, while treating quotes offered without clarifying requirements as classic self-sabotage.",
+        "publishDate": "2026-08-31",
+        "marketing": false
+      },
+      "src_d40f8095": {
+        "itemId": "src_d40f8095",
+        "title": "合同验收条款漏洞,导致近百万尾款拖欠 - 知乎",
+        "url": "https://zhuanlan.zhihu.com/p/2099160775067701499?utm_medium=openapi_platform&utm_source=b38f6831b176",
+        "author": "广东仲权律所",
+        "quoteZh": "很多中小企业承接工程、对外供货，签合同只简单写上一句 “验收合格后付款”，完全忽略验收时限、逾期不验收的法律后果。 项目明明已经交付并被甲方投入实际运营，对方却故意拖着不组织验收、拒不结算，以此长期压款、拒绝支付尾款。即便最后官司打赢，企业也要承担资金长期被套、诉讼耗时耗力的巨大成本。今天给大家分享广州法院这起真实胜诉案例。 真实案件：项目投入使用近一年，近百万工程款被无故拖欠 01、基本案情 两家企业签订软装工程合同，合同仅约定：竣工验收合格并办理结算后支付工程款。 合同中没有明确约定具体的验收期限、逾期不验收视为合格等关键条款。 承包企业完成全部软装施工，双方签署《软装移交清单》，完整移交全部项目成果。甲方接收项目之后，直接投入销售中心样板房实际使用将近一年时间。 虽承包方多次通过邮件、微信催促对方开展验收、办理结算，但甲方始终不组织验收，也拒绝配合结算，直接以 “未完成验收、付款条件未成就” 为由，拒付工程尾款。 多次沟通无果，承包企业向法院提起诉讼，索要工程欠款。 02、法院判决结果 广州市白云区人民法院一审认为：案涉软装工程已经完成移交，甲方已经实际投入使用长达近一年，过程…",
+        "quoteEn": "The post warns that many SMEs sign contracts stating only that payment is due after acceptance, without specifying an acceptance deadline or the legal consequences of delayed acceptance, letting clients defer acceptance and settlement and withhold final payment even after delivery and actual use. It then cites a claimed Guangzhou court win involving a soft-furnishing project used for nearly a year and nearly RMB 1 million unpaid, where the contract lacked acceptance-period and deemed-acceptance terms despite completion and a signed handover list.",
+        "publishDate": "2026-10-29",
+        "marketing": false
+      },
+      "src_4ee7e333": {
+        "itemId": "src_4ee7e333",
+        "title": "软件外包开发完了,甲方拖着尾款不给,怎么办? - 知乎",
+        "url": "https://zhuanlan.zhihu.com/p/2077543214978961580?utm_medium=openapi_platform&utm_source=b38f6831b176",
+        "author": "方旭律师",
+        "quoteZh": "做软件外包的，十有八九在尾款上栽过跟头。开发做完了，甲方一句「没达到我的要求」，尾款就拖着不给。 我跟你说，问题九成不在甲方赖账，在合同一开始就没写对。 第一个坑，验收标准写得太虚。合同里写「达到甲方想要的效果即为验收合格」，等于没写。合肥有个案子（2017 皖 0191 民初 4271 号），合同就这么写的，开发方交付了，甲方说没达到效果，尾款不给，法院最后认定这个验收标准没法界定，双方各打五十大板。郑州还有个案子，合同约定「满足《项目需求说明》」才算合格，结果双方谁都拿不出这份说明。 第二个坑，需求变更不书面确认。 软件开发最烦的就是需求变来变去。 珠海有个案子（2025 粤 04 民终 162 号），合同写清楚了需求变更要书面确认，结果开发方没走程序，需求一直加，工期超了 195 天，法院判开发方违约。",
+        "quoteEn": "The excerpt claims that final-payment disputes are common in software outsourcing and that most such problems stem less from clients dodging payment than from contracts drafted incorrectly from the outset. It cites vague acceptance standards—e.g., “meeting the client’s desired effect,” which a Hefei court (2017 Wan 0191 Min Chu 4271) found undefinable and split fault over, or “satisfying the Project Requirements Specification” when neither side could produce it—and requirement changes not confirmed in writing, as in a cited Zhuhai case (2025 Yue 04 Min Zhong …).",
+        "publishDate": "2026-08-30",
+        "marketing": false
+      },
+      "src_37e0e3a6": {
+        "itemId": "src_37e0e3a6",
+        "title": "软件外包做完,甲方拖着不验收、不付尾款,怎么办? - 知乎",
+        "url": "https://zhuanlan.zhihu.com/p/2077877498713588041?utm_medium=openapi_platform&utm_source=b38f6831b176",
+        "author": "方旭律师",
+        "quoteZh": "软件开发里，验收是付款的分水岭，也是扯皮最多的地方。我经手过不少这类案子，问题几乎都出在签合同时没把几样东西写清楚。分开说。 先说「视为验收」条款，这是开发方防甲方拖延最有效的工具。约定甲方收到验收申请后多少个工作日内完成验收，逾期没提书面异议的，视为验收合格。这个条款法院是认的。上海知产法院有个案子（2016）沪 73 民初 721 号（二审上海高院 2017 沪民终 114 号），合同写「甲方怠于通知或自验收开始之日起 15 个工作日未通知验收结果的，视为验收合格」，甲方拖着不验收还想赖尾款，法院直接认定视为验收合格，判付全部剩余款项加违约金。广东高院（2019）粤知民终 68 号也是这个结论。它的法理不复杂：这是当事人对验收期限和怠于验收后果的约定，属于意思自治，把「不及时验收」的风险从开发方转移到甲方——你有异议，就在期限内书面提出来，不提，视为放弃。 但光有「视为验收」还不够，验收标准得写实。 合同里写「达到甲方要求」等于没写。",
+        "quoteEn": "In software development, acceptance is the payment watershed and the most dispute-prone stage, and in many such cases I’ve handled, the problem was that the contract had not clearly specified key terms. The “deemed acceptance” clause—where failure by the client to complete acceptance within a set number of working days after receiving the acceptance request, without written objection, is deemed acceptance—has been recognized by courts, including Shanghai IP Court case (2016) Hu 73 Min Chu No. 721 (appeal: Shanghai High Court 2017 Hu Min Zhong No. 114) and Guangdong High Court (2019) Yue Zhi Mi",
+        "publishDate": "2026-08-31",
+        "marketing": false
+      },
+      "src_b3611a84": {
+        "itemId": "src_b3611a84",
+        "title": "小程序外包报价3万到10万,差在哪?验收怎么才不扯皮 - 知乎",
+        "url": "https://zhuanlan.zhihu.com/p/2101407474981066382?utm_medium=openapi_platform&utm_source=b38f6831b176",
+        "author": "红信鸽科技",
+        "quoteZh": "怎么识别这个坑？看合同里有没有明确的“需求变更流程”。如果合同只写了“开发完成交付”，没提变更，那就是给自己埋雷。应对办法很直接：签约前要求对方出具《需求变更管理办法》，明确约定超出初始范围的功能点，按人天单价结算。行业内常规行情，高级开发人员的人天报价在1500到2500元之间，这笔账要算清楚，避免后期被坐地起价。 第二个大坑是原型与代码的偏差。很多团队为了抢工期，连高保真原型都没做就让前端动手。有个做餐饮点餐的客户，就因为没确认页面动效，开发出来的小程序像是“静态网页”，客户验收时直接拒收。我们跟客户吵过一回，对方坚持说“看着就像手机APP，哪里静态了”，最后只能推翻重做部分交互。 识别方法很简单：开工前，盯着对方交付的《UI/UX设计稿》。一定要看交互说明文档，而不只是看几张图。应对话术可以这么写进合同附件：“所有页面交互逻辑以双方签字确认的高保真原型图为准，任何视觉还原度偏差超过10%的界面，视为验收不通过，乙方需无条件整改。” 第三个坑是验收标准“黑箱化”。合同里写“功能无BUG即验收”，这句话等于没说。什么算BUG？是视觉错位还是逻辑报错？有个做生鲜行业的客户，因为没定义…",
+        "quoteEn": "One trap to watch for is whether the contract specifies a change-request process; if it only says “deliver upon completion” and is silent on changes, that is a risk you create for yourself, so before signing you would need a change-management method and per-person-day pricing for out-of-scope features—though quoted industry rates of RMB 1,500–2,500 per senior developer-day should be verified rather than assumed. A second trap is drift between prototype and code: teams may skip high-fidelity prototypes to save time, and a restaurant-ordering client rejected a mini-program as a “static webpage” ",
+        "publishDate": "2026-11-04",
+        "marketing": false
+      },
+      "src_d7edba36": {
+        "itemId": "src_d7edba36",
+        "title": "甲方没验收就把工程用上了,去要尾款他说「没验收」「质量不行」——这尾款到底该不该给? - 知乎",
+        "url": "https://zhuanlan.zhihu.com/p/2098729678156608365?utm_medium=openapi_platform&utm_source=b38f6831b176",
+        "author": "工程律师张振强",
+        "quoteZh": "该不该给，分三层看，一层比一层靠证据。 null 第二层：质量，他用了就不能再随便挑。同解释第十四条：建设工程未经竣工验收，发包人擅自使用后，又以使用部分质量不符合约定为由主张权利的，人民法院不予支持；但是承包人应当在建设工程的合理使用寿命内对地基基础工程和主体结构质量承担民事责任。翻译过来：墙皮、地面这类使用部分，他用上了就不能再拿来压款；地基基础和主体结构除外，合理使用寿命内还是你的责任。先分清他挑的是哪部分。 第三层：尾款，看你合同付款条款怎么写的。 「验收合格后付 X%」的，他用上，不自动等于验收合格，付款条件是否成就，各地法院处理上有分歧，纠纷一起来就要个案评估；「交付使用后付 X%」的，他开始使用，这一天条件就成就，对你最稳。 以后签合同，付款条件别和「验收合格」绑死。 另外《中华人民共和国民法典》（自 2021 年 1 月 1 日起施行）第七百九十九条规定发包人应当及时验收，验收合格后按约定支付价款，未经验收合格的，不得交付使用——他先用上，是他先违规，但尾款给不给，还是要回到合同和证据。",
+        "quoteEn": "Whether to pay should be assessed on three levels, each requiring more evidence than the last. On quality, once the developer has used the work, it can no longer freely pick at defects in the used portions—though the contractor remains liable for the foundation and main structure within the reasonable service life—and on final payment, whether use automatically satisfies a contract clause such as “pay X% after acceptance” is disputed among courts, so any dispute requires case-by-case assessment.",
+        "publishDate": "2026-10-28",
+        "marketing": false
+      },
+      "src_6d932445": {
+        "itemId": "src_6d932445",
+        "title": "求解疑,约稿这个行业有什么潜规则吗? - 知乎",
+        "url": "https://www.zhihu.com/question/2011364867009946915/answer/2034229158616806251?utm_medium=openapi_platform&utm_source=b38f6831b176",
+        "author": "Asa Mi",
+        "quoteZh": "不用改了，这个人也别理了，就当自己买了个教训，前期你接稿的时候一定要把规则和买家说清楚，另外定金收的太少了，不要让顾客自己决定给多少定金，你让别人来定肯定不会给的多，总之你不能再吃这个亏了，定金得自己定，脸皮要厚，小数额总价一百块的，你就得收40-50%定金，商单大金额的可以收30%。不接受砍价，不愿给的你让他们另请高明。你可以按照下面这套话术来做说明 1. 价格：xxx元，不含大改，仅支持2次免费小修（比如表情微调、颜色微调） 2. 流程：付定金50%（看总价多少，小金额的收40-50%定金，1000块以上的可以收30%的定金）出草图确认，画线稿，上色，付尾款，发高清图 3. 修改：付费小修/加细节：先付小额修改费→再动手；付费大改/改构图人设：先付50%-100%修改费→草图确认→再细化；额外加画元素/加内容：全款预付，画完直接给图。",
+        "quoteEn": "Don’t bother revising it or dealing with this person further—treat it as a lesson: clarify the rules with buyers before accepting a commission, set the deposit yourself instead of letting customers decide (40–50% on small totals like 100 yuan, around 30% on larger commercial orders), and state that there is no bargaining, with unwilling clients free to go elsewhere. The suggested wording is: price xxx yuan, no major revisions and only two free minor tweaks (e.g., expression or color); process: pay a 50% deposit (40–50% for small amounts, 30% for totals over 1,000 yuan), approve the sketch, lin",
+        "publishDate": "2026-05-03",
+        "marketing": false
+      },
+      "src_9100dbe8": {
+        "itemId": "src_9100dbe8",
+        "title": "接单创作没签合同,版权归客户还是归画师,很多人想反了 - 知乎",
+        "url": "https://zhuanlan.zhihu.com/p/2061384781305271110?utm_medium=openapi_platform&utm_source=b38f6831b176",
+        "author": "爻鉴IP 智能中枢",
+        "quoteZh": "先讲一个接单创作者常遇到的局面。一位插画师接了个商稿，说好定金加尾款，交完成稿之后客户开始拖，尾款迟迟不结。过了一阵，插画师发现那张图已经出现在对方的店铺主页和宣传海报上，甚至还被做成了周边在卖。他去催款，对方回得很干脆，钱付过定金了，图我们已经在用了，版权就是我们的。 很多创作者遇到这一步就慌了，觉得稿子在别人手里，钱又没结清，自己好像什么都占不住。其实恰恰相反，在这种局面里，法律的默认规则是偏向创作者的。 没有约定的话，版权归画的人 我国著作权法对委托创作有明确规定，受委托创作的作品，著作权归属由双方通过合同约定，合同没有明确约定，或者压根没签合同的，著作权属于受托人，也就是实际动手创作的那个人。 这一条和很多人的直觉是反的。不少客户默认付了钱作品就归自己，甚至一些创作者自己也这么以为。但法律的逻辑很清楚，钱买到的是双方约定的那部分权利，没约定的部分，权利留在作者手里。 当然要说全面一点，司法实践里，委托人在委托创作的特定目的范围内使用作品，一般是被允许的。客户订了一张开业海报的图，把图用在开业海报上，这没问题。但把图拿去做周边售卖、授权给第三方、注册成商标，这些就超出了委托目的…",
+        "quoteEn": "An illustrator commissioned for commercial work may find that after delivering the final piece, the client delays the remaining payment while already using the image on shop pages, posters, and even merchandise, claiming that the deposit paid and ongoing use make the copyright theirs. In such situations, the default legal rule actually favors the creator: under China's copyright law, for commissioned works, if the contract does not clearly stipulate ownership—or if no contract was signed at all—copyright belongs to the commissioned party, i.e., the person who actually created the work.",
+        "publishDate": "2026-07-17",
+        "marketing": false
+      },
+      "src_b4c00484": {
+        "itemId": "src_b4c00484",
+        "title": "约了画稿对方一直拖我,怎么办? - 知乎",
+        "url": "https://www.zhihu.com/question/610557653/answer/3105704762?utm_medium=openapi_platform&utm_source=b38f6831b176",
+        "author": "白白的白萝卜",
+        "quoteZh": "有一说一我也很拖，很拖很拖，一张普通的q全一般情况下没有一个礼拜出不来甚至更拖。插图更不必说。 所以我一般都是后付，出成品图才付，但是也会经历 草稿——线稿——成图 这种阶段。 一般比较通用的约稿流程是出草图付定金，成图付尾款，先付的嗯……说实话我不太放心。 至于解决办法，由于你是个人交易，非正规平台，我个人看来除非催他还钱别无他法。或者就当买个教训，一直催他交稿。",
+        "quoteEn": "Translation unavailable. Use the Chinese excerpt as the evidence.",
+        "publishDate": "2023-07-06",
+        "marketing": false
+      },
+      "src_e4cfd8b8": {
+        "itemId": "src_e4cfd8b8",
+        "title": "莱阿约稿 - 知乎",
+        "url": "https://zhuanlan.zhihu.com/p/2094803697817724649?utm_medium=openapi_platform&utm_source=b38f6831b176",
+        "author": "莱阿·克洛伊",
+        "quoteZh": "今年三月，我刷到风陌染在微博晒新稿。一张半身插画，构图和动态都很漂亮，客户是某游戏公司的宣传图。我看了眼日期，心想离十月还远，不急。 五月，风陌染发微博说在准备个人画集，接稿暂缓。我私信问她：“风老师，我的单子进度还好吗？”隔了两天她回我：“在画了。”我问能不能看一眼草稿，她说：“我画画不给人看过程。” 六月，七月，八月。风陌染的微博照常更新，新图一张接一张，有商稿有摸鱼有和别的画师联动。我每隔半个月问一次进度，她的回复越来越短：“忙。”“在画。”“你急什么。” 九月下旬，我有点坐不住了。黎昭的生日贺图，就算画完还需要后期调整和排版，至少要提前一周拿到成图。我给她发了条长消息，语气很客气，把时间节点、用途、约定交稿日都列了一遍。 她隔了三天才回：“知道了，十月十五号给你。” 十月十五号，我等到晚上十二点，邮箱空空如也。我发消息问她，没有回复。 十月十六号，我发了一条：“风老师，明天就是约定交稿日，您答应今天给我的。” 没有回复。 十月十七号，我打开微博，发现风陌染发了一张新图——给另一个客户的稿子，配文“最近赶稿累死了，终于清完一单”。 我盯着那张图，手在发抖。我切到私信，给她发了最…",
+        "quoteEn": "She told me, “I don't show the process when I draw.” On October 15, I waited until midnight and my inbox was empty; later the assistant said the deposit would not be refunded, calling it an industry rule.",
+        "publishDate": "2026-10-17",
+        "marketing": false
+      },
+      "src_872238ba": {
+        "itemId": "src_872238ba",
+        "title": "约稿出事了只能挂人?到底怎样约稿/接稿才不踩雷? - 知乎",
+        "url": "https://zhuanlan.zhihu.com/p/431587878?utm_medium=openapi_platform&utm_source=b38f6831b176",
+        "author": "手绘君",
+        "quoteZh": "可能约稿经验不多，对方对于商用还是自用的表述有点含糊，并表示两种方案都不能接受，之后投诉了画师，导致画师咸鱼和支付宝账号被冻结 目前，这件事已经平息，画师的账号已恢复，约稿的网友还写了致歉信，双方都达成共识，和平解决了此事。 这个事件虽然是结束了，但是不难发现其实事件背后隐藏的问题其实很多 网友们对于这件事也众说纷纭，讨论的角度各有不同，但我只想跟大家谈谈关于约稿这件事 02 商稿和私稿 关于商稿和私稿，别说约稿人，其实很多小画师可能也未必分得清。很多人可能认为拿去卖就是商稿，自己用的就叫私稿。 这个说法并不准确 私人稿件，指的是自己创作的作品，其版权归画师所有。 商业稿件，指金主付费要求画师画的作品，画师只保留该作品的发表权和署名权，而使用权则归金主 所以上面那个事情中，网友约画师画明星肖像，这个行为就是商业约稿，而他们讨论的商用还是自用，只是商稿下的一个细分 简单来说，商稿就是画师给金主画画，画好了就归金主了，跟画师没多大关系，至于金主约回去是商用还是自用，画师都是无权干涉的 至于有的画师会根据对方的用途而设置不同的稿费金额，这也是看画师的个人情况而定 03 买断又是什么情况？ …",
+        "quoteEn": "Translation unavailable. Use the Chinese excerpt as the evidence.",
+        "publishDate": "2021-11-11",
+        "marketing": false
+      },
+      "src_f9d8bbad": {
+        "itemId": "src_f9d8bbad",
+        "title": "个人签约神器再升级!11类模板+秒级验签,拒做冤大头! - 知乎",
+        "url": "https://zhuanlan.zhihu.com/p/1921158482960319353?utm_medium=openapi_platform&utm_source=b38f6831b176",
+        "author": "匿名用户",
+        "quoteZh": "生活里总有些重要约定，却常常被卡在“签约”这一步：要么不够正式，要么不够规范，要么… 实在不够高效！个人签约怎么就这么难？ ・想出租闲置的房间，却找不到靠谱的合同模板，自己写又怕有漏洞？ ・心爱的宠物要寄养，口头约定不踏实，想签协议却不知道咋写？ ・交易珍贵的游戏账号或装备，对方要求签合同，你却懵了——去哪找？怎么拟才有效？ ・好不容易自己拟了份协议，打印、找人签字、再扫描……流程繁琐到想放弃？ ・更气的是，你准备好了，对方却嫌麻烦不愿意配合签署？ 解法来了！法大大全新推出电子合同小程序个人版，彻底解决个人发起签约的种种不便，让生活中的每一份重要承诺，都能轻松、规范、有保障地落地！ 模板在手，签约无忧： 别再为找不到合适的合同发愁！法大大电子合同小程序个人版精选了游戏账号交易、游戏装备交易、游戏代练、宠物买卖、宠物领养、宠物寄养、宠物上门喂养、房屋租赁、汽车租赁、买卖和服务等11大高频生活场景的专业合同模板。 有需要的个人用户只需在小程序首页选择【用模板快速签署】，选择自己想要的合同模板，或者在【合同模板中心】搜索关键词，系统会根据搜索词直接跳转到对应的合同模板，随后用户只需在模板中…",
+        "quoteEn": "The product offers professional contract templates for 11 high-frequency life scenarios, and users fill in key information to generate a clear, standardized electronic contract with legal elements. It aims to make every important promise in life land easily, formally, and with safeguards.",
+        "publishDate": "2025-06-25",
+        "marketing": false
+      },
+      "src_e8c7b03f": {
+        "itemId": "src_e8c7b03f",
+        "title": "电子签约软件推荐:2026年8款主流工具盘点 - 知乎",
+        "url": "https://zhuanlan.zhihu.com/p/2042241984912437454?utm_medium=openapi_platform&utm_source=b38f6831b176",
+        "author": "匿名用户",
+        "quoteZh": "对于中国企业出海来说，如果合同对象主要在欧美市场，或客户、供应商、员工分布在多个国家和地区，DocuSign是常见对比选项。 核心功能： DocuSign提供电子签名、数字签名、模板、审批流程、身份验证、签署提醒、审计追踪、合同状态管理、API接入和企业级权限控制等能力，并支持多语言签署。 适用场景： DocuSign适合跨国企业、外贸企业、SaaS出海公司、国际采购、海外销售团队、全球人力资源管理、跨境法律文件签署等场景。 优势亮点： DocuSign的亮点在于国际化签署能力、多语言支持和海外市场认知度，适合跨境合同场景。 使用体验： 海外签署体验较成熟；但国内企业需要重点评估中文支持、本地客户服务、国内系统集成、数据合规、部署模式和采购成本。 三、产品对比一览表：从定位、规模、部署和合规看差异 产品 定位 适用规模 部署方式 核心模块 合规要点 e签宝 企业级电子签名基础设施与合同全生命周期平台 中大型企业、集团、政企客户 公有云、混合云、API/SDK接入 电子签名、合同管理、数据存证、法律维权、系统集成 CA牌照、ISO/IEC 27701、公安部/国密局/法院/仲裁委/公证…",
+        "quoteEn": "DocuSign provides electronic signatures, digital signatures, templates, approval workflows, identity verification, signing reminders, audit trails, contract status management, API access, and enterprise permission controls. The comparison also lists contract management, data storage, legal enforcement, and system integration as core modules.",
+        "publishDate": "2026-05-25",
+        "marketing": false
+      },
+      "src_41ceb7a4": {
+        "itemId": "src_41ceb7a4",
+        "title": "2025年最值得推荐的8款电子签章软件 - 知乎",
+        "url": "https://zhuanlan.zhihu.com/p/1934623364674192939?utm_medium=openapi_platform&utm_source=b38f6831b176",
+        "author": "匿名用户",
+        "quoteZh": "・核心优势：本地化部署市场占有率第一，获国密认证及涉密系统检测证书，服务42000+中大型客户（含400+央国企），成立至今仍保持零诉讼、零纠纷记录。 ・功能亮点：电子章与实体章统一管理，集成能力出色，与ERP、CRM、HRM等各类系统无缝集成，深度融入企业微信、钉钉、飞书、Welink等移动办公生态，手机端使用方便；信创生态适配（支持国密算法+OFD格式）。 ・适用场景：政府、国企及对数据主权要求高的组织。 ・不足：产品体系复杂、功能太多，需要用户具备一定的IT基础，对于小微企业来说实施以及培训学习成本高。 2. 上上签--专注电子签约SaaS服务 ・核心优势：专注电子签约SaaS云产品，主打轻量化电子签约服务，支持系统集成，实现注册即可使用。 ・功能亮点：支持多人协同起草与编辑合同，内置百份行业模板与智能比对工具，结合区块链存证和碎片化加密存储技术，保障文件全链路安全。 ・适用场景：覆盖人力资源（劳动合同）、房地产交易、供应链金融、跨境物流（电子提单）、医疗健康（电子病历）等全行业。 ・不足：司法采信率存在区域差异，部分中西部地区因数字化程度低或司法认知不足价格高于行业均值。 3…",
+        "quoteEn": "The product includes hundreds of industry templates and an intelligent comparison tool, with blockchain evidence storage and fragmentation encryption to secure the full file chain. Its judicial evidence storage connects directly to notary offices, allowing rapid evidence issuance in contract disputes.",
+        "publishDate": "2025-08-01",
+        "marketing": false
+      },
+      "src_f6fa62f1": {
+        "itemId": "src_f6fa62f1",
+        "title": "2026年电子签名平台推荐:8款常见工具测评与选型参考 - 知乎",
+        "url": "https://zhuanlan.zhihu.com/p/2042914820953989592?utm_medium=openapi_platform&utm_source=b38f6831b176",
+        "author": "匿名用户",
+        "quoteZh": "推荐理由： Dropbox Sign 适合海外中小团队、创业公司、自由职业团队和轻量化文件签署场景。它的产品逻辑简单，适合快速发起签署和跟踪状态。 核心功能： 提供电子签名、文件上传、签署请求、状态提醒、模板、基础团队管理、API 等功能，适合处理简单合同和授权文件。 适用场景： 适合海外中小企业、自由职业者、远程团队、创业公司、轻量销售合同和服务协议签署场景。 优势亮点： Dropbox Sign 的优势在于轻量、直观、适合海外在线协作团队，能较快满足基础签署需求。 使用体验： Dropbox Sign 上手较快，但在中国本土合规、中文服务、复杂合同审批、电子印章体系和司法存证联动方面，需要结合企业采购要求谨慎评估。 三、8款电子签名平台对比一览表 产品 定位 适用规模 部署方式 核心模块 合规与采购关注点 e签宝 企业级电子签名与合同全生命周期平台 中大型企业、集团、政府、金融、平台型业务 公有云、混合云、API/SDK 接入等 电子签名、合同管理、电子印章、存证保全、法律维权、系统集成 CA 牌照、隐私信息管理体系认证、公安部/国密局/法院/仲裁委/公证处等相关资质 契约锁 电…",
+        "quoteEn": "It provides electronic signatures, file uploads, signing requests, status reminders, templates, basic team management, and API functions. The comparison notes scenarios that value digital certificates, identity authentication, and signing evidence chains.",
+        "publishDate": "2026-05-27",
+        "marketing": false
+      },
+      "src_9840e62b": {
+        "itemId": "src_9840e62b",
+        "title": "2025年电子合同软件最新排行榜,最值得推荐的10款分享 - 知乎",
+        "url": "https://zhuanlan.zhihu.com/p/1982824522794161773?utm_medium=openapi_platform&utm_source=b38f6831b176",
+        "author": "匿名用户",
+        "quoteZh": "依托微信的庞大用户基础，腾讯电子签以小程序形式实现了电子合同的“轻量化”普及。其特别适合C端用户间的轻量级合同签署，以及中小企业内部管理。腾讯电子签凭借其便捷性和国民级信任背书，迅速占领市场，成为电子合同轻量化普及的典范。 6.上上签 上上签以纯 SaaS 模式起家，注重技术的先进性与平台的稳定性。在银行、汽车制造等超大型企业客户中积累了丰富经验，以其高并发处理能力和稳定的系统性能见长。 上上签支持公有云、混合云及本地化部署方案，满足企业“文档不出门”的安全需求。它可以提供电子合同模板、自动签署、批量签署等服务，提高合同签署效率。同时，提供 API 接口与主流企业系统（OA、HR、CRM 等）无缝对接，适配 Web、APP、小程序等多终端操作，实现跨平台协作，为企业提供高效、可靠的签署体验。 7.安心签 安心签主打移动端便捷操作，用户通过手机即可轻松完成身份认证、合同签署及管理等一系列操作。其内置的智能提醒功能，能够及时提醒用户合同签署时间，避免合同逾期风险。 安心签的合同模板库丰富多样，覆盖招聘、销售等常见场景，用户可以根据自身需求快速选择合适的模板。同时，它还支持电子支付集成，将…",
+        "quoteEn": "It offers electronic contract templates, automatic signing, and batch signing services to improve signing efficiency. The article also highlights high judicial acceptance as a legal-evidence advantage.",
+        "publishDate": "2025-12-12",
+        "marketing": false
+      },
+      "src_4bbb4abe": {
+        "itemId": "src_4bbb4abe",
+        "title": "设计师以个人身份接单,也就是私活,可以跟客户签合同吗? - 知乎",
+        "url": "https://www.zhihu.com/question/20243767/answer/1738693646?utm_medium=openapi_platform&utm_source=b38f6831b176",
+        "author": "猫哥聊财经",
+        "quoteZh": "接私活是有很大风险的，尤其是第一次合作。一定要签合同呀！ （1）拿了你的稿子、没给钱跑了。 （2）说你的稿子不过关、不要了、成了飞机稿、你白设计了。 （3）说你的稿子不过关、没给钱、实际上偷偷找别的设计师加工上线了。 （4）拿了你的稿子，酬劳一直拖着拖着就到了地老天荒。 （5）中途反悔只给了你一点点钱。 （6）反复修改反复修改反复修改反复修改反复修改反复修改反复修改。 所以，一定要签合同，且需要客户预付40%—50%的定金，一来给双方保障，二来显得你专业，不容易被欺负。 合同内容：总金额、预付金额、设计周期、修改次数。 任何一个公司都希望找到一个可靠的设计师，在你害怕被骗设计稿的同时，他们也同样害怕你设计出来的东西不好，不能按期完成。客户既然选择你设计了，就证明这个项目对他们来说是有用的，是必要的，也有可能是很紧急的，因为公司的成本是在不断消耗的，所以当客户不想签合同的情况下，极有可能是一些小型的创业公司或外包公司，他们的目的就是来骗取你的设计稿的。 交付流程 （1）支付40%定金 （2）按照原型设计主视觉初稿 （3）沟通修改确定主界面 （4）内页批量设计 （5）支付40%费用 （6…",
+        "quoteEn": "Translation unavailable. Use the Chinese excerpt as the evidence.",
+        "publishDate": "2021-02-19",
+        "marketing": false
+      },
+      "src_30ff26f7": {
+        "itemId": "src_30ff26f7",
+        "title": "作为一名程序员你会去接私活么? - 知乎",
+        "url": "https://www.zhihu.com/question/322035485/answer/3285198165?utm_medium=openapi_platform&utm_source=b38f6831b176",
+        "author": "懂技术的知产曲",
+        "quoteZh": "可以接，但应该注意其中存在的法律问题。 “接私活来增加收入或者为了提升自己么？” 能否提升自己咱另说，但是接私活能否增加收入，那就取决于事前你有没有做好法律约定了，约定好了，钱包鼓起来，没约定或者约定不好，搭了时间不说，钱包也可能瘪下去了，为啥？因为对方倒打一耙，你得支付违约金或者其他赔偿金啊，不光吃的，得吐出来，还得多吐，法律不仅能填平，还能惩罚。 其实，一纸合同不限于你提到的增加收入——“钱”的问题，还应该包括（例举部分如下）： 1.源代码及设计文档知识产权归谁，能不能使用开源代码，后续你能不能使用代码进行二次开发、在其他私活继续使用等； 2.私活是定制开发还是非定制开发，交付及验收的标准，最好用法律语言固定下来，否则对方频繁变更需求，您这私活就没完没了了，最终收那点钱，恐怕都cover不住付出的辛苦； 3.你能不能二次分包：比如你接了私活，觉得太简单，想分包给别人，中间商赚差价；亦或者感觉太难，自己能力不行，分包给技术大佬，宁可自己少赚点，那你得提前跟对方约定好，否则对方可能就得找你事，说你违约喽； 4.软件后续修改、维护、升级等责任：比如交付验收后，软件出了bug，找你修改，…",
+        "quoteEn": "Translation unavailable. Use the Chinese excerpt as the evidence.",
+        "publishDate": "2023-11-11",
+        "marketing": false
+      },
+      "src_b74b36ea": {
+        "itemId": "src_b74b36ea",
+        "title": "程序员接私活? - 知乎",
+        "url": "https://www.zhihu.com/question/290276515/answer/3285204771?utm_medium=openapi_platform&utm_source=b38f6831b176",
+        "author": "懂技术的知产曲",
+        "quoteZh": "可以接，但应该注意其中存在的法律问题。 “有没有什么路子，赚点零花钱。” 有没有什么路子，路子野不野，合不合法，合不合规，这个问题可以另说。 但是“能否赚点零花钱”，那就取决于事前你有没有做好法律约定了，约定好了，钱包鼓起来，没约定或者约定不好，搭了时间不说，钱包也可能瘪下去了，为啥？因为对方倒打一耙，你得支付违约金或者其他赔偿金啊，不光吃的，得吐出来，还得多吐，法律不仅能填平，还能惩罚。 其实，一纸合同不限于你提到的赚点零花钱——“钱”的问题，还应该包括（例举部分如下）： 1.源代码及设计文档知识产权归谁，能不能使用开源代码，后续你能不能使用代码进行二次开发、在其他私活继续使用等； 2.私活是定制开发还是非定制开发，交付及验收的标准，最好用法律语言固定下来，否则对方频繁变更需求，您这私活就没完没了了，最终收那点钱，恐怕都cover不住付出的辛苦； 3.你能不能二次分包：比如你接了私活，觉得太简单，想分包给别人，中间商赚差价；亦或者感觉太难，自己能力不行，分包给技术大佬，宁可自己少赚点，那你得提前跟对方约定好，否则对方可能就得找你事，说你违约喽； 4.软件后续修改、维护、升级等责任：…",
+        "quoteEn": "Translation unavailable. Use the Chinese excerpt as the evidence.",
+        "publishDate": "2023-11-11",
+        "marketing": false
+      },
+      "src_a3028505": {
+        "itemId": "src_a3028505",
+        "title": "接单先签合同:10个流程规范的平台 - 知乎",
+        "url": "https://zhuanlan.zhihu.com/p/2098876525122736890?utm_medium=openapi_platform&utm_source=b38f6831b176",
+        "author": "撑雨伞",
+        "quoteZh": "接单纠纷十有八九，都卡在“当时没说清”：需求没落纸、变更没留痕、尾款没约定。合同不是为了防人，是把双方的预期钉在纸面上。这篇盘点10个流程规范、适合走合同化的平台，顺便给你一份接单合同的最小清单。 接单合同，最少写清五条 ・交付范围：功能清单列到功能点，别写“类似某某网站”。 ・变更规则：范围外需求怎么计费，提前写好。 ・验收标准：什么算交付完成，逐条可勾选。 ・付款节点：定金、中期款、尾款的比例和触发条件。 ・纠纷处理：约定争议解决方式和管辖。 1. 程序员客栈 项目制流程完整：需求确认、里程碑、验收、托管结算全程线上留痕，相当于平台帮你把合同要素都结构化了。官网： 程序员客栈-领先的程序员自由工作平台-程序员兼职 2. 码上达 无会员费、按成交结算，流程干净；需求经人工审核进系统，纠纷有技术团队人工仲裁，人工裁决讲事实看记录，比一刀切的机制更讲道理。官网： 兼职程序员_程序员接私活_程序员兼职|外包平台-码上达 3. Upwork 合同要素内建在订单里：工作范围、小时上限、托管金额全部书面化，纠纷按记录裁决，规范程度是行业标杆。",
+        "quoteEn": "Translation unavailable. Use the Chinese excerpt as the evidence.",
+        "publishDate": "2026-10-28",
+        "marketing": false
+      },
+      "src_c00f066c": {
+        "itemId": "src_c00f066c",
+        "title": "来时路漫漫:一个程序员的兼职踩坑实录 - 知乎",
+        "url": "https://zhuanlan.zhihu.com/p/2012487369614455627?utm_medium=openapi_platform&utm_source=b38f6831b176",
+        "author": "程序员客栈",
+        "quoteZh": "经过多次教训，我逐渐摸索出一些报价的心得。可以参考程序员客栈的评估办法，根据全职月薪换算成日薪（刨掉周末）乘以 1.5 左右的系数，得到每日的报价参考值。如果你的技术栈稀缺，或者项目对你而言驾轻就熟，完全可以在基准报价上适当溢价。反之，如果项目涉及自己不熟悉的领域，需要额外学习成本，那么报高一点也是合理的。当客户看到你的专业性和价值时，多数人是愿意为优质服务买单的。 三、合同与收款：保护好自己的每一分收益 接私活，最怕的就是“做完拿不到钱”。我听过的被骗案例中，有不少就是因为在合同和收款环节没做好防护。因此，这一块我后来格外重视，并总结出几条铁律 。 第一：没有合同，坚决不干活。合同不仅是法律保障，更是对双方权利义务的明确。很多程序员嫌麻烦，觉得熟人介绍或小项目不用签合同。我吃过这方面的亏。因为朋友介绍了个项目，我心想熟人好说话，就没签正式合同，只是口头约定了价格和工期。结果项目做完，对方以“功能没达到预期”为由一直拖着不给尾款。我因为没有白纸黑字的验收标准，维权非常被动。从此以后，哪怕再熟的人再小的项目，我也会要求至少签一个简单的协议，明确工作内容、交付标准和付款方式。就算是平台上…",
+        "quoteEn": "He says the biggest fear in private gigs is not getting paid after finishing. After being burned on an oral agreement with an acquaintance, he now requires at least a simple written agreement even for small, familiar projects, specifying work content, delivery standards, and payment terms.",
+        "publishDate": "2026-03-04",
+        "marketing": true
+      },
+      "src_28da01c3": {
+        "itemId": "src_28da01c3",
+        "title": "自由职业避坑档案 :守住三条规则,避开绝大多数尾款纠纷 - 知乎",
+        "url": "https://zhuanlan.zhihu.com/p/2104005602963875753?utm_medium=openapi_platform&utm_source=b38f6831b176",
+        "author": "小雇-自由职业者",
+        "quoteZh": "未结清尾款就交付完整源文件与商用成品是最核心的失误。客户拿到成品后付款动力会直线下降，从业者自此再无约束抓手，所有催款都只能被动等待。 2.依赖口头约定，缺乏书面凭证 报价、付款节点、交付标准只靠随口商定，没有固化为文字记录。一旦出现纠纷，无论是平台介入还是正规维权，都会因证据不足难以推进。 3.情绪化催款，替代结构化催告 频繁发消息质问、抱怨，既说不清核心诉求，也没有明确期限与后果，反而激发对方抵触心理，加速失联。无效拉扯消耗的精力，远大于解决问题本身。 尾款逾期后的标准处理步骤 如果已经遇到拖欠，先离开情绪，按步骤推进，回款概率会显著提升。 1.固定完整证据链 第一时间整理所有凭证。需求约定记录、报价与付款节点说明、各阶段交付凭证、验收确认记录、逾期沟通截图。证据越完整，维权底气越足。 2.发送正式书面催告 停止零散追问，整理一份客观说明。列明项目名称、已交付成果、尾款金额、约定期限、最后付款时限与逾期措施。语气平和，只讲规则，比情绪化质问更有分量。 3.按层级递进维权 期限届满仍未回款，小额订单优先通过接单平台提交证据申请官方介入。金额较高的可发送法务告知函。符合条件的订单可走…",
+        "quoteEn": "Translation unavailable. Use the Chinese excerpt as the evidence.",
+        "publishDate": "2026-11-11",
+        "marketing": false
+      },
+      "src_8358d691": {
+        "itemId": "src_8358d691",
+        "title": "从报价到收尾款:自由职业者一单完整闭环该有哪些文件? - 知乎",
+        "url": "https://zhuanlan.zhihu.com/p/2077078306680206194?utm_medium=openapi_platform&utm_source=b38f6831b176",
+        "author": "肖维",
+        "quoteZh": "细节：报价单发出去之前，先自查”如果客户按字面理解，我吃不吃亏”。 ② 合同或确认函（开工前/大额必签）—— 锁责任 报价单是”要约”，合同是”双方确认”。金额大的项目（我定的是 5000 以上）建议签合同或让对方在报价单上签字确认。模板网上一大把，改改就能用。 ③ 收款收据（每次收款后）—— 锁凭证 定金、尾款，每一笔到账都开一张收据发给客户。 理由有三： ・客户财务入账需要（尤其公司客户） ・你自己有收款台账，年底对账一目了然 ・万一纠纷，这是”钱已收”的硬证据 细节：收据编号连续，备注写清楚”定金/尾款/第几期”。 ④ 交付说明/验收单（交付时）—— 锁验收 交付时附一份清单：交付了什么、验收标准是什么、下一步（修改几次/维护期多久）。 作用：把”验收”这个模糊节点变成明确的动作，防止客户无限期”再看看”。 三、这套流程实战 30 分钟能跑完吗？ 很多人觉得流程多=麻烦，其实每份文件都有模板，真正花时间的只有”填数”。 以我现在的速度： 文件 用时 工具 报价单 5 分钟 在线模板填信息导出 合同 复用模板 Word/在线合同模板 收据 3 分钟 在线生成，编号自动 验收单 5…",
+        "quoteEn": "Translation unavailable. Use the Chinese excerpt as the evidence.",
+        "publishDate": "2026-08-29",
+        "marketing": false
+      },
+      "src_b99aac22": {
+        "itemId": "src_b99aac22",
+        "title": "自由职业者怎样判断自己该不该拒绝一份合作? - 知乎",
+        "url": "https://www.zhihu.com/question/2103460807912731136/answer/2103871857862632054?utm_medium=openapi_platform&utm_source=b38f6831b176",
+        "author": "夏野拾欢",
+        "quoteZh": "自由职业想判断要不要拒绝合作，其实看这几点就够。 先看钱好不好拿，结款方式、周期清不清楚，那种一直压价、拖欠尾款的直接避开。 再看对方好不好沟通，需求反复变、还喜欢瞎指挥的，就算给钱也很累。 还有这件事会不会消耗你，占用太多时间，耽误你更优质的单子。 不用怕不好意思，要是收益低、风险大、沟通糟，果断拒绝。 咱们做自由职业，时间和精力本身就是本钱。",
+        "quoteEn": "Before accepting a collaboration, check whether payment is easy to obtain and whether the settlement method and cycle are clear; avoid those who keep pressing prices or delay final payment. Also check communication—clients who repeatedly change requirements or micromanage make the work tiring even if they pay.",
+        "publishDate": "2026-11-11",
+        "marketing": false
+      },
+      "src_b94668a9": {
+        "itemId": "src_b94668a9",
+        "title": "广州画册设计公司源文件给不给?源文件是信任的“压舱石” - 知乎",
+        "url": "https://zhuanlan.zhihu.com/p/2103862681681801614?utm_medium=openapi_platform&utm_source=b38f6831b176",
+        "author": "广州智点纸品定制",
+        "quoteZh": "上周和一个做高端餐饮连锁的朋友喝茶，他刚被一家设计公司“坑”了一回。方案改了四版，尾款付清后，对方死活不给可编辑的源文件，只扔过来一个PDF，说“修改要另外收费，一次800”。他当场愣住了：这画册的版权到底算谁的？ 这问题，估计每个在广州做过画册的老板都纠结过。今天不绕弯子，直接聊聊这个行业的潜规则。 一、源文件不给，背后藏着三个算盘 先抛个观点：源文件给不给，本质不是技术问题，是商业模式问题。 “修改费”是利润奶牛。有些公司主打“低价设计”，报价3000元做画册，靠的就是后续改个电话、换张图收个三五百来赚钱。不攥着源文件，这生意还怎么做？ 怕你拿着模板找别人。源文件一旦给出，客户随时可以找个兼职设计师改两笔，下一单就没他们什么事了。这本质上是对自己设计能力的不自信。 压根没做“可分层的源文件”。这个更吓人。小工作室用PS一个个拼版面，图层乱成一锅粥，真要给你，你也用不了。不是不想给，是没脸给。 据我了解，广州设计圈里，能主动把AI、ID源文件整理得清清楚楚、直接交到客户手里的，我掰着指头数得过来。 二、同行对比，谁在裸泳？ 公司/品牌 源文件政策（调研口径） 本质逻辑 广州智点纸品…",
+        "quoteEn": "Last week a friend who runs a high-end restaurant chain described being burned by a design firm: after four rounds of revisions and full payment, the firm refused to hand over editable source files, sending only a PDF and charging 800 yuan per additional change. The real question—who actually owns the rights to this brochure, and why withholding source files has become a business model rather than a technical necessity—is one every Guangzhou boss who has commissioned a brochure has likely wrestled with.",
+        "publishDate": "2026-11-11",
+        "marketing": true
+      },
+      "src_b8bb663e": {
+        "itemId": "src_b8bb663e",
+        "title": "自由职业者接单必备:合同、票据、个税一站搞定 - 知乎",
+        "url": "https://zhuanlan.zhihu.com/p/2066587278567269512?utm_medium=openapi_platform&utm_source=b38f6831b176",
+        "author": "薪旺通灵活用工",
+        "quoteZh": "如果收入属于劳务报酬所得，通常由支付所得的企业或者平台按照规定履行个人所得税扣缴申报义务。 因此，自由职业者在收到服务费用后，应当及时核对收入金额、申报单位和已缴税额，避免出现漏报。 四、合规平台可以连接合同、业务、结算和个税处理 对于存在真实项目合作需求的企业和自由职业者，可以通过具备相应服务能力的灵活用工平台，统一处理签约、任务、结算、凭证和个税申报等事项。 平台的价值不只是完成结算，而是将原本分散的业务环节连接起来，形成相对完整的业务证据链。 1. 在线签订合作协议 自由职业者在平台完成实名认证后，可以与企业在线签订相关服务协议。 企业通过平台发布具体任务，明确服务内容、费用标准、交付要求、完成时间和验收方式。 通过线上协议，可以减少仅依靠聊天记录或者口头约定产生的争议，也便于后续查询和留存。 2. 记录任务和服务过程 平台可以对任务发布、人员承接、服务执行、成果提交、企业验收和费用确认等环节进行记录。 这些信息能够说明： 谁承接了任务； 具体完成了什么服务； 服务成果是否已经交付； 企业是否完成验收； 结算金额依据是什么。 与单一转账记录相比，完整的任务和交付记录更能证明业务…",
+        "quoteEn": "For income classified as remuneration for personal services, the paying enterprise or platform is generally responsible for withholding and reporting individual income tax, so freelancers should promptly verify the amount received, the reporting entity, and tax paid to avoid omissions. The excerpt also claims that so-called compliant platforms can connect contracts, tasks, settlement, and tax filing into a more complete evidence chain, though this remains a platform assertion rather than an independent guarantee.",
+        "publishDate": "2026-07-31",
+        "marketing": false
+      },
+      "src_2bda067c": {
+        "itemId": "src_2bda067c",
+        "title": "自由职业避坑档案 :守住三条规则,避开绝大多数尾款纠纷 - 知乎",
+        "url": "https://zhuanlan.zhihu.com/p/2104005602963875753?utm_medium=openapi_platform&utm_source=b38f6831b176",
+        "author": "小雇-自由职业者",
+        "quoteZh": "未结清尾款就交付完整源文件与商用成品是最核心的失误。客户拿到成品后付款动力会直线下降，从业者自此再无约束抓手，所有催款都只能被动等待。 2.依赖口头约定，缺乏书面凭证 报价、付款节点、交付标准只靠随口商定，没有固化为文字记录。一旦出现纠纷，无论是平台介入还是正规维权，都会因证据不足难以推进。 3.情绪化催款，替代结构化催告 频繁发消息质问、抱怨，既说不清核心诉求，也没有明确期限与后果，反而激发对方抵触心理，加速失联。无效拉扯消耗的精力，远大于解决问题本身。 尾款逾期后的标准处理步骤 如果已经遇到拖欠，先离开情绪，按步骤推进，回款概率会显著提升。 1.固定完整证据链 第一时间整理所有凭证。需求约定记录、报价与付款节点说明、各阶段交付凭证、验收确认记录、逾期沟通截图。证据越完整，维权底气越足。 2.发送正式书面催告 停止零散追问，整理一份客观说明。列明项目名称、已交付成果、尾款金额、约定期限、最后付款时限与逾期措施。语气平和，只讲规则，比情绪化质问更有分量。 3.按层级递进维权 期限届满仍未回款，小额订单优先通过接单平台提交证据申请官方介入。金额较高的可发送法务告知函。符合条件的订单可走…",
+        "quoteEn": "Translation unavailable. Use the Chinese excerpt as the evidence.",
+        "publishDate": "2026-11-11",
+        "marketing": false
+      },
+      "src_dd2687d0": {
+        "itemId": "src_dd2687d0",
+        "title": "动画交付却拿不到钱?一招破解回款难题! - 知乎",
+        "url": "https://zhuanlan.zhihu.com/p/2001675335335445509?utm_medium=openapi_platform&utm_source=b38f6831b176",
+        "author": "笔熊分享",
+        "quoteZh": "所以，提前预防比事后追讨更重要。而合适的工具，就是我们最趁手的“防护盾”。 实用加密策略，轻松上手 第一招：交付前加“动态水印” + 低清预览版 在最终成片正式交付前，先发送一个带时间戳+客户名称的动态水印版本（比如每5秒闪现一次“仅供XX公司审核”）。 工具推荐：剪映专业版、Premiere Pro 插件、甚至用OBS录屏加水印。 效果：对方若想直接使用？水印满屏飞，在正式场合是无法使用的。 Tips：明确告诉客户：“高清无水印版将在收到尾款后24小时内发送。” 第二招：用加密链接控制文件访问权限 别再用微信直接发MP4了！改用带密码+有效期的加密分享链接。 常见工具如：百度网盘、阿里云盘、WeTransfer Pro，但这些要么功能有限，要么操作复杂。这里重点安利我最近在用的——笔熊分享！ 它支持：文件加密分享（设密码+有效期限） ・查看次数、人数限制（比如只允许看3次,只能3人观看） ・禁止下载/截图/录屏 ・访问记录追踪（谁看了、什么时候看的，一目了然） 有一次我用笔熊分享发了一个带“仅限预览”水印的样片，设置24小时失效。结果对方当天就打款了，说“怕链接过期看不到”。你看，…",
+        "quoteEn": "Prevention in advance matters more than chasing losses afterward—the right tools being our handiest “shield”—with suggested tactics like dynamic watermarks plus low-res previews before delivery and password-protected, expiring share links instead of sending MP4s directly via WeChat, via tools such as CapCut Pro, Premiere Pro plugins, OBS, Baidu Netdisk, and Aliyun Drive.",
+        "publishDate": "2026-02-02",
+        "marketing": true
+      },
+      "src_ddf0fe2f": {
+        "itemId": "src_ddf0fe2f",
+        "title": "AI可以快速出方案,但是客户反复白嫖效果图,从业者该怎么设置合理的接单规则? - 知乎",
+        "url": "https://www.zhihu.com/question/2101805573075486136/answer/2103708742118392167?utm_medium=openapi_platform&utm_source=b38f6831b176",
+        "author": "跨境闪连",
+        "quoteZh": "这样既能降低客户尝试合作的心理门槛，也能筛选出真正有项目需求的人。 3. 深度设计：按合同执行 进入正式合作后，再提供完整设计服务。 包括多轮细化、尺寸调整、材料确认、施工图、最终效果图以及其他约定内容。 这一阶段必须明确： ・交付成果的数量。 ・修改次数。 ・修改范围。 ・超出范围后的收费标准。 ・项目周期。 ・付款节点。 ・版权及成果使用范围。 尤其要注意，修改次数和修改范围是两回事。 客户提出的修改如果只是调整颜色、材质，可以算常规修改；如果突然改变整体风格、空间布局或者核心设计方向，就应该视为新增工作，而不是免费修改。 三、针对反复白嫖，建立几条明确的接单规则 这里有几个规则，我认为从业者可以直接采用。 规则一：不免费提供完整定制效果图。 可以展示过往案例、公开作品和非定制参考图，但不针对尚未签约的客户反复生成专属方案。 规则二：每个报价对应明确的交付数量。 例如，报价包含3张效果图，就交付3张。客户临时要求增加5张，应该重新报价。 规则三：修改必须有边界。 建议在合同中约定1至2轮集中修改，具体次数根据项目类型确定。超出约定范围，按照新增工作收费。 规则四：先收定金，再开始…",
+        "quoteEn": "Lowering the psychological threshold for clients to try cooperation may also help screen for those with genuine project needs, though that effect should not be assumed; once formal cooperation begins, full design services should be delivered under contract, with deliverables, revision counts, revision scope, fees for out-of-scope work, timeline, payment milestones, and copyright/use rights clearly specified. Revision count and revision scope are not the same—color or material tweaks may be routine, but abrupt changes to overall style, spatial layout, or core design direction should be treated ",
+        "publishDate": "2026-11-10",
+        "marketing": false
+      },
+      "src_507d74bf": {
+        "itemId": "src_507d74bf",
+        "title": "3D建模新手接私单全攻略|资深从业者避坑指南,新手可直接照搬 - 知乎",
+        "url": "https://zhuanlan.zhihu.com/p/2019499209196328230?utm_medium=openapi_platform&utm_source=b38f6831b176",
+        "author": "建模宝典",
+        "quoteZh": "1.灰模阶段：完成模型的大致轮廓、拓扑后，导出灰模预览图（带水印，标注“未付款不可商用”），发给甲方确认，确认造型、比例无误后，再进行下一步。这一步是最关键的，避免后续贴图、细节做好后，再修改造型，浪费时间。 2.贴图阶段：完成贴图制作后，导出贴图预览图、模型渲染图，发给甲方确认，询问是否需要调整贴图颜色、细节。比如甲方觉得贴图颜色太暗，及时调整，避免终稿交付后再返工。 3.终稿预览：完成全部制作后，导出带水印的终稿预览图、模型演示视频，发给甲方确认，确认无误后，通知甲方支付尾款。 第四步：交付终稿，收取尾款（核心：确保回款，不留隐患） 交付是最后一步，也是最容易出现纠纷的一步，新手一定要注意2个核心要点，避免被拖欠尾款、找茬扣钱。 1.交付前检查：交付前，一定要对照合作细节，逐一检查：模型面数、贴图精度、交付格式是否符合要求，是否有错误、漏洞（比如贴图缺失、模型破面）。我每次交付前，都会花30分钟检查，避免因为小错误，被甲方找茬扣钱——曾有个新手，交付时忘记导出贴图，甲方以此为由扣了30%尾款，非常可惜。 2.交付流程：先让甲方支付尾款，尾款到账后，再交付无水印的终稿文件（包括模型…",
+        "quoteEn": "The excerpt outlines a staged 3D modeling workflow—gray-model approval, texture review, watermarked final preview, then delivery after final payment—and claims this avoids rework and payment problems; however, it remains an anecdotal process description and does not demonstrate that disputes or nonpayment are actually prevented.",
+        "publishDate": "2026-03-23",
+        "marketing": false
+      },
+      "src_cf23606": {
+        "itemId": "src_cf23606",
+        "title": "不好意思谈钱的人,先看这4步:定金、工期、验收、尾款 - 知乎",
+        "url": "https://zhuanlan.zhihu.com/p/2089452266822677744?utm_medium=openapi_platform&utm_source=b38f6831b176",
+        "author": "知乎用户fz5z3G",
+        "quoteZh": "干活之前不好意思谈钱，怕一开口就见外。活干完了再去要，你手上只剩一句“您看什么时候方便结一下”。对方回一句不太满意，就没话接了。 所以这篇不讲怎么把活干漂亮，讲四步。都在动手之前说完，一句难听话都不用说。 第一步：开工前收一笔定金 不用多。 短视频脚本、简历润色、PPT 排版这类小活，收三成，几十块钱的事。时间长点的活，五成。 关键不在那点钱，在于它替你把人筛了一遍。 真想干事的人，几十块定金不会跟你磨。一听要先付就岔开话题的，等活拿走了，你扯的就是全部。 别说“你先给我转点”。直接一行字打过去：定金 XXX，到账开工，其余交付时结。这行字我现在还在用。 第二步：把干到什么程度算完，先写下来 你交了第一版 PPT，对方说再调调。改了一版，还是那三个字。第二周还在动配色，这时候谈加钱，怎么开口都像你在计较。 动手前花两分钟，把三条发进聊天框：改动含两轮，超出按次算；源文件在尾款结清后给；工期到哪天算哪天。 不用拟合同。微信里这几行字就够。 说个我踩过的坑 从那以后我接活，第一步永远是先把定金那一行字打过去。 第三步：大一点的活，分三笔结",
+        "quoteEn": "The excerpt argues that discussing payment only after the work is done leaves you with a polite request and no reply if the client says they’re dissatisfied, so it lays out pre-work steps: collect a deposit (30% for small jobs, 50% for longer ones) and write down what counts as finished. Its claim is that this screens for serious clients, but the text does not show that it prevents later disputes or nonpayment.",
+        "publishDate": "2026-10-02",
+        "marketing": false
+      },
+      "src_55cdefa8": {
+        "itemId": "src_55cdefa8",
+        "title": "约定 “验收合格再付款”,甲方故意拖着不验收,钱就拿不到了?|买卖合同、建工合同回款实务 - 知乎",
+        "url": "https://zhuanlan.zhihu.com/p/2103089719445808611?utm_medium=openapi_platform&utm_source=b38f6831b176",
+        "author": "黄安律师",
+        "quoteZh": "1.《民法典》第一百五十九条：附条件的民事法律行为，当事人为自己的利益不正当地阻止条件成就的，视为条件已经成就；不正当地促成条件成就的，视为条件不成就。 2.《民法典》第六百二十条、第六百二十一条：买受人收到标的物时应当在约定的检验期限内检验。买受人在检验期限内未将标的物的数量或者质量不符合约定的情形通知出卖人的，视为标的物的数量或者质量符合约定。没有约定检验期限的，应当在合理期限内检验并通知。 3.《民法典》第七百九十九条：建设工程竣工后，发包人应当根据施工图纸及说明书、国家颁发的施工验收规范和质量检验标准及时进行验收。验收合格的，发包人应当按照约定支付价款，并接收该建设工程。 4.《最高人民法院关于审理建设工程施工合同纠纷案件适用法律问题的解释（一）》第九条：承包人已经提交竣工验收报告，发包人拖延验收的，以承包人提交验收报告之日为竣工日期；建设工程未经竣工验收，发包人擅自使用的，以转移占有建设工程之日为竣工日期。 裁判优先级：合同明确约定逾期验收视为合格的，优先适用合同约定；无约定时，再结合案情适用条件拟制、检验异议失效、建工推定竣工规则。完善的合同条款，是所有风控手段里优先级最…",
+        "quoteEn": "The excerpt cites Civil Code Article 159 (improperly preventing a condition for one’s own benefit is treated as fulfillment, while improperly causing it is treated as non-fulfillment), Articles 620–621 (buyers must inspect within the agreed period and notify of quantity/quality nonconformity, or the goods are deemed conforming; absent an agreed period, inspection and notice must occur within a reasonable period), and Article 799 (after completion, the employer must timely accept the construction project under drawings, specifications, and state acceptance/quality standards and, if accepted, pa",
+        "publishDate": "2026-11-09",
+        "marketing": false
+      },
+      "src_d702b95b": {
+        "itemId": "src_d702b95b",
+        "title": "合同验收条款漏洞,导致近百万尾款拖欠 - 知乎",
+        "url": "https://zhuanlan.zhihu.com/p/2099160775067701499?utm_medium=openapi_platform&utm_source=b38f6831b176",
+        "author": "广东仲权律所",
+        "quoteZh": "很多中小企业承接工程、对外供货，签合同只简单写上一句 “验收合格后付款”，完全忽略验收时限、逾期不验收的法律后果。 项目明明已经交付并被甲方投入实际运营，对方却故意拖着不组织验收、拒不结算，以此长期压款、拒绝支付尾款。即便最后官司打赢，企业也要承担资金长期被套、诉讼耗时耗力的巨大成本。今天给大家分享广州法院这起真实胜诉案例。 真实案件：项目投入使用近一年，近百万工程款被无故拖欠 01、基本案情 两家企业签订软装工程合同，合同仅约定：竣工验收合格并办理结算后支付工程款。 合同中没有明确约定具体的验收期限、逾期不验收视为合格等关键条款。 承包企业完成全部软装施工，双方签署《软装移交清单》，完整移交全部项目成果。甲方接收项目之后，直接投入销售中心样板房实际使用将近一年时间。 虽承包方多次通过邮件、微信催促对方开展验收、办理结算，但甲方始终不组织验收，也拒绝配合结算，直接以 “未完成验收、付款条件未成就” 为由，拒付工程尾款。 多次沟通无果，承包企业向法院提起诉讼，索要工程欠款。 02、法院判决结果 广州市白云区人民法院一审认为：案涉软装工程已经完成移交，甲方已经实际投入使用长达近一年，过程…",
+        "quoteEn": "Translation unavailable. Use the Chinese excerpt as the evidence.",
+        "publishDate": "2026-10-29",
+        "marketing": false
+      },
+      "src_5bf9c2f5": {
+        "itemId": "src_5bf9c2f5",
+        "title": "甲方没验收就把工程用上了,去要尾款他说「没验收」「质量不行」——这尾款到底该不该给? - 知乎",
+        "url": "https://zhuanlan.zhihu.com/p/2098729678156608365?utm_medium=openapi_platform&utm_source=b38f6831b176",
+        "author": "工程律师张振强",
+        "quoteZh": "该不该给，分三层看，一层比一层靠证据。 null 第二层：质量，他用了就不能再随便挑。同解释第十四条：建设工程未经竣工验收，发包人擅自使用后，又以使用部分质量不符合约定为由主张权利的，人民法院不予支持；但是承包人应当在建设工程的合理使用寿命内对地基基础工程和主体结构质量承担民事责任。翻译过来：墙皮、地面这类使用部分，他用上了就不能再拿来压款；地基基础和主体结构除外，合理使用寿命内还是你的责任。先分清他挑的是哪部分。 第三层：尾款，看你合同付款条款怎么写的。 「验收合格后付 X%」的，他用上，不自动等于验收合格，付款条件是否成就，各地法院处理上有分歧，纠纷一起来就要个案评估；「交付使用后付 X%」的，他开始使用，这一天条件就成就，对你最稳。 以后签合同，付款条件别和「验收合格」绑死。 另外《中华人民共和国民法典》（自 2021 年 1 月 1 日起施行）第七百九十九条规定发包人应当及时验收，验收合格后按约定支付价款，未经验收合格的，不得交付使用——他先用上，是他先违规，但尾款给不给，还是要回到合同和证据。",
+        "quoteEn": "Translation unavailable. Use the Chinese excerpt as the evidence.",
+        "publishDate": "2026-10-28",
+        "marketing": false
+      },
+      "src_7f4a4664": {
+        "itemId": "src_7f4a4664",
+        "title": "甲方以工程鸡毛蒜皮的事情不给竣工验收怎么办? - 知乎",
+        "url": "https://www.zhihu.com/question/1916770549515937081/answer/2099798051456079504?utm_medium=openapi_platform&utm_source=b38f6831b176",
+        "author": "镜与启",
+        "quoteZh": "不给竣工验收？ 甲方实际使用了吗？ 如果已经投入使用，以投入使用的时间为准。 看合同条款，验收条件以及验收时间。 甲方拖着不验收，法律上并不等于你的钱永远拿不到——核心逻辑是：验收是甲方的义务，他为拖付款而消极不作为，构成\"不正当阻止条件成就\"，依法视为条件已成就。《民法典》第159条正是这一规则的直接依据，司法实践中大量判例支持。 四步把僵局打破 第一步：把\"球\"踢回甲方脚下——发书面催告函 口头催一百次不如一纸函件。函里必须写清四件事：合同编号与欠款金额、你已完工并交付的事实、限定期限（建议7~15天）组织验收、逾期不验收则依法视为验收合格并将主张全额尾款及逾期利息。 送达用 EMS（保留底单和签收记录），同内容再走一遍邮箱、微信，确保他无法辩称\"没收到\"。 第二步：期限届满后，分情况应对 • 对方不回复、不验收、不提整改意见 → 恶意拖延事实成立，可升级发律师函，多数企业到这步会主动回来谈。 • 对方口头挑毛病但拒绝书面列出整改清单 → 这是常见套路，他在制造压价筹码。要求他书面列明具体问题、对应验收标准和整改要求；只说\"暂不通过\"\"领导没确认\"，不构成有效异议。 第三步：叠加…",
+        "quoteEn": "If the client has actually put the work into use, the date of use may govern, and the contract’s acceptance conditions and timing should be checked; a client’s delay in acceptance does not by itself mean payment can never be recovered—the argument is that acceptance is the client’s obligation and deliberate passive delay may be treated as improperly preventing a condition from being fulfilled, potentially deemed fulfilled under Civil Code Article 159, though this remains fact- and evidence-dependent. A written demand served by EMS should specify the contract number and amount owed, completion ",
+        "publishDate": "2026-10-31",
+        "marketing": false
+      },
+      "src_a43c96b0": {
+        "itemId": "src_a43c96b0",
+        "title": "在建设工程中,为什么竣工验收后付款等条款不一定有效呢? - 知乎",
+        "url": "https://www.zhihu.com/question/2046139259564958462/answer/2095449679962060182?utm_medium=openapi_platform&utm_source=b38f6831b176",
+        "author": "律造侠",
+        "quoteZh": "庭审中，被告提出反诉，主张原告未提供项目验收技术资料，且工程存在不合格部分，要求其配合修复至合格标准。但经法庭询问，被告未能提供其在工程竣工后3个月内书面通知原告验收或要求提供检验报告的相应证据。 二、法律分析 法院经调查认为，被告未能举证证明其积极履行组织验收义务，且工程已实际投入使用。经释明相关规则后，被告主动申请调解，同意支付工程尾款2.5万元，并自愿放弃反诉请求。 本案涉及的核心规则包括： 1.发包人负有及时组织验收的法定义务。 根据《民法典》第799条，建设工程竣工后，发包人应当根据施工图纸及说明书、国家颁发的施工验收规范和质量检验标准及时进行验收；验收合格的，发包人应当按照约定支付价款并接收工程。 2.发包人拖延验收或擅自使用工程，可产生相应法律后果。 根据《最高人民法院关于审理建设工程施工合同纠纷案件适用法律问题的解释（一）》第9条，承包人已经提交竣工验收报告而发包人拖延验收的，以承包人提交验收报告之日为竣工日期；建设工程未经竣工验收而发包人擅自使用的，以转移占有建设工程之日为竣工日期。第14条进一步规定，建设工程未经竣工验收，发包人擅自使用后，又以使用部分质量不符合约…",
+        "quoteEn": "In the trial, the defendant counterclaimed that the plaintiff had failed to provide technical acceptance materials and that parts of the work were nonconforming, but the court noted the defendant produced no evidence of written notice within three months after completion requesting acceptance or inspection reports, and further found the defendant had not proven it actively organized acceptance while the project was already in use. The excerpt frames the core rule as the employer’s statutory duty to organize timely acceptance under Civil Code Article 799, after which the defendant sought mediat",
+        "publishDate": "2026-10-19",
+        "marketing": false
+      },
+      "src_f26cad9a": {
+        "itemId": "src_f26cad9a",
+        "title": "灵活就业人员,承接工作时,不用签合同吗? - 知乎",
+        "url": "https://www.zhihu.com/question/1898037654563590495/answer/1898137942473578016?utm_medium=openapi_platform&utm_source=b38f6831b176",
+        "author": "一条勤快的鱼",
+        "quoteZh": "虽说法律认可口头协议，但从实际操作角度出发，建议大家还是要留痕。比如在微信等聊天工具上，把工作时间、报酬标准、工作内容等关键信息明确告知并得到对方确认，保留好聊天记录；如果工作有工单系统，像一些家政服务平台会生成电子工单，上面记录着服务时间、地点、内容等，也要妥善留存。曾经有位大学生小张利用周末在超市做兼职促销员，与超市只是口头约定了每小时 20 元的报酬和工作时间。结果结算工资时，超市却以各种理由少算了几个小时的工钱，小张因为没有任何书面或电子记录能证明自己的实际工作时长，只能吃哑巴亏。所以，对于非全日制用工，留痕能为自己的权益加上一道保障锁，避免日后因 “口头约定不清” 引发不必要的纠纷。 （二）个体工商户 / 自由职业者：签「民事合同」而非劳动合同 自己开网店销售特色手工艺品、做独立房产经纪人促成房屋交易、自由撰稿人给各类媒体供稿等，都属于个体工商户或者自由职业者的范畴。他们与合作方之间属于平等主体的民事关系，在合作时，应该签订《服务合同》《承揽合同》这类民事合同。在这些合同里，要把服务内容描述得细致入微，比如自由撰稿人要明确稿件的主题、字数、体裁要求；费用结算方式和时间也得清…",
+        "quoteEn": "Although oral agreements are legally recognized, they can be hard to enforce in practice, so it is advisable to keep records—such as confirming working hours, pay rates, and job duties in WeChat chats and preserving any electronic work orders. In one case, a student part-time supermarket promoter who had only an oral agreement was underpaid and, lacking written or electronic proof of actual hours, had little recourse.",
+        "publishDate": "2025-04-22",
+        "marketing": false
+      },
+      "src_3836b95": {
+        "itemId": "src_3836b95",
+        "title": "兼职或灵活就业,有必要签订劳动合同吗? - 知乎",
+        "url": "https://www.zhihu.com/question/2011035952424969765/answer/2012221038390419935?utm_medium=openapi_platform&utm_source=b38f6831b176",
+        "author": "上海群亮企业服务外包有限公司",
+        "quoteZh": "理论上，如果是那种非常自由的兼职和灵活就业，口头协议就可以，但如果人家给你钱劳务协议，能签就签，人家不签，也没错； 但是，如果跟正式上班一样，固定排班、打卡，即便是兼职，也得签合同",
+        "quoteEn": "In theory, for very loose part-time or flexible work, a verbal agreement may be enough; if they offer a labor-service agreement, sign it if you can, and if they won’t, that isn’t necessarily wrong—but if it operates like a regular job with fixed shifts and clocking in, even part-time, a contract is required.",
+        "publishDate": "2026-03-03",
+        "marketing": true
+      },
+      "src_7bf0e0f4": {
+        "itemId": "src_7bf0e0f4",
+        "title": "企业外包避坑指南:找自由职业外包有方法,效率翻倍 - 知乎",
+        "url": "https://zhuanlan.zhihu.com/p/2021173308230517524?utm_medium=openapi_platform&utm_source=b38f6831b176",
+        "author": "小雇-自由职业者",
+        "quoteZh": "记住一句话：需求越清晰，报价越准确，返工越少。 坑2：只看价格，不看作品 很多老板选自由职业者，就一个标准：便宜。 500块做个logo，200块写篇推文，300块剪个视频。听起来很划算，对吧？ 结果呢？ 500块做的logo，改8版还是不满意，最后再找别人重做。200块写的推文，全是复制粘贴的，根本用不了。 便宜，是最昂贵的代价。 建议：先看作品集，再看价格；不要妄想花200块钱得到2000块钱的结果。一定要选择有相关行业经验的。价格合理，不是最便宜的。 坑3：沟通不到位 “我以为你懂我的意思。”这句话，毁了多少合作项目。 你心里想的是“高级简约风”，对方理解的是“北欧极简风”。你觉得“差的有点多”，对方以为“就这样可以了”。别指望心有灵犀！ 建议：首次沟通不要少于30分钟，说清楚、问明白。用文档确认需求细节，白纸黑字写下来。设置中期检查点，别等最后才发现跑偏。及时反馈，不要最后才说问题。 坑4：没有合同/协议 “都是熟人介绍的，不用那么正式。”这话听起来很江湖，但实际上坑了不少人。 延期、质量不达标、尾款纠纷……因为没有协议，双方各执一词，谁也说不清。 熟人，不能替代规则。 建议…",
+        "quoteEn": "The excerpt warns that unclear requirements lead to inaccurate quotes and more rework, and that choosing freelancers mainly by low price—without checking portfolios or relevant experience—often costs more through revisions and unusable work. It also notes that vague communication (“I thought you understood”) can wreck projects when assumptions such as “premium minimal” and “Nordic minimal” diverge.",
+        "publishDate": "2026-03-28",
+        "marketing": false
+      },
+      "src_adaea72c": {
+        "itemId": "src_adaea72c",
+        "title": "程序员接单指南:2024年最靠谱的10大自由职业平台盘点 - 知乎",
+        "url": "https://zhuanlan.zhihu.com/p/2026274131432280480?utm_medium=openapi_platform&utm_source=b38f6831b176",
+        "author": "规划局于一体",
+        "quoteZh": "随着远程办公和灵活用工模式的兴起，越来越多的程序员开始选择自由职业这条道路。接单不仅能让技术人发挥专长、实现自我价值，还能获得可观的收入。那么，程序员接单有哪些靠谱平台？新手又如何快速上手？本文为你详细盘点国内外主流接单渠道，助你开启自由职业之旅。 程序员接单，这些事项你必须知道 明确自己的技术栈和定位。别什么都接，找准方向深耕。比如你擅长Java后端，就主攻企业级开发；熟悉前端Vue/React，就专注中后台和移动端页面。定位清晰能让客户更信任你，也更容易积累口碑和案例。 认真评估项目周期和沟通成本。报价前一定要问清楚需求细节、工期要求、验收标准。有些客户嘴上说简单，实际上需求一变再变，后期扯皮特别消耗精力。宁可少接一单，也不要接一个沟通成本极高的坑。 合同和定金不能少。哪怕是熟人介绍的小单子，也要签书面协议写清楚交付内容、修改次数、尾款节点。建议定金收30%-50%，不给钱就不开工。没有合同保护的程序员接单，就是在给自己埋雷。 时间管理和项目规划要到位。自由职业最怕的不是没单子，而是接了太多单子却交付不了。同时推进两三个项目是极限，超出这个数量必然导致质量下滑和延期。学会说\"不\"…",
+        "quoteEn": "With remote work and flexible employment on the rise, the excerpt claims more programmers are turning to freelancing and that taking orders can showcase expertise, realize personal value, and yield substantial income. It then asks which platforms are reliable and how beginners can get started quickly, while advising programmers to define their tech stack and positioning and to carefully assess project timelines and communication costs before quoting.",
+        "publishDate": "2026-04-11",
+        "marketing": false
+      },
+      "src_5802edc7": {
+        "itemId": "src_5802edc7",
+        "title": "1538【盒马分拣】自由职业者协议(8) - 知乎",
+        "url": "https://zhuanlan.zhihu.com/p/2094789319244488766?utm_medium=openapi_platform&utm_source=b38f6831b176",
+        "author": "风雨人生路",
+        "quoteZh": "下午1330左右外出吃饭，我买了一份饼夹菜，吃完之后在大茂城找了个楼梯间，坐在楼梯台阶上休息了有30min左右的时间。不管怎么说，也算睡了一觉，下午整体状态也是非常好的。 （2）月入过万做梦吧 今天看了一下赵兵的工作量，整体上应该分拣了1000多件商品。按照一件0.2元计薪，一天下来，他也就挣了200多元。 赵兵是老员工，工作速度也是非常快的了。辛辛苦苦一天下来，挣个200多元。这也就意味着，一个月也就是六七千的收入。至于月入过万，还是别做梦了。 像我这样的新人，工作速度还不及他的一半，所以前期一个月下来，估计也就拿个三千左右的工资。 （3）好丽友 下午领导在库房组织大家玩套圈圈的游戏，每人3个圈。 我也不贪心，就套离自己最近的，结果套中了一盒好丽友。 晚上下班时忘拿了。15号晚上拿回家，打开尝了一个，确实挺好吃的。 （4） 下午有个用户点了4杯冰块，送到之后并已经化了。 领导看了我打包之后，对我说，诸如冰激凌、冰块这些商品，，需要用锡箔袋包裹起来，再在外面放上干冰。",
+        "quoteEn": "Around 1:30 p.m. I went out to eat, bought a vegetable-stuffed pancake, then rested—and arguably slept—for about 30 minutes on a stairwell at Damaocheng; my overall afternoon state was quite good. Still, the pay math is sobering: veteran Zhao Bing sorted over 1,000 items in a day at ¥0.2 each, earning just over ¥200—roughly ¥6,000–7,000 a month—so dreaming of ¥10,000+ is unrealistic, and as a newbie at less than half his speed I’d expect only about ¥3,000 in the first month; in the afternoon the leader organized a ring-toss game in the warehouse, three rings per person.",
+        "publishDate": "2026-10-17",
+        "marketing": false
+      },
+      "src_6a2ad13f": {
+        "itemId": "src_6a2ad13f",
+        "title": "私单收款记录怎么做?3年接单经验:报价单、收据、转账记录一个都不能少 - 知乎",
+        "url": "https://zhuanlan.zhihu.com/p/2077074719648622339?utm_medium=openapi_platform&utm_source=b38f6831b176",
+        "author": "肖维",
+        "quoteZh": "接私单 3 年，我见过太多人栽在“口头约定”上： ・活干完了，客户说”当时说好的是含税价”——你没留报价单，百口莫辩 ・尾款拖了两个月，你翻聊天记录翻到眼瞎，就为找一句”下周三转你” ・税务上被问起收入来源，拿不出一份像样的凭证，解释半天 其实这些问题的解法特别朴素：把每一单的报价单、收据、转账记录留齐。不花你什么钱，但关键时候能救命。 二、一套完整的私单凭证长什么样 我给自己定的规矩是每单三件套： ① 报价单（开工前发） ・项目名称、范围、工期、金额、有效期 ・作用：锁定”做什么、多少钱”，防止交付时扯皮 ・关键细节：写清楚报价有效期，比如”本报价 7 日内有效”，防止客户拿着旧价来砍 ② 收款收据（收款后发） ・收款方、付款方、事由、金额（大小写）、日期、编号 ・作用：客户入账、你留凭证、双方都清楚这笔钱对应什么 ・关键细节：收据编号要连续（RC-001、RC-002…作用：客户入账、你留凭证、双方都清楚这笔钱对应什么。 ③ 转账记录（银行/微信/支付宝流水） ・不用特意做什么，保留原始记录即可 ・作用：与收据金额对应，形成资金闭环 这三样凑齐，客户想赖账都找不到理由，你也少很多…",
+        "quoteEn": "After three years of taking private gigs, I’ve seen too many people trip over verbal agreements—tax-inclusive price disputes, final payments buried in chat logs, and tax questions with no proper records—so the plain fix is to keep each job’s quote, receipts, and transfer records. A standard set includes a pre-work quote covering scope, timeline, amount, and validity, with an explicit expiry to stop old prices from being reused, though this is only a record-keeping measure, not a guarantee against every dispute.",
+        "publishDate": "2026-08-29",
+        "marketing": false
+      },
+      "src_ff4a8f3b": {
+        "itemId": "src_ff4a8f3b",
+        "title": "从报价到收尾款:自由职业者一单完整闭环该有哪些文件? - 知乎",
+        "url": "https://zhuanlan.zhihu.com/p/2077078306680206194?utm_medium=openapi_platform&utm_source=b38f6831b176",
+        "author": "肖维",
+        "quoteZh": "一、很多人接单只有两步：谈价、干活 然后呢？ ・干完活了，客户拖着不验收 ・验收了，尾款一拖就是两个月 ・你连当初说好的交付范围都记不清了 问题的根源不是客户难搞，而是你的接单流程里只有”口头”和”聊天记录”，没有文件闭环。 做自由职业四年，我把接单流程固定成一套文件体系，每单必走，亲测把扯皮率降到接近零。今天完整拆给你看。 二、一单完整闭环：4份文件，缺一不可 ① 报价单（开工前）—— 锁范围 作用：白纸黑字说清”做什么、多少钱、多久交付”。 必须有的字段： ・项目明细（每一项服务和价格分开列） ・交付物清单（交付什么，验收标准） ・工期与排期 ・报价有效期（防止客户拿旧价来砍） ・付款方式（定金比例、尾款节点） 细节：报价单发出去之前，先自查”如果客户按字面理解，我吃不吃亏”。 ② 合同或确认函（开工前/大额必签）—— 锁责任 报价单是”要约”，合同是”双方确认”。金额大的项目（我定的是 5000 以上）建议签合同或让对方在报价单上签字确认。模板网上一大把，改改就能用。 ③ 收款收据（每次收款后）—— 锁凭证 定金、尾款，每一笔到账都开一张收据发给客户。 理由有三： ・客户财务入…",
+        "quoteEn": "Translation unavailable. Use the Chinese excerpt as the evidence.",
+        "publishDate": "2026-08-29",
+        "marketing": false
+      },
+      "src_1f52283c": {
+        "itemId": "src_1f52283c",
+        "title": "客户问你要发票怎么办?自由职业者和小商家的实用解法 - 知乎",
+        "url": "https://zhuanlan.zhihu.com/p/2077072829816878303?utm_medium=openapi_platform&utm_source=b38f6831b176",
+        "author": "肖维",
+        "quoteZh": "・可以去税务局申请代开发票，或自己领票开具 ・成本：个体户季度 30 万以内免增值税，基本零成本 ・麻烦：需要记账、报税，很多人不想为偶尔几单去搞 2. 无执照的自由职业者 ・可以”代开”：去税务局柜台，带上合同和身份证 ・现在很多城市支持线上代开（电子税务局 APP） ・麻烦：每单都要跑一趟流程，手续费约 1%-2% ・替代：用规范收据 + 合同 + 转账记录组合，多数客户接受 3. 明确只要发票的大公司 ・别硬扛，直接谈税点：发票税点 3%-6% 由谁承担 ・或者走平台结算（猪八戒、一品威客等，平台开票） ・底线：把成本摊进报价里，别自己贴 三、收据到底怎么开才”正规” 很多人觉得收据就是手写一张纸条，其实规范程度决定客户认不认。一份合格的收款收据至少要有： ・收款方名称、联系方式（谁收的钱） ・付款方名称（谁付的钱，报销时财务要这个） ・收款事由/项目明细（对应哪笔业务） ・金额（大小写都要有） ・收款日期、单据编号 ・收款方式（转账/现金/微信） ・签章或签字 以前我开收据用 Word 排版，改个公司名要折腾半天，客户要两份就头疼。后来直接用在线工具生成，填一次信息、实时预览…",
+        "quoteEn": "Options range from tax bureau invoicing (free within the quarterly 300,000 RMB threshold for sole proprietors, but requiring bookkeeping and filing many won't bother with for occasional gigs) to unlicensed freelancers using counter or app-based invoicing at roughly 1%–2% per transaction, or simply combining proper receipts, contracts, and transfer records—which most clients accept. For large companies that insist on invoices, the excerpt suggests negotiating who bears the 3%–6% tax point or settling through platforms that issue invoices, rather than absorbing the cost yourself.",
+        "publishDate": "2026-08-29",
+        "marketing": false
+      },
+      "src_131e7349": {
+        "itemId": "src_131e7349",
+        "title": "自由职业者收据怎么开?这6个细节决定客户财务认不认 - 知乎",
+        "url": "https://zhuanlan.zhihu.com/p/2077076517318936196?utm_medium=openapi_platform&utm_source=b38f6831b176",
+        "author": "肖维",
+        "quoteZh": "1. 标题明确 写”收据”或”收款收据”，别用”收条”“借条”这种模糊字眼。 2. 收付款双方齐全 ・付款方：谁付的钱（客户公司/个人名） ・收款方：你（或你的工作室），最好带联系方式 财务入账时，这两个是必填项。 3. 收款事由 写清楚对应什么业务，比如”官网设计项目尾款”。模糊的”货款”“服务费”容易引起财务追问。 4. 金额大小写 小写 3000.00，大写”人民币叁仟元整”。金额是纠纷高发点，大小写齐了基本没有歧义。 5. 日期 + 编号 收款日期精确到天，编号连续（RC-001、RC-002…）。编号的意义：你和客户都能核对”这是第几笔”，对账不糊涂。 6. 收款方式 + 签章 转账/现金/微信选一个写清楚；个人收款可以手写签名，有章更好。 三、实操演示：一张合格收据的诞生 以前我开收据的流程是：找 Word 模板 → 改公司名 → 改金额 → 打印 → 手写签名。一单 20 分钟，改错一个数字重来。 后来换了思路，用在线单据工具，流程变成： 1.打开 mint.mtdz.site（报价单收据生成网站），切到”收据生成” 1.填收款方、付款方、事由、金额 2.右侧实时预览，…",
+        "quoteEn": "The excerpt advises writing “receipt” rather than vague terms, including both payer and payee details, stating the payment purpose, and recording the amount in both numerals and Chinese characters. It also suggests adding the date, sequential numbering, and payment method with signature—the thinking being that these details reduce ambiguity in financial reconciliation.",
+        "publishDate": "2026-08-29",
+        "marketing": false
+      },
+      "src_9ae1577": {
+        "itemId": "src_9ae1577",
+        "title": "开收据应该注意什么? - 知乎",
+        "url": "https://zhuanlan.zhihu.com/p/2036393268175450694?utm_medium=openapi_platform&utm_source=b38f6831b176",
+        "author": "梁二伯",
+        "quoteZh": "很多行业在实际经营中，仍然以收据作为双方交易的主要凭证，尤其是一些非应税收入（比如人力资源行业的代收代付）、阶段性付款（比如押金、保证金、定金、预付款等），使用收据的场景非常普遍。 作为财务和法律事务中的重要凭证，为确保其有效性、合规性及避免纠纷，必须要注意这些： 一、内容完整性 一张合法有效的收据必须包含以下基本要素： ・标题明确：使用“收据”字样，尽量不要用如“凭证”、“证明”等模糊字样。 ・双方信息清晰：写明收款方与付款方的全称（或姓名）。 ・金额规范：采用大写+小写双轨标注，且必须一致；金额前加“人民币”字样，防止篡改。 ・事由明确：注明款项性质（如“物业费”“押金”“服务费”等）。 ・日期与签署：填写开具日期；个人收款需本人亲笔签名，企业须加盖公章或财务专用章，并注明经办人。 ・唯一编号：每张收据应有连续、唯一的编号，便于追溯。 二、形式与操作规范 ・禁止涂改：收据如果有填写错误，需整联作废并保留，不得撕毁或涂改；确需修改的，应在改动处加盖公章或私章，或者作废之后重新开具。 ・使用合规票据：应使用公司统一印制或经税务/财政部门认可的收据，不得使用自制或非正规票据。",
+        "quoteEn": "Many industries still use receipts as the main evidence of transactions, especially for certain non-taxable income (such as collection-and-payment arrangements in HR) and staged payments (deposits, security deposits, earnest money, prepayments). To support validity and compliance and avoid disputes, a lawful receipt should at least have a clear “receipt” title, the full names of both parties, an amount written consistently in words and figures and prefixed with “RMB,” and a stated purpose such as property fee, deposit, or service fee.",
+        "publishDate": "2026-05-09",
+        "marketing": false
+      },
+      "src_afdf5376": {
+        "itemId": "src_afdf5376",
+        "title": "自由职业避坑档案 :守住三条规则,避开绝大多数尾款纠纷 - 知乎",
+        "url": "https://zhuanlan.zhihu.com/p/2104005602963875753?utm_medium=openapi_platform&utm_source=b38f6831b176",
+        "author": "小雇-自由职业者",
+        "quoteZh": "未结清尾款就交付完整源文件与商用成品是最核心的失误。客户拿到成品后付款动力会直线下降，从业者自此再无约束抓手，所有催款都只能被动等待。 2.依赖口头约定，缺乏书面凭证 报价、付款节点、交付标准只靠随口商定，没有固化为文字记录。一旦出现纠纷，无论是平台介入还是正规维权，都会因证据不足难以推进。 3.情绪化催款，替代结构化催告 频繁发消息质问、抱怨，既说不清核心诉求，也没有明确期限与后果，反而激发对方抵触心理，加速失联。无效拉扯消耗的精力，远大于解决问题本身。 尾款逾期后的标准处理步骤 如果已经遇到拖欠，先离开情绪，按步骤推进，回款概率会显著提升。 1.固定完整证据链 第一时间整理所有凭证。需求约定记录、报价与付款节点说明、各阶段交付凭证、验收确认记录、逾期沟通截图。证据越完整，维权底气越足。 2.发送正式书面催告 停止零散追问，整理一份客观说明。列明项目名称、已交付成果、尾款金额、约定期限、最后付款时限与逾期措施。语气平和，只讲规则，比情绪化质问更有分量。 3.按层级递进维权 期限届满仍未回款，小额订单优先通过接单平台提交证据申请官方介入。金额较高的可发送法务告知函。符合条件的订单可走…",
+        "quoteEn": "Translation unavailable. Use the Chinese excerpt as the evidence.",
+        "publishDate": "2026-11-11",
+        "marketing": false
+      },
+      "src_f2ff73ce": {
+        "itemId": "src_f2ff73ce",
+        "title": "投诉前准备清单 + 工信部清欠平台投诉模板 - 知乎",
+        "url": "https://zhuanlan.zhihu.com/p/2103852404424949896?utm_medium=openapi_platform&utm_source=b38f6831b176",
+        "author": "清欠政策免费指导",
+        "quoteZh": "前置说明：理性维权，不闹事、不夸大，只走合规渠道 免责：仅政策科普、模板参考，不代办、不承诺回款，投诉最终结果以平台、甲方、主管部门核查为准 很多供应商知道工信部清欠投诉平台，但是证据没备齐、内容写得乱七八糟，投诉下发之后，一句“存在争议、正在走流程”就结案，等于白投诉。 投诉不是写小作文，核心目的只有3件事：确认债权、推动对账确权、要求纳入清欠台账、出具书面还款安排。 下面是投诉前检查清单 + 可直接复制的投诉内容模板。 一、投诉前必备材料清单（建议先存一套PDF） ✅ 1. 合同原件扫描件（重点圈：采购方、合同金额、付款节点、验收约定） ✅ 2. 验收单/交付确认单（盖章或者对接人签字，证明你已经履约完成） ✅ 3. 对账函、结算单（有盖章最好；没有盖章，微信/邮件对账记录也要导出带时间戳） ✅ 4. 历次催款记录：催告函、邮件、微信、短信（截图，保留原始时间） ✅ 5. 中小企业声明函（非常关键！没有这个，条例保护不生效） ✅ 6. 发票开具记录（开票记录、签收记录） ✅ 7. 对方已经支付的凭证（已回款流水，证明合作真实，不是纠纷） ❌ 不建议：只放聊天截图、没有合同、没有验…",
+        "quoteEn": "Many suppliers know about the MIIT complaint platform, but without complete evidence and clearly written submissions, complaints are often closed with a vague \"dispute exists, process underway\" response—amounting to a wasted effort. A complaint is not an essay; its core purpose is to confirm the debt, push for reconciliation and rights confirmation, and secure inclusion in the clearance ledger with a written repayment arrangement.",
+        "publishDate": "2026-11-11",
+        "marketing": false
+      },
+      "src_584118f8": {
+        "itemId": "src_584118f8",
+        "title": "催款函怎么写:从事实、金额到付款要求的完整写法 - 知乎",
+        "url": "https://zhuanlan.zhihu.com/p/2069020409920484947?utm_medium=openapi_platform&utm_source=b38f6831b176",
+        "author": "明知LEGAL",
+        "quoteZh": "催款函 编号：【】 致：【债务人完整名称/姓名】 我方与贵方于【日期】签订《【合同名称】》（编号：【】），约定【简述交易内容及付款条款】。我方已完成【履行内容】，相关依据包括【合同、订单、签收单、验收单、结算单、对账单等】。 截至【统计日期】，贵方应付人民币【】元，已付人民币【】元，尚欠已到期本金人民币【】元。具体明细如下：【分笔列明款项性质、金额及到期日，或者写\"详见附件《欠款明细表》\"】。 根据《【合同名称】》第【】条及【相应法律依据】，贵方还应承担【利息/违约金/逾期付款损失，请按具体关系选择并判断能否并存】。截至【统计日期】暂计人民币【】元，计算方式为【计算基数×计算标准×计算期间】。【没有明确依据或尚未核算时，删除本段，改为\"我方保留依法或依约主张逾期付款责任的权利\"。】 现正式要求贵方于【具体年月日】前/本函到达之日起【】日内（二选一），将人民币【】元支付至以下账户： 户名：【】 开户行：【】 账号：【】 付款备注：【合同/项目/发票编号】 如贵方对欠款金额或付款条件有异议，请于【具体年月日】前书面提出并附相关依据；如已经付款，请及时提供付款凭证。贵方未在该期限内回复，不…",
+        "quoteEn": "The demand-letter template, numbered [ ] and addressed to [full debtor name], states that under a named contract dated [date] the creditor has completed performance—supported by documents such as the contract, order, signed receipt, acceptance form, settlement statement, or reconciliation statement—and that, as of [date], the debtor allegedly still owes RMB [ ] in matured principal after paying RMB [ ], with itemized or attached details. It further asserts that, under the cited contract clause and legal basis, the debtor should also bear interest, penalty, liquidated damages, or overdue-paymen",
+        "publishDate": "2026-08-07",
+        "marketing": false
+      },
+      "src_2605f5ad": {
+        "itemId": "src_2605f5ad",
+        "title": "如何有效收回欠款(催款函干货、含模板) - 知乎",
+        "url": "https://zhuanlan.zhihu.com/p/1974936827317220897?utm_medium=openapi_platform&utm_source=b38f6831b176",
+        "author": "小虎",
+        "quoteZh": "第二步：列清单——确保催款函必备要素齐全 无论哪种目的，以下六大要素缺一不可，请像核对清单一样逐一填写： 1.双方信息： 债权方（您）与债务方的全称。 2.欠款事实： 清晰陈述“为什么欠钱”。包括：基础合同/协议名称与编号、借款/交易日期、欠款总金额（务必同时写上大写和小写。 3.逾期情况： 明确“欠了多久”。包括：合同约定的付款日期、实际逾期天数。如果合同有约定，写明逾期利息或违约金。 4.催告要求： 明确提出“要对方做什么”。包括：一个明确的最后还款期限。 5.法律后果： 明确告知“不做的后果是什么”。根据催款阶段，从“可能影响贵方信用记录”到“我将依法提起诉讼，追偿全部欠款及由此产生的律师费、诉讼费等”逐步升级。 6.落款： 债权方盖章或签字，以及发函日期。这是函件生效的关键。 第三步：套模板——分场景实战演练（可直接套用） 模板1：友好提醒函（首次/轻微逾期） 标题： 付款提醒函 正文： 致：[债务方全称] 尊敬的[债务方联系人姓名/职务]： 您好！ 感谢贵公司长期以来的支持。经核查，贵我双方于[日期]签订的《[合同名称]》（编号：[XXX]）中约定，贵方应于[约定还款日期]…",
+        "quoteEn": "Step two: make a checklist—ensure the debt collection letter includes all essential elements. Regardless of the purpose, the following six elements are indispensable; fill them in one by one as if checking a list: 1. Information of both parties: the full names of the creditor (you) and the debtor. 2. Facts of the debt: clearly state \"why money is owed,\" including the name and number of the underlying contract/agreement, the loan/transaction date, and the total amount owed (be sure to write both the amount in words and in figures). 3. Overdue status: clearly state \"how long it has been overdue,",
+        "publishDate": "2025-11-20",
+        "marketing": false
+      },
+      "src_27cc39a7": {
+        "itemId": "src_27cc39a7",
+        "title": "催款函模板:照着改就能用,一封信让快过期的钱重新起算 - 知乎",
+        "url": "https://zhuanlan.zhihu.com/p/2071544548422166030?utm_medium=openapi_platform&utm_source=b38f6831b176",
+        "author": "郭婷婷律师",
+        "quoteZh": "我司已按约定完成XXXX（施工/供货/劳务），并于XXXX年X月X日经贵司确认（结算/验收/对账），应付价款为人民币XXXX元。截至本函发出之日，贵司已支付人民币XXXX元，尚欠人民币XXXX元未付（大写：XXXX）。 根据约定，上述款项应于XXXX年X月X日前支付，现已逾期。请贵司于收到本函之日起XX日内（最迟不迟于XXXX年X月X日）向以下账户付清全部欠款： 户名：XXX 账号：XXX 开户行：XXX 如贵司逾期仍未支付，我司将依法采取下列措施，由此产生的一切法律后果及费用由贵司承担： 1. 依据合同约定及法律规定，主张欠付款项自应付之日起的逾期利息及违约金； 2. 依法向人民法院提起诉讼（或申请仲裁），并申请财产保全； 3. 依法将贵司欠款情况纳入征信、执行等公开信息。 本函同时作为我司主张权利的书面凭证，特此函告。 此致 XXX公司（盖章） XXXX年X月X日 附：1. 合同复印件；2. 结算单/对账单/欠条复印件；3. 已付款凭证清单。 03用之前，这几件事务必做对 第一，送达方式决定成败。 催款函最大的坑是\"发了等于没发\"——诉讼时效中断的前提是\"提出履行请求\"，要有证据…",
+        "quoteEn": "The company states that it completed the agreed XXXX (construction/supply/services), that your company confirmed this on [date] (settlement/acceptance/reconciliation) with RMB XXXX payable, and that, as of the date of this letter, RMB XXXX has been paid and RMB XXXX (in words: XXXX) remains outstanding and was due by [date] but is now overdue. It requests full payment to the specified account within XX days of receipt (and no later than [date]) and asserts that, failing payment, it will claim overdue interest and liquidated damages from the due date under the contract and law and may bring cou",
+        "publishDate": "2026-08-15",
+        "marketing": false
+      },
+      "src_2d54d285": {
+        "itemId": "src_2d54d285",
+        "title": "大学生免费领养小猫背上九千多元分期债务，逾期年化利率131.4%，「猫贷」可能有哪些坑？法律上合理吗？",
+        "url": "https://www.zhihu.com/question/2103824514869978098?utm_medium=openapi_platform&utm_source=b38f6831b176",
+        "author": "匿名用户",
+        "quoteZh": "广州大三学生小丽没想到，一次“免费领养小猫”的决定，会让自己背上9552元的分期债务，以及一个年化131.4%的利息陷阱。这并非孤例。记者暗访线下门店、深入线上直播间，发现社交平台上大量“免费领养”“只送不卖”的帖子及直播，正把领养人一步步推向“猫贷”。 [图片] 记者比对多份“猫贷”协议发现，其合同条款高度雷同，普遍写有高额违约金、宠物死亡仍须继续履约、禁止消费者曝光等条款，风险层层叠加。在黑猫投诉平台，以“猫贷…",
+        "quoteEn": "A Guangzhou junior student reportedly ended up with 9,552 yuan in installment debt and an annualized 131.4% interest trap after a “free cat adoption,” and reporters found similar “free adoption” and “give-only” posts and livestreams steering adopters toward “cat loans.” Reviews of multiple agreements reportedly show highly similar terms—steep penalties, continued payments even if the pet dies, and bans on public exposure—while complaints on Black Cat also point to such risks.",
+        "publishDate": "unknown",
+        "marketing": false
+      }
+    },
+    "aiDisclosureZh": "LLM 仅辅助语义编码、归纳和双语表达；研究执行、计数和报告重算由确定性代码完成。用户可以修改证据、编码和主题；人工可回查原文。",
+    "aiDisclosureEn": "LLM only assists semantic coding, synthesis and bilingual phrasing; execution, counts and report recomputation are deterministic. Users can edit evidence, codes and themes; every claim can be traced to the original post.",
+    "generatedAt": "2026-11-12T10:16:54.413Z",
+    "demo": true
+  },
+  "studyId": "study_1794427479121"
+}

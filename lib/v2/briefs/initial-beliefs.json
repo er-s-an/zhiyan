@@ -1,0 +1,36 @@
+{
+  "study_1794427479121": {
+    "decisionQuestionZh": "海外 OPC 是否应该投入开发一款面向中国自由职业者的 AI 合同与回款工具，首版先做什么？",
+    "decisionQuestionEn": "Should a global OPC invest in an AI contract and payment-collection tool for Chinese freelancers, and what should the first version do?",
+    "productIdeaZh": "面向中国自由职业者的 AI 合同与回款工具",
+    "productIdeaEn": "An AI contract and payment-collection tool for Chinese freelancers",
+    "targetUsersZh": [
+      "中国自由职业者：设计师、开发者、撰稿人、顾问"
+    ],
+    "targetUsersEn": [
+      "Chinese freelancers: designers, developers, writers, consultants"
+    ],
+    "assumptionsZh": [
+      "自由职业者最痛的不是写合同，而是报价、改需求、验收和尾款回收的链条。",
+      "合同模板、电子签和平台担保不足以解决实际纠纷，因此存在工具机会。",
+      "自由职业者可能愿意为降低回款风险付费，但付费意愿不能由知乎讨论证明。"
+    ],
+    "assumptionsEn": [
+      "The hardest part is not writing a contract, but the chain of quoting, scope changes, acceptance and collecting final payment.",
+      "Templates, e-signature and platform guarantees do not solve the actual disputes, so there is room for a tool.",
+      "Freelancers may pay to reduce collection risk, but willingness to pay cannot be proven by Zhihu posts."
+    ],
+    "concernsZh": [
+      "这个痛点可能真实，但频率和付费价值不足以支撑一个独立产品。",
+      "合同模板、电子签或平台担保可能已经足够。",
+      "付费意愿不能由知乎讨论证明。"
+    ],
+    "concernsEn": [
+      "The pain may be real but not frequent or valuable enough to support a standalone product.",
+      "Contract templates, e-signature or platform guarantees may already be sufficient.",
+      "Willingness to pay cannot be proven by Zhihu discussion."
+    ],
+    "capturedAt": "2026-11-11T19:45:19.630Z",
+    "planVersion": 1
+  }
+}

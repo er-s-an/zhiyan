@@ -28,6 +28,17 @@ export interface ExploreProgress {
   query?: string;
 }
 
+export interface RoundExplorationState {
+  round: number;
+  runs: QueryRunV2[];
+  sample: SampleItemV2[];
+  vocabulary: VocabularyItemV2[];
+  plan: ResearchPlanV2;
+  nextQueries: QuerySeedV2[];
+  stopReasonZh?: string;
+  stopReasonEn?: string;
+}
+
 interface Candidate {
   content: ZhihuContent;
   queryRunId: string;
@@ -414,6 +425,7 @@ export async function runAdaptiveExploration(
   inputPlan: ResearchPlanV2,
   port: ExplorePort,
   onProgress?: (progress: ExploreProgress) => void,
+  onRound?: (state: RoundExplorationState) => void,
 ): Promise<ExplorationResult> {
   let plan = inputPlan;
   const runs: QueryRunV2[] = [];
@@ -516,8 +528,17 @@ export async function runAdaptiveExploration(
   if (newVocabulary.length > 0) {
     const seeds = await proposeNextQueries(1, newVocabulary, sample, plan, counterDone);
     if (seeds.length > 0) {
+      const before = plan.queryMatrix.length;
       plan = extendPlan(plan, seeds, "第一轮检索发现新表达，追加查询", "Round-one retrieval surfaced new expressions; added follow-up queries");
-      const fresh = plan.queryMatrix.slice(plan.queryMatrix.length - seeds.length);
+      const fresh = plan.queryMatrix.slice(before);
+      onRound?.({
+        round: 0,
+        runs: runs.filter((run) => run.round === 0),
+        sample,
+        vocabulary,
+        plan,
+        nextQueries: fresh,
+      });
       for (const seed of fresh) {
         if (runs.length >= plan.budget.maxQueries) break;
         await runQuery({ ...seed, isCounterExample: seed.isCounterExample }, 1);
@@ -525,6 +546,9 @@ export async function runAdaptiveExploration(
       allTerms = [...new Set([...allTerms, ...newVocabulary.map((item) => item.raw)])];
       if (fresh.some((seed) => seed.isCounterExample)) counterDone = true;
     }
+  }
+  if (runs.filter((run) => run.round === 0).length > 0 && !runs.some((run) => run.round === 1)) {
+    onRound?.({ round: 0, runs: runs.filter((run) => run.round === 0), sample, vocabulary, plan, nextQueries: [] });
   }
   round = 2;
 
@@ -541,6 +565,14 @@ export async function runAdaptiveExploration(
       const before = plan.queryMatrix.length;
       plan = extendPlan(plan, withCounter, "第二轮补齐覆盖缺口并执行反例检索", "Round two fills coverage gaps and runs counter-example retrieval");
       const fresh = plan.queryMatrix.slice(before);
+      onRound?.({
+        round: 1,
+        runs: runs.filter((run) => run.round === 1),
+        sample,
+        vocabulary,
+        plan,
+        nextQueries: fresh,
+      });
       for (const seed of fresh) {
         if (runs.length >= plan.budget.maxQueries) break;
         await runQuery(seed, 2);
@@ -548,6 +580,10 @@ export async function runAdaptiveExploration(
       allTerms = [...new Set([...allTerms, ...newVocabulary.map((item) => item.raw)])];
       if (withCounter.some((seed) => seed.isCounterExample)) counterDone = true;
     }
+  }
+
+  if (runs.some((run) => run.round === 1) && !runs.some((run) => run.round === 2)) {
+    onRound?.({ round: 1, runs: runs.filter((run) => run.round === 1), sample, vocabulary, plan, nextQueries: [] });
   }
 
   // Hot list is a scan only; include only if clearly relevant.
@@ -599,8 +635,8 @@ export async function runAdaptiveExploration(
   const coverage = buildCoverage(plan, sample, vocabulary);
   const included = sample.filter((item) => item.included);
   if (runs.length >= plan.budget.maxQueries) {
-    stopReasonZh = "达到研究预算（查询次数或候选样本上限），本次预算内主题趋于稳定。";
-    stopReasonEn = "Reached the research budget (query or candidate cap); themes stabilized within this budget.";
+    stopReasonZh = "达到查询/候选预算上限。这是预算停止，不宣称主题饱和；仍有覆盖缺口需在质检中披露。";
+    stopReasonEn = "Reached the query/candidate budget. This is a budget stop, not a claim of saturation; remaining coverage gaps are disclosed in Quality.";
   } else if (vocabulary.length === 0) {
     stopReasonZh = "连续检索没有出现新的重要主题，按停止规则结束。";
     stopReasonEn = "No important new themes appeared in the latest round; stopped by rule.";
@@ -612,6 +648,7 @@ export async function runAdaptiveExploration(
     stopReasonEn = "Themes stabilized within this budget; remaining coverage gaps are disclosed in Quality.";
   }
 
+  onRound?.({ round: 2, runs: runs.filter((run) => run.round === 2), sample, vocabulary, plan, nextQueries: [], stopReasonZh, stopReasonEn });
   onProgress?.({ step: "done", messageZh: stopReasonZh, messageEn: stopReasonEn });
   return {
     plan,

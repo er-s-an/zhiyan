@@ -1,0 +1,287 @@
+{
+  "included": 41,
+  "sampleSize": 61,
+  "inclusionRate": 67.2,
+  "roleUnclear": 0,
+  "marketingIncluded": 0,
+  "weakIncluded": [],
+  "vocab": [
+    {
+      "raw": "款清交源文件",
+      "type": "alternative",
+      "exact": true,
+      "legal": false,
+      "sourceIncluded": true,
+      "proposedQuery": "款清交源文件 尾款 纠纷 自由职业"
+    },
+    {
+      "raw": "带水印的低清预览版",
+      "type": "alternative",
+      "exact": true,
+      "legal": false,
+      "sourceIncluded": true,
+      "proposedQuery": "带水印 低清 预览版 交源文件 尾款"
+    },
+    {
+      "raw": "视为验收",
+      "type": "task",
+      "exact": true,
+      "legal": false,
+      "sourceIncluded": true,
+      "proposedQuery": "视为验收 条款 甲方 不验收 尾款"
+    },
+    {
+      "raw": "需求变更书面确认",
+      "type": "task",
+      "exact": true,
+      "legal": false,
+      "sourceIncluded": true,
+      "proposedQuery": "需求变更 书面确认 合同 外包"
+    },
+    {
+      "raw": "证据链",
+      "type": "task",
+      "exact": true,
+      "legal": false,
+      "sourceIncluded": true,
+      "proposedQuery": "接私活 尾款 证据链 维权"
+    },
+    {
+      "raw": "资金托管",
+      "type": "alternative",
+      "exact": true,
+      "legal": false,
+      "sourceIncluded": true,
+      "proposedQuery": "接私活 资金托管 平台 开工"
+    },
+    {
+      "raw": "报价单",
+      "type": "task",
+      "exact": true,
+      "legal": false,
+      "sourceIncluded": false,
+      "proposedQuery": "自由职业 报价单 模板 合同 尾款"
+    },
+    {
+      "raw": "收款收据",
+      "type": "task",
+      "exact": true,
+      "legal": false,
+      "sourceIncluded": false,
+      "proposedQuery": "自由职业 收款收据 编号 尾款 凭证"
+    },
+    {
+      "raw": "正式书面催告",
+      "type": "alternative",
+      "exact": true,
+      "legal": false,
+      "sourceIncluded": false,
+      "proposedQuery": "尾款 拖欠 书面催告 模板 自由职业"
+    },
+    {
+      "raw": "不正当阻止条件成就",
+      "type": "stance",
+      "exact": true,
+      "legal": true,
+      "sourceIncluded": true,
+      "proposedQuery": "甲方 拖延验收 不正当阻止条件成就 尾款"
+    },
+    {
+      "raw": "修改次数",
+      "type": "task",
+      "exact": true,
+      "legal": false,
+      "sourceIncluded": true,
+      "proposedQuery": "自由职业 合同 修改次数 修改范围 加钱"
+    },
+    {
+      "raw": "加密链接",
+      "type": "alternative",
+      "exact": true,
+      "legal": false,
+      "sourceIncluded": false,
+      "proposedQuery": "交付 加密链接 有效期 尾款 自由职业"
+    }
+  ],
+  "queries": [
+    {
+      "round": 0,
+      "query": "自由职业 接单 合同 尾款",
+      "terms": 4,
+      "results": 5,
+      "included": 5,
+      "dimension": "task"
+    },
+    {
+      "round": 0,
+      "query": "私活 改需求 加钱",
+      "terms": 3,
+      "results": 5,
+      "included": 4,
+      "dimension": "symptom"
+    },
+    {
+      "round": 0,
+      "query": "外包 验收 尾款 不给",
+      "terms": 4,
+      "results": 5,
+      "included": 5,
+      "dimension": "scene"
+    },
+    {
+      "round": 0,
+      "query": "约稿 定金 尾款 拖稿",
+      "terms": 4,
+      "results": 5,
+      "included": 3,
+      "dimension": "task"
+    },
+    {
+      "round": 0,
+      "query": "自由职业 合同 模板 电子签",
+      "terms": 4,
+      "results": 5,
+      "included": 5,
+      "dimension": "alternative"
+    },
+    {
+      "round": 0,
+      "query": "接私活 合同 有必要吗",
+      "terms": 3,
+      "results": 5,
+      "included": 1,
+      "dimension": "stance"
+    },
+    {
+      "round": 1,
+      "query": "款清交源文件 尾款 纠纷 自由职业",
+      "terms": 4,
+      "results": 5,
+      "included": 3,
+      "dimension": "alternative"
+    },
+    {
+      "round": 1,
+      "query": "带水印 低清 预览版 交源文件 尾款",
+      "terms": 5,
+      "results": 5,
+      "included": 4,
+      "dimension": "alternative"
+    },
+    {
+      "round": 1,
+      "query": "视为验收 条款 甲方 不验收 尾款",
+      "terms": 5,
+      "results": 5,
+      "included": 3,
+      "dimension": "task"
+    },
+    {
+      "round": 2,
+      "query": "自由职业 合同 没必要 熟人",
+      "terms": 4,
+      "results": 5,
+      "included": 5,
+      "dimension": "counter"
+    },
+    {
+      "round": 2,
+      "query": "自由职业 收款收据 尾款 凭证 编号",
+      "terms": 5,
+      "results": 5,
+      "included": 4,
+      "dimension": "task"
+    },
+    {
+      "round": 2,
+      "query": "尾款 拖欠 正式书面催告 模板 自由职业",
+      "terms": 5,
+      "results": 5,
+      "included": 4,
+      "dimension": "task"
+    }
+  ],
+  "findings": [
+    {
+      "id": "finding_3e2873ec",
+      "category": "population_scene",
+      "evidence": 3,
+      "authors": 3,
+      "counter": 0,
+      "sameAuthorOnly": false,
+      "aiSeparated": true
+    },
+    {
+      "id": "finding_b87fa1a4",
+      "category": "task_pain",
+      "evidence": 3,
+      "authors": 2,
+      "counter": 1,
+      "sameAuthorOnly": false,
+      "aiSeparated": true
+    },
+    {
+      "id": "finding_fe5937a1",
+      "category": "task_pain",
+      "evidence": 3,
+      "authors": 3,
+      "counter": 1,
+      "sameAuthorOnly": false,
+      "aiSeparated": true
+    },
+    {
+      "id": "finding_d6e83f42",
+      "category": "alternative",
+      "evidence": 2,
+      "authors": 1,
+      "counter": 1,
+      "sameAuthorOnly": true,
+      "aiSeparated": true
+    },
+    {
+      "id": "finding_d9764ef5",
+      "category": "choice_reason",
+      "evidence": 3,
+      "authors": 2,
+      "counter": 0,
+      "sameAuthorOnly": false,
+      "aiSeparated": true
+    },
+    {
+      "id": "finding_1743d6a9",
+      "category": "disagreement",
+      "evidence": 3,
+      "authors": 3,
+      "counter": 1,
+      "sameAuthorOnly": false,
+      "aiSeparated": true
+    },
+    {
+      "id": "finding_8bed3586",
+      "category": "disagreement",
+      "evidence": 3,
+      "authors": 3,
+      "counter": 1,
+      "sameAuthorOnly": false,
+      "aiSeparated": true
+    },
+    {
+      "id": "finding_6a5879a6",
+      "category": "unknown_gap",
+      "evidence": 3,
+      "authors": 2,
+      "counter": 0,
+      "sameAuthorOnly": false,
+      "aiSeparated": true
+    }
+  ],
+  "contradictions": {
+    "stopTextConflatesSaturation": false,
+    "candidateMetric": {
+      "candidatesScanned": 60,
+      "sampleSize": 61,
+      "searchResults": 60,
+      "hotIncluded": 1
+    }
+  }
+}

@@ -50,9 +50,9 @@ export default function ExamplesPage() {
           </p>
           {main ? (
             <div className="v2-home-stats">
-              <span>{main.includedCount} {lang === "zh" ? "条纳入样本" : "included samples"}</span>
-              <span>{main.findingCount} {lang === "zh" ? "条发现" : "findings"}</span>
-              <span>{main.vocabularyCount} {lang === "zh" ? "个新关键词" : "new keywords"}</span>
+              <span>{main.opportunityCount ?? 2} {lang === "zh" ? "个机会假设" : "opportunity hypotheses"}</span>
+              <span>{main.beliefUpdateCount ?? 3} {lang === "zh" ? "条认知更新" : "belief updates"}</span>
+              <span>{main.includedCount} {lang === "zh" ? "条可回查证据" : "traceable evidence items"}</span>
             </div>
           ) : null}
           <div className="v2-row" style={{ marginTop: 14 }}>

@@ -6,11 +6,13 @@
       "titleEn": "Global OPC × Chinese freelancers: AI contract and payment tool",
       "subtitleZh": "从知乎真实讨论中发现报价、改需求、验收和尾款的原生表达与反例",
       "subtitleEn": "Discover native language and counter-evidence around quoting, scope changes, acceptance and late payment",
-      "includedCount": 47,
+      "includedCount": 41,
       "findingCount": 8,
       "vocabularyCount": 12,
       "generatedAt": "2026-11-11T20:04:39.121Z",
-      "demo": true
+      "demo": true,
+      "opportunityCount": 2,
+      "beliefUpdateCount": 3
     }
   ]
 }

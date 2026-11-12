@@ -1,10 +1,11 @@
-import { runAdaptiveExploration, type ExplorePort } from "./explore";
+import { runAdaptiveExploration, type ExplorePort, type RoundExplorationState } from "./explore";
 import { buildDecisionMemo, buildReport, codeSamples, induceCodebook, projectStudy, synthesizeFindings } from "./semantic";
 import type { ResearchPlanV2, StudyV2 } from "./types";
 
 export interface PipelineDeps {
   port: ExplorePort;
   lite?: boolean;
+  onRound?: (state: RoundExplorationState) => void;
   onProgress?: (progress: { step: string; messageZh: string; messageEn: string; query?: string }) => void;
 }
 
@@ -13,7 +14,12 @@ export async function runStudy(plan: ResearchPlanV2, confirmed: boolean, deps: P
   if (plan.queryMatrix.length === 0) throw new Error("PLAN_INVALID");
   if (!plan.methodGate) throw new Error("METHOD_GATE_REQUIRED");
 
-  const exploration = await runAdaptiveExploration(plan, deps.port, deps.onProgress && ((progress) => deps.onProgress?.({ step: progress.step, messageZh: progress.messageZh, messageEn: progress.messageEn, query: progress.query })));
+  const exploration = await runAdaptiveExploration(
+    plan,
+    deps.port,
+    deps.onProgress && ((progress) => deps.onProgress?.({ step: progress.step, messageZh: progress.messageZh, messageEn: progress.messageEn, query: progress.query })),
+    deps.onRound,
+  );
   const included = exploration.sample.filter((item) => item.included);
   if (included.length === 0) throw new Error("NO_INCLUDED_SAMPLES");
 

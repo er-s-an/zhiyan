@@ -1,20 +1,32 @@
 "use client";
 
-import { Suspense, useEffect, useMemo, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
-import { ArrowRight, Download, PencilLine, RefreshCw } from "lucide-react";
+import { Download, PencilLine } from "lucide-react";
 import { useLang } from "../components/LanguageProvider";
+import { buildHeuristicBrief, recomputeBrief } from "../../lib/v2/brief";
+import type { DecisionBriefV21 } from "../../lib/v2/brief";
+import type { PublicJob } from "../../lib/v2/jobs";
+import { downloadMarkdown, briefMarkdown } from "../../lib/v2/export";
 import { projectStudy } from "../../lib/v2/semantic";
 import type { StudyV2 } from "../../lib/v2/types";
-import { AnalysisView, DeliveryView, ExploreView, ProtocolView, QualityView, SampleView } from "./views-v2";
+import { DecisionBriefView, EvidenceQualityView, JobProgressView, ResearchProcessView } from "./views-v21";
 
-const TABS = ["explore", "protocol", "sample", "analysis", "quality", "delivery"] as const;
+const TABS = ["brief", "process", "evidence"] as const;
 type Tab = (typeof TABS)[number];
 
-function isTab(value: string | null): value is Tab {
-  return TABS.includes(value as Tab);
-}
+const VIEW_MAP: Record<string, Tab> = {
+  brief: "brief",
+  process: "process",
+  evidence: "evidence",
+  explore: "process",
+  protocol: "process",
+  sample: "evidence",
+  analysis: "evidence",
+  quality: "evidence",
+  delivery: "brief",
+};
 
 function readStudy(): StudyV2 | null {
   try {
@@ -25,22 +37,74 @@ function readStudy(): StudyV2 | null {
   }
 }
 
+function readBrief(): DecisionBriefV21 | null {
+  try {
+    const raw = window.localStorage.getItem("zhiyan.v21.brief");
+    return raw ? (JSON.parse(raw) as DecisionBriefV21) : null;
+  } catch {
+    return null;
+  }
+}
+
 function Workbench() {
   const params = useSearchParams();
   const { lang, t } = useLang();
   const demoId = params.get("demo");
+  const jobId = params.get("job");
   const rawView = params.get("view");
-  const view: Tab = isTab(rawView) ? rawView : "explore";
+  const view: Tab = rawView ? VIEW_MAP[rawView] || "brief" : "brief";
   const [study, setStudy] = useState<StudyV2 | null>(null);
+  const [brief, setBrief] = useState<DecisionBriefV21 | null>(null);
+  const [job, setJob] = useState<PublicJob | null>(null);
   const [demo, setDemo] = useState(false);
   const [ready, setReady] = useState(false);
   const [error, setError] = useState("");
 
   useEffect(() => {
     let cancelled = false;
+    let timer: ReturnType<typeof setTimeout> | undefined;
+
+    async function fetchJob() {
+      if (!jobId) return;
+      try {
+        const response = await fetch(`/api/v2/jobs/${encodeURIComponent(jobId)}`);
+        if (!response.ok) throw new Error("JOB_NOT_FOUND");
+        const body = (await response.json()) as { job?: PublicJob };
+        if (!body.job) throw new Error("JOB_NOT_FOUND");
+        if (cancelled) return;
+        setJob(body.job);
+        if (body.job.status === "running" || body.job.status === "queued") setReady(true);
+        if (body.job.status === "completed" && body.job.study) {
+          const nextBrief = body.job.brief || buildHeuristicBrief(body.job.study);
+          window.localStorage.setItem("zhiyan.v2.study", JSON.stringify(body.job.study));
+          window.localStorage.setItem("zhiyan.v2.plan", JSON.stringify(body.job.plan));
+          window.localStorage.setItem("zhiyan.v21.brief", JSON.stringify(nextBrief));
+          setStudy(body.job.study);
+          setBrief(nextBrief);
+          setDemo(false);
+          setReady(true);
+          return;
+        }
+        if (body.job.status === "failed") {
+          setReady(true);
+          return;
+        }
+        timer = setTimeout(fetchJob, 2000);
+      } catch {
+        if (!cancelled) {
+          setError(t("workbench.liveFailed"));
+          setReady(true);
+        }
+      }
+    }
+
     async function load() {
       setReady(false);
       setError("");
+      if (jobId) {
+        await fetchJob();
+        return;
+      }
       if (demoId) {
         try {
           const response = await fetch(`/api/v2/demos/${encodeURIComponent(demoId)}`);
@@ -50,7 +114,19 @@ function Workbench() {
           if (cancelled) return;
           window.localStorage.setItem("zhiyan.v2.study", JSON.stringify(body.study));
           window.localStorage.setItem("zhiyan.v2.plan", JSON.stringify(body.study.plan));
+          let nextBrief: DecisionBriefV21 | null = null;
+          if (demoId === "main-case") {
+            const briefResponse = await fetch("/api/v2/briefs/main-case");
+            if (briefResponse.ok) {
+              const briefBody = (await briefResponse.json()) as { brief?: DecisionBriefV21 };
+              nextBrief = briefBody.brief ?? null;
+            }
+          }
+          if (!nextBrief) nextBrief = buildHeuristicBrief(body.study);
+          if (cancelled) return;
+          window.localStorage.setItem("zhiyan.v21.brief", JSON.stringify(nextBrief));
           setStudy(body.study);
+          setBrief(nextBrief);
           setDemo(true);
         } catch {
           if (!cancelled) setError(t("workbench.liveFailed"));
@@ -60,37 +136,75 @@ function Workbench() {
         return;
       }
       const stored = readStudy();
+      if (!stored) {
+        setReady(true);
+        return;
+      }
+      const storedBrief = readBrief() || buildHeuristicBrief(stored);
       if (cancelled) return;
       setStudy(stored);
-      setDemo(Boolean(stored?.demo));
+      setBrief(storedBrief);
+      setDemo(stored.demo);
       setReady(true);
     }
     void load();
     return () => {
       cancelled = true;
+      if (timer) clearTimeout(timer);
     };
-  }, [demoId, t]);
+  }, [demoId, jobId, t]);
 
-  const visibleFindings = useMemo(() => study?.findings.filter((finding) => !finding.hidden).length || 0, [study]);
-
-  function commit(next: StudyV2) {
-    const projected = projectStudy(next);
+  function commit(nextStudy: StudyV2) {
+    const projected = projectStudy(nextStudy);
+    const nextBrief = brief ? recomputeBrief(brief, projected) : buildHeuristicBrief(projected);
     window.localStorage.setItem("zhiyan.v2.study", JSON.stringify(projected));
+    window.localStorage.setItem("zhiyan.v21.brief", JSON.stringify(nextBrief));
     setStudy(projected);
+    setBrief(nextBrief);
   }
 
-  if (!ready) {
-    return <div className="v2-loading"><span className="v2-spinner" /> {t("workbench.loading")}</div>;
+  function exportBrief() {
+    if (!brief || !study) return;
+    downloadMarkdown(briefMarkdown(brief, study, lang), `zhiyan-v21-brief-${lang}.md`);
   }
 
-  if (!study) {
+  async function retry() {
+    if (!jobId) return;
+    try {
+      await fetch(`/api/v2/jobs/${encodeURIComponent(jobId)}/retry`, { method: "POST" });
+      window.location.reload();
+    } catch {
+      window.location.reload();
+    }
+  }
+
+  if (!ready) return <div className="v2-loading"><span className="v2-spinner" /> {t("workbench.loading")}</div>;
+
+  if (jobId && job && job.status !== "completed") {
+    return (
+      <main className="v2-page">
+        <header className="v2-study-head">
+          <p className="v2-kicker">{lang === "zh" ? "V2.1 · 后台研究任务" : "V2.1 · Background study job"}</p>
+          <h1>{lang === "zh" ? job.plan.decisionZh : job.plan.decisionEn}</h1>
+          <div className="v2-study-meta">
+            <span className="v2-tag v2-tag-blue">{job.mode === "lite" ? (lang === "zh" ? "轻量实时" : "Lightweight live") : (lang === "zh" ? "完整实时" : "Full live")}</span>
+            <span className="v2-tag">{job.status}</span>
+            <span className="v2-tag">{job.rounds.length} / 3 {lang === "zh" ? "轮完成" : "rounds done"}</span>
+          </div>
+        </header>
+        <JobProgressView job={job} onRetry={() => void retry()} />
+      </main>
+    );
+  }
+
+  if (!study || !brief) {
     return (
       <main className="v2-page">
         <div className="v2-card v2-empty">
           <h2>{t("workbench.empty")}</h2>
           <p>{t("workbench.emptyDesc")}</p>
           <div className="v2-row">
-            <Link className="v2-btn v2-btn-primary" href="/">{t("home.start")} <ArrowRight size={14} /></Link>
+            <Link className="v2-btn v2-btn-primary" href="/">{t("home.start")}</Link>
             <Link className="v2-btn" href="/workbench?demo=main-case">{t("home.openExample")}</Link>
           </div>
           {error ? <p className="v2-error">{error}</p> : null}
@@ -99,15 +213,10 @@ function Workbench() {
     );
   }
 
-  const included = study.sample.filter((item) => item.included).length;
-  const plan = study.plan;
   const tabs: { id: Tab; label: string; count?: number }[] = [
-    { id: "explore", label: t("workbench.tabs.explore"), count: study.runs.length },
-    { id: "protocol", label: t("workbench.tabs.protocol"), count: plan.versions.length },
-    { id: "sample", label: t("workbench.tabs.sample"), count: study.sample.length },
-    { id: "analysis", label: t("workbench.tabs.analysis"), count: visibleFindings },
-    { id: "quality", label: t("workbench.tabs.quality") },
-    { id: "delivery", label: t("workbench.tabs.delivery") },
+    { id: "brief", label: lang === "zh" ? "决策简报" : "Decision brief" },
+    { id: "process", label: lang === "zh" ? "研究过程" : "Research process", count: brief.roundSnapshots.length },
+    { id: "evidence", label: lang === "zh" ? "证据与质检" : "Evidence & QA", count: study.sample.length },
   ];
 
   return (
@@ -123,47 +232,43 @@ function Workbench() {
       <header className="v2-study-head">
         <div className="v2-between">
           <div>
-            <p className="v2-kicker">{t("workbench.title")} · {lang === "zh" ? "已确认计划" : "confirmed plan"}</p>
-            <h1>{lang === "zh" ? plan.decisionZh : plan.decisionEn}</h1>
+            <p className="v2-kicker">{lang === "zh" ? "V2.1 · 产品决策简报" : "V2.1 · Product decision brief"}</p>
+            <h1>{view === "brief" ? (lang === "zh" ? "产品决策简报" : "Product decision brief") : (lang === "zh" ? brief.decisionQuestionZh : brief.decisionQuestionEn)}</h1>
           </div>
           <div className="v2-row">
-            <Link className="v2-btn" href="/design"><PencilLine size={13} /> {t("workbench.reconfigure")}</Link>
-            <Link className="v2-btn v2-btn-primary" href="/workbench?view=delivery"><Download size={13} /> {t("workbench.tabs.delivery")}</Link>
+            <Link className="v2-btn" href="/design"><PencilLine size={13} /> {lang === "zh" ? "调整计划" : "Adjust plan"}</Link>
+            <button className="v2-btn v2-btn-primary" type="button" data-testid="v21-export" onClick={exportBrief}><Download size={13} /> {lang === "zh" ? "导出" : "Export"}</button>
           </div>
         </div>
         <div className="v2-study-meta">
-          <span className={`v2-badge ${plan.methodGate.fit === "fit" ? "v2-badge-fit" : plan.methodGate.fit === "partial" ? "v2-badge-partial" : "v2-badge-mismatch"}`}>{t(`workbench.gate.${plan.methodGate.fit}`)}</span>
-          <span className="v2-tag">{lang === "zh" ? `纳入 ${included} / ${study.sample.length}` : `${included} / ${study.sample.length} included`}</span>
+          <span className={`v2-badge ${brief.recommendation === "conditional_proceed" ? "v2-badge-fit" : brief.recommendation === "hold" ? "v2-badge-partial" : "v2-badge-mismatch"}`}>
+            {brief.recommendation === "conditional_proceed" ? (lang === "zh" ? "有条件下一步" : "Conditional next step") : brief.recommendation}
+          </span>
+          <span className="v2-tag">{lang === "zh" ? `纳入 ${study.sample.filter((item) => item.included).length} / ${study.sample.length}` : `${study.sample.filter((item) => item.included).length} / ${study.sample.length} included`}</span>
           <span className="v2-tag">{study.runs.length} {t("common.queries")}</span>
-          <span className="v2-tag">{study.vocabulary.length} {t("common.vocabulary")}</span>
-          <span className="v2-tag">{visibleFindings} {t("common.findings")}</span>
-          <span className="v2-tag">{lang === "zh" ? `计划 v${plan.version}` : `plan v${plan.version}`}</span>
+          <span className="v2-tag">{brief.highImpactTerms.length} {lang === "zh" ? "个改变方向的词" : "terms changed the study"}</span>
+          <span className="v2-tag">{study.findings.filter((finding) => !finding.hidden).length} {t("common.findings")}</span>
           <span className="v2-tag">{study.demo ? t("common.demo") : t("common.live")}</span>
         </div>
       </header>
 
-      <nav className="v2-tabs" aria-label="Research views">
+      <nav className="v2-tabs" aria-label="Decision brief views">
         {tabs.map((tab) => (
-          <Link key={tab.id} href={`/workbench?view=${tab.id}`} className={`v2-tab${view === tab.id ? " is-active" : ""}`} data-testid={`v2-tab-${tab.id}`}>
+          <Link key={tab.id} href={`/workbench?view=${tab.id}`} className={`v2-tab${view === tab.id ? " is-active" : ""}`} data-testid={`v21-tab-${tab.id}`}>
             {tab.label}
             {typeof tab.count === "number" ? <span className="v2-tab-count">{tab.count}</span> : null}
           </Link>
         ))}
       </nav>
 
-      {view === "explore" ? <ExploreView study={study} /> : null}
-      {view === "protocol" ? <ProtocolView study={study} /> : null}
-      {view === "sample" ? <SampleView study={study} onCommit={commit} /> : null}
-      {view === "analysis" ? <AnalysisView study={study} onCommit={commit} /> : null}
-      {view === "quality" ? <QualityView study={study} /> : null}
-      {view === "delivery" ? <DeliveryView study={study} /> : null}
+      {view === "brief" ? <DecisionBriefView brief={brief} study={study} onOpenEvidence={() => { window.location.href = "/workbench?view=evidence"; }} /> : null}
+      {view === "process" ? <ResearchProcessView brief={brief} study={study} /> : null}
+      {view === "evidence" ? <EvidenceQualityView brief={brief} study={study} onCommit={commit} /> : null}
 
-      {view !== "delivery" ? (
-        <div className="v2-between" style={{ marginTop: 18 }}>
-          <span className="v2-mini v2-muted">{lang === "zh" ? "所有计数只描述本样本，不构成市场结论。" : "All counts describe this sample only, not the market."}</span>
-          <Link className="v2-btn v2-btn-sm" href="/workbench?view=delivery">{t("workbench.tabs.delivery")} <ArrowRight size={12} /></Link>
-        </div>
-      ) : null}
+      <div className="v2-between" style={{ marginTop: 18 }}>
+        <span className="v2-mini v2-muted">{lang === "zh" ? "知乎讨论支持定性探索和机会假设，不证明市场规模、购买率或付费意愿。" : "Zhihu discussion supports qualitative exploration and opportunity hypotheses; it does not prove market size, purchase rates or willingness to pay."}</span>
+        <Link className="v2-small" href="/plan">{lang === "zh" ? "产品说明" : "About"} →</Link>
+      </div>
     </main>
   );
 }

@@ -145,6 +145,21 @@ export interface PlanVersionV2 {
   querySeeds: QuerySeedV2[];
 }
 
+export interface InitialBelief {
+  decisionQuestionZh: string;
+  decisionQuestionEn: string;
+  productIdeaZh: string;
+  productIdeaEn: string;
+  targetUsersZh: string[];
+  targetUsersEn: string[];
+  assumptionsZh: string[];
+  assumptionsEn: string[];
+  concernsZh: string[];
+  concernsEn: string[];
+  capturedAt: string;
+  planVersion: number;
+}
+
 export interface ResearchPlanV2 {
   id: string;
   version: number;
@@ -152,6 +167,7 @@ export interface ResearchPlanV2 {
   createdAt: string;
   confirmed: boolean;
   confirmedAt?: string;
+  initialBelief?: InitialBelief;
   brief: BriefV2;
   decisionZh: string;
   decisionEn: string;
@@ -372,6 +388,8 @@ export interface StudyV2 {
 
 export interface DemoSummaryV2 {
   id: string;
+  opportunityCount?: number;
+  beliefUpdateCount?: number;
   titleZh: string;
   titleEn: string;
   subtitleZh: string;
