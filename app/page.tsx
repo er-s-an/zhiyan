@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { ArrowRight, BookOpen, ExternalLink, Search, Shuffle, Sparkles } from "lucide-react";
+import { ArrowRight, BookOpen, ExternalLink, Landmark, Search, Shuffle, Sparkles } from "lucide-react";
 import { Kanshan } from "./components/Kanshan";
 import { useLang } from "./components/LanguageProvider";
 import { pickLang } from "../lib/v2/lang";
@@ -180,6 +180,15 @@ export default function HomePage() {
         <div className="v2-home-example-art" aria-hidden="true">
           <Kanshan variant="front" size={130} hidden />
         </div>
+      </section>
+
+      <section className="v2-home-policy">
+        <div>
+          <span className="v2-tag v2-tag-blue">{tr("新栏目", "New", "Nouveau", "新着")}</span>
+          <h2>{tr("政策利好与来华经营指南", "Policy benefits and doing business in China", "Aides et affaires en Chine", "政策優遇と中国での事業ガイド")}</h2>
+          <p>{tr("国内 OPC、自由职业者和海外人士，都能搜索适用政策、限制条件和官方原文。", "Search benefits, eligibility and official sources for OPCs, freelancers and overseas founders.", "Recherchez les aides, conditions et sources officielles pour OPC, indépendants et fondateurs étrangers.", "OPC、フリーランス、海外起業者向けに、優遇、条件、公式原文を検索できます。")}</p>
+        </div>
+        <Link className="v2-btn" href="/policies"><Landmark size={15} /> {tr("搜索政策", "Search policies", "Rechercher", "政策を検索")} <ArrowRight size={14} /></Link>
       </section>
 
       <section className="v2-home-feed">

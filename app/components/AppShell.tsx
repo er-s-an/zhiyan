@@ -23,6 +23,7 @@ const NAV: NavItem[] = [
   { href: "/interview", zh: "访谈", en: "Interview", fr: "Entretien", ja: "インタビュー" },
   { href: "/workbench", key: "nav.research", zh: "研究台", en: "Research", fr: "Recherche", ja: "リサーチ" },
   { href: "/action-plan", zh: "方案", en: "Action plan", fr: "Plan d’action", ja: "実行プラン" },
+  { href: "/policies", zh: "政策", en: "Policies", fr: "Politiques", ja: "政策" },
 ];
 
 export function AppShell({ children }: { children: ReactNode }) {
