@@ -6,22 +6,22 @@ import { AlertTriangle, ArrowUpRight, CheckCircle2, ChevronDown, ExternalLink, F
 import { useLang } from "../components/LanguageProvider";
 import { FINDING_CATEGORY_LABEL } from "../../lib/v2/i18n";
 import type { BeliefUpdateV21, BriefEvidence, DecisionBriefV21, HighImpactTermV21, OpportunityHypothesisV21, RoundSnapshotV21 } from "../../lib/v2/brief";
-import type { StudyV2 } from "../../lib/v2/types";
+import type { Lang, StudyV2 } from "../../lib/v2/types";
 import type { PublicJob } from "../../lib/v2/jobs";
 import { AnalysisView, QualityView, SampleView } from "./views-v2";
 
-function local(lang: "zh" | "en", zh: string, en: string): string {
+function local(lang: Lang, zh: string, en: string): string {
   return lang === "zh" ? zh : en;
 }
 
-function recommendationLabel(lang: "zh" | "en", value: DecisionBriefV21["recommendation"]): string {
+function recommendationLabel(lang: Lang, value: DecisionBriefV21["recommendation"]): string {
   if (value === "conditional_proceed") return local(lang, "有条件下一步：先验证，不直接开发", "Conditional next step: validate first, do not build yet");
   if (value === "hold") return local(lang, "先暂停，补充证据", "Hold and gather more evidence");
   if (value === "stop") return local(lang, "停止这个方向", "Stop this direction");
   return local(lang, "证据不足，暂不形成建议", "Insufficient evidence; no recommendation yet");
 }
 
-function changeLabel(lang: "zh" | "en", value: BeliefUpdateV21["changeType"]): string {
+function changeLabel(lang: Lang, value: BeliefUpdateV21["changeType"]): string {
   return {
     support: local(lang, "支持", "Support"),
     revise: local(lang, "修正", "Revise"),
@@ -30,7 +30,7 @@ function changeLabel(lang: "zh" | "en", value: BeliefUpdateV21["changeType"]): s
   }[value];
 }
 
-function strengthLabel(lang: "zh" | "en", value: OpportunityHypothesisV21["evidenceStrength"]): string {
+function strengthLabel(lang: Lang, value: OpportunityHypothesisV21["evidenceStrength"]): string {
   return {
     strong: local(lang, "强", "Strong"),
     medium: local(lang, "中", "Medium"),
@@ -39,7 +39,7 @@ function strengthLabel(lang: "zh" | "en", value: OpportunityHypothesisV21["evide
   }[value];
 }
 
-function EvidenceList({ brief, ids, lang, title }: { brief: DecisionBriefV21; ids: string[]; lang: "zh" | "en"; title: string }) {
+function EvidenceList({ brief, ids, lang, title }: { brief: DecisionBriefV21; ids: string[]; lang: Lang; title: string }) {
   const [open, setOpen] = useState(false);
   const items = ids.map((id) => brief.evidenceIndex[id]).filter(Boolean);
   if (items.length === 0) return <span className="v2-mini v2-muted">{title}: 0</span>;
@@ -57,7 +57,7 @@ function EvidenceList({ brief, ids, lang, title }: { brief: DecisionBriefV21; id
   );
 }
 
-function EvidenceItem({ item, lang }: { item: BriefEvidence; lang: "zh" | "en" }) {
+function EvidenceItem({ item, lang }: { item: BriefEvidence; lang: Lang }) {
   return (
     <div className="v21-quote">
       <p>{lang === "zh" ? item.quoteZh : item.quoteEn}</p>
@@ -67,7 +67,7 @@ function EvidenceItem({ item, lang }: { item: BriefEvidence; lang: "zh" | "en" }
   );
 }
 
-function OpportunityCard({ card, brief, lang, lead = false }: { card: OpportunityHypothesisV21; brief: DecisionBriefV21; lang: "zh" | "en"; lead?: boolean }) {
+function OpportunityCard({ card, brief, lang, lead = false }: { card: OpportunityHypothesisV21; brief: DecisionBriefV21; lang: Lang; lead?: boolean }) {
   return (
     <article className={`v21-opportunity${lead ? " is-lead" : ""}`} data-testid="v21-opportunity">
       <div className="v21-opportunity-head">

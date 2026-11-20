@@ -16,21 +16,38 @@ const LangContext = createContext<LangContextValue>({
   t: (key: string) => translate("zh", key),
 });
 
+function isLang(value: unknown): value is Lang {
+  return value === "zh" || value === "en" || value === "fr" || value === "ja" || value === "ru" || value === "ko";
+}
+
+function htmlLang(lang: Lang): string {
+  return lang === "zh" ? "zh-CN" : lang;
+}
+
+function browserLang(): Lang {
+  const value = navigator.language?.toLowerCase() ?? "";
+  if (value.startsWith("zh")) return "zh";
+  if (value.startsWith("fr")) return "fr";
+  if (value.startsWith("ja")) return "ja";
+  if (value.startsWith("ru")) return "ru";
+  if (value.startsWith("ko")) return "ko";
+  return "en";
+}
+
 export function LanguageProvider({ children }: { children: ReactNode }) {
   const [lang, setLangState] = useState<Lang>("zh");
 
   useEffect(() => {
     const stored = window.localStorage.getItem("zhiyan.lang.v2");
-    const browserLang = navigator.language?.toLowerCase().startsWith("zh") ? "zh" : "en";
-    const next: Lang = stored === "zh" || stored === "en" ? stored : browserLang;
+    const next: Lang = isLang(stored) ? stored : browserLang();
     setLangState(next);
-    document.documentElement.lang = next === "zh" ? "zh-CN" : "en";
+    document.documentElement.lang = htmlLang(next);
   }, []);
 
   const setLang = useCallback((next: Lang) => {
     setLangState(next);
     window.localStorage.setItem("zhiyan.lang.v2", next);
-    document.documentElement.lang = next === "zh" ? "zh-CN" : "en";
+    document.documentElement.lang = htmlLang(next);
   }, []);
 
   const value = useMemo(

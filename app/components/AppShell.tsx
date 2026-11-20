@@ -4,6 +4,9 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Globe2 } from "lucide-react";
 import type { ReactNode } from "react";
+import type { Lang } from "../../lib/v2/types";
+import { pickLang } from "../../lib/v2/lang";
+import { InterviewDock } from "./InterviewDock";
 import { useLang } from "./LanguageProvider";
 
 const NAV = [
@@ -27,7 +30,9 @@ export function AppShell({ children }: { children: ReactNode }) {
             </span>
             <span className="v2-brand-text">
               <b>{t("app.name")}</b>
-              <small>{lang === "zh" ? "知乎研究台" : "Zhihu research desk"}</small>
+              <small>
+                {pickLang(lang, "知乎研究台", "Zhihu research desk", "Bureau de recherche Zhihu", "Zhihuリサーチデスク")}
+              </small>
             </span>
           </Link>
 
@@ -43,12 +48,24 @@ export function AppShell({ children }: { children: ReactNode }) {
           </nav>
 
           <div className="v2-header-actions">
-            <button className="v2-lang" type="button" onClick={() => setLang(lang === "zh" ? "en" : "zh")} title={t("home.langHint")}>
+            <label className="v2-lang" title={t("home.langHint")}>
               <Globe2 size={14} />
-              {lang === "zh" ? "EN" : "中文"}
-            </button>
+              <select
+                className="v2-lang-select"
+                value={lang}
+                aria-label={t("home.langHint")}
+                onChange={(event) => setLang(event.target.value as Lang)}
+              >
+                <option value="zh">中文</option>
+                <option value="en">English</option>
+                <option value="fr">Français</option>
+                <option value="ja">日本語</option>
+                <option value="ru">Русский</option>
+                <option value="ko">한국어</option>
+              </select>
+            </label>
             <Link className="v2-header-cta" href="/">
-              {lang === "zh" ? "开始研究" : "Start"}
+              {pickLang(lang, "开始研究", "Start", "Commencer", "始める")}
             </Link>
           </div>
         </div>
@@ -56,12 +73,15 @@ export function AppShell({ children }: { children: ReactNode }) {
       <div className="v2-main">{children}</div>
       <footer className="v2-footer">
         <div className="v2-footer-inner">
-          <span>{lang === "zh" ? "知研台 · 知乎黑客松 S3" : "Zhiyan · Zhihu Hackathon S3"}</span>
+          <span>
+            {pickLang(lang, "知研台 · 知乎黑客松 S3", "Zhiyan · Zhihu Hackathon S3", "Zhiyan · Hackathon Zhihu S3", "Zhiyan · Zhihuハッカソン S3")}
+          </span>
           <a href="https://github.com/er-s-an/zhiyan" target="_blank" rel="noreferrer">
             GitHub
           </a>
         </div>
       </footer>
+      <InterviewDock />
     </div>
   );
 }

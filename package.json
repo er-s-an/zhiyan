@@ -5,7 +5,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "test": "tsx --test lib/domain.test.ts lib/v2/domain.test.ts",
+    "test": "tsx --test lib/domain.test.ts lib/v2/domain.test.ts lib/v2/interview.test.ts lib/v2/action-plan.test.ts lib/v2/dock.test.ts",
     "verify:v2": "tsx scripts/verify-v2.ts",
     "verify:v21": "tsx scripts/verify-v21.ts"
   },
