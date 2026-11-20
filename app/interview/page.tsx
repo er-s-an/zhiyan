@@ -224,6 +224,7 @@ export default function InterviewPage() {
     setAssessment(nextAssessment);
     setPhase("result");
     persist(nextAnswers, total - 1, true);
+    window.dispatchEvent(new Event("zhiyan:interview-state"));
   }
 
   function advance(nextAnswers: InterviewAnswers, nextIndex: number): void {
@@ -341,6 +342,7 @@ export default function InterviewPage() {
     setProfile(null);
     setAssessment(null);
     setError("");
+    window.dispatchEvent(new Event("zhiyan:interview-state"));
   }
 
   async function generatePlan(): Promise<void> {
@@ -396,7 +398,7 @@ export default function InterviewPage() {
   if (phase === "result" && profile && assessment) {
     const levelBadge = assessment.level === "promising" ? "v2-badge-fit" : assessment.level === "needs_validation" ? "v2-badge-partial" : "v2-badge-mismatch";
     return (
-      <main className="v2-page v2-chat-page">
+      <main className="v2-page v2-chat-page v2-interview-result">
         <div className="v2-page-head">
           <p className="v2-kicker">{tr(lang, "访谈完成 · 可行性初判", "Interview complete · first read", "Entretien terminé · première lecture", "インタビュー完了 · 初判断")}</p>
           <h1>{tr(lang, "先别急着做，看看证据站在哪一边。", "Before you build, see where the evidence stands.", "Avant de construire, regarde où se trouvent les preuves.", "作る前に、証拠がどちら側にあるか見てみましょう。")}</h1>
@@ -419,10 +421,6 @@ export default function InterviewPage() {
         </div>
 
         <section className="v2-card v2-assess-hero">
-          <div className="v2-assess-score">
-            <b>{assessment.score}</b>
-            <span>/ 100</span>
-          </div>
           <div className="v2-assess-main">
             <div className="v2-row" style={{ gap: 6 }}>
               <span className={`v2-badge ${levelBadge}`}>{pickText(assessment.levelLabel, lang)}</span>
@@ -434,47 +432,17 @@ export default function InterviewPage() {
               <span className="v2-tag v2-tag-line">{outputLabel(assessment.allowedOutput, lang)}</span>
             </div>
           </div>
-        </section>
-
-        <section className="v2-card v2-card-pad" style={{ marginTop: 14 }}>
-          <h2 style={{ fontSize: 17 }}>{tr(lang, "八个维度，哪里强、哪里虚", "Eight dimensions: what is solid, what is thin", "Huit dimensions : ce qui est solide, ce qui est fragile", "8つの軸：どこが強く、どこが弱いか")}</h2>
-          <div className="v2-dim-list">
-            {assessment.dimensions.map((item) => (
-              <div className="v2-dim-row" key={item.id}>
-                <div className="v2-dim-head">
-                  <span className="v2-dim-label">{pickText(item.label, lang)}</span>
-                  <span className={`v2-badge ${item.status === "strong" ? "v2-badge-fit" : item.status === "partial" ? "v2-badge-partial" : "v2-badge-mismatch"}`}>
-                    {statusLabel(item.status, lang)}
-                  </span>
-                </div>
-                <p className="v2-small v2-muted">{pickText(item.reason, lang)}</p>
-              </div>
-            ))}
+          <div className="v2-assess-score" aria-label={tr(lang, `初判参考分 ${assessment.score}/100`, `Reference score ${assessment.score}/100`, `Score indicatif ${assessment.score}/100`, `参考スコア ${assessment.score}/100`)}>
+            <b>{assessment.score}</b>
+            <span>{tr(lang, "初判参考 / 100", "Reference / 100", "Indicatif / 100", "参考 / 100")}</span>
           </div>
         </section>
 
-        <div className="v2-assess-cols">
-          <section className="v2-card v2-card-pad">
-            <h2 style={{ fontSize: 16 }}><AlertTriangle size={15} /> {tr(lang, "主要风险", "Main risks", "Risques principaux", "主なリスク")}</h2>
-            <ul className="v2-list">{pickList(assessment.risks, lang).map((item) => <li key={item}>{item}</li>)}</ul>
-          </section>
-          <section className="v2-card v2-card-pad">
-            <h2 style={{ fontSize: 16 }}><CheckCircle2 size={15} /> {tr(lang, "下一步", "Next steps", "Prochaines étapes", "次のステップ")}</h2>
-            <ol className="v2-list">{pickList(assessment.nextSteps, lang).map((item) => <li key={item}>{item}</li>)}</ol>
-          </section>
-        </div>
-
-        <section className="v2-card v2-card-pad" style={{ marginTop: 14 }}>
+        <section className="v2-card v2-card-pad v2-assess-key" style={{ marginTop: 14 }}>
           <h2 style={{ fontSize: 16 }}><Sparkles size={15} /> {tr(lang, "必须验证的关键假设", "Key assumptions to validate", "Hypothèses clés à valider", "検証すべき重要な仮説")}</h2>
           <div className="v2-row" style={{ marginTop: 8 }}>
             {pickList(assessment.mustValidate, lang).map((item) => (
               <span className="v2-tag v2-tag-blue" key={item}>{item}</span>
-            ))}
-          </div>
-          <div className="v2-method-note">
-            <b>{tr(lang, "知乎方法适配：", "Zhihu method fit: ", "Adéquation avec Zhihu : ", "Zhihuとの適合：")}</b>
-            {pickList(assessment.methodReasons, lang).map((item) => (
-              <p className="v2-small v2-muted" key={item}>{item}</p>
             ))}
           </div>
         </section>
@@ -508,6 +476,40 @@ export default function InterviewPage() {
           </div>
           {error ? <p className="v2-error">{error}</p> : null}
         </section>
+
+        <div className="v2-assess-cols">
+          <section className="v2-card v2-card-pad">
+            <h2 style={{ fontSize: 16 }}><AlertTriangle size={15} /> {tr(lang, "主要风险", "Main risks", "Risques principaux", "主なリスク")}</h2>
+            <ul className="v2-list">{pickList(assessment.risks, lang).map((item) => <li key={item}>{item}</li>)}</ul>
+          </section>
+          <section className="v2-card v2-card-pad">
+            <h2 style={{ fontSize: 16 }}><CheckCircle2 size={15} /> {tr(lang, "下一步", "Next steps", "Prochaines étapes", "次のステップ")}</h2>
+            <ol className="v2-list">{pickList(assessment.nextSteps, lang).map((item) => <li key={item}>{item}</li>)}</ol>
+          </section>
+        </div>
+
+        <details className="v2-card v2-card-pad v2-assess-dimensions" style={{ marginTop: 14 }}>
+          <summary>{tr(lang, "查看八个维度：哪里强、哪里虚", "View the eight dimensions: what is solid, what is thin", "Voir les huit dimensions : forces et faiblesses", "8つの軸を見る：強みと弱み")}</summary>
+          <div className="v2-dim-list">
+            {assessment.dimensions.map((item) => (
+              <div className="v2-dim-row" key={item.id}>
+                <div className="v2-dim-head">
+                  <span className="v2-dim-label">{pickText(item.label, lang)}</span>
+                  <span className={`v2-badge ${item.status === "strong" ? "v2-badge-fit" : item.status === "partial" ? "v2-badge-partial" : "v2-badge-mismatch"}`}>
+                    {statusLabel(item.status, lang)}
+                  </span>
+                </div>
+                <p className="v2-small v2-muted">{pickText(item.reason, lang)}</p>
+              </div>
+            ))}
+          </div>
+          <div className="v2-method-note">
+            <b>{tr(lang, "知乎方法适配：", "Zhihu method fit: ", "Adéquation avec Zhihu : ", "Zhihuとの適合：")}</b>
+            {pickList(assessment.methodReasons, lang).map((item) => (
+              <p className="v2-small v2-muted" key={item}>{item}</p>
+            ))}
+          </div>
+        </details>
 
         <details className="v2-card v2-card-pad v2-transcript">
           <summary>{tr(lang, "查看完整访谈记录", "View the full interview", "Voir l'entretien complet", "インタビュー全文を見る")}</summary>

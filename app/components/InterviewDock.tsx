@@ -154,6 +154,15 @@ export function InterviewDock() {
     return () => window.removeEventListener("keydown", onKey);
   }, [open]);
 
+  useEffect(() => {
+    function openClarify() {
+      setOpen(true);
+      startClarify();
+    }
+    window.addEventListener("zhiyan:clarify", openClarify);
+    return () => window.removeEventListener("zhiyan:clarify", openClarify);
+  }, [lang]);
+
   if (pathname.startsWith("/interview")) return null;
 
   const questions = clarifyQuestions(lang);

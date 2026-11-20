@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { ArrowRight, BookOpen, ExternalLink, Search, Shuffle, Sparkles } from "lucide-react";
@@ -25,6 +25,7 @@ export default function HomePage() {
   const [error, setError] = useState("");
   const [demos, setDemos] = useState<DemoSummaryV2[]>([]);
   const [recent, setRecent] = useState<Recent[]>([]);
+  const briefInputRef = useRef<HTMLTextAreaElement | null>(null);
 
   const selectedBrief = playBriefById(briefId) ?? PLAY_BRIEFS[0];
   const briefIndex = PLAY_BRIEFS.findIndex((item) => item.id === selectedBrief.id);
@@ -38,6 +39,11 @@ export default function HomePage() {
     const next = randomPlayBrief(briefId);
     setBriefId(next.id);
     setError("");
+  }
+
+  function focusBrief() {
+    document.getElementById("brief")?.scrollIntoView({ behavior: "smooth", block: "center" });
+    window.setTimeout(() => briefInputRef.current?.focus(), 250);
   }
 
   useEffect(() => {
@@ -86,20 +92,31 @@ export default function HomePage() {
     <main className="v2-page">
       <section className="v2-home-hero">
         <p className="v2-kicker">{t("home.eyebrow")}</p>
-        <h1>{tr("让一个人，也有一支懂中国用户的研究团队。", "A research team for global builders, built on real Zhihu conversations.", "Une équipe de recherche pour les bâtisseurs du monde, ancrée dans de vraies discussions Zhihu.", "世界のビルダーのための、実際のZhihu議論にもとづくリサーチチーム。")}</h1>
+        <h1>{tr("先聊清想法，再用知乎证据做决策。", "Clarify the idea, then test it with real Zhihu evidence.", "Clarifie l’idée, puis teste-la avec de vraies preuves Zhihu.", "まずアイデアを整理し、Zhihuの証拠で検証しましょう。")}</h1>
         <p className="v2-lede">
           {tr(
-            "把一个英文产品决策，变成中文研究计划、适应性知乎检索和一份可复核的双语决策简报。不是通用 AI 搜索，而是在知乎里执行一次可检查的用户研究。",
-            "Turn an English product decision into a Chinese research plan, adaptive Zhihu retrieval, and a reviewable bilingual decision brief. Not generic AI search — a checkable user study executed inside Zhihu.",
-            "Transforme une décision produit en plan de recherche chinois, en exploration Zhihu adaptative et en note de décision bilingue vérifiable. Pas une recherche IA générique : une étude utilisateur exécutée dans Zhihu.",
-            "プロダクト判断を、中国語のリサーチプラン、適応的なZhihu検索、検証可能なバイリンガルの意思決定ブリーフに変えます。汎用AI検索ではなく、Zhihuの中で実行する検査可能なユーザーリサーチです。",
+            "先用 4 个问题理清方向，或直接输入明确 Brief。知研台会帮你找到真实讨论、反例和下一步，而不是只生成一份看似合理的报告。",
+            "Start with four clarifying questions, or bring a clear brief. Find real discussions, counter-examples and next steps — not just a plausible report.",
+            "Commence par quatre questions, ou apporte un brief clair. Trouve de vraies discussions, des contre-exemples et les prochaines étapes, pas seulement un rapport plausible.",
+            "4つの質問で方向を整理するか、明確なBriefを入力してください。もっともらしいレポートだけでなく、実際の議論、反例、次の一歩を見つけます。",
           )}
         </p>
+        <div className="v2-home-entry">
+          <button className="v2-btn v2-btn-primary v2-btn-lg" type="button" onClick={() => window.dispatchEvent(new Event("zhiyan:clarify"))}>
+            <Sparkles size={16} /> {tr("先帮我理清（4 问）", "Clarify my idea (4 questions)", "Clarifier mon idée (4 questions)", "まず整理する（4問）")}
+          </button>
+          <button className="v2-btn v2-btn-lg" type="button" onClick={focusBrief}>
+            {tr("已有明确 Brief", "I have a clear brief", "J’ai un brief clair", "明確なBriefがある")} <ArrowRight size={15} />
+          </button>
+        </div>
+        <Link className="v2-home-interview-link" href="/interview">
+          {tr("需要系统评估？完整访谈（11 题）", "Need a full read? Take the 11-question interview", "Besoin d’une évaluation complète ? Entretien en 11 questions", "詳しく評価する場合は11問のインタビュー")}
+        </Link>
       </section>
 
-      <section className="v2-card v2-home-brief">
+      <section className="v2-card v2-home-brief" id="brief">
         <div className="v2-between v2-home-brief-head" style={{ marginBottom: 9 }}>
-          <span className="v2-label">{t("home.briefLabel")}</span>
+          <span className="v2-label">{tr("已有明确 Brief？直接生成研究计划", "Have a clear brief? Create a research plan", "Un brief clair ? Créez le plan de recherche", "明確なBriefからリサーチプランを作成")}</span>
           <div className="v2-row" style={{ gap: 8 }}>
             <span className="v2-mini v2-muted">{tr("生成计划前不调用知乎", "No Zhihu calls before the plan", "Aucun appel à Zhihu avant le plan", "プラン作成前にZhihuは呼びません")}</span>
             <span className="v2-tag" data-testid="v21-brief-index">{tr(`示例 ${briefIndex + 1}/${PLAY_BRIEFS.length}`, `Example ${briefIndex + 1}/${PLAY_BRIEFS.length}`, `Exemple ${briefIndex + 1}/${PLAY_BRIEFS.length}`, `例 ${briefIndex + 1}/${PLAY_BRIEFS.length}`)}</span>
@@ -114,6 +131,7 @@ export default function HomePage() {
         {/* Brief play data is currently bilingual; French and Japanese use the English prompt. */}
         <div className="v2-home-brief-box">
           <textarea
+            ref={briefInputRef}
             className="v2-textarea"
             data-testid="v2-brief-input"
             value={brief}

@@ -3,7 +3,7 @@
 import { Suspense, useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
-import { Download, PencilLine } from "lucide-react";
+import { Download, Map, PencilLine } from "lucide-react";
 import { useLang } from "../components/LanguageProvider";
 import { buildHeuristicBrief, recomputeBrief } from "../../lib/v2/brief";
 import type { DecisionBriefV21 } from "../../lib/v2/brief";
@@ -231,19 +231,14 @@ function Workbench() {
 
       <header className="v2-study-head">
         <div className="v2-between">
-          <div>
-            <p className="v2-kicker">{lang === "zh" ? "V2.1 · 产品决策简报" : "V2.1 · Product decision brief"}</p>
-            <h1>{view === "brief" ? (lang === "zh" ? "产品决策简报" : "Product decision brief") : (lang === "zh" ? brief.decisionQuestionZh : brief.decisionQuestionEn)}</h1>
-          </div>
-          <div className="v2-row">
+          <p className="v2-kicker">{lang === "zh" ? "V2.1 · 产品决策简报" : "V2.1 · Product decision brief"}</p>
+          <div className="v2-row v2-study-actions">
+            <Link className="v2-btn v2-btn-primary" href="/action-plan"><Map size={13} /> {lang === "zh" ? "查看落地方案" : "View action plan"}</Link>
             <Link className="v2-btn" href="/design"><PencilLine size={13} /> {lang === "zh" ? "调整计划" : "Adjust plan"}</Link>
-            <button className="v2-btn v2-btn-primary" type="button" data-testid="v21-export" onClick={exportBrief}><Download size={13} /> {lang === "zh" ? "导出" : "Export"}</button>
+            <button className="v2-btn" type="button" data-testid="v21-export" onClick={exportBrief}><Download size={13} /> {lang === "zh" ? "导出" : "Export"}</button>
           </div>
         </div>
         <div className="v2-study-meta">
-          <span className={`v2-badge ${brief.recommendation === "conditional_proceed" ? "v2-badge-fit" : brief.recommendation === "hold" ? "v2-badge-partial" : "v2-badge-mismatch"}`}>
-            {brief.recommendation === "conditional_proceed" ? (lang === "zh" ? "有条件下一步" : "Conditional next step") : brief.recommendation}
-          </span>
           <span className="v2-tag">{brief.opportunities.filter((item) => !item.hidden).length} {lang === "zh" ? "个机会假设" : "opportunity hypotheses"}</span>
           <span className="v2-tag">{brief.beliefUpdates.length} {lang === "zh" ? "条认知更新" : "belief updates"}</span>
           <span className="v2-tag">{study.sample.filter((item) => item.included).length} {lang === "zh" ? "条可回查证据" : "traceable evidence items"}</span>

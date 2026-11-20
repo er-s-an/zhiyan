@@ -3,22 +3,47 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Globe2 } from "lucide-react";
-import type { ReactNode } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 import type { Lang } from "../../lib/v2/types";
 import { pickLang } from "../../lib/v2/lang";
 import { InterviewDock } from "./InterviewDock";
 import { useLang } from "./LanguageProvider";
 
-const NAV = [
-  { href: "/", key: "nav.home" },
-  { href: "/workbench", key: "nav.research" },
-  { href: "/examples", key: "nav.examples" },
-  { href: "/plan", key: "nav.plan" },
+interface NavItem {
+  href: string;
+  key?: string;
+  zh: string;
+  en: string;
+  fr: string;
+  ja: string;
+}
+
+const NAV: NavItem[] = [
+  { href: "/", key: "nav.home", zh: "首页", en: "Home", fr: "Accueil", ja: "ホーム" },
+  { href: "/interview", zh: "访谈", en: "Interview", fr: "Entretien", ja: "インタビュー" },
+  { href: "/workbench", key: "nav.research", zh: "研究台", en: "Research", fr: "Recherche", ja: "リサーチ" },
+  { href: "/action-plan", zh: "方案", en: "Action plan", fr: "Plan d’action", ja: "実行プラン" },
 ];
 
 export function AppShell({ children }: { children: ReactNode }) {
   const pathname = usePathname() || "/";
   const { lang, setLang, t } = useLang();
+  const [hasInterview, setHasInterview] = useState(false);
+
+  useEffect(() => {
+    function syncInterviewState() {
+      try {
+        const raw = window.localStorage.getItem("zhiyan.v2.interview");
+        const stored = raw ? JSON.parse(raw) as { done?: boolean } : null;
+        setHasInterview(stored?.done === true);
+      } catch {
+        setHasInterview(false);
+      }
+    }
+    syncInterviewState();
+    window.addEventListener("zhiyan:interview-state", syncInterviewState);
+    return () => window.removeEventListener("zhiyan:interview-state", syncInterviewState);
+  }, [pathname]);
 
   return (
     <div className="v2">
@@ -30,9 +55,7 @@ export function AppShell({ children }: { children: ReactNode }) {
             </span>
             <span className="v2-brand-text">
               <b>{t("app.name")}</b>
-              <small>
-                {pickLang(lang, "知乎研究台", "Zhihu research desk", "Bureau de recherche Zhihu", "Zhihuリサーチデスク")}
-              </small>
+              <small>{pickLang(lang, "知乎研究台", "Zhihu research desk", "Bureau de recherche Zhihu", "Zhihuリサーチデスク")}</small>
             </span>
           </Link>
 
@@ -41,7 +64,7 @@ export function AppShell({ children }: { children: ReactNode }) {
               const active = item.href === "/" ? pathname === "/" : pathname.startsWith(item.href);
               return (
                 <Link key={item.href} href={item.href} className={`v2-nav-link${active ? " is-active" : ""}`} aria-current={active ? "page" : undefined}>
-                  {t(item.key)}
+                  {"key" in item && item.key ? t(item.key) : pickLang(lang, item.zh, item.en, item.fr, item.ja)}
                 </Link>
               );
             })}
@@ -64,8 +87,10 @@ export function AppShell({ children }: { children: ReactNode }) {
                 <option value="ko">한국어</option>
               </select>
             </label>
-            <Link className="v2-header-cta" href="/">
-              {pickLang(lang, "开始研究", "Start", "Commencer", "始める")}
+            <Link className="v2-header-cta" href={hasInterview ? "/action-plan" : "/interview"}>
+              {hasInterview
+                ? pickLang(lang, "继续方案", "Continue plan", "Voir le plan", "プランを見る")
+                : pickLang(lang, "开始访谈", "Start interview", "Commencer", "始める")}
             </Link>
           </div>
         </div>
@@ -73,12 +98,12 @@ export function AppShell({ children }: { children: ReactNode }) {
       <div className="v2-main">{children}</div>
       <footer className="v2-footer">
         <div className="v2-footer-inner">
-          <span>
-            {pickLang(lang, "知研台 · 知乎黑客松 S3", "Zhiyan · Zhihu Hackathon S3", "Zhiyan · Hackathon Zhihu S3", "Zhiyan · Zhihuハッカソン S3")}
-          </span>
-          <a href="https://github.com/er-s-an/zhiyan" target="_blank" rel="noreferrer">
-            GitHub
-          </a>
+          <span>{pickLang(lang, "知研台 · 知乎黑客松 S3", "Zhiyan · Zhihu Hackathon S3", "Zhiyan · Hackathon Zhihu S3", "Zhiyan · Zhihuハッカソン S3")}</span>
+          <nav className="v2-footer-links" aria-label="Secondary navigation">
+            <Link href="/examples">{t("nav.examples")}</Link>
+            <Link href="/plan">{t("nav.plan")}</Link>
+            <a href="https://github.com/er-s-an/zhiyan" target="_blank" rel="noreferrer">GitHub</a>
+          </nav>
         </div>
       </footer>
       <InterviewDock />

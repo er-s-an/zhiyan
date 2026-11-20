@@ -253,25 +253,30 @@ export default function ActionPlanPage() {
         <div className="v2-page-meta">
           <span className={`v2-badge ${modeBadge}`}>{modeLabel}</span>
           <span className={`v2-badge ${confidenceBadge(plan.confidence)}`}>
-            {tr(lang, "置信度", "Confidence", "Confiance", "確信度")}：{plan.confidence}
+            {tr(lang, "置信度", "Confidence", "Confiance", "確信度")}：{plan.confidence === "high" ? tr(lang, "高", "High", "Élevée", "高") : plan.confidence === "medium" ? tr(lang, "中", "Medium", "Moyenne", "中") : tr(lang, "低", "Low", "Faible", "低")}
           </span>
           <span className="v2-tag">{tr(lang, "访谈初判", "Interview read", "Lecture de l'entretien", "インタビュー初判断")} {assessment.score}/100 · {pickText(assessment.levelLabel, lang)}</span>
           {plan.researchUsed ? (
             <span className="v2-tag v2-tag-blue">
-              {tr(lang, "研究证据", "Research evidence", "Preuves de recherche", "リサーチ証拠")}：{plan.researchUsed.evidenceStrength} · {plan.researchUsed.evidenceCount}/{plan.researchUsed.counterCount}
+              {tr(lang, "研究证据", "Research evidence", "Preuves de recherche", "リサーチ証拠")}：{plan.researchUsed.evidenceStrength === "strong" ? tr(lang, "强", "Strong", "Fortes", "強") : plan.researchUsed.evidenceStrength === "medium" ? tr(lang, "中", "Medium", "Moyennes", "中") : tr(lang, "弱", "Weak", "Faibles", "弱")} · {plan.researchUsed.evidenceCount}/{plan.researchUsed.counterCount}
             </span>
           ) : null}
           <span className="v2-tag">{source === "opencode" ? tr(lang, "本地模型润色", "Local model rewrite", "Réécrit par le modèle local", "ローカルモデルで推敲") : source === "cache" ? tr(lang, "已缓存", "Cached", "En cache", "キャッシュ") : tr(lang, "规则版", "Rules draft", "Version règles", "ルール版")}</span>
         </div>
         <div className="v2-row" style={{ marginTop: 12 }}>
           <button className="v2-btn v2-btn-primary" type="button" onClick={downloadPlan}><Download size={14} /> {tr(lang, "导出方案", "Export plan", "Exporter le plan", "プランを書き出す")}</button>
-          <button className="v2-btn" type="button" onClick={() => void polish()} disabled={polishing || !fallbackPlan}>
-            {polishing ? <span className="v2-spinner" /> : <Sparkles size={14} />}
-            {polishing ? tr(lang, "本地模型润色中…", "Rewriting with local model…", "Réécriture par le modèle local…", "ローカルモデルで推敲中…") : tr(lang, "本地模型润色", "Rewrite with local model", "Réécrire avec le modèle local", "ローカルモデルで推敲")}
-          </button>
           <Link className="v2-btn" href="/workbench"><MessageSquare size={14} /> {tr(lang, "打开研究台", "Open research desk", "Ouvrir la recherche", "リサーチを開く")}</Link>
-          <Link className="v2-btn" href="/design"><Map size={14} /> {tr(lang, "调整研究计划", "Adjust research plan", "Ajuster le plan de recherche", "リサーチプランを調整")}</Link>
-          <Link className="v2-btn v2-btn-ghost" href="/interview"><RotateCcw size={14} /> {tr(lang, "重新访谈", "New interview", "Nouvel entretien", "インタビューをやり直す")}</Link>
+          <details className="v2-plan-more">
+            <summary>{tr(lang, "更多操作", "More actions", "Plus d’actions", "その他の操作")}</summary>
+            <div className="v2-plan-more-body">
+              <button className="v2-btn" type="button" onClick={() => void polish()} disabled={polishing || !fallbackPlan}>
+                {polishing ? <span className="v2-spinner" /> : <Sparkles size={14} />}
+                {polishing ? tr(lang, "本地模型润色中…", "Rewriting with local model…", "Réécriture par le modèle local…", "ローカルモデルで推敲中…") : tr(lang, "本地模型润色", "Rewrite with local model", "Réécrire avec le modèle local", "ローカルモデルで推敲")}
+              </button>
+              <Link className="v2-btn" href="/design"><Map size={14} /> {tr(lang, "调整研究计划", "Adjust research plan", "Ajuster le plan de recherche", "リサーチプランを調整")}</Link>
+              <Link className="v2-btn v2-btn-ghost" href="/interview"><RotateCcw size={14} /> {tr(lang, "重新访谈", "New interview", "Nouvel entretien", "インタビューをやり直す")}</Link>
+            </div>
+          </details>
         </div>
         {polishing ? (
           <div className="v2-progress" style={{ marginTop: 10 }}>
@@ -317,13 +322,20 @@ export default function ActionPlanPage() {
       <section className="v2-card v2-plan-hero">
         <div className="v2-plan-hero-main">
           <span className="v2-tag v2-tag-blue">{tr(lang, "一句话定位", "Positioning", "Positionnement", "ポジショニング")}</span>
-          <h2>{plan.positioning}</h2>
+          <p className="v2-plan-positioning">{plan.positioning}</p>
           <div className="v2-plan-kv">
             <div><span>{tr(lang, "首个切入人群", "Beachhead", "Première cible", "最初の対象")}</span><b>{plan.beachhead}</b></div>
             <div><span>{tr(lang, "要解决的问题", "Problem", "Problème", "解決する問題")}</span><b>{plan.problem}</b></div>
             <div><span>{tr(lang, "承诺的结果", "Promised outcome", "Résultat promis", "約束する成果")}</span><b>{plan.valueProp}</b></div>
           </div>
         </div>
+      </section>
+
+      <section className="v2-card v2-card-pad v2-plan-next" style={{ marginTop: 14 }}>
+        <h2 style={{ fontSize: 17 }}>{tr(lang, "接下来 7 天", "Next 7 days", "Les 7 prochains jours", "次の7日間")}</h2>
+        <ol className="v2-plan-next-list">
+          {plan.nextSevenDays.map((item, index) => <li key={item}><span>{index + 1}</span>{item}</li>)}
+        </ol>
       </section>
 
       <section className="v2-card v2-card-pad" style={{ marginTop: 14 }}>
@@ -344,17 +356,17 @@ export default function ActionPlanPage() {
         </div>
       </section>
 
-      <section className="v2-card v2-card-pad" style={{ marginTop: 14 }}>
-        <h2 style={{ fontSize: 17 }}><Sparkles size={16} /> {tr(lang, "商业模式与第一批付费者", "Business model and first payers", "Modèle économique et premiers payeurs", "ビジネスモデルと最初の支払者")}</h2>
+      <details className="v2-card v2-card-pad v2-plan-details" style={{ marginTop: 14 }}>
+        <summary><Sparkles size={16} /> {tr(lang, "商业模式与第一批付费者", "Business model and first payers", "Modèle économique et premiers payeurs", "ビジネスモデルと最初の支払者")}</summary>
         <div className="v2-plan-business">
           <div><span>{tr(lang, "收费方式", "Model", "Modèle", "課金方法")}</span><p>{plan.businessModel.model}</p></div>
           <div><span>{tr(lang, "价格假设", "Price hypothesis", "Hypothèse de prix", "価格仮説")}</span><p>{plan.businessModel.price}</p></div>
           <div><span>{tr(lang, "谁先付钱", "Who pays first", "Qui paie d'abord", "最初に払う人")}</span><p>{plan.businessModel.firstPayers}</p></div>
         </div>
-      </section>
+      </details>
 
-      <section className="v2-card v2-card-pad" style={{ marginTop: 14 }}>
-        <h2 style={{ fontSize: 17 }}><Map size={16} /> {tr(lang, "12 周路线图", "12-week roadmap", "Feuille de route sur 12 semaines", "12週間ロードマップ")}</h2>
+      <details className="v2-card v2-card-pad v2-plan-details" style={{ marginTop: 14 }}>
+        <summary><Map size={16} /> {tr(lang, "12 周路线图", "12-week roadmap", "Feuille de route sur 12 semaines", "12週間ロードマップ")}</summary>
         <div className="v2-roadmap">
           {plan.roadmap.map((phase, index) => (
             <article className="v2-plan-phase" key={`${phase.name}-${index}`}>
@@ -370,10 +382,10 @@ export default function ActionPlanPage() {
             </article>
           ))}
         </div>
-      </section>
+      </details>
 
-      <section className="v2-card v2-card-pad" style={{ marginTop: 14 }}>
-        <h2 style={{ fontSize: 17 }}><FlaskConical size={16} /> {tr(lang, "先做这几个实验", "Run these experiments first", "Lance ces expériences d'abord", "まずこの実験を行う")}</h2>
+      <details className="v2-card v2-card-pad v2-plan-details" style={{ marginTop: 14 }}>
+        <summary><FlaskConical size={16} /> {tr(lang, "先做这几个实验", "Run these experiments first", "Lance ces expériences d'abord", "まずこの実験を行う")}</summary>
         <div className="v2-experiment-grid">
           {plan.experiments.map((experiment, index) => (
             <article className="v2-plan-experiment" key={`${experiment.title}-${index}`}>
@@ -385,10 +397,10 @@ export default function ActionPlanPage() {
             </article>
           ))}
         </div>
-      </section>
+      </details>
 
-      <section className="v2-card v2-card-pad" style={{ marginTop: 14 }}>
-        <h2 style={{ fontSize: 17 }}>{tr(lang, "证据、缺口与边界", "Evidence, gaps and boundaries", "Preuves, lacunes et limites", "証拠・不足・境界")}</h2>
+      <details className="v2-card v2-card-pad v2-plan-details" style={{ marginTop: 14 }}>
+        <summary>{tr(lang, "证据、缺口与边界", "Evidence, gaps and boundaries", "Preuves, lacunes et limites", "証拠・不足・境界")}</summary>
         <div className="v2-plan-evidence">
           <div>
             <h3>{tr(lang, "访谈给出的", "From the interview", "Issu de l'entretien", "インタビューから")}</h3>
@@ -410,7 +422,7 @@ export default function ActionPlanPage() {
             <p className="v2-small v2-muted">{tr(lang, "下一步验证", "Next validation", "Prochaine validation", "次の検証")}：{plan.researchUsed.nextValidation}</p>
           </div>
         ) : null}
-      </section>
+      </details>
 
       {notes.length > 0 ? (
         <section className="v2-card v2-card-pad" style={{ marginTop: 14 }}>
@@ -429,13 +441,6 @@ export default function ActionPlanPage() {
           <ul className="v2-list">{plan.killCriteria.map((item) => <li key={item}>{item}</li>)}</ul>
         </section>
       </div>
-
-      <section className="v2-card v2-card-pad v2-plan-next" style={{ marginTop: 14 }}>
-        <h2 style={{ fontSize: 17 }}>{tr(lang, "接下来 7 天", "Next 7 days", "Les 7 prochains jours", "次の7日間")}</h2>
-        <ol className="v2-plan-next-list">
-          {plan.nextSevenDays.map((item, index) => <li key={item}><span>{index + 1}</span>{item}</li>)}
-        </ol>
-      </section>
 
       <p className="v2-mini v2-muted" style={{ marginTop: 18 }}>{plan.disclosure}</p>
       {brief && matched ? (
