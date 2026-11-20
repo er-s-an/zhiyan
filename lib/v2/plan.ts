@@ -19,6 +19,32 @@ const DEFAULT_BUDGET: BudgetV2 = {
   timeWindowMonths: 24,
 };
 
+export interface PlanOverrides {
+  decisionZh?: string;
+  decisionEn?: string;
+  targetMarketZh?: string;
+  targetMarketEn?: string;
+  targetUsersZh?: string[];
+  targetUsersEn?: string[];
+}
+
+function applyOverrides(plan: ResearchPlanV2, overrides?: PlanOverrides): ResearchPlanV2 {
+  if (!overrides) return plan;
+  const usersZh = overrides.targetUsersZh?.map((item) => item.trim()).filter(Boolean) ?? [];
+  const usersEn = overrides.targetUsersEn?.map((item) => item.trim()).filter(Boolean) ?? [];
+  const next: ResearchPlanV2 = {
+    ...plan,
+    decisionZh: overrides.decisionZh?.trim() || plan.decisionZh,
+    decisionEn: overrides.decisionEn?.trim() || plan.decisionEn,
+    targetMarketZh: overrides.targetMarketZh?.trim() || plan.targetMarketZh,
+    targetMarketEn: overrides.targetMarketEn?.trim() || plan.targetMarketEn,
+    targetUsersZh: usersZh.length > 0 ? usersZh : plan.targetUsersZh,
+    targetUsersEn: usersEn.length > 0 ? usersEn : plan.targetUsersEn,
+  };
+  next.methodGate = evaluateMethodGate(next);
+  return next;
+}
+
 export const MAIN_CASE_BRIEF =
   "I'm a solo founder outside China. I want to build an AI contract and payment-collection tool for Chinese freelancers (designers, developers, writers, consultants). They struggle with quoting, scope changes, acceptance, and late payment. I need to know whether this is a real pain worth building, what scenarios matter, and what I should validate first.";
 
@@ -209,10 +235,10 @@ function genericFallbackPlan(briefText: string, language: "zh" | "en"): Research
 export function evaluateMethodGate(plan: Pick<ResearchPlanV2, "targetMarketZh" | "targetMarketEn" | "decisionZh" | "decisionEn">): MethodGateV2 {
   const market = `${plan.targetMarketZh} ${plan.targetMarketEn}`.toLowerCase();
   const decision = `${plan.decisionZh} ${plan.decisionEn}`.toLowerCase();
-  const chinaFacing = /中国|中文|大陆|国内|china|chinese|mainland/.test(market);
-  const overseas = /north america|united states|europe|japan|global|overseas|美国|欧洲|日本|海外|北美/.test(market);
-  const enterprise = /企业|采购|b2b|enterprise|procurement|buyer committee/.test(decision);
-  const quantitative = /市场规模|购买率|付费|定价|价格|market size|purchase|pricing|willingness/.test(decision);
+  const chinaFacing = /中国|中文|大陆|国内|中国本土|china|chinese|mainland|chine|chinois|chinoise/.test(market);
+  const overseas = /north america|united states|europe|japan|global|overseas|美国|欧洲|日本|海外|北美|amérique du nord|états-unis|asie du sud-est|mondial|étranger|international|北米|アメリカ|ヨーロッパ|東南アジア|グローバル/.test(market);
+  const enterprise = /企业|采购|b2b|enterprise|procurement|buyer committee|entreprise|achat|comité d'achat|企業|購買|法人/.test(decision);
+  const quantitative = /市场规模|购买率|付费|定价|价格|market size|purchase|pricing|willingness|taille du marché|taux d'achat|prix|tarif|disposition à payer|市場規模|購入率|価格|支払い意欲/.test(decision);
   const fit = chinaFacing && !enterprise ? "fit" : chinaFacing ? "partial" : overseas ? "mismatch" : "partial";
   const allowedOutput = fit === "fit" && !quantitative ? "directional" : "hypotheses_only";
   const reasonsZh = [
@@ -377,10 +403,14 @@ function withInitialBelief(plan: ResearchPlanV2): ResearchPlanV2 {
   };
 }
 
-export async function createResearchPlan(briefText: string, language: "zh" | "en"): Promise<ResearchPlanV2> {
+export async function createResearchPlan(
+  briefText: string,
+  language: "zh" | "en",
+  overrides?: PlanOverrides,
+): Promise<ResearchPlanV2> {
   const text = briefText.trim();
   const isMain = /freelanc|自由职业|合同|回款|contract|payment/i.test(text);
-  const fallback = isMain ? mainCasePlan(text, language) : genericFallbackPlan(text, language);
+  const fallback = applyOverrides(isMain ? mainCasePlan(text, language) : genericFallbackPlan(text, language), overrides);
   if (!hasLlm()) return withInitialBelief(fallback);
 
   const prompt = [
@@ -398,7 +428,7 @@ export async function createResearchPlan(briefText: string, language: "zh" | "en
 
   try {
     const raw = await completeJson<Record<string, unknown>>(prompt, { timeoutMs: 40000, maxTokens: 7000, retries: 0 });
-    return withInitialBelief(normalizePlan(raw, fallback, text, language));
+    return withInitialBelief(applyOverrides(normalizePlan(raw, fallback, text, language), overrides));
   } catch {
     return withInitialBelief(fallback);
   }

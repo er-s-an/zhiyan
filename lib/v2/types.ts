@@ -1,6 +1,6 @@
 import type { HotScan, RetrievalEntry } from "../types";
 
-export type Lang = "zh" | "en";
+export type Lang = "zh" | "en" | "fr" | "ja" | "ru" | "ko";
 
 export type FitLevel = "fit" | "partial" | "mismatch";
 

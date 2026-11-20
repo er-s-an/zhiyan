@@ -38,6 +38,7 @@ import type {
   FindingCategory,
   FindingV2,
   InterviewPlanV2,
+  Lang,
   QueryRunV2,
   SampleItemV2,
   StudyV2,
@@ -55,7 +56,7 @@ function clip(value: string, limit = 180): string {
   return value.length > limit ? `${value.slice(0, limit)}…` : value;
 }
 
-function confidenceLabel(lang: "zh" | "en", value: string): string {
+function confidenceLabel(lang: Lang, value: string): string {
   return t(lang, `common.${value}`) || value;
 }
 
@@ -790,7 +791,7 @@ export function QualityView({ study }: { study: StudyV2 }) {
 
 export function DeliveryView({ study }: { study: StudyV2 }) {
   const { lang, t: tr } = useLang();
-  const [docLang, setDocLang] = useState<"zh" | "en">(lang);
+  const [docLang, setDocLang] = useState<Lang>(lang === "zh" ? "zh" : "en");
   const [copied, setCopied] = useState("");
   const memo = study.memo;
   const report = study.report;
@@ -930,7 +931,7 @@ export function DeliveryView({ study }: { study: StudyV2 }) {
   );
 }
 
-export function buildMarkdown(study: StudyV2, lang: "zh" | "en"): string {
+export function buildMarkdown(study: StudyV2, lang: Lang): string {
   const memo = study.memo;
   const report = study.report;
   const lines: string[] = [];
